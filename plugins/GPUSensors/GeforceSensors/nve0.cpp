@@ -74,7 +74,7 @@ bool nve0_identify(struct nouveau_device *device)
 	return true;
 }
 
-static int nve0_clock_read(struct nouveau_device *device, u8 source);
+
 
 void nve0_init(struct nouveau_device *device)
 {
@@ -224,7 +224,7 @@ static u32 read_clk(struct nouveau_device *device, int clk)
 	return sclk;
 }
 
-static int nve0_clock_read(struct nouveau_device *device, u8 source)
+int nve0_clock_read(struct nouveau_device *device, u8 source)
 {
 	switch (source) {
     case nouveau_clock_memory:

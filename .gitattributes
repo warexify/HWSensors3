@@ -87,6 +87,8 @@ plugins/GPUSensors/GeforceSensors/GeforceSensors.h -text
 plugins/GPUSensors/GeforceSensors/adt7473.cpp -text
 plugins/GPUSensors/GeforceSensors/f75375.cpp -text
 plugins/GPUSensors/GeforceSensors/f75375.h -text
+plugins/GPUSensors/GeforceSensors/gm100.cpp -text
+plugins/GPUSensors/GeforceSensors/gm100.h -text
 plugins/GPUSensors/GeforceSensors/i2c_algo_bit.cpp -text
 plugins/GPUSensors/GeforceSensors/i2c_algo_bit.h -text
 plugins/GPUSensors/GeforceSensors/i2c_base.cpp -text

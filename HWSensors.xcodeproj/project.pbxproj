@@ -93,6 +93,7 @@
 		12B161951A3F052E007C7B84 /* HWInfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 12B161901A3F052E007C7B84 /* HWInfo.cpp */; };
 		12B161961A3F052E007C7B84 /* HWInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 12B161911A3F052E007C7B84 /* HWInfo.h */; };
 		12B161A31A3F1256007C7B84 /* ADT7470.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 12B161091A3F0468007C7B84 /* ADT7470.cpp */; };
+		12B161B11A3F2966007C7B84 /* gm100.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 12B161AF1A3F2966007C7B84 /* gm100.cpp */; };
 		2C7719BC14EA483A0005C3C7 /* SuperIOFamily.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AED9E582125FC23900736A5A /* SuperIOFamily.cpp */; };
 		AEF4C81712602F2600297B2B /* FakeSMCDevice.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AEF4C80E12602F2600297B2B /* FakeSMCDevice.cpp */; };
 		AEF4C81812602F2600297B2B /* FakeSMCKey.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AEF4C81012602F2600297B2B /* FakeSMCKey.cpp */; };
@@ -385,6 +386,8 @@
 		12B161901A3F052E007C7B84 /* HWInfo.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = HWInfo.cpp; path = plugins/HWInfo/HWInfo.cpp; sourceTree = SOURCE_ROOT; };
 		12B161911A3F052E007C7B84 /* HWInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HWInfo.h; path = plugins/HWInfo/HWInfo.h; sourceTree = SOURCE_ROOT; };
 		12B161971A3F0874007C7B84 /* utils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = utils.h; path = utils/utils.h; sourceTree = "<group>"; };
+		12B161AF1A3F2966007C7B84 /* gm100.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = gm100.cpp; path = plugins/GPUSensors/GeforceSensors/gm100.cpp; sourceTree = SOURCE_ROOT; };
+		12B161B01A3F2966007C7B84 /* gm100.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = gm100.h; path = plugins/GPUSensors/GeforceSensors/gm100.h; sourceTree = SOURCE_ROOT; };
 		12CB0F3A12C087D400068B06 /* IntelCPUMonitor.kext */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = IntelCPUMonitor.kext; sourceTree = BUILT_PRODUCTS_DIR; };
 		12CBB17E12BDEA9F00157341 /* X3100.kext */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = X3100.kext; sourceTree = BUILT_PRODUCTS_DIR; };
 		12D78B1E12BFDCFD002C61EA /* RadeonMonitor.kext */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RadeonMonitor.kext; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -540,6 +543,8 @@
 				12B1612D1A3F04F7007C7B84 /* GeForceSensors-Prefix.pch */,
 				12B1612E1A3F04F7007C7B84 /* GeforceSensors.cpp */,
 				12B1612F1A3F04F7007C7B84 /* GeforceSensors.h */,
+				12B161AF1A3F2966007C7B84 /* gm100.cpp */,
+				12B161B01A3F2966007C7B84 /* gm100.h */,
 				12B161301A3F04F7007C7B84 /* i2c_algo_bit.cpp */,
 				12B161311A3F04F7007C7B84 /* i2c_algo_bit.h */,
 				12B161321A3F04F7007C7B84 /* i2c_base.cpp */,
@@ -1453,6 +1458,7 @@
 				12B1617C1A3F04F7007C7B84 /* w83l785r.cpp in Sources */,
 				12B1617D1A3F04F7007C7B84 /* w83781d.cpp in Sources */,
 				12B1617E1A3F04F7007C7B84 /* xf86i2c.cpp in Sources */,
+				12B161B11A3F2966007C7B84 /* gm100.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
