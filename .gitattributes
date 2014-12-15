@@ -231,3 +231,4 @@ utils/TigerAdditionals.cpp -text
 utils/TigerAdditionals.h -text
 utils/cpuid.h -text
 utils/definitions.h -text
+utils/utils.h -text

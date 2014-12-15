@@ -32,11 +32,9 @@
 
 #include "GeforceSensors.h"
 
-//#include "FakeSMCDefinitions.h"
-//#include "FakeSMCUtils.h"
-#include "../FakeSMC.h"
-#include "../definitions.h"
-#include "../utils.h"
+#include "../../../fakesmc/FakeSMC.h"
+#include "../../../utils/definitions.h"
+#include "../../../utils/utils.h"
 
 #include "nouveau.h"
 //#include "nvclock_i2c.h"

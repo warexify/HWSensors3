@@ -9,7 +9,7 @@
 #import "AppDelegate.h"
 #import "NSString+TruncateToWidth.h"
 #import "IOBatteryStatus.h"
-#include "../definitions.h"
+#include "../utils/definitions.h"
 
 //#define __bridge_transfer
 

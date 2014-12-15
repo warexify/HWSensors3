@@ -8,7 +8,7 @@
  */
 
 #include "HWInfo.h"
-#include "../FakeSMC.h"
+#include "../../fakesmc/FakeSMC.h"
 
 #define Debug FALSE
 

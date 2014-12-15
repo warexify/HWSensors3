@@ -51,7 +51,7 @@
 #include <architecture/i386/pio.h>
 #include "cpuid.h"
 #include "FakeSMC.h"
-#include "../utils.h"
+#include "../../../utils/utils.h"
 
 #define Debug false
 
@@ -415,21 +415,21 @@ bool W836x::probePort()
       switch (revision & 0xF0) {
         case 0x70:
           model = NCT6771F;
-          minFanRPM = (int)(1.35e6 / 0xFFFF);
+//          minFanRPM = (int)(1.35e6 / 0xFFFF);
           break;
       } break;
     case 0xC3:
       switch (revision & 0xF0) {
         case 0x30:
           model = NCT6776F;
-          minFanRPM = (int)(1.35e6 / 0x1FFF);
+//          minFanRPM = (int)(1.35e6 / 0x1FFF);
           break;
       } break;
     case 0xC5:
       switch (revision & 0xF0) {
         case 0x60:
           model = NCT6779D;
-          minFanRPM = (int)(1.35e6 / 0x1FFF);
+//          minFanRPM = (int)(1.35e6 / 0x1FFF);
           break;
       } break;
     case 0xC8:
@@ -440,7 +440,7 @@ bool W836x::probePort()
        break;
        } break; */
       model = NCT6791D;
-      minFanRPM = (int)(1.35e6 / 0x1FFF);
+//      minFanRPM = (int)(1.35e6 / 0x1FFF);
       break;
     default:
       break;

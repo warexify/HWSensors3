@@ -12,7 +12,7 @@
 #include "ITEIT87x.h"
 #include "FakeSMC.h"
 //#include "FakeSMCUtils.h"
-#include "../utils.h"
+#include "../../../utils/utils.h"
 
 #define Debug FALSE
 

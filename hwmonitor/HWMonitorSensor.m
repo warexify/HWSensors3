@@ -8,7 +8,7 @@
 
 #import "HWMonitorSensor.h"
 
-#include "../definitions.h"
+#include "../utils/definitions.h"
 #include "smc.h"
 
 //#define SMC_ACCESS
