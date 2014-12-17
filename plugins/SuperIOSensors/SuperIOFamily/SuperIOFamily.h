@@ -22,9 +22,13 @@ const UInt8 SUPERIO_STANDART_PORT[]					= { 0x2e, 0x4e };
 // Registers
 const UInt8 SUPERIO_CONFIGURATION_CONTROL_REGISTER	= 0x02;
 const UInt8 SUPERIO_DEVICE_SELECT_REGISTER			= 0x07;
-const UInt8 SUPERIO_CHIP_ID_REGISTER				= 0x20;
+const UInt8 SUPERIO_CHIP_ID_REGISTER            = 0x20;
 const UInt8 SUPERIO_CHIP_REVISION_REGISTER			= 0x21;
-const UInt8 SUPERIO_BASE_ADDRESS_REGISTER			= 0x60;
+const UInt8 SUPERIO_BASE_ADDRESS_REGISTER       = 0x60;
+const UInt8 WINBOND_CHIP_IPD_REGISTER           = 0x23; //Immediate Power Down
+const UInt8 ITE_CHIP_SUSPEND_REGISTER           = 0x24;
+const UInt8 FINTEK_CHIP_IPD_REGISTER            = 0x25; //Software Power Down
+
 
 enum SuperIOSensorGroup {
 	kSuperIOTemperatureSensor,
