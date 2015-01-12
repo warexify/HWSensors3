@@ -677,7 +677,7 @@ int IT87x::getPortsCount()
 }
 
 
-SuperIOSensor * IT87x::addSensor(const char* name, const char* type, unsigned char size, SuperIOSensorGroup group, unsigned long index, long aRi, long aRf, long aVf)
+SuperIOSensor * IT87x::addSensor(const char* name, const char* type, unsigned int size, SuperIOSensorGroup group, unsigned long index, long aRi, long aRf, long aVf)
 {
 	if (NULL != getSensor(name))
 		return 0;
@@ -685,7 +685,7 @@ SuperIOSensor * IT87x::addSensor(const char* name, const char* type, unsigned ch
   SuperIOSensor *sensor = IT87xSensor::withOwner(this, name, type, size, group, index, aRi, aRf, aVf);
   
 	if (sensor && sensors->setObject(sensor))
-		if(kIOReturnSuccess == fakeSMC->callPlatformFunction(kFakeSMCAddKeyHandler, false, (void *)name, (void *)type, (void *)size, (void *)this))
+		if(kIOReturnSuccess == fakeSMC->callPlatformFunction(kFakeSMCAddKeyHandler, false, (void *)name, (void *)type, (void *)(long long)size, (void *)this))
       return sensor;
 	
 	return 0;

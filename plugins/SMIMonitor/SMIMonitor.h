@@ -76,7 +76,7 @@ private:
 	IOACPIPlatformDevice *	acpiDevice;
 	OSDictionary*			sensors;
 	
-	bool				addSensor(const char* key, const char* type, unsigned char size);
+	bool				addSensor(const char* key, const char* type, unsigned int size);
 	bool				addTachometer(int index, const char* caption);
   
  // int i8k_smm(SMMRegisters *regs);

@@ -326,10 +326,10 @@ void Andigilog::readSensor(int idx)
 }
 
 /* FakeSMC dependend methods */
-bool Andigilog::addKey(const char* key, const char* type, unsigned char size, int index)
+bool Andigilog::addKey(const char* key, const char* type, unsigned int size, int index)
 {
 	if (kIOReturnSuccess == fakeSMC->callPlatformFunction(kFakeSMCAddKeyHandler, true, (void *)key,
-                                                        (void *)type, (void *)size, (void *)this)) {
+                                                        (void *)type, (void *)(long long)size, (void *)this)) {
 		if (sensors->setObject(key, OSNumber::withNumber(index, 32))) {
       return true;
     } else {

@@ -9,7 +9,7 @@
 //#include <stdio.h>
 #include <machine/machine_routines.h>
 #include <pexpert/pexpert.h>
-#include <i386/proc_reg.h>
+//#include <i386/proc_reg.h>
 #include <string.h>
 #include "cpuid.h"
 

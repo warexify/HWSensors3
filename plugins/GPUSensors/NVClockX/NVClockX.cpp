@@ -127,9 +127,9 @@ int NVClockX::probeDevices()
 	return nvclock.num_cards;
 }
 
-bool NVClockX::addSensor(const char* key, const char* type, unsigned char size, int index)
+bool NVClockX::addSensor(const char* key, const char* type, unsigned int size, int index)
 {
-	if (kIOReturnSuccess == fakeSMC->callPlatformFunction(kFakeSMCAddKeyHandler, false, (void *)key, (void *)type, (void *)size, (void *)this)) {
+	if (kIOReturnSuccess == fakeSMC->callPlatformFunction(kFakeSMCAddKeyHandler, false, (void *)key, (void *)type, (void *)(long long)size, (void *)this)) {
 		if (sensors->setObject(key, OSNumber::withNumber(index, 32))) {
       return true;
     } else {

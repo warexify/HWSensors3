@@ -97,10 +97,10 @@ protected:
 	
 	virtual const char *	getModelName();
 	
-	SuperIOSensor *		addSensor(const char* key, const char* type, unsigned char size, SuperIOSensorGroup group, unsigned long index, long aRi=0, long aRf=1, long aVf=0);
+	SuperIOSensor *		addSensor(const char* key, const char* type, unsigned int size, SuperIOSensorGroup group, unsigned long index, long aRi=0, long aRf=1, long aVf=0);
 	SuperIOSensor *		addTachometer(unsigned long index, const char* id = 0);
 	SuperIOSensor *		getSensor(const char* key);
-	virtual bool      updateSensor(const char *key, const char *type, unsigned char size, SuperIOSensorGroup group, unsigned long index);
+	virtual bool      updateSensor(const char *key, const char *type, unsigned int size, SuperIOSensorGroup group, unsigned long index);
 		
 public:
 	virtual long			readTemperature(unsigned long index);

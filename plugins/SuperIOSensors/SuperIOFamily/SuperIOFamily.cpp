@@ -354,7 +354,7 @@ void SuperIOMonitor::exit()
 	//
 };
 
-bool SuperIOMonitor::updateSensor(const char *key, const char *type, unsigned char size, SuperIOSensorGroup group, unsigned long index)
+bool SuperIOMonitor::updateSensor(const char *key, const char *type, unsigned int size, SuperIOSensorGroup group, unsigned long index)
 {
 	long value = 0;
 	
@@ -379,7 +379,7 @@ bool SuperIOMonitor::updateSensor(const char *key, const char *type, unsigned ch
 		value = encode_fpe2(value);
 	}
 	
-	if (kIOReturnSuccess != fakeSMC->callPlatformFunction(kFakeSMCSetKeyValue, true, (void*)key, (void*)size, (void*)&value, 0))
+	if (kIOReturnSuccess != fakeSMC->callPlatformFunction(kFakeSMCSetKeyValue, true, (void*)key, (void*)(long long)size, (void*)&value, 0))
 		return false;
 	
 	return true;
@@ -390,14 +390,14 @@ const char *SuperIOMonitor::getModelName()
 	return "Unknown";
 }
 
-SuperIOSensor *SuperIOMonitor::addSensor(const char* name, const char* type, unsigned char size, SuperIOSensorGroup group, unsigned long index, long aRi, long aRf, long aVf)
+SuperIOSensor *SuperIOMonitor::addSensor(const char* name, const char* type, unsigned int size, SuperIOSensorGroup group, unsigned long index, long aRi, long aRf, long aVf)
 {
 	if (NULL != getSensor(name))
 		return 0;
 	
   SuperIOSensor *sensor = SuperIOSensor::withOwner(this, name, type, size, group, index);
 	if (sensor && sensors->setObject(sensor))
-		if(kIOReturnSuccess == fakeSMC->callPlatformFunction(kFakeSMCAddKeyHandler, false, (void *)name, (void *)type, (void *)size, (void *)this))
+		if(kIOReturnSuccess == fakeSMC->callPlatformFunction(kFakeSMCAddKeyHandler, false, (void *)name, (void *)type, (void *)(long long)size, (void *)this))
       return sensor;
 	
 	return 0;

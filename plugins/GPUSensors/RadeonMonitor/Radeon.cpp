@@ -36,7 +36,7 @@ _RHDReadPLL(int scrnIndex, CARD16 offset)
 #define super IOService
 OSDefineMetaClassAndStructors(RadeonMonitor, IOService)
 
-bool RadeonMonitor::addSensor(const char* key, const char* type, unsigned char size, int index)
+bool RadeonMonitor::addSensor(const char* key, const char* type, unsigned int size, int index)
 {
 	if (kIOReturnSuccess == fakeSMC->callPlatformFunction(kFakeSMCAddKeyHandler, false, (void *)key, (void *)type, (void *)size, (void *)this))
 		return sensors->setObject(key, OSNumber::withNumber(index, 32));	

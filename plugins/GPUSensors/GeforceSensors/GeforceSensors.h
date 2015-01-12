@@ -59,7 +59,7 @@ private:
   float               i2c_get_fanspeed_pwm(I2CDevPtr dev);
   int                 i2c_get_fanspeed_mode(I2CDevPtr dev);
   
-  bool			addSensor(const char* key, const char* type, unsigned char size, int index);
+  bool			addSensor(const char* key, const char* type, unsigned int size, int index);
 	int				addTachometer(int index);
   
 protected:

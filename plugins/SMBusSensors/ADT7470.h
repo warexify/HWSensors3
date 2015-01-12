@@ -107,7 +107,7 @@ private:
     void   SetPwmDuty(char, UInt16);
     /* */
     
-    bool addKey(const char* key, const char* type, unsigned char size, int index);
+    bool addKey(const char* key, const char* type, unsigned int size, int index);
     void addTachometer(struct MList *, int);
 protected:
     virtual bool    init (OSDictionary* dictionary = NULL);

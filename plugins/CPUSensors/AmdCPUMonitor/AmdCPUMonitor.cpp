@@ -13,9 +13,9 @@
 #define super IOService
 OSDefineMetaClassAndStructors(AmdCPUMonitor, IOService)
 
-bool AmdCPUMonitor::addSensor(const char* key, const char* type, unsigned char size, int index)
+bool AmdCPUMonitor::addSensor(const char* key, const char* type, unsigned int size, int index)
 {
-	if (kIOReturnSuccess == fakeSMC->callPlatformFunction(kFakeSMCAddKeyHandler, false, (void *)key, (void *)type, (void *)size, (void *)this))
+	if (kIOReturnSuccess == fakeSMC->callPlatformFunction(kFakeSMCAddKeyHandler, false, (void *)key, (void *)type, (void *)(long long)size, (void *)this))
 		return sensors->setObject(key, OSNumber::withNumber(index, 32));	
 	return false;
 }

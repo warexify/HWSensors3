@@ -27,7 +27,7 @@ private:
 	UInt32				device_id;
 	UInt32				class_id;
 	
-	bool				addSensor(const char* key, const char* type, unsigned char size, int index);
+	bool				addSensor(const char* key, const char* type, unsigned int size, int index);
 protected:	
 	ATICard*			Card; 
 	

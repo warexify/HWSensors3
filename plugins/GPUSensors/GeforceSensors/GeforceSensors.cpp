@@ -71,9 +71,9 @@ bool is_digit(char c)
 	return false;
 }
 
-bool GeforceSensors::addSensor(const char* key, const char* type, unsigned char size, int index)
+bool GeforceSensors::addSensor(const char* key, const char* type, unsigned int size, int index)
 {
-	if (kIOReturnSuccess == fakeSMC->callPlatformFunction(kFakeSMCAddKeyHandler, true, (void *)key, (void *)type, (void *)size, (void *)this)) {
+	if (kIOReturnSuccess == fakeSMC->callPlatformFunction(kFakeSMCAddKeyHandler, true, (void *)key, (void *)type, (void *)(long long)size, (void *)this)) {
 		if (sensors->setObject(key, OSNumber::withNumber(index, 32))) {
       return true;
     } else {

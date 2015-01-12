@@ -73,7 +73,7 @@ private:
 	IOPCIDevice *		VCard;
 	IOMemoryMap *		mmio;
 	
-	bool				addSensor(const char* key, const char* type, unsigned char size, int index);
+	bool				addSensor(const char* key, const char* type, unsigned int size, int index);
 	
 public:
 	virtual IOService*	probe(IOService *provider, SInt32 *score);
