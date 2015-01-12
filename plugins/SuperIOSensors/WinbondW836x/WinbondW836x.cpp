@@ -49,7 +49,7 @@
 #include "WinbondW836x.h"
 
 #include <architecture/i386/pio.h>
-#include "cpuid.h"
+//#include "cpuid.h"
 #include "FakeSMC.h"
 #include "../../../utils/utils.h"
 
@@ -590,13 +590,13 @@ bool W836x::start(IOService * provider)
 	if (OSNumber* fanlimit = configuration ? OSDynamicCast(OSNumber, configuration->getObject("FANINLIMIT")) : 0)
 		fanLimit = fanlimit->unsigned8BitValue();
 	
-	cpuid_update_generic_info();
+//	cpuid_update_generic_info();
 	
 	bool isCpuCore_i = false;
 	
-	if (strcmp(cpuid_info()->cpuid_vendor, CPUID_VID_INTEL) == 0)
+/*	if (strcmp(cpuid_info()->cpuid_vendor, CPUID_VID_INTEL) == 0)
 	{
-/*		switch (cpuid_info()->cpuid_family)
+		switch (cpuid_info()->cpuid_family)
 		{
 			case 0x6:
 			{
@@ -610,9 +610,9 @@ bool W836x::start(IOService * provider)
 						break;
 				}
 			}	break;
-		} */
+		}
     isCpuCore_i = (cpuid_info()->cpuid_model >= 0x1A);
-	}
+	} */
 	
 	if (isCpuCore_i)
 	{
