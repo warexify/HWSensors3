@@ -47,10 +47,14 @@
 		12B161061A3F0432007C7B84 /* xfree.h in Headers */ = {isa = PBXBuildFile; fileRef = 12B160EF1A3F0432007C7B84 /* xfree.h */; };
 		12B1611B1A3F0468007C7B84 /* Andigilog.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 12B1610D1A3F0468007C7B84 /* Andigilog.cpp */; };
 		12B1611C1A3F0468007C7B84 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 12B161101A3F0468007C7B84 /* InfoPlist.strings */; };
+		12B161201A3F0473007C7B84 /* ICHSMBus-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 12B161131A3F0468007C7B84 /* ICHSMBus-Info.plist */; };
 		12B161211A3F048D007C7B84 /* ICHSMBus.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 12B161151A3F0468007C7B84 /* ICHSMBus.cpp */; };
+		12B161261A3F04D2007C7B84 /* ACPIMonitor-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 12B161221A3F04D2007C7B84 /* ACPIMonitor-Info.plist */; };
+		12B161271A3F04D2007C7B84 /* ACPIMonitor-pre106-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 12B161231A3F04D2007C7B84 /* ACPIMonitor-pre106-Info.plist */; };
 		12B161281A3F04D2007C7B84 /* ACPIMonitor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 12B161241A3F04D2007C7B84 /* ACPIMonitor.cpp */; };
 		12B161621A3F04F7007C7B84 /* adt7473.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 12B161291A3F04F7007C7B84 /* adt7473.cpp */; };
 		12B161631A3F04F7007C7B84 /* f75375.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 12B1612A1A3F04F7007C7B84 /* f75375.cpp */; };
+		12B161641A3F04F7007C7B84 /* GeForceSensors-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 12B1612C1A3F04F7007C7B84 /* GeForceSensors-Info.plist */; };
 		12B161651A3F04F7007C7B84 /* GeforceSensors.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 12B1612E1A3F04F7007C7B84 /* GeforceSensors.cpp */; };
 		12B161661A3F04F7007C7B84 /* i2c_algo_bit.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 12B161301A3F04F7007C7B84 /* i2c_algo_bit.cpp */; };
 		12B161671A3F04F7007C7B84 /* i2c_base.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 12B161321A3F04F7007C7B84 /* i2c_base.cpp */; };
@@ -78,10 +82,12 @@
 		12B1617D1A3F04F7007C7B84 /* w83781d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 12B1615E1A3F04F7007C7B84 /* w83781d.cpp */; };
 		12B1617E1A3F04F7007C7B84 /* xf86i2c.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 12B1615F1A3F04F7007C7B84 /* xf86i2c.cpp */; };
 		12B161861A3F0517007C7B84 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 12B161801A3F0517007C7B84 /* InfoPlist.strings */; };
+		12B161871A3F0517007C7B84 /* SMIMonitor-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 12B161821A3F0517007C7B84 /* SMIMonitor-Info.plist */; };
 		12B161881A3F0517007C7B84 /* SMIMonitor-Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = 12B161831A3F0517007C7B84 /* SMIMonitor-Prefix.pch */; };
 		12B161891A3F0517007C7B84 /* SMIMonitor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 12B161841A3F0517007C7B84 /* SMIMonitor.cpp */; };
 		12B1618A1A3F0517007C7B84 /* SMIMonitor.h in Headers */ = {isa = PBXBuildFile; fileRef = 12B161851A3F0517007C7B84 /* SMIMonitor.h */; };
 		12B161921A3F052E007C7B84 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 12B1618C1A3F052E007C7B84 /* InfoPlist.strings */; };
+		12B161931A3F052E007C7B84 /* HWInfo-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 12B1618E1A3F052E007C7B84 /* HWInfo-Info.plist */; };
 		12B161941A3F052E007C7B84 /* HWInfo-Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = 12B1618F1A3F052E007C7B84 /* HWInfo-Prefix.pch */; };
 		12B161951A3F052E007C7B84 /* HWInfo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 12B161901A3F052E007C7B84 /* HWInfo.cpp */; };
 		12B161961A3F052E007C7B84 /* HWInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 12B161911A3F052E007C7B84 /* HWInfo.h */; };
@@ -135,6 +141,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 12A665A018DB055E00CF7D7E;
 			remoteInfo = ADT7470;
+		};
+		12AB85DE192109C300ACDEA5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AEABE453125F8E7400F08235 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 12AB85BA1920F14200ACDEA5;
+			remoteInfo = SMIMonitor;
 		};
 		1D1CAAB913657034003878D0 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -1264,6 +1277,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				12AB85DF192109C300ACDEA5 /* PBXTargetDependency */,
 				124E608A16C819C3004D3FE0 /* PBXTargetDependency */,
 				124E608816C819BF004D3FE0 /* PBXTargetDependency */,
 				1D1CAABA13657034003878D0 /* PBXTargetDependency */,
@@ -1336,6 +1350,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				12B161641A3F04F7007C7B84 /* GeForceSensors-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1344,6 +1359,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				12B161921A3F052E007C7B84 /* InfoPlist.strings in Resources */,
+				12B161931A3F052E007C7B84 /* HWInfo-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1359,6 +1375,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				12B161201A3F0473007C7B84 /* ICHSMBus-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1374,6 +1391,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				12B161861A3F0517007C7B84 /* InfoPlist.strings in Resources */,
+				12B161871A3F0517007C7B84 /* SMIMonitor-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1382,6 +1400,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				12B160A11A3F030A007C7B84 /* InfoPlist.strings in Resources */,
+				12B161261A3F04D2007C7B84 /* ACPIMonitor-Info.plist in Resources */,
+				12B161271A3F04D2007C7B84 /* ACPIMonitor-pre106-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1625,6 +1645,11 @@
 			target = 12A665A018DB055E00CF7D7E /* ADT7470 */;
 			targetProxy = 12A665D518DB09A800CF7D7E /* PBXContainerItemProxy */;
 		};
+		12AB85DF192109C300ACDEA5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 12AB85BA1920F14200ACDEA5 /* SMIMonitor */;
+			targetProxy = 12AB85DE192109C300ACDEA5 /* PBXContainerItemProxy */;
+		};
 		1D1CAABA13657034003878D0 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 12CB0F4512C0888E00068B06 /* IntelCPUMonitor */;
@@ -1728,6 +1753,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -1748,11 +1774,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_MODEL_TUNING = G5;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
-				INFOPLIST_FILE = "../plugins/GPUSensors/GeForceSensors/GeforceSensors-Info.plist";
+				INFOPLIST_FILE = "plugins/GPUSensors/GeForceSensors/GeforceSensors-Info.plist";
 				MODULE_NAME = com.kozlek.driver.GeforceSensor;
 				MODULE_VERSION = 1.0.0d1;
 				PRODUCT_NAME = GeforceSensor;
@@ -1765,6 +1792,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_MODEL_TUNING = G5;
@@ -1782,6 +1810,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_MODEL_TUNING = G5;
@@ -1799,6 +1828,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
 				CLANG_CXX_LIBRARY = "compiler-default";
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
@@ -1840,6 +1870,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
 				CLANG_CXX_LIBRARY = "compiler-default";
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
@@ -1861,7 +1892,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				INFOPLIST_FILE = "../plugins/HWInfo/HWInfo-Info.plist";
+				INFOPLIST_FILE = "plugins/HWInfo/HWInfo-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = "";
 				MODULE_NAME = org.slice.HWInfo;
 				MODULE_VERSION = 1.0.0d1;
@@ -1875,6 +1906,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
 				CLANG_CXX_LIBRARY = "compiler-default";
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
@@ -1910,6 +1942,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
 				CLANG_CXX_LIBRARY = "compiler-default";
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
@@ -1945,6 +1978,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -1965,11 +1999,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_MODEL_TUNING = "";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
-				INFOPLIST_FILE = "../plugins/SMBusSensors/Andigilog-Info.plist";
+				INFOPLIST_FILE = "plugins/SMBusSensors/Andigilog-Info.plist";
 				INFOPLIST_PREPROCESS = YES;
 				MODULE_NAME = org.dukzcry.driver.Andigilog;
 				MODULE_VERSION = 1.0.1;
@@ -1983,6 +2018,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_MODEL_TUNING = G5;
@@ -2000,6 +2036,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_MODEL_TUNING = G5;
@@ -2017,6 +2054,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -2037,11 +2075,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_MODEL_TUNING = "";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
-				INFOPLIST_FILE = "../plugins/CPUSensors/AmdCPUMonitor/AmdCPUMonitor-Info.plist";
+				INFOPLIST_FILE = "plugins/CPUSensors/AmdCPUMonitor/AmdCPUMonitor-Info.plist";
 				INFOPLIST_PREPROCESS = YES;
 				MODULE_NAME = org.slice.sensor.AmdCPUMonitor;
 				MODULE_VERSION = 1.0.0d1;
@@ -2055,6 +2094,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_MODEL_TUNING = G5;
@@ -2072,6 +2112,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_MODEL_TUNING = G5;
@@ -2089,6 +2130,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -2109,11 +2151,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_MODEL_TUNING = "";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
-				INFOPLIST_FILE = "../plugins/SMBusSensors/ICHSMBus-Info.plist";
+				INFOPLIST_FILE = "plugins/SMBusSensors/ICHSMBus-Info.plist";
 				MODULE_NAME = org.dukzcry.I2CFamily;
 				MODULE_VERSION = 1.0.0d1;
 				PRODUCT_NAME = ICHSMBus;
@@ -2126,6 +2169,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_MODEL_TUNING = G5;
@@ -2143,6 +2187,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_MODEL_TUNING = G5;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
@@ -2159,6 +2204,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -2179,11 +2225,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_MODEL_TUNING = "";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
-				INFOPLIST_FILE = "../plugins/SMBusSensors/ADT7470-Info.plist";
+				INFOPLIST_FILE = "plugins/SMBusSensors/ADT7470-Info.plist";
 				MODULE_NAME = org.duczcry.driver.ADT7470;
 				MODULE_VERSION = 1.0.0d1;
 				PRODUCT_NAME = ADT7470;
@@ -2196,6 +2243,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_MODEL_TUNING = G5;
@@ -2213,6 +2261,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_MODEL_TUNING = G5;
@@ -2230,6 +2279,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "";
@@ -2268,6 +2318,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "";
@@ -2285,7 +2336,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = NO;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				INFOPLIST_FILE = "../plugins/SMIMonitor/SMIMonitor-Info.plist";
+				INFOPLIST_FILE = "plugins/SMIMonitor/SMIMonitor-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				MODULE_NAME = org.slice.SMIMonitor;
 				MODULE_VERSION = 1.0.0d1;
@@ -2300,6 +2351,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "";
@@ -2332,6 +2384,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "";
@@ -2364,6 +2417,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -2388,6 +2442,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2396,7 +2451,7 @@
 				);
 				GCC_AUTO_VECTORIZATION = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
-				INFOPLIST_FILE = "../plugins/CPUSensors/IntelCPUMonitor/IntelCPUMonitor-Info.plist";
+				INFOPLIST_FILE = "plugins/CPUSensors/IntelCPUMonitor/IntelCPUMonitor-Info.plist";
 				MODULE_NAME = org.slice.IntelCPUMonitor;
 				MODULE_VERSION = 1.1;
 				PRODUCT_NAME = IntelCPUMonitor;
@@ -2409,6 +2464,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2432,6 +2488,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2453,6 +2510,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -2473,10 +2531,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
-				INFOPLIST_FILE = "../plugins/GPUSensors/IntelX3100/X3100-Info.plist";
+				INFOPLIST_FILE = "plugins/GPUSensors/IntelX3100/X3100-Info.plist";
 				MODULE_NAME = org.slice.sensor.X3100;
 				MODULE_VERSION = 1.0.0d1;
 				PRODUCT_NAME = X3100;
@@ -2489,6 +2548,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_AUTO_VECTORIZATION = YES;
@@ -2508,6 +2568,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_MODEL_TUNING = G5;
@@ -2524,6 +2585,7 @@
 		12D78B2112BFDCFF002C61EA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				CODE_SIGN_IDENTITY = "";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
@@ -2546,11 +2608,12 @@
 		12D78B2212BFDCFF002C61EA /* Release 10.6 */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				CODE_SIGN_IDENTITY = "";
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_MODEL_TUNING = "";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
-				INFOPLIST_FILE = "../plugins/GPUSensors/RadeonMonitor/RadeonMonitor-Info.plist";
+				INFOPLIST_FILE = "plugins/GPUSensors/RadeonMonitor/RadeonMonitor-Info.plist";
 				MODULE_NAME = org.slice.RadeonMonitor;
 				MODULE_VERSION = 1.0.0d1;
 				PRODUCT_NAME = RadeonMonitor;
@@ -2564,6 +2627,7 @@
 		12D78B2312BFDCFF002C61EA /* Release 10.5 */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				CODE_SIGN_IDENTITY = "";
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_AUTO_VECTORIZATION = YES;
@@ -2584,6 +2648,7 @@
 		12D78B2412BFDCFF002C61EA /* Release 10.4 */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				CODE_SIGN_IDENTITY = "";
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
@@ -2602,6 +2667,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -2622,10 +2688,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_MODEL_TUNING = "";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
-				INFOPLIST_FILE = "../plugins/SuperIOSensors/Fintek718x/F718x-Info.plist";
+				INFOPLIST_FILE = "plugins/SuperIOSensors/Fintek718x/F718x-Info.plist";
 				MODULE_NAME = org.mozodojo.F718x;
 				MODULE_VERSION = 1.0.0d1;
 				PRODUCT_NAME = F718x;
@@ -2638,6 +2705,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_AUTO_VECTORIZATION = YES;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
@@ -2656,6 +2724,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_MODEL_TUNING = G5;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
@@ -2672,6 +2741,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -2692,10 +2762,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_MODEL_TUNING = "";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
-				INFOPLIST_FILE = "../plugins/SuperIOSensors/NSCPC8739x/PC8739x-Info.plist";
+				INFOPLIST_FILE = "plugins/SuperIOSensors/NSCPC8739x/PC8739x-Info.plist";
 				MODULE_NAME = org.slice.PC8739x;
 				MODULE_VERSION = 1.0.0d1;
 				PRODUCT_NAME = PC8739x;
@@ -2708,6 +2779,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_MODEL_TUNING = G5;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
@@ -2724,6 +2796,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_MODEL_TUNING = G5;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
@@ -2740,6 +2813,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				CODE_SIGN_IDENTITY = "";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
@@ -2762,11 +2836,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				CODE_SIGN_IDENTITY = "";
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_MODEL_TUNING = "";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
-				INFOPLIST_FILE = "../plugins/SuperIOSensors/WinbondW836x/WinbondW836x-Info.plist";
+				INFOPLIST_FILE = "plugins/SuperIOSensors/WinbondW836x/WinbondW836x-Info.plist";
 				MODULE_NAME = org.mozodojo.W836x;
 				MODULE_VERSION = 1.0.0d1;
 				PRODUCT_NAME = W836x;
@@ -2780,6 +2855,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				CODE_SIGN_IDENTITY = "";
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_AUTO_VECTORIZATION = YES;
@@ -2800,6 +2876,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				CODE_SIGN_IDENTITY = "";
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_MODEL_TUNING = G5;
@@ -2819,6 +2896,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -2839,10 +2917,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_MODEL_TUNING = "";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
-				INFOPLIST_FILE = "../plugins/GPUSensors/NVClockX/NVClockX-Info.plist";
+				INFOPLIST_FILE = "plugins/GPUSensors/NVClockX/NVClockX-Info.plist";
 				MODULE_NAME = org.usrsse2.NVClockX;
 				MODULE_VERSION = 1.0.1d1;
 				PRODUCT_NAME = NVClockX;
@@ -2855,6 +2934,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_AUTO_VECTORIZATION = YES;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
@@ -2873,6 +2953,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_MODEL_TUNING = G5;
@@ -2890,6 +2971,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -2897,7 +2979,7 @@
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
-				INFOPLIST_FILE = "plugins/ACPIMonitor/ACPIMonitor-Info.plist";
+				INFOPLIST_FILE = "ACPIMonitor-Info.plist";
 				MODULE_NAME = org.slice.ACPIMonitor;
 				MODULE_VERSION = 1.0.0d1;
 				PRODUCT_NAME = ACPIMonitor;
@@ -2910,10 +2992,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_MODEL_TUNING = "";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
-				INFOPLIST_FILE = "../plugins/ACPIMonitor/ACPIMonitor-Info.plist";
+				INFOPLIST_FILE = "plugins/ACPIMonitor/ACPIMonitor-Info.plist";
 				MODULE_NAME = org.slice.ACPIMonitor;
 				MODULE_VERSION = 1.0.0d1;
 				PRODUCT_NAME = ACPIMonitor;
@@ -2926,6 +3009,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_AUTO_VECTORIZATION = YES;
@@ -2945,6 +3029,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_MODEL_TUNING = G5;
@@ -2965,7 +3050,7 @@
 				CODE_SIGN_IDENTITY = "";
 				COPY_PHASE_STRIP = NO;
 				GCC_VERSION = "";
-				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				MACOSX_DEPLOYMENT_TARGET = "";
 				ONLY_ACTIVE_ARCH = YES;
 				PROVISIONING_PROFILE = "";
 				SDKROOT = macosx;
@@ -2990,7 +3075,7 @@
 				GCC_WARN_UNUSED_PARAMETER = NO;
 				GCC_WARN_UNUSED_VALUE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				MACOSX_DEPLOYMENT_TARGET = "";
 				PROVISIONING_PROFILE = "";
 				SDKROOT = macosx;
 				VALID_ARCHS = "i386 x86_64";
@@ -3001,6 +3086,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -3021,11 +3107,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = YES;
 				GCC_MODEL_TUNING = "";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
-				INFOPLIST_FILE = "../plugins/SuperIOSensors/ITE87x/ITEIT87x-Info.plist";
+				INFOPLIST_FILE = "plugins/SuperIOSensors/ITE87x/ITEIT87x-Info.plist";
 				MODULE_NAME = org.mozodojo.IT87x;
 				MODULE_VERSION = 1.0.0d1;
 				PRODUCT_NAME = ITEIT87x;
@@ -3039,6 +3126,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				CODE_SIGN_IDENTITY = "";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
@@ -3061,12 +3149,13 @@
 		AEF4C80712602EE700297B2B /* Release 10.6 */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				CODE_SIGN_IDENTITY = "";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = YES;
 				GCC_AUTO_VECTORIZATION = NO;
 				GCC_VERSION = "";
-				INFOPLIST_FILE = "../fakesmc/FakeSMC-Info.plist";
+				INFOPLIST_FILE = "fakesmc/FakeSMC-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				MODULE_NAME = org.netkas.FakeSMC;
 				MODULE_VERSION = 3.4.0;
@@ -3087,7 +3176,7 @@
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_MODEL_TUNING = "";
 				GCC_VERSION = "";
-				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				MACOSX_DEPLOYMENT_TARGET = "";
 				PROVISIONING_PROFILE = "";
 				SDKROOT = macosx;
 				VALID_ARCHS = i386;
@@ -3098,6 +3187,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = YES;
 				GCC_AUTO_VECTORIZATION = YES;
@@ -3117,6 +3207,7 @@
 		AEF4C83B1260304100297B2B /* Release 10.5 */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				CODE_SIGN_IDENTITY = "";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = YES;
@@ -3146,7 +3237,7 @@
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_MODEL_TUNING = "";
 				GCC_VERSION = "";
-				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				MACOSX_DEPLOYMENT_TARGET = "";
 				OTHER_CFLAGS = "-DTIGER";
 				PROVISIONING_PROFILE = "";
 				SDKROOT = macosx;
@@ -3158,6 +3249,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = YES;
 				GCC_MODEL_TUNING = G5;
@@ -3176,6 +3268,7 @@
 		AEF4C83F1260304900297B2B /* Release 10.4 */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				CODE_SIGN_IDENTITY = "";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = YES;
