@@ -20,7 +20,7 @@
 #define super IOService
 OSDefineMetaClassAndStructors(SMIMonitor, IOService)
 
-bool SMIMonitor::addSensor(const char* key, const char* type, unsigned char size)
+bool SMIMonitor::addSensor(const char* key, const char* type, unsigned int size)
 {
   if (kIOReturnSuccess != fakeSMC->callPlatformFunction(kFakeSMCAddKeyHandler, false, (void *)key, (void *)type, (void *)size, (void *)this)) {
     WarningLog("Can't add key %s to fake SMC device, kext will not load", key);

@@ -10,7 +10,6 @@
 #include "IntelCPUMonitor.h"
 #include "FakeSMC.h"
 #include "../../../utils/utils.h"
-//#include "cpuid.h"
 
 #define Debug FALSE
 
