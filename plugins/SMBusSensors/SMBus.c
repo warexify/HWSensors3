@@ -1,6 +1,6 @@
 /*
  *  SMBus.h
- *  
+ *  This file is for information only
  *
  *  Created by Slice on 22.02.12.
  *  Copyright 2012 Applelife.ru. All rights reserved.

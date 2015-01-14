@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1226621B1A66967B009296EF /* DIMMSensor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 122662001A669624009296EF /* DIMMSensor.cpp */; };
 		12B160961A3F01D8007C7B84 /* Cpuid.c in Sources */ = {isa = PBXBuildFile; fileRef = 12B160901A3F01D8007C7B84 /* Cpuid.c */; };
 		12B160971A3F01D8007C7B84 /* TigerAdditionals.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 12B160931A3F01D8007C7B84 /* TigerAdditionals.cpp */; };
 		12B160981A3F01D8007C7B84 /* TigerAdditionals.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 12B160931A3F01D8007C7B84 /* TigerAdditionals.cpp */; };
@@ -204,6 +205,12 @@
 
 /* Begin PBXFileReference section */
 		122024FD16D3A8BF003769F4 /* GeforceSensor.kext */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GeforceSensor.kext; sourceTree = BUILT_PRODUCTS_DIR; };
+		122661FE1A669624009296EF /* DIMMSensor-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "DIMMSensor-Info.plist"; sourceTree = "<group>"; };
+		122661FF1A669624009296EF /* DIMMSensor-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DIMMSensor-Prefix.pch"; sourceTree = "<group>"; };
+		122662001A669624009296EF /* DIMMSensor.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = DIMMSensor.cpp; sourceTree = "<group>"; };
+		122662011A669624009296EF /* DIMMSensor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DIMMSensor.h; sourceTree = "<group>"; };
+		122662031A669624009296EF /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		1226620B1A66964B009296EF /* DIMMSensor.kext */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DIMMSensor.kext; sourceTree = BUILT_PRODUCTS_DIR; };
 		124E606616C818AD004D3FE0 /* HWInfo.kext */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HWInfo.kext; sourceTree = BUILT_PRODUCTS_DIR; };
 		124E606916C818AD004D3FE0 /* Kernel.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Kernel.framework; path = System/Library/Frameworks/Kernel.framework; sourceTree = SDKROOT; };
 		1260E3F116C3DBA2006515EB /* IntelCPUMonitor.kext */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = IntelCPUMonitor.kext; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -405,6 +412,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		122662061A66964B009296EF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		124E606116C818AD004D3FE0 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -586,6 +600,19 @@
 			path = GeForceSensors;
 			sourceTree = "<group>";
 		};
+		122661FD1A669624009296EF /* DIMMSensor */ = {
+			isa = PBXGroup;
+			children = (
+				122661FE1A669624009296EF /* DIMMSensor-Info.plist */,
+				122661FF1A669624009296EF /* DIMMSensor-Prefix.pch */,
+				122662001A669624009296EF /* DIMMSensor.cpp */,
+				122662011A669624009296EF /* DIMMSensor.h */,
+				122662021A669624009296EF /* InfoPlist.strings */,
+			);
+			name = DIMMSensor;
+			path = plugins/SMBusSensors/DIMMSensor;
+			sourceTree = SOURCE_ROOT;
+		};
 		124E606716C818AD004D3FE0 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -641,6 +668,7 @@
 		1260E3FC16C3DBC0006515EB /* SMBusSensors */ = {
 			isa = PBXGroup;
 			children = (
+				122661FD1A669624009296EF /* DIMMSensor */,
 				12B161071A3F0468007C7B84 /* ADT7470-Info.plist */,
 				12B161081A3F0468007C7B84 /* ADT7470-Prefix.pch */,
 				12B161091A3F0468007C7B84 /* ADT7470.cpp */,
@@ -883,6 +911,7 @@
 				1267DE2118BC8D9A00D833A4 /* AmdCPUMonitor.kext */,
 				12A665A118DB055E00CF7D7E /* ADT7470.kext */,
 				12AB85BB1920F14200ACDEA5 /* SMIMonitor.kext */,
+				1226620B1A66964B009296EF /* DIMMSensor.kext */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -951,6 +980,13 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
+		122662071A66964B009296EF /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		124E606216C818AD004D3FE0 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -1003,6 +1039,25 @@
 			productName = GeforceSensor;
 			productReference = 122024FD16D3A8BF003769F4 /* GeforceSensor.kext */;
 			productType = "com.apple.product-type.kernel-extension.iokit";
+		};
+		1226620A1A66964B009296EF /* DIMMSensor */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 122662161A66964C009296EF /* Build configuration list for PBXNativeTarget "DIMMSensor" */;
+			buildPhases = (
+				122662051A66964B009296EF /* Sources */,
+				122662061A66964B009296EF /* Frameworks */,
+				122662071A66964B009296EF /* Headers */,
+				122662081A66964B009296EF /* Resources */,
+				122662091A66964B009296EF /* Rez */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = DIMMSensor;
+			productName = DIMMSensor;
+			productReference = 1226620B1A66964B009296EF /* DIMMSensor.kext */;
+			productType = "com.apple.product-type.kernel-extension";
 		};
 		124E606516C818AD004D3FE0 /* HWInfo */ = {
 			isa = PBXNativeTarget;
@@ -1328,6 +1383,7 @@
 				1267DE2018BC8D9A00D833A4 /* AmdCPUMonitor */,
 				12A665A018DB055E00CF7D7E /* ADT7470 */,
 				12AB85BA1920F14200ACDEA5 /* SMIMonitor */,
+				1226620A1A66964B009296EF /* DIMMSensor */,
 			);
 		};
 /* End PBXProject section */
@@ -1338,6 +1394,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				12B161641A3F04F7007C7B84 /* GeForceSensors-Info.plist in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		122662081A66964B009296EF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1390,6 +1453,13 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXRezBuildPhase section */
+		122662091A66964B009296EF /* Rez */ = {
+			isa = PBXRezBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		124E606416C818AD004D3FE0 /* Rez */ = {
 			isa = PBXRezBuildPhase;
 			buildActionMask = 2147483647;
@@ -1440,6 +1510,14 @@
 				12B1617D1A3F04F7007C7B84 /* w83781d.cpp in Sources */,
 				12B1617E1A3F04F7007C7B84 /* xf86i2c.cpp in Sources */,
 				12B161B11A3F2966007C7B84 /* gm100.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		122662051A66964B009296EF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1226621B1A66967B009296EF /* DIMMSensor.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1675,6 +1753,14 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		122662021A669624009296EF /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				122662031A669624009296EF /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
 		12B1609F1A3F030A007C7B84 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -1800,6 +1886,136 @@
 				MODULE_VERSION = 1.0.1;
 				PRODUCT_NAME = GeforceSensor;
 				SDKROOT = macosx;
+				WRAPPER_EXTENSION = kext;
+			};
+			name = "Release 10.4";
+		};
+		122662171A66964C009296EF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1.0.0d1;
+				GCC_C_LANGUAGE_STANDARD = "compiler-default";
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "DIMMSensor/DIMMSensor-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = "";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = "plugins/SMBusSensors/DIMMSensor/DIMMSensor-Info.plist";
+				INFOPLIST_PREPROCESS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				MODULE_NAME = org.slice.DIMMSensor;
+				MODULE_VERSION = 1.0.0d1;
+				ONLY_ACTIVE_ARCH = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = "";
+				WRAPPER_EXTENSION = kext;
+			};
+			name = Debug;
+		};
+		122662181A66964C009296EF /* Release 10.6 */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = YES;
+				CURRENT_PROJECT_VERSION = 1.0.0d1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = "compiler-default";
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "DIMMSensor/DIMMSensor-Prefix.pch";
+				GCC_VERSION = "";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = "plugins/SMBusSensors/DIMMSensor/DIMMSensor-Info.plist";
+				INFOPLIST_PREPROCESS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				MODULE_NAME = org.slice.DIMMSensor;
+				MODULE_VERSION = 1.0.0d1;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = "";
+				WRAPPER_EXTENSION = kext;
+			};
+			name = "Release 10.6";
+		};
+		122662191A66964C009296EF /* Release 10.5 */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = YES;
+				CURRENT_PROJECT_VERSION = 1.0.0d1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = "compiler-default";
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "DIMMSensor/DIMMSensor-Prefix.pch";
+				GCC_VERSION = "";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = "plugins/SMBusSensors/DIMMSensor/DIMMSensor-Info.plist";
+				INFOPLIST_PREPROCESS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				MODULE_NAME = org.slice.DIMMSensor;
+				MODULE_VERSION = 1.0.0d1;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = "";
+				WRAPPER_EXTENSION = kext;
+			};
+			name = "Release 10.5";
+		};
+		1226621A1A66964C009296EF /* Release 10.4 */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = YES;
+				CURRENT_PROJECT_VERSION = 1.0.0d1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = "compiler-default";
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "DIMMSensor/DIMMSensor-Prefix.pch";
+				GCC_VERSION = "";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = "plugins/SMBusSensors/DIMMSensor/DIMMSensor-Info.plist";
+				INFOPLIST_PREPROCESS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				MODULE_NAME = org.slice.DIMMSensor;
+				MODULE_VERSION = 1.0.0d1;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = "";
 				WRAPPER_EXTENSION = kext;
 			};
 			name = "Release 10.4";
@@ -2126,7 +2342,7 @@
 				GCC_VERSION = "";
 				INFOPLIST_FILE = "SMBusSensors/ICHSMBus-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
-				MODULE_NAME = com.yourcompany.driver.ICHSMBus;
+				MODULE_NAME = org.dukzcry.I2CFamily;
 				MODULE_VERSION = 1.0.0d1;
 				PRODUCT_NAME = ICHSMBus;
 				SDKROOT = macosx;
@@ -2164,7 +2380,7 @@
 				GCC_VERSION = "";
 				INFOPLIST_FILE = "SMBusSensors/ICHSMBus-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
-				MODULE_NAME = com.yourcompany.driver.ICHSMBus;
+				MODULE_NAME = org.dukzcry.I2CFamily;
 				MODULE_VERSION = 1.0.0d1;
 				PRODUCT_NAME = ICHSMBus;
 				SDKROOT = macosx;
@@ -2182,7 +2398,7 @@
 				GCC_VERSION = "";
 				INFOPLIST_FILE = "SMBusSensors/ICHSMBus-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
-				MODULE_NAME = com.yourcompany.driver.ICHSMBus;
+				MODULE_NAME = org.dukzcry.I2CFamily;
 				MODULE_VERSION = 1.0.0d1;
 				PRODUCT_NAME = ICHSMBus;
 				SDKROOT = macosx;
@@ -3315,6 +3531,17 @@
 				1220250016D3A8BF003769F4 /* Release 10.6 */,
 				1220250116D3A8BF003769F4 /* Release 10.5 */,
 				1220250216D3A8BF003769F4 /* Release 10.4 */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = "Release 10.6";
+		};
+		122662161A66964C009296EF /* Build configuration list for PBXNativeTarget "DIMMSensor" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				122662171A66964C009296EF /* Debug */,
+				122662181A66964C009296EF /* Release 10.6 */,
+				122662191A66964C009296EF /* Release 10.5 */,
+				1226621A1A66964C009296EF /* Release 10.4 */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = "Release 10.6";

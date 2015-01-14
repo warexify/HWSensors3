@@ -1,4 +1,9 @@
 * text=auto !eol
+DIMMSensor/DIMMSensor-Info.plist -text
+DIMMSensor/DIMMSensor-Prefix.pch -text
+DIMMSensor/DIMMSensor.cpp -text
+DIMMSensor/DIMMSensor.h -text
+DIMMSensor/en.lproj/InfoPlist.strings -text
 ForXCode6/HWSensors.xcodeproj/project.pbxproj -text
 ForXCode6/HWSensors.xcodeproj/project.xcworkspace/contents.xcworkspacedata -text
 ForXCode6/HWSensors.xcodeproj/project.xcworkspace/xcuserdata/slice.xcuserdatad/UserInterfaceState.xcuserstate -text
@@ -215,6 +220,11 @@ plugins/SMBusSensors/Andigilog-Info.plist -text
 plugins/SMBusSensors/Andigilog-Prefix.pch -text
 plugins/SMBusSensors/Andigilog.cpp -text
 plugins/SMBusSensors/Andigilog.h -text
+plugins/SMBusSensors/DIMMSensor/DIMMSensor-Info.plist -text
+plugins/SMBusSensors/DIMMSensor/DIMMSensor-Prefix.pch -text
+plugins/SMBusSensors/DIMMSensor/DIMMSensor.cpp -text
+plugins/SMBusSensors/DIMMSensor/DIMMSensor.h -text
+plugins/SMBusSensors/DIMMSensor/en.lproj/InfoPlist.strings -text
 plugins/SMBusSensors/I2CCommon.h -text
 plugins/SMBusSensors/ICHSMBus-Info.plist -text
 plugins/SMBusSensors/ICHSMBus-Prefix.pch -text
