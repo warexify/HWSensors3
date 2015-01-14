@@ -1,9 +1,4 @@
 * text=auto !eol
-DIMMSensor/DIMMSensor-Info.plist -text
-DIMMSensor/DIMMSensor-Prefix.pch -text
-DIMMSensor/DIMMSensor.cpp -text
-DIMMSensor/DIMMSensor.h -text
-DIMMSensor/en.lproj/InfoPlist.strings -text
 ForXCode6/HWSensors.xcodeproj/project.pbxproj -text
 ForXCode6/HWSensors.xcodeproj/project.xcworkspace/contents.xcworkspacedata -text
 ForXCode6/HWSensors.xcodeproj/project.xcworkspace/xcuserdata/slice.xcuserdatad/UserInterfaceState.xcuserstate -text
