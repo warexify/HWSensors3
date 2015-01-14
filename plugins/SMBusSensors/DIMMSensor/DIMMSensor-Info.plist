@@ -44,9 +44,11 @@
 	<dict>
 		<key>org.netkas.FakeSMC</key>
 		<string>3.3.1</string>
-		<key>org.dukzcry.I2CFamily</key>
-		<string>1.1</string>
+		<key>com.apple.iokit.IOPCIFamily</key>
+		<string>2.6</string>
 		<key>com.apple.kpi.iokit</key>
+		<string>9.0.0</string>
+		<key>com.apple.kpi.mach</key>
 		<string>9.0.0</string>
 		<key>com.apple.kpi.libkern</key>
 		<string>9.0.0</string>
