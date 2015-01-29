@@ -24,14 +24,33 @@
 	<string>1</string>
 	<key>IOKitPersonalities</key>
 	<dict>
-		<key>Andigilog</key>
+		<key>ICHSMBus</key>
+		<dict>
+			<key>IOProbeScore</key>
+			<integer>5000</integer>
+			<key>IOPCIClassMatch</key>
+			<string>0x0c050000</string>
+			<key>IOMatchCategory</key>
+			<string>I2CDevice</string>
+			<key>IOPCIMatchComment</key>
+			<string>Intel ICH5(R), ICH6(R/-M), ICH7, ICH8, ICH9, ICH10, 6321ESB, PCH: BD3400, CP, PP, C600 SMBus Controllers</string>
+			<key>IOClass</key>
+			<string>I2CDevice</string>
+			<key>IOProviderClass</key>
+			<string>IOPCIDevice</string>
+			<key>CFBundleIdentifier</key>
+			<string>org.dukzcry.ADT7470</string>
+		</dict>
+		<key>AnalogDeviceChip</key>
 		<dict>
 			<key>IOMatchCategory</key>
 			<string>FakeSMCplugin</string>
 			<key>IOClass</key>
-			<string>Andigilog</string>
+			<string>Analog</string>
 			<key>IOResourceMatch</key>
 			<string>IOKit</string>
+			<key>IOProbeScore</key>
+			<integer>2000</integer>
 			<key>IOProviderClass</key>
 			<string>I2CDevice</string>
 			<key>CFBundleIdentifier</key>

@@ -40,6 +40,16 @@ IOService *TSOD::probe (IOService* provider, SInt32* score)
   return res;
 }
 
+//results
+/*Jan 29 14:56:49 Sergeys-iMac kernel[0]: [ICHSMBus] conf: 0x1
+Jan 29 14:56:49 Sergeys-iMac kernel[0]: [ICHSMBus] IRQ: 19
+Jan 29 14:56:49 Sergeys-iMac kernel[0]: [ICHSMBus] exec: op 1, addr 0x18, cmdlen 1, len 1
+Jan 29 14:56:49 Sergeys-iMac kernel[0]: [ICHSMBus] exec: St 0x40
+Jan 29 14:56:49 Sergeys-iMac kernel[0]: [ICHSMBus] exec: Ctl 0x49
+Jan 29 14:56:49 Sergeys-iMac kernel[0]: [ICHSMBus] Register decoded: 0x44<BUSY=0,INTR=0,DEVERR=1,BUSERR=0,FAILED=0,SMBAL=0,INUSE=1,BDONE=0>
+Jan 29 14:56:49 Sergeys-iMac kernel[0]: [ICHSMBus] marker = 1
+*/
+
 bool TSOD::start(IOService *provider)
 {
   if (!provider || !super::start(provider)) return false;
@@ -66,6 +76,7 @@ bool TSOD::start(IOService *provider)
   
   if (!(fakeSMC = waitForService(serviceMatching(kFakeSMCDeviceService)))) {
     //		WarningLog("Can't locate fake SMC device, kext will not load");
+    IOPrint("Can't locate fake SMC device, kext will not load");
 		return false;
   }
   
@@ -73,10 +84,12 @@ bool TSOD::start(IOService *provider)
   i2cNub->open(this);
   
   for (i = 0; i < NUM_SENSORS; i++) {
-    if (!i2cNub->ReadI2CBus(DIMMaddr + i, &(cmd = DIMM_VID), sizeof(cmd), &data, sizeof(data))) {
+    cmd = DIMM_VID;
+    if (!i2cNub->ReadI2CBus(DIMMaddr + i, &cmd, sizeof(cmd), &data, sizeof(data))) {
       IOPrint("found DIMM VID %x\n", data);
       if ((data != 0) && (data != 0xFF)) {
-        if(!i2cNub->ReadI2CBus(DIMMaddr + i, &(cmd = DIMM_DID), sizeof(cmd), &data, sizeof(data))) {
+        cmd = DIMM_DID;
+        if(!i2cNub->ReadI2CBus(DIMMaddr + i, &cmd, sizeof(cmd), &data, sizeof(data))) {
   //        Measures[i].present = true;
           memcpy(&Measures[i], &list, sizeof(struct MList));
           found = true;

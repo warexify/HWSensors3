@@ -93,11 +93,14 @@ void I2CDevice::interruptHandler(OSObject *owner, IOInterruptEventSource *src, i
   
   obj->fPCIDevice->ioWrite8(obj->fBase + ICH_SMB_HS, obj->fSt);
   /* Catch <DEVERR,INUSE> when cold start */
-  if (obj->I2C_Transfer.op == I2CNoOp)
+  if (obj->I2C_Transfer.op == I2CNoOp) {
+    DbgPrint("I2CNoOp\n");
     return;
+  }
   
   if (obj->fSt & (ICH_SMB_HS_DEVERR | ICH_SMB_HS_BUSERR | ICH_SMB_HS_FAILED)) {
     obj->I2C_Transfer.error_marker = 1;
+    DbgPrint("marker = 1\n");
     goto done;
   }
   
@@ -217,7 +220,7 @@ int I2CDevice::I2CExec(I2COp op, UInt16 addr, void *cmdbuf, size_t cmdlen, void 
     IODelay(ICHSMBUS_DELAY);
   }
   
-  DbgPrint("exec: St 0x%x\n", St & ICH_SMB_HS_BUSY);
+  DbgPrint("exec: St 0x%x\n", St);
   if (St & ICH_SMB_HS_BUSY)
     return 1;
   
@@ -251,6 +254,7 @@ int I2CDevice::I2CExec(I2COp op, UInt16 addr, void *cmdbuf, size_t cmdlen, void 
     ctl = ICH_SMB_HC_CMD_WDATA;
   
   ctl |= ICH_SMB_HC_INTREN | ICH_SMB_HC_START;
+  DbgPrint("exec: Ctl 0x%x\n", ctl);
   fPCIDevice->ioWrite8(fBase + ICH_SMB_HC, ctl);
   
   //clock_interval_to_deadline(ICHIIC_TIMEOUT, kSecondScale, &deadline);
@@ -268,8 +272,10 @@ int I2CDevice::I2CExec(I2COp op, UInt16 addr, void *cmdbuf, size_t cmdlen, void 
   
   Lock.event = false;
   IOLockUnlock(Lock.holder);
-  if (ret != THREAD_AWAKENED)
+  if (ret != THREAD_AWAKENED) {
+    DbgPrint("ret != THREAD_AWAKENED\n");
     return 1;
+  }
   
 done:
   if (I2C_Transfer.error_marker)

@@ -24,6 +24,23 @@
 	<string>1</string>
 	<key>IOKitPersonalities</key>
 	<dict>
+		<key>ICHSMBus</key>
+		<dict>
+			<key>IOProbeScore</key>
+			<integer>5000</integer>
+			<key>IOPCIClassMatch</key>
+			<string>0x0c050000</string>
+			<key>IOMatchCategory</key>
+			<string>I2CDevice</string>
+			<key>IOPCIMatchComment</key>
+			<string>Intel ICH5(R), ICH6(R/-M), ICH7, ICH8, ICH9, ICH10, 6321ESB, PCH: BD3400, CP, PP, C600 SMBus Controllers</string>
+			<key>IOClass</key>
+			<string>I2CDevice</string>
+			<key>IOProviderClass</key>
+			<string>IOPCIDevice</string>
+			<key>CFBundleIdentifier</key>
+			<string>cc.dukzcry.Andigilog</string>
+		</dict>
 		<key>Andigilog</key>
 		<dict>
 			<key>IOMatchCategory</key>
@@ -34,6 +51,8 @@
 			<string>IOKit</string>
 			<key>IOProviderClass</key>
 			<string>I2CDevice</string>
+			<key>IOProbeScore</key>
+			<integer>2000</integer>
 			<key>CFBundleIdentifier</key>
 			<string>cc.dukzcry.Andigilog</string>
 			<key>Sensors Configuration</key>
