@@ -75,9 +75,13 @@ bool I2CDevice::interruptFilter(OSObject *owner, IOFilterInterruptEventSource *s
   if (!obj) return true;
   
   obj->fSt = obj->fPCIDevice->ioRead8(obj->fBase + ICH_SMB_HS);
-  if ((obj->fSt & ICH_SMB_HS_BUSY) != 0 || (obj->fSt & (ICH_SMB_HS_INTR |
-                                                        ICH_SMB_HS_DEVERR | ICH_SMB_HS_BUSERR | ICH_SMB_HS_FAILED |
-                                                        ICH_SMB_HS_SMBAL | ICH_SMB_HS_BDONE)) == 0)
+  if ((obj->fSt & ICH_SMB_HS_BUSY) != 0 ||
+      (obj->fSt & (ICH_SMB_HS_INTR   |
+                   ICH_SMB_HS_DEVERR |
+                   ICH_SMB_HS_BUSERR |
+                   ICH_SMB_HS_FAILED |
+                   ICH_SMB_HS_SMBAL  |
+                   ICH_SMB_HS_BDONE)) == 0)
     return false;
   
   return true;
@@ -98,7 +102,7 @@ void I2CDevice::interruptHandler(OSObject *owner, IOInterruptEventSource *src, i
     return;
   }
   
-  if (obj->fSt & (ICH_SMB_HS_DEVERR | ICH_SMB_HS_BUSERR | ICH_SMB_HS_FAILED)) {
+  if ((obj->fSt & (ICH_SMB_HS_DEVERR | ICH_SMB_HS_BUSERR | ICH_SMB_HS_FAILED)) != 0) {
     obj->I2C_Transfer.error_marker = 1;
     DbgPrint("marker = 1\n");
     goto done;
@@ -243,7 +247,7 @@ int I2CDevice::I2CExec(I2COp op, UInt16 addr, void *cmdbuf, size_t cmdlen, void 
     if (len > 0)
       fPCIDevice->ioWrite8(fBase + ICH_SMB_HD0, ((UInt8 *) buf)[0]);
     if (len > 1)
-      fPCIDevice->ioWrite8(fBase + ICH_SMB_HD0, ((UInt8 *) buf)[1]);
+      fPCIDevice->ioWrite8(fBase + ICH_SMB_HD1, ((UInt8 *) buf)[1]);
   }
   
   if (!len)
@@ -255,7 +259,7 @@ int I2CDevice::I2CExec(I2COp op, UInt16 addr, void *cmdbuf, size_t cmdlen, void 
   
   ctl |= ICH_SMB_HC_INTREN | ICH_SMB_HC_START;
   DbgPrint("exec: Ctl 0x%x\n", ctl);
-  fPCIDevice->ioWrite8(fBase + ICH_SMB_HC, ctl);
+  fPCIDevice->ioWrite8(fBase + ICH_SMB_HCNT, ctl);
   
   //clock_interval_to_deadline(ICHIIC_TIMEOUT, kSecondScale, &deadline);
   

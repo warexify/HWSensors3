@@ -27,7 +27,7 @@
 #define ICH_SMB_HOSTC_SMIEN	(1 << 1)
 
 /* SMBus I/O registers */
-#define ICH_SMB_HS	0x00		/* host status */
+#define ICH_SMB_HS        0x00      /* host status */
 #define ICH_SMB_HS_BUSY		(1 << 0)	/* running a command */
 #define ICH_SMB_HS_INTR		(1 << 1)	/* command completed */
 #define ICH_SMB_HS_DEVERR	(1 << 2)	/* command error */
@@ -36,18 +36,19 @@
 #define ICH_SMB_HS_SMBAL	(1 << 5)	/* SMBALERT# asserted */
 #define ICH_SMB_HS_INUSE	(1 << 6)	/* bus semaphore */
 #define ICH_SMB_HS_BDONE	(1 << 7)	/* byte received/transmitted */
-#define ICH_SMB_HC	0x02
-#define ICH_SMB_HCMD	0x03
-#define ICH_SMB_TXSLVA	0x04		/* transmit slave address */
-#define ICH_SMB_HD0	0x05		/* host data 0 */
-#define ICH_SMB_HD1	0x06
-#define ICH_SMB_TXSLVA_READ	(1 << 0)	/* read direction */
+
+#define ICH_SMB_HCNT      0x02
+#define ICH_SMB_HCMD      0x03
+#define ICH_SMB_TXSLVA    0x04		/* transmit slave address */
+#define ICH_SMB_HD0       0x05		/* host data 0 */
+#define ICH_SMB_HD1       0x06
+#define ICH_SMB_TXSLVA_READ     (1 << 0)	/* read direction */
 #define ICH_SMB_TXSLVA_ADDR(x)	(((x) & 0x7f) << 1) /* 7-bit address */
-#define ICH_SMB_HC_INTREN	(1 << 0)	/* enable interrupts */
-#define ICH_SMB_HC_CMD_BYTE	(1 << 2)
-#define ICH_SMB_HC_CMD_BDATA	(2 << 2)	/* BYTE DATA command */
-#define ICH_SMB_HC_CMD_WDATA	(3 << 2)	/* WORD DATA command */
-#define ICH_SMB_HC_START	(1 << 6)	/* start transaction */
+#define ICH_SMB_HC_INTREN       (1 << 0)	/* enable interrupts */
+#define ICH_SMB_HC_CMD_BYTE     (1 << 2)
+#define ICH_SMB_HC_CMD_BDATA    (2 << 2)	/* BYTE DATA command */
+#define ICH_SMB_HC_CMD_WDATA    (3 << 2)	/* WORD DATA command */
+#define ICH_SMB_HC_START        (1 << 6)	/* start transaction */
 
 #define ICHSMBUS_DELAY 100
 #define ICHIIC_TIMEOUT 1 /* in sec */

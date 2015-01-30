@@ -55,7 +55,8 @@ bool TSOD::start(IOService *provider)
   if (!provider || !super::start(provider)) return false;
   int i, s;
   bool found = false;
-  UInt8 cmd, data;
+  UInt8 cmd;
+  UInt16 data;
   
   struct MList list = {
      DIMM_TRM, DIMM_TRM, {KEY_DIMM_TEMPERATURE, TYPE_SP78, 2}, true, 0, true
@@ -85,11 +86,11 @@ bool TSOD::start(IOService *provider)
   
   for (i = 0; i < NUM_SENSORS; i++) {
     cmd = DIMM_VID;
-    if (!i2cNub->ReadI2CBus(DIMMaddr + i, &cmd, sizeof(cmd), &data, sizeof(data))) {
+    if (!i2cNub->ReadI2CBus(DIMMaddr + i, &cmd, sizeof(cmd), &data, 2)) {
       IOPrint("found DIMM VID %x\n", data);
       if ((data != 0) && (data != 0xFF)) {
         cmd = DIMM_DID;
-        if(!i2cNub->ReadI2CBus(DIMMaddr + i, &cmd, sizeof(cmd), &data, sizeof(data))) {
+        if(!i2cNub->ReadI2CBus(DIMMaddr + i, &cmd, sizeof(cmd), &data, 2)) {
   //        Measures[i].present = true;
           memcpy(&Measures[i], &list, sizeof(struct MList));
           found = true;
@@ -149,7 +150,7 @@ void TSOD::stop(IOService *provider)
 void TSOD::updateSensors()
 {
 	UInt8 hdata, ldata;
-//  UInt16 data;
+  UInt16 data;
   
   i2cNub->LockI2CBus();
   
@@ -159,15 +160,15 @@ void TSOD::updateSensors()
       continue;
     hdata = 0;
     Measures[i].obsoleted = false;
-    if (i2cNub->ReadI2CBus(DIMMaddr + i, &Measures[i].lreg, sizeof Measures[i].lreg, &ldata, sizeof ldata)) {
+    if (i2cNub->ReadI2CBus(DIMMaddr + i, &Measures[i].lreg, sizeof Measures[i].lreg, &data, 2)) {
 			Measures[i].value = 0;
 			continue;
 		}
     
-      if (ldata == DIMM_TEMP_NA)
+      if (data == DIMM_TEMP_NA)
         Measures[i].value = 0;
       else {
-        Measures[i].value = ((hdata << 8 | ldata)) >> 6;
+        Measures[i].value = data; //((hdata << 8 | ldata)) >> 6;
         Measures[i].value = (float) Measures[i].value * 0.25f;
       }
   }
