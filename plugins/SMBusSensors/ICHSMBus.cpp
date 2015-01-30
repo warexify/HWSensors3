@@ -52,6 +52,11 @@ IOWorkLoop *I2CDevice::getWorkLoop(void) const
   return MyWorkLoop;
 }
 
+UInt8 I2CDevice::GetStatus(void)
+{
+  return fSt;
+}
+
 
 IOService *I2CDevice::probe (IOService* provider, SInt32* score)
 {
@@ -102,11 +107,14 @@ void I2CDevice::interruptHandler(OSObject *owner, IOInterruptEventSource *src, i
     return;
   }
   
-  if ((obj->fSt & (ICH_SMB_HS_DEVERR | ICH_SMB_HS_BUSERR | ICH_SMB_HS_FAILED)) != 0) {
-    obj->I2C_Transfer.error_marker = 1;
-    DbgPrint("marker = 1\n");
-    goto done;
+  if (!(obj->fSt & ICH_SMB_HS_INUSE)) {
+    if ((obj->fSt & (ICH_SMB_HS_DEVERR | ICH_SMB_HS_BUSERR | ICH_SMB_HS_FAILED)) != 0) {
+      obj->I2C_Transfer.error_marker = 1;
+      DbgPrint("marker = 1, ST=0x%x\n", obj->fSt);
+      goto done;
+    }
   }
+  
   
   if (obj->fSt & ICH_SMB_HS_INTR) {
     if (obj->I2C_Transfer.op == I2CWriteOp)
@@ -141,7 +149,7 @@ bool I2CDevice::start(IOService *provider)
     return false;
   }
   
-  fPCIDevice->retain();
+  fPCIDevice->retain(); //release in free()
   fPCIDevice->open(this);
   
   hostc = fPCIDevice->configRead8(ICH_SMB_HOSTC);
@@ -166,7 +174,8 @@ bool I2CDevice::start(IOService *provider)
   if (!(MyWorkLoop = (IOWorkLoop *) getWorkLoop()))
     return false;
   /* Interrupt support exists on chips starting from 82801EB */
-  if (!(fInterruptSrc = CreateDeviceInterrupt(&I2CDevice::interruptHandler, &I2CDevice::interruptFilter,
+  if (!(fInterruptSrc = CreateDeviceInterrupt(&I2CDevice::interruptHandler,
+                                              &I2CDevice::interruptFilter,
                                               provider))) {
     IOPrint("Installing interrupt handler failed. Poll mode is not implemented. Unloading.\n");
     return false;
@@ -189,6 +198,18 @@ bool I2CDevice::start(IOService *provider)
 
 void I2CDevice::stop(IOService *provider)
 {
+  if (fInterruptSrc) {
+    fInterruptSrc->disable();
+  }
+  
+//  this->unregisterInterrupt(fInterruptSrc);
+//  UnlockI2CBus();
+  
+/*  if (fPCIDevice) {
+    fPCIDevice->close (this);
+    fPCIDevice->release ();
+  } */
+
   DbgPrint("stop\n");
   super::stop(provider);
 }

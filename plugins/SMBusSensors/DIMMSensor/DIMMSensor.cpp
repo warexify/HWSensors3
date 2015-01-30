@@ -55,7 +55,7 @@ bool TSOD::start(IOService *provider)
   if (!provider || !super::start(provider)) return false;
   int i, s;
   bool found = false;
-  UInt8 cmd;
+  UInt8 cmd, St;
   UInt16 data;
   
   struct MList list = {
@@ -86,10 +86,21 @@ bool TSOD::start(IOService *provider)
   
   for (i = 0; i < NUM_SENSORS; i++) {
     cmd = DIMM_VID;
+    data = 0;
     if (!i2cNub->ReadI2CBus(DIMMaddr + i, &cmd, sizeof(cmd), &data, 2)) {
+      St = i2cNub->GetStatus();
+      if ((St & ICH_SMB_HS_INUSE) == 0) {
+        if ((St & (ICH_SMB_HS_DEVERR |
+                   ICH_SMB_HS_BUSERR |
+                   ICH_SMB_HS_FAILED)) != 0) {
+          IOPrint("status DIMM  0x%x\n", St);
+          continue;
+        }
+      }
       IOPrint("found DIMM VID %x\n", data);
       if ((data != 0) && (data != 0xFF)) {
         cmd = DIMM_DID;
+        data = 0;
         if(!i2cNub->ReadI2CBus(DIMMaddr + i, &cmd, sizeof(cmd), &data, 2)) {
   //        Measures[i].present = true;
           memcpy(&Measures[i], &list, sizeof(struct MList));
@@ -142,6 +153,10 @@ void TSOD::stop(IOService *provider)
     IOLog("Can't remove key handler");
     IOSleep(500);
   }
+  if (i2cNub) {
+    i2cNub->close(this);
+    i2cNub->release();
+  }
   
   super::stop(provider);
 }
@@ -149,7 +164,7 @@ void TSOD::stop(IOService *provider)
 /* Temp: update 'em all et once */
 void TSOD::updateSensors()
 {
-	UInt8 hdata, ldata;
+//	UInt8 hdata, ldata;
   UInt16 data;
   
   i2cNub->LockI2CBus();
@@ -158,19 +173,17 @@ void TSOD::updateSensors()
     /* Skip unused */
     if (!Measures[i].present)
       continue;
-    hdata = 0;
+    data = 0;
     Measures[i].obsoleted = false;
     if (i2cNub->ReadI2CBus(DIMMaddr + i, &Measures[i].lreg, sizeof Measures[i].lreg, &data, 2)) {
 			Measures[i].value = 0;
 			continue;
 		}
     
-      if (data == DIMM_TEMP_NA)
-        Measures[i].value = 0;
-      else {
+    if ((data & DIMM_TEMP_NA) == 0) {
         Measures[i].value = data; //((hdata << 8 | ldata)) >> 6;
-        Measures[i].value = (float) Measures[i].value * 0.25f;
-      }
+//        Measures[i].value = (float) Measures[i].value * 1.0f;
+    }
   }
   
   i2cNub->UnlockI2CBus();
@@ -224,7 +237,7 @@ IOReturn TSOD::callPlatformFunction(const OSSymbol *functionName, bool waitForFu
         if (idx > -1) {
           readSensor(idx);
           //      Measures[idx].value = Measures[idx].hwsensor->encodeValue(Measures[idx].value);
-          Measures[idx].value = encode_fpe2(Measures[idx].value); //?
+      //    Measures[idx].value = encode_fpe2(Measures[idx].value); //?
           memcpy(data, &Measures[idx].value, Measures[idx].hwsensor.size);
           return kIOReturnSuccess;
         }

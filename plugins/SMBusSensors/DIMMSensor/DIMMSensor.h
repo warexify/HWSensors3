@@ -26,6 +26,15 @@
 #define DIMM_DID 7
 #define DIMM_TEMP_NA		0x80
 
+#define ICH_SMB_HS_BUSY		(1 << 0)	/* running a command */
+#define ICH_SMB_HS_INTR		(1 << 1)	/* command completed */
+#define ICH_SMB_HS_DEVERR	(1 << 2)	/* command error */
+#define ICH_SMB_HS_BUSERR	(1 << 3)	/* transaction collision */
+#define ICH_SMB_HS_FAILED	(1 << 4)
+#define ICH_SMB_HS_SMBAL	(1 << 5)	/* SMBALERT# asserted */
+#define ICH_SMB_HS_INUSE	(1 << 6)	/* bus semaphore */
+#define ICH_SMB_HS_BDONE	(1 << 7)	/* byte received/transmitted */
+
 
 class TSOD: public IOService //FakeSMCPlugin
 {

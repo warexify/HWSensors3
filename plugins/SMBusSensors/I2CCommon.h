@@ -58,6 +58,7 @@ public:
     //int StopI2CBus();
     int ReadI2CBus(UInt16, void *, size_t, void *, size_t);
     int WriteI2CBus(UInt16, void *, size_t, void *, size_t);
+  UInt8 GetStatus(void);
 };
 
 #endif
