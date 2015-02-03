@@ -153,14 +153,14 @@ bool I2CDevice::start(IOService *provider)
   fPCIDevice->open(this);
   
   hostc = fPCIDevice->configRead8(ICH_SMB_HOSTC);
-  DbgPrint("conf: 0x%x\n", hostc);
+  DbgPrint("conf: 0x%x\n", hostc);  // ==1 = HSTEN & ~SMIEN
   
   if ((hostc & ICH_SMB_HOSTC_HSTEN) == 0) {
     IOPrint("SMBus disabled\n");
     return false;
   }
   
-  fBase = fPCIDevice->configRead16(ICH_SMB_BASE) & 0xFFFE;
+  fBase = fPCIDevice->configRead16(ICH_SMB_BASE) & 0xFFE0; // clear reserved bits
   
   fPCIDevice->setIOEnable(true);
   
@@ -235,17 +235,33 @@ int I2CDevice::I2CExec(I2COp op, UInt16 addr, void *cmdbuf, size_t cmdlen, void 
   //    AbsoluteTime deadline;
   UInt64 deadline;
   
+  //initialize
+  fPCIDevice->ioWrite8(fBase + ICH_SMB_HS, 0xFE);
+  fPCIDevice->ioWrite8(fBase + ICH_SMB_HD0, 0xFF);
+  
   DbgPrint("exec: op %d, addr 0x%02x, cmdlen %d, len %d\n", op, addr, (int)cmdlen, (int)len);
+  /* Wait for bus to be free */
+  for (int retries = 100; retries > 0; retries--) {
+    fPCIDevice->ioWrite8(fBase + ICH_SMB_HS, 0xC0);
+    IODelay(ICHSMBUS_DELAY);
+    St = fPCIDevice->ioRead8(fBase + ICH_SMB_HS);
+    if ((St & ICH_SMB_HS_INUSE) == 0)
+      break;
+    IODelay(ICHSMBUS_DELAY);
+  }
+  DbgPrint("exec: St 0x%x\n", St);
+  
+  
   
   /* Wait for bus to be idle */
-  for (int retries = 100; retries > 0; retries--) {
+/*  for (int retries = 100; retries > 0; retries--) {
     St = fPCIDevice->ioRead8(fBase + ICH_SMB_HS);
     if ((St & ICH_SMB_HS_BUSY) == 0)
       break;
     IODelay(ICHSMBUS_DELAY);
-  }
-  
+  }  
   DbgPrint("exec: St 0x%x\n", St);
+ */
   if (St & ICH_SMB_HS_BUSY)
     return 1;
   
@@ -253,11 +269,11 @@ int I2CDevice::I2CExec(I2COp op, UInt16 addr, void *cmdbuf, size_t cmdlen, void 
       cmdlen > 1 || len > 2)
     return 1;
   
-  fPCIDevice->ioWrite8(fBase + ICH_SMB_TXSLVA, ICH_SMB_TXSLVA_ADDR(addr) |
-                       (op == I2CReadOp ? ICH_SMB_TXSLVA_READ : 0));
-  
   if (cmdlen > 0)
     fPCIDevice->ioWrite8(fBase + ICH_SMB_HCMD, ((UInt8 *) cmdbuf)[0]);
+  
+  fPCIDevice->ioWrite8(fBase + ICH_SMB_TXSLVA, ICH_SMB_TXSLVA_ADDR(addr) |
+                       (op == I2CReadOp ? ICH_SMB_TXSLVA_READ : 0));
   
   I2C_Transfer.op = op;
   I2C_Transfer.error_marker = 0;

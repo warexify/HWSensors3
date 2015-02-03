@@ -83,8 +83,28 @@ bool TSOD::start(IOService *provider)
   
   i2cNub->retain();
   i2cNub->open(this);
-  
+//  DIMMaddr = 0x50;  //this is SPD to test
   for (i = 0; i < NUM_SENSORS; i++) {
+    cmd = DIMM_CAP;
+    data = 0;
+    if (!i2cNub->ReadI2CBus(0x50 + i, &cmd, sizeof(cmd), &data, 2)) {
+      St = i2cNub->GetStatus();
+      if ((St & ICH_SMB_HS_INTR) != 0) {
+        IOPrint(" DIMM %d present\n", i);
+        data = 0;
+        IOPrint(" DIMM data=0x%x\n", data);
+        memcpy(&Measures[i], &list, sizeof(struct MList));
+        found = true;
+        IOPrint("Sensor for DIMM %d attached\n", i);
+      } else {
+        Measures[i].present = false;
+      }
+    }
+/*    cmd = DIMM_CFG;
+    data = 0;
+    if (!i2cNub->ReadI2CBus(DIMMaddr + i, &cmd, sizeof(cmd), &data, 2)) {
+      IOPrint(" DIMM cfg=0x%x\n", data);
+    }
     cmd = DIMM_VID;
     data = 0;
     if (!i2cNub->ReadI2CBus(DIMMaddr + i, &cmd, sizeof(cmd), &data, 2)) {
@@ -110,7 +130,7 @@ bool TSOD::start(IOService *provider)
           Measures[i].present = false;
         }
       } 
-    }
+    } */
   }
   if (!found) {
     IOPrint("Device matching failed.\n");
@@ -153,10 +173,10 @@ void TSOD::stop(IOService *provider)
     IOLog("Can't remove key handler");
     IOSleep(500);
   }
-  if (i2cNub) {
+/*  if (i2cNub) {   // this is provider!
     i2cNub->close(this);
     i2cNub->release();
-  }
+  } */
   
   super::stop(provider);
 }

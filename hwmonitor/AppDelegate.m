@@ -249,7 +249,8 @@
   [self addSensorWithKey:@"TC0P" andType: ((type = [HWMonitorSensor getTypeOfKey:@"TC0P"]) ? type : @TYPE_SP78) andCaption:NSLocalizedString( @"CPU Proximity", nil) intoGroup:TemperatureSensorGroup ];
   [self addSensorWithKey:@"Th0H" andType: ((type = [HWMonitorSensor getTypeOfKey:@"Th0H"]) ? type : @TYPE_SP78) andCaption:NSLocalizedString( @"CPU Heatsink", nil) intoGroup:TemperatureSensorGroup ];
   [self addSensorWithKey:@"TN0P" andType: ((type = [HWMonitorSensor getTypeOfKey:@"TN0P"]) ? type : @TYPE_SP78) andCaption:NSLocalizedString(@"Motherboard",nil) intoGroup:TemperatureSensorGroup ];
-  [self addSensorWithKey:@"Tm0P" andType: ((type = [HWMonitorSensor getTypeOfKey:@"Tm0P"]) ? type : @TYPE_SP78) andCaption:NSLocalizedString(@"Memory",nil) intoGroup:TemperatureSensorGroup ];
+  [self addSensorWithKey:@"Tm0P" andType: ((type = [HWMonitorSensor getTypeOfKey:@"Tm0P"]) ? type : @TYPE_SP78) andCaption:NSLocalizedString(@"DIMM 0",nil) intoGroup:TemperatureSensorGroup ];
+  [self addSensorWithKey:@"Tm1P" andType: ((type = [HWMonitorSensor getTypeOfKey:@"Tm1P"]) ? type : @TYPE_SP78) andCaption:NSLocalizedString(@"DIMM 1",nil) intoGroup:TemperatureSensorGroup ];
   [self addSensorWithKey:@"TA0P" andType: ((type = [HWMonitorSensor getTypeOfKey:@"TA0P"]) ? type : @TYPE_SP78) andCaption:NSLocalizedString(@"Ambient",nil) intoGroup:TemperatureSensorGroup ];
   
   for (int i=0; i<0xA; i++) {
@@ -300,9 +301,9 @@
   }
   
   [self insertFooterAndTitle:NSLocalizedString(@"VOLTAGES",nil) andImage:[NSImage imageNamed:@"voltage_small"]];
-  
+  //
   // Fans
-  
+  //
   for (int i=0; i<10; i++)   {
     FanTypeDescStruct * fds;
     NSData * keydata = [HWMonitorSensor readValueForKey:[[NSString alloc] initWithFormat:@"F%XID",i]];
@@ -320,7 +321,9 @@
   }
   
   [self insertFooterAndTitle:NSLocalizedString(@"FANS",nil) andImage:[NSImage imageNamed:@"fan_small"]];
+  //
   // Disks
+  //
   NSEnumerator * DisksEnumerator = [DisksList keyEnumerator];
   id nextDisk;
   while (nextDisk = [DisksEnumerator nextObject]) {
