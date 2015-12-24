@@ -26,6 +26,11 @@ bool ATICard::initialize()
 		IOLog("\n");
 	 }
 	 */
+  //Test for ElCapitan problem
+  long unsigned int j = VCard->configRead32(0xAC);
+  IOLog("PMIR value: %08lx\n", j);
+  VCard->configWrite32(0xAC, (j & (~0x1)) | 0x2);
+  //
 	for (UInt32 i = 0; (mmio = VCard->mapDeviceMemoryWithIndex(i)); i++) {
 		long unsigned int mmio_base_phys = mmio->getPhysicalAddress();
 		// Make sure we  select MMIO registers
@@ -97,7 +102,8 @@ bool ATICard::getRadeonInfo()
 		}
 		devices++;
 	}
-  if ((devID >= 0x6780) && (devID <= 0x6840)) {
+  if (((devID >= 0x6780) && (devID <= 0x6840)) ||
+      ((devID & 0xFF00) == 0x6900)) {
     rinfo->device_id = devID;
     rinfo->ChipFamily = CHIP_FAMILY_PITCAIRN;
     family = CHIP_FAMILY_PITCAIRN;
