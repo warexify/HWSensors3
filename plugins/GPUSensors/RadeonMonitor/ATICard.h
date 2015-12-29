@@ -45,7 +45,7 @@ enum TempFamilies {
 	R6xx,
 	R7xx,
 	R8xx,
-  R9xx
+    R9xx
 };
 
 class ATICard : public OSObject {

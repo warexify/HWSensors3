@@ -298,7 +298,8 @@ bool IT87x::probePort()
 	switch (id)
 	{
 		case IT8512F:
-    case IT8620F:
+        case IT8620F:
+        case IT8628F:
 		case IT8712F:
 		case IT8716F:
 		case IT8718F:
@@ -307,7 +308,8 @@ bool IT87x::probePort()
 		case IT8726F:
 		case IT8728F:
 		case IT8752F:
-    case IT8772E:
+        case IT8771E:
+        case IT8772E:
 			model = id;
 			break;
 		default:
@@ -374,17 +376,19 @@ void IT87x::exit()
 const char *IT87x::getModelName()
 {
 	switch (model) {
-    case IT8512F: return "IT8512F";
-    case IT8620F: return "IT8620F";
-    case IT8712F: return "IT8712F";
-    case IT8716F: return "IT8716F";
-    case IT8718F: return "IT8718F";
-    case IT8720F: return "IT8720F";
-    case IT8721F: return "IT8721F";
-    case IT8726F: return "IT8726F";
+        case IT8512F: return "IT8512F";
+        case IT8620F: return "IT8620F";
+        case IT8628F: return "IT8620F";
+        case IT8712F: return "IT8712F";
+        case IT8716F: return "IT8716F";
+        case IT8718F: return "IT8718F";
+        case IT8720F: return "IT8720F";
+        case IT8721F: return "IT8721F";
+        case IT8726F: return "IT8726F";
 		case IT8728F: return "IT8728F";
-    case IT8752F: return "IT8752F";
-    case IT8772E: return "IT8772E";
+        case IT8752F: return "IT8752F";
+        case IT8771E: return "IT8771E";
+        case IT8772E: return "IT8772E";
 	}
   
 	return "unknown";

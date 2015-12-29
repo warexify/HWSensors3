@@ -320,11 +320,22 @@ IOService* IntelCPUMonitor::probe(IOService *provider, SInt32 *score)
 				case CPU_MODEL_SANDY_BRIDGE:
 				case CPU_MODEL_IVY_BRIDGE:
 				case CPU_MODEL_JAKETOWN:
-        case CPU_MODEL_HASWELL:
-        case CPU_MODEL_HASWELL_MB:
-        case CPU_MODEL_HASWELL_ULT:
-        case CPU_MODEL_HASWELL_ULX:
-        case CPU_MODEL_IVY_BRIDGE_E5:
+                case CPU_MODEL_HASWELL:
+                case CPU_MODEL_HASWELL_MB:
+                case CPU_MODEL_HASWELL_ULT:
+                case CPU_MODEL_HASWELL_ULX:
+                case CPU_MODEL_IVY_BRIDGE_E5:
+                case CPU_MODEL_BROADWELL_HQ:
+                case CPU_MODEL_AIRMONT:
+                case CPU_MODEL_AVOTON:
+                case CPU_MODEL_SKYLAKE_U:
+                case CPU_MODEL_BROADWELL_DE:
+                case CPU_MODEL_KNIGHT:
+                case CPU_MODEL_MOOREFIELD:
+                case CPU_MODEL_GOLDMONT:
+                case CPU_MODEL_ATOM_X3:
+                case CPU_MODEL_SKYLAKE_S:
+                case CPU_MODEL_CANNONLAKE:
 				{
 					nehalemArch = true;
           
@@ -349,12 +360,12 @@ IOService* IntelCPUMonitor::probe(IOService *provider, SInt32 *score)
   
   SandyArch = (CpuModel == CPU_MODEL_SANDY_BRIDGE) ||
   (CpuModel == CPU_MODEL_JAKETOWN)  ||
-  (CpuModel == CPU_MODEL_HASWELL)  ||
+/*  (CpuModel == CPU_MODEL_HASWELL)  ||
   (CpuModel == CPU_MODEL_IVY_BRIDGE_E5)  ||
   (CpuModel == CPU_MODEL_HASWELL_MB)  ||
   (CpuModel == CPU_MODEL_HASWELL_ULT)  ||
-  (CpuModel == CPU_MODEL_HASWELL_ULX)  ||
-  (CpuModel == CPU_MODEL_IVY_BRIDGE);
+  (CpuModel == CPU_MODEL_HASWELL_ULX)  || */
+  (CpuModel >= CPU_MODEL_IVY_BRIDGE);
   if(SandyArch)
   {
     BaseFreqRatio = BaseOperatingFreq();

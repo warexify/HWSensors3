@@ -103,7 +103,8 @@ bool ATICard::getRadeonInfo()
 		devices++;
 	}
   if (((devID >= 0x6780) && (devID <= 0x6840)) ||
-      ((devID & 0xFF00) == 0x6900)) {
+      ((devID & 0xFF00) == 0x6900) ||
+      ((devID & 0xFF00) == 0x6600)) {
     rinfo->device_id = devID;
     rinfo->ChipFamily = CHIP_FAMILY_PITCAIRN;
     family = CHIP_FAMILY_PITCAIRN;

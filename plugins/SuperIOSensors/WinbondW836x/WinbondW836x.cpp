@@ -442,6 +442,9 @@ bool W836x::probePort()
       model = NCT6791D;
 //      minFanRPM = (int)(1.35e6 / 0x1FFF);
       break;
+        case 0xC9:
+            model = NCT6792D;
+            break;
     default:
       break;
 
@@ -788,23 +791,24 @@ const char *W836x::getModelName()
 {
 	switch (model)
 	{
-    case W83627DHG:     return "W83627DHG";
-    case W83627DHGP:    return "W83627DHG-P";
-    case W83627EHF:     return "W83627EHF";
-    case W83627HF:      return "W83627HF";
-    case W83627THF:     return "W83627THF";
-    case W83667HG:      return "W83667HG";
-    case W83667HGB:     return "W83667HG-B";
-    case W83687THF:     return "W83687THF";
+        case W83627DHG:     return "W83627DHG";
+        case W83627DHGP:    return "W83627DHG-P";
+        case W83627EHF:     return "W83627EHF";
+        case W83627HF:      return "W83627HF";
+        case W83627THF:     return "W83627THF";
+        case W83667HG:      return "W83667HG";
+        case W83667HGB:     return "W83667HG-B";
+        case W83687THF:     return "W83687THF";
 		case W83627SF:      return "W83627SF";
-    case W83697HF:      return "W83697HF";
+        case W83697HF:      return "W83697HF";
 		case W83637HF:      return "W83637HF";
-    case W83627UHG:     return "W83627UHG";
-    case W83697SF:      return "W83697SF";
-    case NCT6771F:  return "NCT6771F";
-    case NCT6776F:  return "NCT6776F";
-    case NCT6779D:  return "NCT6779D";
-    case NCT6791D:  return "NCT6791D";
+        case W83627UHG:     return "W83627UHG";
+        case W83697SF:      return "W83697SF";
+        case NCT6771F:  return "NCT6771F";
+        case NCT6776F:  return "NCT6776F";
+        case NCT6779D:  return "NCT6779D";
+        case NCT6791D:  return "NCT6791D";
+        case NCT6792D:  return "NCT6792D";
   
 	}
 	

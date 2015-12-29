@@ -58,7 +58,7 @@ class IntelCPUMonitor : public IOService
 public:
 	UInt32					Frequency[MaxCpuCount];
 	UInt32					Voltage;    //in millivolts
-  UInt32          BaseFreqRatio;
+    UInt32          BaseFreqRatio;
   
 private:
 	bool				  	Active;	
@@ -76,21 +76,21 @@ private:
 	char*					  key[MaxCpuCount];
 	char					  Platform[4];
 	bool					  nehalemArch;
-  bool            SandyArch;
+    bool            SandyArch;
 	IOService*			fakeSMC;
 	void					  Activate(void);
 	void					  Deactivate(void);
 	UInt32					IntelGetFrequency(UInt8 fid);
 	UInt32					IntelGetVoltage(UInt16 vid);
   
-  IOWorkLoop *		WorkLoop;
+    IOWorkLoop *		WorkLoop;
 	IOTimerEventSource *	TimerEventSource;
 
 	
 public:
 	virtual bool		    init(OSDictionary *properties=0);
 	virtual IOService*	probe(IOService *provider, SInt32 *score);
-  virtual bool		    start(IOService *provider);
+    virtual bool		    start(IOService *provider);
 	virtual void		    stop(IOService *provider);
 	virtual void		    free(void);
 	virtual IOReturn setPowerState(unsigned long which, IOService *whom);
