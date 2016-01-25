@@ -530,7 +530,7 @@
 				<key>Default</key>
 				<dict>
 					<key>FANIN0</key>
-					<string></string>
+					<string>CPU Fan</string>
 					<key>FANIN1</key>
 					<string></string>
 					<key>FANIN2</key>

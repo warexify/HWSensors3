@@ -205,6 +205,7 @@ IOService* IntelCPUMonitor::probe(IOService *provider, SInt32 *score)
 			switch (CpuModel)
 			{
 				case CPU_MODEL_PENTIUM_M:
+                case CPU_MODEL_CELERON:
 					tjmax[0] = 100;
 					CpuMobile = true;
           /*        if (!RPltSet) {
@@ -732,6 +733,7 @@ UInt32 IntelCPUMonitor::IntelGetFrequency(UInt8 cpu_id)
 UInt32 IntelCPUMonitor::IntelGetVoltage(UInt16 vid) {  //no nehalem
 	switch (CpuModel) {
 		case CPU_MODEL_PENTIUM_M:
+        case CPU_MODEL_CELERON:
 			return 700 + ((vid & 0x3F) << 4);
 			break;
 		case CPU_MODEL_YONAH:
