@@ -325,6 +325,7 @@ IOService* IntelCPUMonitor::probe(IOService *provider, SInt32 *score)
                 case CPU_MODEL_HASWELL_MB:
                 case CPU_MODEL_HASWELL_ULT:
                 case CPU_MODEL_HASWELL_ULX:
+                case CPU_MODEL_HASWELL_U5:
                 case CPU_MODEL_IVY_BRIDGE_E5:
                 case CPU_MODEL_BROADWELL_HQ:
                 case CPU_MODEL_AIRMONT:
