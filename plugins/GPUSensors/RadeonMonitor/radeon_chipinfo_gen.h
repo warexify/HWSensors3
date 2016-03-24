@@ -366,6 +366,45 @@ RADEONCardInfo radeon_device_list[] = {
   { 0x9713, CHIP_FAMILY_RS880, 1, 0, 0, 0, 0 },
   { 0x9714, CHIP_FAMILY_RS880, 1, 0, 0, 0, 0 },
   { 0x9715, CHIP_FAMILY_RS880, 1, 0, 0, 0, 0 },
+    
+    // Oland: R7-240, 250
+    { 0x6600,	CHIP_FAMILY_OLAND,	0, 0, 0, 0, 0 },//	"AMD Radeon HD 8600/8700M",	kNull       }, // Mobile
+    { 0x6601,	CHIP_FAMILY_OLAND,	0, 0, 0, 0, 0 },//		"AMD Radeon HD 8500/8700M",	kNull       }, // Mobile
+    //	{ 0x6602,	0x00000000, CHIP_FAMILY_OLAND,		"AMD Radeon",           kNull       }, // Mobile
+    //	{ 0x6603,	0x00000000, CHIP_FAMILY_OLAND,		"AMD Radeon",           kNull       }, // Mobile
+    { 0x6604,	CHIP_FAMILY_OLAND,	0, 0, 0, 0, 0 },//		"AMD Radeon R7 M265",       kNull       }, // Mobile
+    { 0x6605,	CHIP_FAMILY_OLAND,	0, 0, 0, 0, 0 },//		"AMD Radeon R7 M260",       kNull       }, // Mobile
+    { 0x6606,	CHIP_FAMILY_OLAND,	0, 0, 0, 0, 0 },//		"AMD Radeon HD 8790M",      kNull       }, // Mobile
+    { 0x6607,	CHIP_FAMILY_OLAND,	0, 0, 0, 0, 0 },//		"AMD Radeon R5 M240",       kNull       }, // Mobile
+    { 0x6608,	CHIP_FAMILY_OLAND,	0, 0, 0, 0, 0 },//		"AMD FirePro W2100",        kNull       },
+    { 0x6610,	CHIP_FAMILY_OLAND,	0, 0, 0, 0, 0 },//		"AMD Radeon R7 250",        kFutomaki		},
+    { 0x6611,	CHIP_FAMILY_OLAND,	0, 0, 0, 0, 0 },//		"AMD Radeon R7 340 Series",	kNull       },
+    { 0x6613,	CHIP_FAMILY_OLAND,	0, 0, 0, 0, 0 },//		"AMD Radeon R7 240",        kFutomaki	},
+    //	{ 0x6620,	0x00000000, CHIP_FAMILY_OLAND,		"AMD Radeon",           kNull       }, // Mobile
+    //	{ 0x6621,	0x00000000, CHIP_FAMILY_OLAND,		"AMD Radeon",           kNull       }, // Mobile
+    //	{ 0x6623,	0x00000000, CHIP_FAMILY_OLAND,		"AMD Radeon",           kNull       }, // Mobile
+    //	{ 0x6631,	0x00000000, CHIP_FAMILY_OLAND,		"AMD Radeon",           kNull       },
+    
+    // BONAIRE
+    { 0x6640,	CHIP_FAMILY_BONAIRE, 1, 0, 0, 0, 0 },//	"AMD Radeon HD 8950",       kNull       }, // Mobile
+    { 0x6641,	CHIP_FAMILY_BONAIRE, 1, 0, 0, 0, 0 },//	"AMD Radeon HD 8930M",        kNull       }, // Mobile
+    { 0x6646,	CHIP_FAMILY_BONAIRE, 1, 0, 0, 0, 0 },//	"AMD Radeon R9 M280X",      kNull       }, // Mobile
+    { 0x6647,	CHIP_FAMILY_BONAIRE, 1, 0, 0, 0, 0 },//	"AMD Radeon R9 M270X",      kNull       }, // Mobile
+    { 0x6649,	CHIP_FAMILY_BONAIRE, 1, 0, 0, 0, 0 },//	"AMD FirePro W5100",        kNull       },
+    //	{ 0x6650,	0x00000000, CHIP_FAMILY_BONAIRE,	"AMD Radeon",           kNull       },
+    //	{ 0x6651,	0x00000000, CHIP_FAMILY_BONAIRE,	"AMD Radeon",           kNull       },
+    { 0x6658,	CHIP_FAMILY_BONAIRE,	0, 0, 0, 0, 0 },//	"AMD Radeon R7 260X",        kNull       },
+    { 0x665C,	CHIP_FAMILY_BONAIRE,	0, 0, 0, 0, 0 },//	"AMD Radeon HD 7790",       kFutomaki	},
+    { 0x665D,	CHIP_FAMILY_BONAIRE,	0, 0, 0, 0, 0 },//	"AMD Radeon R9 260",        kFutomaki	},
+    { 0x665F,	CHIP_FAMILY_BONAIRE,	0, 0, 0, 0, 0 },//	"AMD Radeon R9 360",        kFutomaki	},
+    // HAINAN
+    { 0x6660,	CHIP_FAMILY_HAINAN, 1, 0, 0, 0, 0 },//		"AMD Radeon HD 8670M",      kNull       }, // Mobile
+    { 0x6663,	CHIP_FAMILY_HAINAN, 1, 0, 0, 0, 0 },//		"AMD Radeon HD 8570M",      kNull       }, // Mobile
+    { 0x6664,	CHIP_FAMILY_HAINAN, 1, 0, 0, 0, 0 },//		"AMD Radeon R5 M240",       kNull       }, // Mobile
+    { 0x6665,	CHIP_FAMILY_HAINAN, 1, 0, 0, 0, 0 },//		"AMD Radeon R5 M230",       kNull       }, // Mobile
+    { 0x6667,	CHIP_FAMILY_HAINAN,	1, 0, 0, 0, 0 },//	"AMD Radeon R5 M230",       kNull       }, // Mobile
+    { 0x666F,	CHIP_FAMILY_HAINAN, 1, 0, 0, 0, 0 },//		"AMD Radeon HD 8550M",      kNull       }, // Mobile R5 M230 in Lenovo
+
   { 0x6701, CHIP_FAMILY_Evergreen, 0, 0, 0, 0, 0 },
   { 0x6702, CHIP_FAMILY_Evergreen, 0, 0, 0, 0, 0 },
   { 0x6703, CHIP_FAMILY_Evergreen, 0, 0, 0, 0, 0 },
@@ -407,7 +446,7 @@ RADEONCardInfo radeon_device_list[] = {
   { 0x6749, CHIP_FAMILY_Evergreen, 0, 0, 0, 0, 0 },
   
   { 0x6750, CHIP_FAMILY_Evergreen, 0, 0, 0, 0, 0 },
-	{ 0x6758, CHIP_FAMILY_Evergreen, 0, 0, 0, 0, 0 },
+  { 0x6758, CHIP_FAMILY_Evergreen, 0, 0, 0, 0, 0 },
   { 0x6759, CHIP_FAMILY_Evergreen, 0, 0, 0, 0, 0 },
   { 0x675F, CHIP_FAMILY_Evergreen, 0, 0, 0, 0, 0 },
   { 0x6760, CHIP_FAMILY_Evergreen, 0, 0, 0, 0, 0 },
@@ -428,6 +467,11 @@ RADEONCardInfo radeon_device_list[] = {
   { 0x6798, CHIP_FAMILY_TAHITI, 0, 0, 0, 0, 0 },
   { 0x679A, CHIP_FAMILY_TAHITI, 0, 0, 0, 0, 0 },
   { 0x679E, CHIP_FAMILY_TAHITI, 0, 0, 0, 0, 0 },
+//Hawaii
+    { 0x67B0, CHIP_FAMILY_HAWAII, 0, 0, 0, 0, 0 },
+    { 0x67B1, CHIP_FAMILY_HAWAII, 0, 0, 0, 0, 0 },
+    { 0x67B8, CHIP_FAMILY_HAWAII, 0, 0, 0, 0, 0 },
+    { 0x67B9, CHIP_FAMILY_HAWAII, 0, 0, 0, 0, 0 },
 //Pitcairn
   { 0x6800, CHIP_FAMILY_PITCAIRN, 0, 0, 0, 0, 0 },
   { 0x6818, CHIP_FAMILY_PITCAIRN, 0, 0, 0, 0, 0 },
@@ -482,5 +526,13 @@ RADEONCardInfo radeon_device_list[] = {
   { 0x68F8, CHIP_FAMILY_Evergreen, 0, 0, 0, 0, 0 },
   { 0x68F9, CHIP_FAMILY_Evergreen, 0, 0, 0, 0, 0 }, 
   { 0x68FE, CHIP_FAMILY_Evergreen, 0, 0, 0, 0, 0 },
+    { 0x6900,	CHIP_FAMILY_TONGA, 1, 0, 0, 0, 0 },//    "ATI Radeon R7 M260/M265",  kExmoor	},
+    { 0x6901,	CHIP_FAMILY_TONGA, 1, 0, 0, 0, 0 },//    "ATI Radeon R5 M255",       kExmoor	},
+    { 0x6920,	CHIP_FAMILY_TONGA, 1, 0, 0, 0, 0 },// "ATI Radeon R9 M395",      kLabrador	},
+    { 0x6921,	CHIP_FAMILY_TONGA, 1, 0, 0, 0, 0 },// "ATI Radeon R9 M295X",      kExmoor	},
+    { 0x692b,	CHIP_FAMILY_TONGA, 0, 0, 0, 0, 0 },//   "ATI Firepro W7100",      kBaladi	},
+    { 0x6938,	CHIP_FAMILY_TONGA, 1, 0, 0, 0, 0 },// "ATI Radeon R9 M295X",      kExmoor	},
+    { 0x6939,	CHIP_FAMILY_TONGA, 0, 0, 0, 0, 0 },//    "ATI Radeon R9 285",        kBaladi	},
+
 	{0, 0, 0, 0, 0, 0, 0 },
 };

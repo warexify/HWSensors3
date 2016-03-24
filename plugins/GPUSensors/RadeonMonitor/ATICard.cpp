@@ -69,10 +69,17 @@ bool ATICard::initialize()
 			//setup_Evergreen();
 			tempFamily = R8xx;
 			break;
-    case   CHIP_FAMILY_PITCAIRN:
-    case   CHIP_FAMILY_TAHITI:
-    case   CHIP_FAMILY_VERDE:
+        case   CHIP_FAMILY_PITCAIRN:
+        case   CHIP_FAMILY_TAHITI:
+        case   CHIP_FAMILY_VERDE:
 			tempFamily = R9xx;
+        case   CHIP_FAMILY_HAWAII:
+        case       CHIP_FAMILY_OLAND:
+        case       CHIP_FAMILY_BONAIRE:
+        case       CHIP_FAMILY_HAINAN:
+        case       CHIP_FAMILY_TONGA:
+
+			tempFamily = RCIx;
 			break;
 			
 		default:
@@ -236,6 +243,27 @@ IOReturn ATICard::TahitiTemperatureSensor(UInt16* data)
 	UInt32 temp, actual_temp = 0;
 	for (int i=0; i<1000; i++) {  //attempts to ready
 		temp = (read32(CG_SI_THERMAL_STATUS) & CTF_TEMP_MASK) >> CTF_TEMP_SHIFT;
+		if ((temp >> 10) & 1)
+			actual_temp = 0;
+		else if ((temp >> 9) & 1)
+			actual_temp = 255;
+		else {
+			actual_temp = temp; //(temp >> 1) & 0xff;
+			break;
+		}
+		IOSleep(10);
+	}
+	
+	*data = (UInt16)(actual_temp & 0x1ff);
+	//data[1] = 0;
+	return kIOReturnSuccess;
+}
+
+IOReturn ATICard::HawaiiTemperatureSensor(UInt16* data)
+{
+	UInt32 temp, actual_temp = 0;
+	for (int i=0; i<1000; i++) {  //attempts to ready
+		temp = (read32(CG_CI_MULT_THERMAL_STATUS) & CI_CTF_TEMP_MASK) >> CI_CTF_TEMP_SHIFT;
 		if ((temp >> 10) & 1)
 			actual_temp = 0;
 		else if ((temp >> 9) & 1)

@@ -330,6 +330,7 @@ IOService* IntelCPUMonitor::probe(IOService *provider, SInt32 *score)
                 case CPU_MODEL_AIRMONT:
                 case CPU_MODEL_AVOTON:
                 case CPU_MODEL_SKYLAKE_U:
+                case CPU_MODEL_BROADWELL_E5:
                 case CPU_MODEL_BROADWELL_DE:
                 case CPU_MODEL_KNIGHT:
                 case CPU_MODEL_MOOREFIELD:

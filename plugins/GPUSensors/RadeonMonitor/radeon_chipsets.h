@@ -26,18 +26,29 @@
 #include <IOKit/IOLib.h>
 #include "atombios.h"
 
-#define	CG_MULT_THERMAL_STATUS				0x740
+#define	CG_MULT_THERMAL_STATUS			0x740
 #define		ASIC_TM(x)			        ((x) << 16)
-#define		ASIC_TM_MASK			        0x3FF0000
-#define		ASIC_TM_SHIFT			        16
+#define		ASIC_TM_MASK			    0x3FF0000
+#define		ASIC_TM_SHIFT			    16
 #define	CG_THERMAL_STATUS				0x7F4
 #define		ASIC_T(x)			        ((x) << 0)
 #define		ASIC_T_MASK			        0x1FF
 #define		ASIC_T_SHIFT			        0
-#define  CG_SI_THERMAL_STATUS		0x714
+#define  CG_SI_THERMAL_STATUS           0x714
 #define		CTF_TEMP(x)					((x) << 9)
 #define		CTF_TEMP_MASK				0x0003fe00
 #define		CTF_TEMP_SHIFT				9
+
+#define	CG_CI_MULT_THERMAL_STATUS		0xC0300014
+#define		CI_ASIC_MAX_TEMP(x)			((x) << 0)
+#define		CI_ASIC_MAX_TEMP_MASK		0x000001ff
+#define		CI_ASIC_MAX_TEMP_SHIFT		0
+#define		CI_CTF_TEMP(x)				((x) << 9)
+#define		CI_CTF_TEMP_MASK			0x0003fe00
+#define		CI_CTF_TEMP_SHIFT			9
+
+#define	CG_KV_MULT_THERMAL_STATUS		0xC0300E0C
+//actual_temp = (temp / 8) - 49;
 
 
 typedef struct {
@@ -104,9 +115,14 @@ enum radeon_family {
 	CHIP_FAMILY_JUNIPER,
 	CHIP_FAMILY_CYPRESS,
 	CHIP_FAMILY_HEMLOCK,
-  CHIP_FAMILY_PITCAIRN,
-  CHIP_FAMILY_TAHITI,
-  CHIP_FAMILY_VERDE,
+    CHIP_FAMILY_PITCAIRN,
+    CHIP_FAMILY_TAHITI,
+    CHIP_FAMILY_VERDE,
+    CHIP_FAMILY_HAWAII,
+    CHIP_FAMILY_OLAND,
+    CHIP_FAMILY_BONAIRE,
+    CHIP_FAMILY_HAINAN,
+    CHIP_FAMILY_TONGA,
     CHIP_FAMILY_LAST,
 };
 

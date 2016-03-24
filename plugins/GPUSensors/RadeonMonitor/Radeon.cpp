@@ -196,7 +196,10 @@ IOReturn RadeonMonitor::callPlatformFunction(const OSSymbol *functionName, bool 
 					Card->EverTemperatureSensor(&t);
 					break;
 				case R9xx:
-					Card->TahitiTemperatureSensor(&t);
+					Card->TahitiTemperatureSensor(&t); 
+					break;
+				case RCIx:
+					Card->HawaiiTemperatureSensor(&t);
 					break;
 				default:
 					break;

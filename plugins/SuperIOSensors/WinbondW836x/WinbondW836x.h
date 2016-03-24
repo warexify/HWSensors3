@@ -118,6 +118,7 @@ enum W836xModel {
     NCT6779D    = 0xC560,
     NCT6791D    = 0xC803,
     NCT6792D    = 0xC911,
+    NCT6793D    = 0xD121,
 };
 
 class W836x : public SuperIOMonitor

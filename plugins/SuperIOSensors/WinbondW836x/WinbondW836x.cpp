@@ -405,49 +405,52 @@ bool W836x::probePort()
 			{
 				case 0x50:
 					model = W83667HGB;
-          fanLimit = 4;
+                    fanLimit = 4;
 					break;
 			}
 			break;
 		}
-      
-    case 0xB4:
-      switch (revision & 0xF0) {
-        case 0x70:
-          model = NCT6771F;
-//          minFanRPM = (int)(1.35e6 / 0xFFFF);
-          break;
-      } break;
-    case 0xC3:
-      switch (revision & 0xF0) {
-        case 0x30:
-          model = NCT6776F;
-//          minFanRPM = (int)(1.35e6 / 0x1FFF);
-          break;
-      } break;
-    case 0xC5:
-      switch (revision & 0xF0) {
-        case 0x60:
-          model = NCT6779D;
-//          minFanRPM = (int)(1.35e6 / 0x1FFF);
-          break;
-      } break;
-    case 0xC8:
-      /*      switch (revision & 0xFF) {
-       case 0x03:
-       model = NCT6791D;
-       minFanRPM = (int)(1.35e6 / 0x1FFF);
-       break;
-       } break; */
-      model = NCT6791D;
-//      minFanRPM = (int)(1.35e6 / 0x1FFF);
-      break;
+            
+        case 0xB4:
+            switch (revision & 0xF0) {
+                case 0x70:
+                    model = NCT6771F;
+                    //          minFanRPM = (int)(1.35e6 / 0xFFFF);
+                    break;
+            } break;
+        case 0xC3:
+            switch (revision & 0xF0) {
+                case 0x30:
+                    model = NCT6776F;
+                    //          minFanRPM = (int)(1.35e6 / 0x1FFF);
+                    break;
+            } break;
+        case 0xC5:
+            switch (revision & 0xF0) {
+                case 0x60:
+                    model = NCT6779D;
+                    //          minFanRPM = (int)(1.35e6 / 0x1FFF);
+                    break;
+            } break;
+        case 0xC8:
+            /*      switch (revision & 0xFF) {
+             case 0x03:
+             model = NCT6791D;
+             minFanRPM = (int)(1.35e6 / 0x1FFF);
+             break;
+             } break; */
+            model = NCT6791D;
+            //      minFanRPM = (int)(1.35e6 / 0x1FFF);
+            break;
         case 0xC9:
             model = NCT6792D;
             break;
-    default:
-      break;
-
+        case 0xD1:
+            model = NCT6793D;
+            break;
+        default:
+            break;
+            
 			
 			/*default:
 			 {
@@ -809,6 +812,7 @@ const char *W836x::getModelName()
         case NCT6779D:  return "NCT6779D";
         case NCT6791D:  return "NCT6791D";
         case NCT6792D:  return "NCT6792D";
+        case NCT6793D:  return "NCT6793D";
   
 	}
 	
