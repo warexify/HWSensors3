@@ -1323,7 +1323,7 @@
 		AEABE453125F8E7400F08235 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0610;
+				LastUpgradeCheck = 0720;
 				ORGANIZATIONNAME = slice;
 			};
 			buildConfigurationList = AEABE456125F8E7400F08235 /* Build configuration list for PBXProject "HWSensors" */;
@@ -1779,7 +1779,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -1790,6 +1789,7 @@
 				INFOPLIST_FILE = "GeForceSensors/GeforceSensors-Info.plist";
 				MODULE_NAME = com.kozlek.driver.GeforceSensor;
 				MODULE_VERSION = 1.0.1;
+				PRODUCT_BUNDLE_IDENTIFIER = "org.kozlek.${PRODUCT_NAME}";
 				PRODUCT_NAME = GeforceSensor;
 				SDKROOT = macosx;
 				WRAPPER_EXTENSION = kext;
@@ -1800,7 +1800,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_MODEL_TUNING = G5;
@@ -1809,6 +1808,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				MODULE_NAME = com.kozlek.driver.GeforceSensor;
 				MODULE_VERSION = 1.0.1;
+				PRODUCT_BUNDLE_IDENTIFIER = "org.kozlek.${PRODUCT_NAME}";
 				PRODUCT_NAME = GeforceSensor;
 				SDKROOT = macosx;
 				WRAPPER_EXTENSION = kext;
@@ -1819,7 +1819,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_MODEL_TUNING = G5;
@@ -1828,6 +1827,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.5;
 				MODULE_NAME = org.kozlek.driver.GeforceSensor;
 				MODULE_VERSION = 1.0.1;
+				PRODUCT_BUNDLE_IDENTIFIER = "org.kozlek.${PRODUCT_NAME}";
 				PRODUCT_NAME = GeforceSensor;
 				SDKROOT = macosx;
 				WRAPPER_EXTENSION = kext;
@@ -1838,7 +1838,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_MODEL_TUNING = G5;
@@ -1847,6 +1846,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.4;
 				MODULE_NAME = org.kozlek.driver.GeforceSensor;
 				MODULE_VERSION = 1.0.1;
+				PRODUCT_BUNDLE_IDENTIFIER = "org.kozlek.${PRODUCT_NAME}";
 				PRODUCT_NAME = GeforceSensor;
 				SDKROOT = macosx;
 				WRAPPER_EXTENSION = kext;
@@ -1857,7 +1857,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -1885,6 +1884,7 @@
 				MODULE_NAME = org.slice.DIMMSensor;
 				MODULE_VERSION = 1.0.0d1;
 				ONLY_ACTIVE_ARCH = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = "org.slice.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = "";
 				WRAPPER_EXTENSION = kext;
@@ -1895,7 +1895,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -1916,6 +1915,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				MODULE_NAME = org.slice.DIMMSensor;
 				MODULE_VERSION = 1.0.0d1;
+				PRODUCT_BUNDLE_IDENTIFIER = "org.slice.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = "";
 				WRAPPER_EXTENSION = kext;
@@ -1926,7 +1926,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -1947,6 +1946,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				MODULE_NAME = org.slice.DIMMSensor;
 				MODULE_VERSION = 1.0.0d1;
+				PRODUCT_BUNDLE_IDENTIFIER = "org.slice.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = "";
 				WRAPPER_EXTENSION = kext;
@@ -1957,7 +1957,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -1978,6 +1977,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				MODULE_NAME = org.slice.DIMMSensor;
 				MODULE_VERSION = 1.0.0d1;
+				PRODUCT_BUNDLE_IDENTIFIER = "org.slice.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = "";
 				WRAPPER_EXTENSION = kext;
@@ -1988,7 +1988,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
 				CLANG_CXX_LIBRARY = "compiler-default";
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
@@ -2020,6 +2019,7 @@
 				MODULE_NAME = org.slice.HWInfo;
 				MODULE_VERSION = 1.0.0d1;
 				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "org.slice.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				WRAPPER_EXTENSION = kext;
@@ -2030,7 +2030,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
 				CLANG_CXX_LIBRARY = "compiler-default";
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
@@ -2056,6 +2055,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				MODULE_NAME = org.slice.HWInfo;
 				MODULE_VERSION = 1.0.0d1;
+				PRODUCT_BUNDLE_IDENTIFIER = "org.slice.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				WRAPPER_EXTENSION = kext;
@@ -2066,7 +2066,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
 				CLANG_CXX_LIBRARY = "compiler-default";
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
@@ -2092,6 +2091,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.5;
 				MODULE_NAME = org.slice.HWInfo;
 				MODULE_VERSION = 1.0.0d1;
+				PRODUCT_BUNDLE_IDENTIFIER = "org.slice.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				WRAPPER_EXTENSION = kext;
@@ -2102,7 +2102,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
 				CLANG_CXX_LIBRARY = "compiler-default";
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
@@ -2128,6 +2127,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.4;
 				MODULE_NAME = org.slice.HWInfo;
 				MODULE_VERSION = 1.0.0d1;
+				PRODUCT_BUNDLE_IDENTIFIER = "org.slice.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				WRAPPER_EXTENSION = kext;
@@ -2138,7 +2138,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -2149,6 +2148,7 @@
 				INFOPLIST_FILE = "plugins/SMBusSensors/Andigilog-Info.plist";
 				MODULE_NAME = org.dukzcry.driver.Andigilog;
 				MODULE_VERSION = 1.0.0d1;
+				PRODUCT_BUNDLE_IDENTIFIER = cc.dukzcry.Andigilog;
 				PRODUCT_NAME = Andigilog;
 				SDKROOT = macosx;
 				WRAPPER_EXTENSION = kext;
@@ -2159,7 +2159,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_MODEL_TUNING = "";
@@ -2169,6 +2168,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				MODULE_NAME = org.dukzcry.driver.Andigilog;
 				MODULE_VERSION = 1.0.1;
+				PRODUCT_BUNDLE_IDENTIFIER = cc.dukzcry.Andigilog;
 				PRODUCT_NAME = Andigilog;
 				SDKROOT = macosx;
 				WRAPPER_EXTENSION = kext;
@@ -2179,7 +2179,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_MODEL_TUNING = G5;
@@ -2187,6 +2186,7 @@
 				INFOPLIST_FILE = "plugins/SMBusSensors/Andigilog-Info.plist";
 				MODULE_NAME = org.dukzcry.driver.Andigilog;
 				MODULE_VERSION = 1.0.0d1;
+				PRODUCT_BUNDLE_IDENTIFIER = cc.dukzcry.Andigilog;
 				PRODUCT_NAME = Andigilog;
 				SDKROOT = macosx;
 				WRAPPER_EXTENSION = kext;
@@ -2197,7 +2197,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_MODEL_TUNING = G5;
@@ -2206,6 +2205,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.4;
 				MODULE_NAME = org.dukzcry.driver.Andigilog;
 				MODULE_VERSION = 1.0.0d1;
+				PRODUCT_BUNDLE_IDENTIFIER = cc.dukzcry.Andigilog;
 				PRODUCT_NAME = Andigilog;
 				SDKROOT = macosx;
 				WRAPPER_EXTENSION = kext;
@@ -2216,7 +2216,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -2228,6 +2227,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				MODULE_NAME = org.slice.sensor.AmdCPUMonitor;
 				MODULE_VERSION = 1.0.0d1;
+				PRODUCT_BUNDLE_IDENTIFIER = "org.slice.sensor.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = AmdCPUMonitor;
 				SDKROOT = macosx;
 				WRAPPER_EXTENSION = kext;
@@ -2238,7 +2238,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_MODEL_TUNING = "";
@@ -2248,6 +2247,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				MODULE_NAME = org.slice.sensor.AmdCPUMonitor;
 				MODULE_VERSION = 1.0.0d1;
+				PRODUCT_BUNDLE_IDENTIFIER = "org.slice.sensor.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = AmdCPUMonitor;
 				SDKROOT = macosx;
 				WRAPPER_EXTENSION = kext;
@@ -2258,7 +2258,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_MODEL_TUNING = G5;
@@ -2267,6 +2266,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				MODULE_NAME = org.slice.sensor.AmdCPUMonitor;
 				MODULE_VERSION = 1.0.0d1;
+				PRODUCT_BUNDLE_IDENTIFIER = "org.slice.sensor.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = AmdCPUMonitor;
 				SDKROOT = macosx;
 				WRAPPER_EXTENSION = kext;
@@ -2277,7 +2277,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_MODEL_TUNING = G5;
@@ -2286,6 +2285,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				MODULE_NAME = org.slice.sensor.AmdCPUMonitor;
 				MODULE_VERSION = 1.0.0d1;
+				PRODUCT_BUNDLE_IDENTIFIER = "org.slice.sensor.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = AmdCPUMonitor;
 				SDKROOT = macosx;
 				WRAPPER_EXTENSION = kext;
@@ -2296,7 +2296,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -2308,6 +2307,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				MODULE_NAME = com.yourcompany.driver.ADT7470;
 				MODULE_VERSION = 1.0.0d1;
+				PRODUCT_BUNDLE_IDENTIFIER = org.dukzcry.ADT7470;
 				PRODUCT_NAME = ADT7470;
 				SDKROOT = macosx;
 				WRAPPER_EXTENSION = kext;
@@ -2318,7 +2318,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_MODEL_TUNING = "";
@@ -2327,6 +2326,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				MODULE_NAME = org.duczcry.driver.ADT7470;
 				MODULE_VERSION = 1.0.0d1;
+				PRODUCT_BUNDLE_IDENTIFIER = org.dukzcry.ADT7470;
 				PRODUCT_NAME = ADT7470;
 				SDKROOT = macosx;
 				WRAPPER_EXTENSION = kext;
@@ -2337,7 +2337,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_MODEL_TUNING = G5;
@@ -2346,6 +2345,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				MODULE_NAME = com.yourcompany.driver.ADT7470;
 				MODULE_VERSION = 1.0.0d1;
+				PRODUCT_BUNDLE_IDENTIFIER = org.dukzcry.ADT7470;
 				PRODUCT_NAME = ADT7470;
 				SDKROOT = macosx;
 				WRAPPER_EXTENSION = kext;
@@ -2356,7 +2356,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_MODEL_TUNING = G5;
@@ -2365,6 +2364,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				MODULE_NAME = com.yourcompany.driver.ADT7470;
 				MODULE_VERSION = 1.0.0d1;
+				PRODUCT_BUNDLE_IDENTIFIER = org.dukzcry.ADT7470;
 				PRODUCT_NAME = ADT7470;
 				SDKROOT = macosx;
 				WRAPPER_EXTENSION = kext;
@@ -2375,7 +2375,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "";
@@ -2403,6 +2402,7 @@
 				MODULE_NAME = org.slice.SMIMonitor;
 				MODULE_VERSION = 1.0.0d1;
 				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "org.slice.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SDKROOT = macosx;
@@ -2414,7 +2414,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "";
@@ -2436,6 +2435,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				MODULE_NAME = org.slice.SMIMonitor;
 				MODULE_VERSION = 1.0.0d1;
+				PRODUCT_BUNDLE_IDENTIFIER = "org.slice.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SDKROOT = macosx;
@@ -2447,7 +2447,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "";
@@ -2469,6 +2468,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				MODULE_NAME = org.slice.SMIMonitor;
 				MODULE_VERSION = 1.0.0d1;
+				PRODUCT_BUNDLE_IDENTIFIER = "org.slice.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SDKROOT = macosx;
@@ -2480,7 +2480,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "";
@@ -2502,6 +2501,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				MODULE_NAME = org.slice.SMIMonitor;
 				MODULE_VERSION = 1.0.0d1;
+				PRODUCT_BUNDLE_IDENTIFIER = "org.slice.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SDKROOT = macosx;
@@ -2513,7 +2513,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -2529,6 +2528,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				MODULE_NAME = com.yourcompany.driver.IntelCPUMonitor;
 				MODULE_VERSION = 1.0.1;
+				PRODUCT_BUNDLE_IDENTIFIER = "org.slice.${PRODUCT_NAME}";
 				PRODUCT_NAME = IntelCPUMonitor;
 				SDKROOT = macosx;
 				WRAPPER_EXTENSION = kext;
@@ -2539,7 +2539,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2552,6 +2551,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				MODULE_NAME = org.slice.IntelCPUMonitor;
 				MODULE_VERSION = 1.1;
+				PRODUCT_BUNDLE_IDENTIFIER = "org.slice.${PRODUCT_NAME}";
 				PRODUCT_NAME = IntelCPUMonitor;
 				SDKROOT = macosx;
 				WRAPPER_EXTENSION = kext;
@@ -2562,7 +2562,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2577,6 +2576,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				MODULE_NAME = com.yourcompany.driver.IntelCPUMonitor;
 				MODULE_VERSION = 1.0.1;
+				PRODUCT_BUNDLE_IDENTIFIER = "org.slice.${PRODUCT_NAME}";
 				PRODUCT_NAME = IntelCPUMonitor;
 				SDKROOT = macosx;
 				WRAPPER_EXTENSION = kext;
@@ -2587,7 +2587,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2600,6 +2599,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				MODULE_NAME = com.yourcompany.driver.IntelCPUMonitor;
 				MODULE_VERSION = 1.0.1;
+				PRODUCT_BUNDLE_IDENTIFIER = "org.slice.${PRODUCT_NAME}";
 				PRODUCT_NAME = IntelCPUMonitor;
 				SDKROOT = macosx;
 				WRAPPER_EXTENSION = kext;
@@ -2610,7 +2610,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -2622,6 +2621,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				MODULE_NAME = com.yourcompany.driver.X3100;
 				MODULE_VERSION = 1.0.0d1;
+				PRODUCT_BUNDLE_IDENTIFIER = "org.slice.sensor.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = X3100;
 				SDKROOT = macosx;
 				WRAPPER_EXTENSION = kext;
@@ -2632,7 +2632,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
@@ -2640,6 +2639,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				MODULE_NAME = org.slice.sensor.X3100;
 				MODULE_VERSION = 1.0.0d1;
+				PRODUCT_BUNDLE_IDENTIFIER = "org.slice.sensor.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = X3100;
 				SDKROOT = macosx;
 				WRAPPER_EXTENSION = kext;
@@ -2650,7 +2650,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_AUTO_VECTORIZATION = YES;
@@ -2661,6 +2660,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				MODULE_NAME = org.slice.sensor.X3100;
 				MODULE_VERSION = 1.0.0d1;
+				PRODUCT_BUNDLE_IDENTIFIER = "org.slice.sensor.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = X3100;
 				SDKROOT = macosx;
 				WRAPPER_EXTENSION = kext;
@@ -2671,7 +2671,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_MODEL_TUNING = G5;
@@ -2680,6 +2679,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				MODULE_NAME = com.yourcompany.driver.X3100;
 				MODULE_VERSION = 1.0.0d1;
+				PRODUCT_BUNDLE_IDENTIFIER = "org.slice.sensor.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = X3100;
 				SDKROOT = macosx;
 				WRAPPER_EXTENSION = kext;
@@ -2689,7 +2689,6 @@
 		12D78B2112BFDCFF002C61EA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				CODE_SIGN_IDENTITY = "";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
@@ -2702,6 +2701,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				MODULE_NAME = com.yourcompany.driver.RadeonMonitor;
 				MODULE_VERSION = 1.0.0d1;
+				PRODUCT_BUNDLE_IDENTIFIER = org.slice.RadeonMonitor;
 				PRODUCT_NAME = RadeonMonitor;
 				PROVISIONING_PROFILE = "";
 				SDKROOT = macosx;
@@ -2713,7 +2713,6 @@
 		12D78B2212BFDCFF002C61EA /* Release 10.6 */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				CODE_SIGN_IDENTITY = "";
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_MODEL_TUNING = "";
@@ -2722,6 +2721,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				MODULE_NAME = org.slice.RadeonMonitor;
 				MODULE_VERSION = 1.0.0d1;
+				PRODUCT_BUNDLE_IDENTIFIER = org.slice.RadeonMonitor;
 				PRODUCT_NAME = RadeonMonitor;
 				PROVISIONING_PROFILE = "";
 				SDKROOT = macosx;
@@ -2733,7 +2733,6 @@
 		12D78B2312BFDCFF002C61EA /* Release 10.5 */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				CODE_SIGN_IDENTITY = "";
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_AUTO_VECTORIZATION = YES;
@@ -2744,6 +2743,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				MODULE_NAME = org.slice.RadeonMonitor;
 				MODULE_VERSION = 1.0.0d1;
+				PRODUCT_BUNDLE_IDENTIFIER = org.slice.RadeonMonitor;
 				PRODUCT_NAME = RadeonMonitor;
 				PROVISIONING_PROFILE = "";
 				SDKROOT = macosx;
@@ -2755,7 +2755,6 @@
 		12D78B2412BFDCFF002C61EA /* Release 10.4 */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				CODE_SIGN_IDENTITY = "";
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
@@ -2763,6 +2762,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				MODULE_NAME = org.slice.RadeonMonitor;
 				MODULE_VERSION = 1.0.0d1;
+				PRODUCT_BUNDLE_IDENTIFIER = org.slice.RadeonMonitor;
 				PRODUCT_NAME = RadeonMonitor;
 				PROVISIONING_PROFILE = "";
 				SDKROOT = macosx;
@@ -2775,7 +2775,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -2786,6 +2785,7 @@
 				INFOPLIST_FILE = "F718x-Info.plist";
 				MODULE_NAME = com.yourcompany.driver.F718x;
 				MODULE_VERSION = 1.0.0d1;
+				PRODUCT_BUNDLE_IDENTIFIER = "org.mozodojo.${PRODUCT_NAME}";
 				PRODUCT_NAME = F718x;
 				SDKROOT = macosx;
 				WRAPPER_EXTENSION = kext;
@@ -2796,7 +2796,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_MODEL_TUNING = "";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
@@ -2804,6 +2803,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				MODULE_NAME = org.mozodojo.F718x;
 				MODULE_VERSION = 1.0.0d1;
+				PRODUCT_BUNDLE_IDENTIFIER = "org.mozodojo.${PRODUCT_NAME}";
 				PRODUCT_NAME = F718x;
 				SDKROOT = macosx;
 				WRAPPER_EXTENSION = kext;
@@ -2814,7 +2814,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_AUTO_VECTORIZATION = YES;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
@@ -2823,6 +2822,7 @@
 				INFOPLIST_FILE = "F718x-pre106-Info.plist";
 				MODULE_NAME = org.mozodojo.F718x;
 				MODULE_VERSION = 1.0.0d1;
+				PRODUCT_BUNDLE_IDENTIFIER = "org.mozodojo.${PRODUCT_NAME}";
 				PRODUCT_NAME = F718x;
 				SDKROOT = macosx;
 				WRAPPER_EXTENSION = kext;
@@ -2833,7 +2833,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_MODEL_TUNING = G5;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
@@ -2841,6 +2840,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.4;
 				MODULE_NAME = org.mozodojo.F718x;
 				MODULE_VERSION = 1.0.0d1;
+				PRODUCT_BUNDLE_IDENTIFIER = "org.mozodojo.${PRODUCT_NAME}";
 				PRODUCT_NAME = F718x;
 				SDKROOT = macosx;
 				WRAPPER_EXTENSION = kext;
@@ -2851,7 +2851,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -2862,6 +2861,7 @@
 				INFOPLIST_FILE = "PC8739x-Info.plist";
 				MODULE_NAME = com.yourcompany.driver.PC8739x;
 				MODULE_VERSION = 1.0.0d1;
+				PRODUCT_BUNDLE_IDENTIFIER = "org.slice.${PRODUCT_NAME}";
 				PRODUCT_NAME = PC8739x;
 				SDKROOT = macosx;
 				WRAPPER_EXTENSION = kext;
@@ -2872,7 +2872,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_MODEL_TUNING = "";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
@@ -2880,6 +2879,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				MODULE_NAME = org.slice.PC8739x;
 				MODULE_VERSION = 1.0.0d1;
+				PRODUCT_BUNDLE_IDENTIFIER = "org.slice.${PRODUCT_NAME}";
 				PRODUCT_NAME = PC8739x;
 				SDKROOT = macosx;
 				WRAPPER_EXTENSION = kext;
@@ -2890,13 +2890,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_MODEL_TUNING = G5;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "PC8739x-pre106-Info.plist";
 				MODULE_NAME = org.slice.PC8739x;
 				MODULE_VERSION = 1.0.0d1;
+				PRODUCT_BUNDLE_IDENTIFIER = "org.slice.${PRODUCT_NAME}";
 				PRODUCT_NAME = PC8739x;
 				SDKROOT = macosx;
 				WRAPPER_EXTENSION = kext;
@@ -2907,7 +2907,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_MODEL_TUNING = G5;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
@@ -2915,6 +2914,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.4;
 				MODULE_NAME = org.slice.PC8739x;
 				MODULE_VERSION = 1.0.0d1;
+				PRODUCT_BUNDLE_IDENTIFIER = "org.slice.${PRODUCT_NAME}";
 				PRODUCT_NAME = PC8739x;
 				SDKROOT = macosx;
 				WRAPPER_EXTENSION = kext;
@@ -2925,7 +2925,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				CODE_SIGN_IDENTITY = "";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
@@ -2937,6 +2936,7 @@
 				INFOPLIST_FILE = "plugins/SuperIOSensors/WinbondW836x/WinbondW836x-Info.plist";
 				MODULE_NAME = org.mozodojo.W836x;
 				MODULE_VERSION = 1.0.0d1;
+				PRODUCT_BUNDLE_IDENTIFIER = "org.mozodojo.${PRODUCT_NAME}";
 				PRODUCT_NAME = W836x;
 				PROVISIONING_PROFILE = "";
 				SDKROOT = macosx;
@@ -2948,7 +2948,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				CODE_SIGN_IDENTITY = "";
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_MODEL_TUNING = "";
@@ -2957,6 +2956,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				MODULE_NAME = org.mozodojo.W836x;
 				MODULE_VERSION = 1.0.0d1;
+				PRODUCT_BUNDLE_IDENTIFIER = "org.mozodojo.${PRODUCT_NAME}";
 				PRODUCT_NAME = W836x;
 				PROVISIONING_PROFILE = "";
 				SDKROOT = macosx;
@@ -2968,7 +2968,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				CODE_SIGN_IDENTITY = "";
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_AUTO_VECTORIZATION = YES;
@@ -2978,6 +2977,7 @@
 				INFOPLIST_FILE = "W836x-pre106-Info.plist";
 				MODULE_NAME = org.mozodojo.W836x;
 				MODULE_VERSION = 1.0.0d1;
+				PRODUCT_BUNDLE_IDENTIFIER = "org.mozodojo.${PRODUCT_NAME}";
 				PRODUCT_NAME = W836x;
 				PROVISIONING_PROFILE = "";
 				SDKROOT = macosx;
@@ -2989,7 +2989,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				CODE_SIGN_IDENTITY = "";
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_MODEL_TUNING = G5;
@@ -2998,6 +2997,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.4;
 				MODULE_NAME = org.mozodojo.W836x;
 				MODULE_VERSION = 1.0.0d1;
+				PRODUCT_BUNDLE_IDENTIFIER = "org.mozodojo.${PRODUCT_NAME}";
 				PRODUCT_NAME = W836x;
 				PROVISIONING_PROFILE = "";
 				SDKROOT = macosx;
@@ -3009,7 +3009,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -3021,6 +3020,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				MODULE_NAME = com.yourcompany.driver.NVClockX;
 				MODULE_VERSION = 1.0.1d1;
+				PRODUCT_BUNDLE_IDENTIFIER = "org.usrsse2.${PRODUCT_NAME}";
 				PRODUCT_NAME = NVClockX;
 				SDKROOT = macosx;
 				WRAPPER_EXTENSION = kext;
@@ -3031,7 +3031,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_MODEL_TUNING = "";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
@@ -3039,6 +3038,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				MODULE_NAME = org.usrsse2.NVClockX;
 				MODULE_VERSION = 1.0.1d1;
+				PRODUCT_BUNDLE_IDENTIFIER = "org.usrsse2.${PRODUCT_NAME}";
 				PRODUCT_NAME = NVClockX;
 				SDKROOT = macosx;
 				WRAPPER_EXTENSION = kext;
@@ -3049,7 +3049,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_AUTO_VECTORIZATION = YES;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
@@ -3059,6 +3058,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				MODULE_NAME = org.usrsse2.NVClockX;
 				MODULE_VERSION = 1.0.1d1;
+				PRODUCT_BUNDLE_IDENTIFIER = "org.usrsse2.${PRODUCT_NAME}";
 				PRODUCT_NAME = NVClockX;
 				SDKROOT = macosx;
 				WRAPPER_EXTENSION = kext;
@@ -3069,7 +3069,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_MODEL_TUNING = G5;
@@ -3078,6 +3077,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				MODULE_NAME = org.usrsse2.NVClockX;
 				MODULE_VERSION = 1.0.1d1;
+				PRODUCT_BUNDLE_IDENTIFIER = "org.usrsse2.${PRODUCT_NAME}";
 				PRODUCT_NAME = NVClockX;
 				SDKROOT = macosx;
 				WRAPPER_EXTENSION = kext;
@@ -3088,7 +3088,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -3100,8 +3099,9 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				MODULE_NAME = org.slice.ACPIMonitor;
 				MODULE_VERSION = 1.0.0d1;
+				PRODUCT_BUNDLE_IDENTIFIER = "org.slice.${PRODUCT_NAME}";
 				PRODUCT_NAME = ACPIMonitor;
-				SDKROOT = macosx;
+				SDKROOT = macosx10.8;
 				WRAPPER_EXTENSION = kext;
 			};
 			name = Debug;
@@ -3110,7 +3110,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_MODEL_TUNING = "";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
@@ -3118,8 +3117,10 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				MODULE_NAME = org.slice.ACPIMonitor;
 				MODULE_VERSION = 1.0.0d1;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "org.slice.${PRODUCT_NAME}";
 				PRODUCT_NAME = ACPIMonitor;
-				SDKROOT = macosx;
+				SDKROOT = macosx10.8;
 				WRAPPER_EXTENSION = kext;
 			};
 			name = "Release 10.6";
@@ -3128,7 +3129,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_AUTO_VECTORIZATION = YES;
@@ -3139,8 +3139,9 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				MODULE_NAME = org.slice.ACPIMonitor;
 				MODULE_VERSION = 1.0.0d1;
+				PRODUCT_BUNDLE_IDENTIFIER = "org.slice.${PRODUCT_NAME}";
 				PRODUCT_NAME = ACPIMonitor;
-				SDKROOT = macosx;
+				SDKROOT = macosx10.8;
 				WRAPPER_EXTENSION = kext;
 			};
 			name = "Release 10.5";
@@ -3149,7 +3150,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_MODEL_TUNING = G5;
@@ -3158,8 +3158,9 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				MODULE_NAME = org.slice.ACPIMonitor;
 				MODULE_VERSION = 1.0.0d1;
+				PRODUCT_BUNDLE_IDENTIFIER = "org.slice.${PRODUCT_NAME}";
 				PRODUCT_NAME = ACPIMonitor;
-				SDKROOT = macosx;
+				SDKROOT = macosx10.8;
 				WRAPPER_EXTENSION = kext;
 			};
 			name = "Release 10.4";
@@ -3170,8 +3171,9 @@
 				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_IDENTITY = "";
 				COPY_PHASE_STRIP = NO;
+				ENABLE_TESTABILITY = YES;
 				GCC_VERSION = "";
-				MACOSX_DEPLOYMENT_TARGET = "";
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				ONLY_ACTIVE_ARCH = YES;
 				PROVISIONING_PROFILE = "";
 				SDKROOT = macosx;
@@ -3196,7 +3198,7 @@
 				GCC_WARN_UNUSED_PARAMETER = NO;
 				GCC_WARN_UNUSED_VALUE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = "";
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				PROVISIONING_PROFILE = "";
 				SDKROOT = macosx;
 				VALID_ARCHS = "i386 x86_64";
@@ -3207,7 +3209,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -3218,6 +3219,7 @@
 				INFOPLIST_FILE = "ITEIT87x/ITEIT87x-Info.plist";
 				MODULE_NAME = org.mozodojo.IT87x;
 				MODULE_VERSION = 1.0.0d1;
+				PRODUCT_BUNDLE_IDENTIFIER = org.mozodojo.ITEIT87x;
 				PRODUCT_NAME = ITEIT87x;
 				SDKROOT = macosx;
 				WRAPPER_EXTENSION = kext;
@@ -3228,7 +3230,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = YES;
 				GCC_MODEL_TUNING = "";
@@ -3237,6 +3238,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				MODULE_NAME = org.mozodojo.IT87x;
 				MODULE_VERSION = 1.0.0d1;
+				PRODUCT_BUNDLE_IDENTIFIER = org.mozodojo.ITEIT87x;
 				PRODUCT_NAME = ITEIT87x;
 				SDKROOT = macosx;
 				WRAPPER_EXTENSION = kext;
@@ -3248,7 +3250,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				CODE_SIGN_IDENTITY = "";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
@@ -3262,6 +3263,7 @@
 				MODULE_NAME = org.netkas.FakeSMC;
 				MODULE_VERSION = 3.4.1;
 				ONLY_ACTIVE_ARCH = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = "org.netkas.${PRODUCT_NAME}";
 				PRODUCT_NAME = FakeSMC;
 				PROVISIONING_PROFILE = "";
 				SDKROOT = macosx;
@@ -3272,7 +3274,6 @@
 		AEF4C80712602EE700297B2B /* Release 10.6 */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				CODE_SIGN_IDENTITY = "";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = YES;
@@ -3282,6 +3283,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				MODULE_NAME = org.netkas.FakeSMC;
 				MODULE_VERSION = 3.4.1;
+				PRODUCT_BUNDLE_IDENTIFIER = "org.netkas.${PRODUCT_NAME}";
 				PRODUCT_NAME = FakeSMC;
 				PROVISIONING_PROFILE = "";
 				SDKROOT = macosx;
@@ -3299,7 +3301,7 @@
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_MODEL_TUNING = "";
 				GCC_VERSION = "";
-				MACOSX_DEPLOYMENT_TARGET = "";
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				PROVISIONING_PROFILE = "";
 				SDKROOT = macosx;
 				VALID_ARCHS = i386;
@@ -3310,7 +3312,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = YES;
 				GCC_AUTO_VECTORIZATION = YES;
@@ -3320,6 +3321,7 @@
 				INFOPLIST_FILE = "IT87x-pre106-Info.plist";
 				MODULE_NAME = org.mozodojo.IT87x;
 				MODULE_VERSION = 1.0.0d1;
+				PRODUCT_BUNDLE_IDENTIFIER = org.mozodojo.ITEIT87x;
 				PRODUCT_NAME = ITEIT87x;
 				SDKROOT = macosx;
 				WRAPPER_EXTENSION = kext;
@@ -3330,7 +3332,6 @@
 		AEF4C83B1260304100297B2B /* Release 10.5 */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				CODE_SIGN_IDENTITY = "";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = YES;
@@ -3342,6 +3343,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				MODULE_NAME = org.netkas.FakeSMC;
 				MODULE_VERSION = 3.1.0d1;
+				PRODUCT_BUNDLE_IDENTIFIER = "org.netkas.${PRODUCT_NAME}";
 				PRODUCT_NAME = FakeSMC;
 				PROVISIONING_PROFILE = "";
 				SDKROOT = macosx;
@@ -3360,7 +3362,7 @@
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_MODEL_TUNING = "";
 				GCC_VERSION = "";
-				MACOSX_DEPLOYMENT_TARGET = "";
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				OTHER_CFLAGS = "-DTIGER";
 				PROVISIONING_PROFILE = "";
 				SDKROOT = macosx;
@@ -3372,7 +3374,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = YES;
 				GCC_MODEL_TUNING = G5;
@@ -3381,6 +3382,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.4;
 				MODULE_NAME = org.mozodojo.IT87x;
 				MODULE_VERSION = 1.0.0d1;
+				PRODUCT_BUNDLE_IDENTIFIER = org.mozodojo.ITEIT87x;
 				PRODUCT_NAME = IT87x;
 				SDKROOT = macosx;
 				WRAPPER_EXTENSION = kext;
@@ -3391,7 +3393,6 @@
 		AEF4C83F1260304900297B2B /* Release 10.4 */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
 				CODE_SIGN_IDENTITY = "";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = YES;
@@ -3401,6 +3402,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				MODULE_NAME = org.netkas.FakeSMC;
 				MODULE_VERSION = 3.1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "org.netkas.${PRODUCT_NAME}";
 				PRODUCT_NAME = FakeSMC;
 				PROVISIONING_PROFILE = "";
 				SDKROOT = macosx;

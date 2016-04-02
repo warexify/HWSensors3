@@ -9,7 +9,7 @@
 	<key>CFBundleIconFile</key>
 	<string></string>
 	<key>CFBundleIdentifier</key>
-	<string>cc.dukzcry.Andigilog</string>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
@@ -24,37 +24,20 @@
 	<string>1</string>
 	<key>IOKitPersonalities</key>
 	<dict>
-		<key>ICHSMBus</key>
-		<dict>
-			<key>IOProbeScore</key>
-			<integer>5000</integer>
-			<key>IOPCIClassMatch</key>
-			<string>0x0c050000</string>
-			<key>IOMatchCategory</key>
-			<string>I2CDevice</string>
-			<key>IOPCIMatchComment</key>
-			<string>Intel ICH5(R), ICH6(R/-M), ICH7, ICH8, ICH9, ICH10, 6321ESB, PCH: BD3400, CP, PP, C600 SMBus Controllers</string>
-			<key>IOClass</key>
-			<string>I2CDevice</string>
-			<key>IOProviderClass</key>
-			<string>IOPCIDevice</string>
-			<key>CFBundleIdentifier</key>
-			<string>cc.dukzcry.Andigilog</string>
-		</dict>
 		<key>Andigilog</key>
 		<dict>
-			<key>IOMatchCategory</key>
-			<string>FakeSMCplugin</string>
-			<key>IOClass</key>
-			<string>Andigilog</string>
-			<key>IOResourceMatch</key>
-			<string>IOKit</string>
-			<key>IOProviderClass</key>
-			<string>I2CDevice</string>
-			<key>IOProbeScore</key>
-			<integer>2000</integer>
 			<key>CFBundleIdentifier</key>
 			<string>cc.dukzcry.Andigilog</string>
+			<key>IOClass</key>
+			<string>Andigilog</string>
+			<key>IOMatchCategory</key>
+			<string>FakeSMCplugin</string>
+			<key>IOProbeScore</key>
+			<integer>2000</integer>
+			<key>IOProviderClass</key>
+			<string>I2CDevice</string>
+			<key>IOResourceMatch</key>
+			<string>IOKit</string>
 			<key>Sensors Configuration</key>
 			<dict>
 				<key>Active</key>
@@ -63,164 +46,81 @@
 					<dict>
 						<key>id</key>
 						<string>TC0P</string>
-						<key>type</key>
-						<string>sp78</string>
 						<key>size</key>
 						<integer>2</integer>
+						<key>type</key>
+						<string>sp78</string>
 					</dict>
 					<key>_temp1</key>
 					<dict>
 						<key>id</key>
 						<string>TA0P</string>
-						<key>type</key>
-						<string>sp78</string>
 						<key>size</key>
 						<integer>2</integer>
+						<key>type</key>
+						<string>sp78</string>
 					</dict>
 					<key>_temp2</key>
 					<dict>
 						<key>id</key>
 						<string>Tm0P</string>
-						<key>type</key>
-						<string>sp78</string>
 						<key>size</key>
 						<integer>2</integer>
+						<key>type</key>
+						<string>sp78</string>
 					</dict>
 					<key>_temp3</key>
 					<dict>
 						<key>id</key>
 						<string>Th0H</string>
-						<key>type</key>
-						<string>sp78</string>
 						<key>size</key>
 						<integer>2</integer>
+						<key>type</key>
+						<string>sp78</string>
 					</dict>
 					<key>tach0</key>
 					<dict>
-						<key>pwm</key>
-						<integer>0</integer>
 						<key>id</key>
 						<string>Fan 1</string>
-						<key>type</key>
-						<string>fpe2</string>
+						<key>pwm</key>
+						<integer>0</integer>
 						<key>size</key>
 						<integer>2</integer>
+						<key>type</key>
+						<string>fpe2</string>
 					</dict>
 					<key>tach1</key>
 					<dict>
-						<key>pwm</key>
-						<integer>1</integer>
 						<key>id</key>
 						<string>Fan 2</string>
-						<key>type</key>
-						<string>fpe2</string>
-						<key>size</key>
-						<integer>2</integer>
-					</dict>
-					<key>tach2</key>
-					<dict>
-						<key>pwm</key>
-						<integer>2</integer>
-						<key>id</key>
-						<string>Fan 3</string>
-						<key>type</key>
-						<string>fpe2</string>
-						<key>size</key>
-						<integer>2</integer>
-					</dict>
-					<key>tach3</key>
-					<dict>
-						<key>pwm</key>
-						<integer>2</integer>
-						<key>id</key>
-						<string>CPU</string>
-						<key>type</key>
-						<string>fpe2</string>
-						<key>size</key>
-						<integer>2</integer>
-					</dict>
-				</dict>
-				<key>example for patched Fan Control</key>
-				<dict>
-					<key>_temp0</key>
-					<dict>
-						<key>id</key>
-						<string></string>
-						<key>type</key>
-						<string></string>
-						<key>size</key>
-						<integer>0</integer>
-					</dict>
-					<key>_temp1</key>
-					<dict>
-						<key>id</key>
-						<string></string>
-						<key>type</key>
-						<string></string>
-						<key>size</key>
-						<integer>0</integer>
-					</dict>
-					<key>_temp2</key>
-					<dict>
-						<key>id</key>
-						<string>Tm0P</string>
-						<key>type</key>
-						<string>sp78</string>
-						<key>size</key>
-						<integer>2</integer>
-					</dict>
-					<key>_temp3</key>
-					<dict>
-						<key>id</key>
-						<string>Th0H</string>
-						<key>type</key>
-						<string>sp78</string>
-						<key>size</key>
-						<integer>2</integer>
-					</dict>
-					<key>tach0</key>
-					<dict>
-						<key>pwm</key>
-						<integer>-1</integer>
-						<key>id</key>
-						<string></string>
-						<key>type</key>
-						<string></string>
-						<key>size</key>
-						<integer>0</integer>
-					</dict>
-					<key>tach1</key>
-					<dict>
-						<key>pwm</key>
-						<integer>-1</integer>
-						<key>id</key>
-						<string>PCI Cage</string>
-						<key>type</key>
-						<string>fpe2</string>
-						<key>size</key>
-						<integer>2</integer>
-					</dict>
-					<key>tach2</key>
-					<dict>
-						<key>pwm</key>
-						<integer>2</integer>
-						<key>id</key>
-						<string>Memory</string>
-						<key>type</key>
-						<string>fpe2</string>
-						<key>size</key>
-						<integer>2</integer>
-					</dict>
-					<key>tach3</key>
-					<dict>
 						<key>pwm</key>
 						<integer>1</integer>
-						<key>id</key>
-						<string>CPU, 2x</string>
-						<key>type</key>
-						<string>fpe2</string>
 						<key>size</key>
 						<integer>2</integer>
+						<key>type</key>
+						<string>fpe2</string>
+					</dict>
+					<key>tach2</key>
+					<dict>
+						<key>id</key>
+						<string>Fan 3</string>
+						<key>pwm</key>
+						<integer>2</integer>
+						<key>size</key>
+						<integer>2</integer>
+						<key>type</key>
+						<string>fpe2</string>
+					</dict>
+					<key>tach3</key>
+					<dict>
+						<key>id</key>
+						<string>CPU</string>
+						<key>pwm</key>
+						<integer>2</integer>
+						<key>size</key>
+						<integer>2</integer>
+						<key>type</key>
+						<string>fpe2</string>
 					</dict>
 				</dict>
 				<key>Intel</key>
@@ -231,81 +131,81 @@
 						<dict>
 							<key>id</key>
 							<string></string>
-							<key>type</key>
-							<string></string>
 							<key>size</key>
 							<integer>0</integer>
+							<key>type</key>
+							<string></string>
 						</dict>
 						<key>_temp1</key>
 						<dict>
 							<key>id</key>
 							<string>TA0P</string>
-							<key>type</key>
-							<string>sp78</string>
 							<key>size</key>
 							<integer>2</integer>
+							<key>type</key>
+							<string>sp78</string>
 						</dict>
 						<key>_temp2</key>
 						<dict>
 							<key>id</key>
 							<string>Tm0P</string>
-							<key>type</key>
-							<string>sp78</string>
 							<key>size</key>
 							<integer>2</integer>
+							<key>type</key>
+							<string>sp78</string>
 						</dict>
 						<key>_temp3</key>
 						<dict>
 							<key>id</key>
 							<string>Th0H</string>
-							<key>type</key>
-							<string>sp78</string>
 							<key>size</key>
 							<integer>2</integer>
+							<key>type</key>
+							<string>sp78</string>
 						</dict>
 						<key>tach0</key>
 						<dict>
-							<key>pwm</key>
-							<integer>-1</integer>
 							<key>id</key>
 							<string>Fan 1</string>
-							<key>type</key>
-							<string>fpe2</string>
+							<key>pwm</key>
+							<integer>-1</integer>
 							<key>size</key>
 							<integer>2</integer>
+							<key>type</key>
+							<string>fpe2</string>
 						</dict>
 						<key>tach1</key>
 						<dict>
-							<key>pwm</key>
-							<integer>0</integer>
 							<key>id</key>
 							<string>Fan 2</string>
-							<key>type</key>
-							<string>fpe2</string>
+							<key>pwm</key>
+							<integer>0</integer>
 							<key>size</key>
 							<integer>2</integer>
+							<key>type</key>
+							<string>fpe2</string>
 						</dict>
 						<key>tach2</key>
 						<dict>
-							<key>pwm</key>
-							<integer>2</integer>
 							<key>id</key>
 							<string>Fan 3</string>
-							<key>type</key>
-							<string>fpe2</string>
+							<key>pwm</key>
+							<integer>2</integer>
 							<key>size</key>
 							<integer>2</integer>
+							<key>type</key>
+							<string>fpe2</string>
 						</dict>
 						<key>tach3</key>
 						<dict>
-							<key>pwm</key>
-							<integer>1</integer>
 							<key>id</key>
 							<string>CPU</string>
-							<key>type</key>
-							<string>fpe2</string>
+							<key>pwm</key>
+							<integer>1</integer>
 							<key>size</key>
 							<integer>2</integer>
+							<key>type</key>
+							<string>fpe2</string>
 						</dict>
 					</dict>
 					<key>DX48BT2</key>
@@ -314,91 +214,189 @@
 						<dict>
 							<key>id</key>
 							<string></string>
-							<key>type</key>
-							<string></string>
 							<key>size</key>
 							<integer>0</integer>
+							<key>type</key>
+							<string></string>
 						</dict>
 						<key>_temp1</key>
 						<dict>
 							<key>id</key>
 							<string>TA0P</string>
-							<key>type</key>
-							<string>sp78</string>
 							<key>size</key>
 							<integer>2</integer>
+							<key>type</key>
+							<string>sp78</string>
 						</dict>
 						<key>_temp2</key>
 						<dict>
 							<key>id</key>
 							<string>Tm0P</string>
-							<key>type</key>
-							<string>sp78</string>
 							<key>size</key>
 							<integer>2</integer>
+							<key>type</key>
+							<string>sp78</string>
 						</dict>
 						<key>_temp3</key>
 						<dict>
 							<key>id</key>
 							<string>Th0H</string>
-							<key>type</key>
-							<string>sp78</string>
 							<key>size</key>
 							<integer>2</integer>
+							<key>type</key>
+							<string>sp78</string>
 						</dict>
 						<key>tach0</key>
 						<dict>
-							<key>pwm</key>
-							<integer>-1</integer>
 							<key>id</key>
 							<string>CPU</string>
-							<key>type</key>
-							<string>fpe2</string>
+							<key>pwm</key>
+							<integer>-1</integer>
 							<key>size</key>
 							<integer>2</integer>
+							<key>type</key>
+							<string>fpe2</string>
 						</dict>
 						<key>tach1</key>
 						<dict>
-							<key>pwm</key>
-							<integer>-1</integer>
 							<key>id</key>
 							<string>MCH</string>
-							<key>type</key>
-							<string>fpe2</string>
+							<key>pwm</key>
+							<integer>-1</integer>
 							<key>size</key>
 							<integer>2</integer>
+							<key>type</key>
+							<string>fpe2</string>
 						</dict>
 						<key>tach2</key>
 						<dict>
-							<key>pwm</key>
-							<integer>-1</integer>
 							<key>id</key>
 							<string>Auxiliary</string>
-							<key>type</key>
-							<string>fpe2</string>
+							<key>pwm</key>
+							<integer>-1</integer>
 							<key>size</key>
 							<integer>2</integer>
+							<key>type</key>
+							<string>fpe2</string>
 						</dict>
 						<key>tach3</key>
 						<dict>
-							<key>pwm</key>
-							<integer>-1</integer>
 							<key>id</key>
 							<string>Rear</string>
-							<key>type</key>
-							<string>fpe2</string>
+							<key>pwm</key>
+							<integer>-1</integer>
 							<key>size</key>
 							<integer>2</integer>
+							<key>type</key>
+							<string>fpe2</string>
 						</dict>
+					</dict>
+				</dict>
+				<key>example for patched Fan Control</key>
+				<dict>
+					<key>_temp0</key>
+					<dict>
+						<key>id</key>
+						<string></string>
+						<key>size</key>
+						<integer>0</integer>
+						<key>type</key>
+						<string></string>
+					</dict>
+					<key>_temp1</key>
+					<dict>
+						<key>id</key>
+						<string></string>
+						<key>size</key>
+						<integer>0</integer>
+						<key>type</key>
+						<string></string>
+					</dict>
+					<key>_temp2</key>
+					<dict>
+						<key>id</key>
+						<string>Tm0P</string>
+						<key>size</key>
+						<integer>2</integer>
+						<key>type</key>
+						<string>sp78</string>
+					</dict>
+					<key>_temp3</key>
+					<dict>
+						<key>id</key>
+						<string>Th0H</string>
+						<key>size</key>
+						<integer>2</integer>
+						<key>type</key>
+						<string>sp78</string>
+					</dict>
+					<key>tach0</key>
+					<dict>
+						<key>id</key>
+						<string></string>
+						<key>pwm</key>
+						<integer>-1</integer>
+						<key>size</key>
+						<integer>0</integer>
+						<key>type</key>
+						<string></string>
+					</dict>
+					<key>tach1</key>
+					<dict>
+						<key>id</key>
+						<string>PCI Cage</string>
+						<key>pwm</key>
+						<integer>-1</integer>
+						<key>size</key>
+						<integer>2</integer>
+						<key>type</key>
+						<string>fpe2</string>
+					</dict>
+					<key>tach2</key>
+					<dict>
+						<key>id</key>
+						<string>Memory</string>
+						<key>pwm</key>
+						<integer>2</integer>
+						<key>size</key>
+						<integer>2</integer>
+						<key>type</key>
+						<string>fpe2</string>
+					</dict>
+					<key>tach3</key>
+					<dict>
+						<key>id</key>
+						<string>CPU, 2x</string>
+						<key>pwm</key>
+						<integer>1</integer>
+						<key>size</key>
+						<integer>2</integer>
+						<key>type</key>
+						<string>fpe2</string>
 					</dict>
 				</dict>
 			</dict>
 		</dict>
+		<key>ICHSMBus</key>
+		<dict>
+			<key>CFBundleIdentifier</key>
+			<string>cc.dukzcry.Andigilog</string>
+			<key>IOClass</key>
+			<string>I2CDevice</string>
+			<key>IOMatchCategory</key>
+			<string>I2CDevice</string>
+			<key>IOPCIClassMatch</key>
+			<string>0x0c050000</string>
+			<key>IOPCIMatchComment</key>
+			<string>Intel ICH5(R), ICH6(R/-M), ICH7, ICH8, ICH9, ICH10, 6321ESB, PCH: BD3400, CP, PP, C600 SMBus Controllers</string>
+			<key>IOProbeScore</key>
+			<integer>5000</integer>
+			<key>IOProviderClass</key>
+			<string>IOPCIDevice</string>
+		</dict>
 	</dict>
 	<key>OSBundleLibraries</key>
 	<dict>
-		<key>org.netkas.FakeSMC</key>
-		<string>3.3.0</string>
 		<key>com.apple.iokit.IOPCIFamily</key>
 		<string>2.6</string>
 		<key>com.apple.kpi.iokit</key>
@@ -407,6 +405,8 @@
 		<string>9.0.0</string>
 		<key>com.apple.kpi.mach</key>
 		<string>9.0.0</string>
+		<key>org.netkas.FakeSMC</key>
+		<string>3.3.0</string>
 	</dict>
 </dict>
 </plist>

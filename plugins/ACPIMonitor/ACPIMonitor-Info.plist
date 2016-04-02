@@ -7,7 +7,7 @@
 	<key>CFBundleExecutable</key>
 	<string>${EXECUTABLE_NAME}</string>
 	<key>CFBundleIdentifier</key>
-	<string>org.slice.${PRODUCT_NAME}</string>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundlePackageType</key>
@@ -24,16 +24,6 @@
 		<dict>
 			<key>CFBundleIdentifier</key>
 			<string>org.slice.${PRODUCT_NAME}</string>
-			<key>IOClass</key>
-			<string>ACPIMonitor</string>
-			<key>IOMatchCategory</key>
-			<string>${PRODUCT_NAME}</string>
-			<key>IONameMatch</key>
-			<array>
-				<string>monitor</string>
-			</array>
-			<key>IOProviderClass</key>
-			<string>IOACPIPlatformDevice</string>
 			<key>FanNames</key>
 			<array>
 				<string>System Fan</string>
@@ -47,6 +37,16 @@
 				<string>Fan 9</string>
 				<string>Fan 10</string>
 			</array>
+			<key>IOClass</key>
+			<string>ACPIMonitor</string>
+			<key>IOMatchCategory</key>
+			<string>${PRODUCT_NAME}</string>
+			<key>IONameMatch</key>
+			<array>
+				<string>monitor</string>
+			</array>
+			<key>IOProviderClass</key>
+			<string>IOACPIPlatformDevice</string>
 			<key>keysToAdd</key>
 			<dict>
 				<key>TCRR</key>
@@ -58,16 +58,16 @@
 	</dict>
 	<key>OSBundleLibraries</key>
 	<dict>
-		<key>com.apple.kpi.libkern</key>
-		<string>9.0.0</string>
+		<key>com.apple.iokit.IOACPIFamily</key>
+		<string>1.2.0</string>
 		<key>com.apple.kpi.iokit</key>
+		<string>9.0.0</string>
+		<key>com.apple.kpi.libkern</key>
 		<string>9.0.0</string>
 		<key>com.apple.kpi.mach</key>
 		<string>9.0.0</string>
 		<key>com.apple.kpi.unsupported</key>
 		<string>9.0.0</string>
-		<key>com.apple.iokit.IOACPIFamily</key>
-		<string>1.2.0</string>
 		<key>org.netkas.FakeSMC</key>
 		<string>3.3.0</string>
 	</dict>

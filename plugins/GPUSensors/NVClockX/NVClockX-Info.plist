@@ -7,7 +7,7 @@
 	<key>CFBundleExecutable</key>
 	<string>${EXECUTABLE_NAME}</string>
 	<key>CFBundleIdentifier</key>
-	<string>org.usrsse2.${PRODUCT_NAME}</string>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundlePackageType</key>
@@ -38,9 +38,11 @@
 	</dict>
 	<key>OSBundleLibraries</key>
 	<dict>
-		<key>com.apple.kpi.libkern</key>
-		<string>9.0.0</string>
+		<key>com.apple.iokit.IOPCIFamily</key>
+		<string>2.4</string>
 		<key>com.apple.kpi.iokit</key>
+		<string>9.0.0</string>
+		<key>com.apple.kpi.libkern</key>
 		<string>9.0.0</string>
 		<key>com.apple.kpi.mach</key>
 		<string>9.0.0</string>
@@ -48,8 +50,6 @@
 		<string>9.0.0</string>
 		<key>org.netkas.FakeSMC</key>
 		<string>3.3.0</string>
-		<key>com.apple.iokit.IOPCIFamily</key>
-		<string>2.4</string>
 	</dict>
 	<key>OSBundleRequired</key>
 	<string>Root</string>

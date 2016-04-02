@@ -7,7 +7,7 @@
 	<key>CFBundleExecutable</key>
 	<string>${EXECUTABLE_NAME}</string>
 	<key>CFBundleIdentifier</key>
-	<string>org.slice.sensor.${PRODUCT_NAME:rfc1034identifier}</string>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundlePackageType</key>
@@ -26,10 +26,10 @@
 			<string>org.slice.sensor.X3100</string>
 			<key>IOClass</key>
 			<string>X3100monitor</string>
-			<key>IOProbeScore</key>
-			<integer>500</integer>
 			<key>IOMatchCategory</key>
 			<string>X3100monitor</string>
+			<key>IOProbeScore</key>
+			<integer>500</integer>
 			<key>IOProviderClass</key>
 			<string>IOResources</string>
 			<key>IOResourceMatch</key>

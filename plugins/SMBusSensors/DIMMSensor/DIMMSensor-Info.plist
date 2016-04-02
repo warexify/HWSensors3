@@ -9,7 +9,7 @@
 	<key>CFBundleIconFile</key>
 	<string></string>
 	<key>CFBundleIdentifier</key>
-	<string>org.slice.${PRODUCT_NAME:rfc1034identifier}</string>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
@@ -26,20 +26,20 @@
 	<dict>
 		<key>ICHSMBus</key>
 		<dict>
-			<key>IOProbeScore</key>
-			<integer>5000</integer>
-			<key>IOPCIClassMatch</key>
-			<string>0x0c050000</string>
-			<key>IOMatchCategory</key>
-			<string>I2CDevice</string>
-			<key>IOPCIMatchComment</key>
-			<string>Intel ICH5(R), ICH6(R/-M), ICH7, ICH8, ICH9, ICH10, 6321ESB, PCH: BD3400, CP, PP, C600 SMBus Controllers</string>
-			<key>IOClass</key>
-			<string>I2CDevice</string>
-			<key>IOProviderClass</key>
-			<string>IOPCIDevice</string>
 			<key>CFBundleIdentifier</key>
 			<string>org.slice.DIMMSensor</string>
+			<key>IOClass</key>
+			<string>I2CDevice</string>
+			<key>IOMatchCategory</key>
+			<string>I2CDevice</string>
+			<key>IOPCIClassMatch</key>
+			<string>0x0c050000</string>
+			<key>IOPCIMatchComment</key>
+			<string>Intel ICH5(R), ICH6(R/-M), ICH7, ICH8, ICH9, ICH10, 6321ESB, PCH: BD3400, CP, PP, C600 SMBus Controllers</string>
+			<key>IOProbeScore</key>
+			<integer>5000</integer>
+			<key>IOProviderClass</key>
+			<string>IOPCIDevice</string>
 		</dict>
 		<key>ThermalSensorOnDIMM</key>
 		<dict>
@@ -49,10 +49,10 @@
 			<string>TSOD</string>
 			<key>IOMatchCategory</key>
 			<string>DIMMSensor</string>
-			<key>IOProviderClass</key>
-			<string>I2CDevice</string>
 			<key>IOProbeScore</key>
 			<integer>2000</integer>
+			<key>IOProviderClass</key>
+			<string>I2CDevice</string>
 			<key>IOResourceMatch</key>
 			<string>IOKit</string>
 		</dict>
@@ -61,16 +61,16 @@
 	<string>Copyright © 2015 Slice inc. All rights reserved.</string>
 	<key>OSBundleLibraries</key>
 	<dict>
-		<key>org.netkas.FakeSMC</key>
-		<string>3.3.1</string>
 		<key>com.apple.iokit.IOPCIFamily</key>
 		<string>2.6</string>
 		<key>com.apple.kpi.iokit</key>
 		<string>9.0.0</string>
-		<key>com.apple.kpi.mach</key>
-		<string>9.0.0</string>
 		<key>com.apple.kpi.libkern</key>
 		<string>9.0.0</string>
+		<key>com.apple.kpi.mach</key>
+		<string>9.0.0</string>
+		<key>org.netkas.FakeSMC</key>
+		<string>3.3.1</string>
 	</dict>
 </dict>
 </plist>

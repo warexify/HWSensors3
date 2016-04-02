@@ -27,9 +27,10 @@ bool ATICard::initialize()
 	 }
 	 */
   //Test for ElCapitan problem
-  long unsigned int j = VCard->configRead32(0xAC);
+/*  long unsigned int j = VCard->configRead32(0xAC);
   IOLog("PMIR value: %08lx\n", j);
   VCard->configWrite32(0xAC, (j & (~0x1)) | 0x2);
+ */
   //
 	for (UInt32 i = 0; (mmio = VCard->mapDeviceMemoryWithIndex(i)); i++) {
 		long unsigned int mmio_base_phys = mmio->getPhysicalAddress();
@@ -73,11 +74,12 @@ bool ATICard::initialize()
         case   CHIP_FAMILY_TAHITI:
         case   CHIP_FAMILY_VERDE:
 			tempFamily = R9xx;
+            break;
         case   CHIP_FAMILY_HAWAII:
-        case       CHIP_FAMILY_OLAND:
-        case       CHIP_FAMILY_BONAIRE:
-        case       CHIP_FAMILY_HAINAN:
-        case       CHIP_FAMILY_TONGA:
+        case   CHIP_FAMILY_OLAND:
+        case   CHIP_FAMILY_BONAIRE:
+        case   CHIP_FAMILY_HAINAN:
+        case   CHIP_FAMILY_TONGA:
 
 			tempFamily = RCIx;
 			break;
@@ -109,18 +111,26 @@ bool ATICard::getRadeonInfo()
 		}
 		devices++;
 	}
-  if (((devID >= 0x6780) && (devID <= 0x6840)) ||
-      ((devID & 0xFF00) == 0x6900) ||
-      ((devID & 0xFF00) == 0x6600)) {
+if (((devID >= 0x67A0) && (devID <= 0x6800)) ||
+             ((devID & 0xFF00) == 0x6900) ||
+             ((devID & 0xFF00) == 0x6600))  {
     rinfo->device_id = devID;
-    rinfo->ChipFamily = CHIP_FAMILY_PITCAIRN;
-    family = CHIP_FAMILY_PITCAIRN;
+    rinfo->ChipFamily = CHIP_FAMILY_HAWAII;
+    family = CHIP_FAMILY_HAWAII;
     rinfo->igp = 0;
     rinfo->is_mobility = false;
-    IOLog(" Common ATI Radeon like PITCAIRN DID=%04lx\n", (long unsigned int)devID);
-//    IOLog("sorry, not supported yet, please report DeviceID=0x%x\n", devID);
-    return true;    
-  } else if (((devID & 0xFF00) == 0x6700) || ((devID & 0xFF00) == 0x6800)) {
+    IOLog(" Common ATI Radeon like HAWAII DID=%04lx\n", (long unsigned int)devID);
+    return true;
+
+} else   if ((devID >= 0x6780) && (devID <= 0x6840)) {
+  rinfo->device_id = devID;
+  rinfo->ChipFamily = CHIP_FAMILY_PITCAIRN;
+  family = CHIP_FAMILY_PITCAIRN;
+  rinfo->igp = 0;
+  rinfo->is_mobility = false;
+  IOLog(" Common ATI Radeon like PITCAIRN DID=%04lx\n", (long unsigned int)devID);
+  return true;
+} else if (((devID & 0xFF00) == 0x6700) || ((devID & 0xFF00) == 0x6800)) {
     rinfo->device_id = devID;
     rinfo->ChipFamily = CHIP_FAMILY_Evergreen;
     family = CHIP_FAMILY_Evergreen;

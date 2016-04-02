@@ -7,7 +7,7 @@
 	<key>CFBundleExecutable</key>
 	<string>${EXECUTABLE_NAME}</string>
 	<key>CFBundleIdentifier</key>
-	<string>org.mozodojo.${PRODUCT_NAME}</string>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundlePackageType</key>
@@ -26,10 +26,10 @@
 			<string>org.mozodojo.${PRODUCT_NAME}</string>
 			<key>IOClass</key>
 			<string>F718x</string>
-			<key>IOProbeScore</key>
-			<integer>3000</integer>
 			<key>IOMatchCategory</key>
 			<string>F718x</string>
+			<key>IOProbeScore</key>
+			<integer>3000</integer>
 			<key>IOProviderClass</key>
 			<string>IOResources</string>
 			<key>IOResourceMatch</key>
@@ -51,9 +51,9 @@
 	</dict>
 	<key>OSBundleLibraries</key>
 	<dict>
-		<key>com.apple.kpi.libkern</key>
-		<string>9.0.0</string>
 		<key>com.apple.kpi.iokit</key>
+		<string>9.0.0</string>
+		<key>com.apple.kpi.libkern</key>
 		<string>9.0.0</string>
 		<key>com.apple.kpi.mach</key>
 		<string>9.0.0</string>

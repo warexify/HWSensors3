@@ -7,7 +7,7 @@
 	<key>CFBundleExecutable</key>
 	<string>${EXECUTABLE_NAME}</string>
 	<key>CFBundleIdentifier</key>
-	<string>org.slice.${PRODUCT_NAME}</string>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundlePackageType</key>
@@ -26,16 +26,20 @@
 			<string>org.slice.${PRODUCT_NAME}</string>
 			<key>IOClass</key>
 			<string>PC8739x</string>
-			<key>IOProbeScore</key>
-			<integer>500</integer>
 			<key>IOMatchCategory</key>
 			<string>PC8739x</string>
+			<key>IOProbeScore</key>
+			<integer>500</integer>
 			<key>IOProviderClass</key>
 			<string>IOResources</string>
 			<key>IOResourceMatch</key>
 			<string>IOKit</string>
 			<key>Sensors Configuration</key>
 			<dict>
+				<key>FANIN0</key>
+				<string>System Fan</string>
+				<key>FANIN1</key>
+				<string></string>
 				<key>TEMPIN0</key>
 				<string>System</string>
 				<key>TEMPIN1</key>
@@ -44,18 +48,14 @@
 				<string>Processor</string>
 				<key>TEMPIN3</key>
 				<string>Memory</string>
-				<key>FANIN0</key>
-				<string>System Fan</string>
-				<key>FANIN1</key>
-				<string></string>
 			</dict>
 		</dict>
 	</dict>
 	<key>OSBundleLibraries</key>
 	<dict>
-		<key>com.apple.kpi.libkern</key>
-		<string>9.0.0</string>
 		<key>com.apple.kpi.iokit</key>
+		<string>9.0.0</string>
+		<key>com.apple.kpi.libkern</key>
 		<string>9.0.0</string>
 		<key>com.apple.kpi.mach</key>
 		<string>9.0.0</string>

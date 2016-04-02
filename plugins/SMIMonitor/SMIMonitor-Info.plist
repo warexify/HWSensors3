@@ -7,7 +7,7 @@
 	<key>CFBundleExecutable</key>
 	<string>${EXECUTABLE_NAME}</string>
 	<key>CFBundleIdentifier</key>
-	<string>org.slice.${PRODUCT_NAME:rfc1034identifier}</string>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
@@ -20,14 +20,19 @@
 	<string>????</string>
 	<key>CFBundleVersion</key>
 	<string>1</string>
-	<key>NSHumanReadableCopyright</key>
-	<string>Copyright © 2014 Slice. All rights reserved.</string>
 	<key>IOKitPersonalities</key>
 	<dict>
 		<key>SMI Monitoring Plugin</key>
 		<dict>
 			<key>CFBundleIdentifier</key>
 			<string>org.slice.${PRODUCT_NAME}</string>
+			<key>Divider</key>
+			<integer>10</integer>
+			<key>FanNames</key>
+			<array>
+				<string>System Fan</string>
+				<string>Processor Fan</string>
+			</array>
 			<key>IOClass</key>
 			<string>SMIMonitor</string>
 			<key>IOMatchCategory</key>
@@ -36,20 +41,15 @@
 			<string>IOResources</string>
 			<key>IOResourceMatch</key>
 			<string>IOKit</string>
-			<key>Divider</key>
-			<integer>10</integer>
-			<key>FanNames</key>
-			<array>
-				<string>System Fan</string>
-				<string>Processor Fan</string>
-			</array>
 		</dict>
 	</dict>
+	<key>NSHumanReadableCopyright</key>
+	<string>Copyright © 2014 Slice. All rights reserved.</string>
 	<key>OSBundleLibraries</key>
 	<dict>
-		<key>com.apple.kpi.libkern</key>
-		<string>9.0.0</string>
 		<key>com.apple.kpi.iokit</key>
+		<string>9.0.0</string>
+		<key>com.apple.kpi.libkern</key>
 		<string>9.0.0</string>
 		<key>com.apple.kpi.mach</key>
 		<string>9.0.0</string>
