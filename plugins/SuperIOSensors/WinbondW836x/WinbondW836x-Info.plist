@@ -13,11 +13,11 @@
 	<key>CFBundlePackageType</key>
 	<string>KEXT</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.0.1</string>
+	<string>$(MODULE_VERSION)</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>1.0.1</string>
+	<string>$(MODULE_VERSION)</string>
 	<key>IOKitPersonalities</key>
 	<dict>
 		<key>Winbond W836x Monitor Plugin</key>
@@ -49,7 +49,7 @@
 						<key>FANIN4</key>
 						<string></string>
 						<key>FANINLIMIT</key>
-						<integer>0</integer>
+						<integer>3</integer>
 						<key>TEMPIN0</key>
 						<string>CPU</string>
 						<key>TEMPIN1</key>
@@ -224,7 +224,7 @@
 						<key>FANIN4</key>
 						<string>Auxiliary Fan 2</string>
 						<key>FANINLIMIT</key>
-						<integer>0</integer>
+						<integer>5</integer>
 						<key>TEMPIN0</key>
 						<string>CPU</string>
 						<key>TEMPIN1</key>
@@ -310,7 +310,7 @@
 						<key>FANIN4</key>
 						<string>Auxiliary Fan 2</string>
 						<key>FANINLIMIT</key>
-						<integer>0</integer>
+						<integer>4</integer>
 						<key>TEMPIN0</key>
 						<string>CPU</string>
 						<key>TEMPIN1</key>
@@ -453,7 +453,7 @@
 						<key>FANIN4</key>
 						<string>Auxiliary Fan 2</string>
 						<key>FANINLIMIT</key>
-						<integer>0</integer>
+						<integer>4</integer>
 						<key>TEMPIN0</key>
 						<string>CPU</string>
 						<key>TEMPIN1</key>
@@ -540,7 +540,7 @@
 					<key>FANIN4</key>
 					<string></string>
 					<key>FANINLIMIT</key>
-					<integer>0</integer>
+					<integer>1</integer>
 					<key>TEMPIN0FORCED</key>
 					<false/>
 					<key>TEMPIN1FORCED</key>

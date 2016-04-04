@@ -81,6 +81,7 @@ void nvc0_init(struct nouveau_device *device)
     case 0xd9:
       device->gpio_sense = nvd0_gpio_sense;
       device->fan_rpm_get = nouveau_therm_fan_rpm_get;
+      break;
     default:
       nva3_therm_init(device);
       device->gpio_sense = nv50_gpio_sense;
