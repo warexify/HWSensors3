@@ -84,8 +84,8 @@
 #define KEY_5VSB_VOLTAGE                        "Vp2C"
 #define KEY_3VCC_VOLTAGE                        "Vp3C"
 #define KEY_3VSB_VOLTAGE                        "Vp4C"
+#define KEY_AVCC_VOLTAGE                        "Vp5C"
 #define KEY_VBAT_VOLTAGE                        "VBAT"
-
 
 #define KEY_NORTHBRIDGE_VOLTAGE                 "VN0C"
 

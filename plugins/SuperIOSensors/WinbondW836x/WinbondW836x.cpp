@@ -750,7 +750,7 @@ bool W836x::start(IOService * provider)
 				// Northbridge
 				if (!addSensor(KEY_NORTHBRIDGE_TEMPERATURE, TYPE_SP78, 2, kSuperIOTemperatureSensor, 2))
 					WarningLog("error adding system temperature sensor");
-				
+                				
 				break;
 			}
 		}
@@ -773,43 +773,48 @@ bool W836x::start(IOService * provider)
 						WarningLog("error adding CPU voltage sensor");
 				}
 				else if (name->isEqualTo("Memory")) {
-					if (!addSensor(KEY_MEMORY_VOLTAGE, TYPE_FP2E, 2, kSuperIOVoltageSensor, i,Ri,Rf,Vf))
+					if (!addSensor(KEY_MEMORY_VOLTAGE, TYPE_FP2E, 2, kSuperIOVoltageSensor, i, Ri, Rf, Vf))
 						WarningLog("error adding memory voltage sensor");
 				}
                 else if (name->isEqualTo("+5VC")) {
-                    if (!addSensor(KEY_5VC_VOLTAGE, TYPE_SP4B, 2, kSuperIOVoltageSensor, i,Ri,Rf,Vf)) {
+                    if (!addSensor(KEY_5VC_VOLTAGE, TYPE_SP4B, 2, kSuperIOVoltageSensor, i, Ri, Rf, Vf)) {
                         WarningLog("ERROR Adding AVCC Voltage Sensor!");
                     }
                 }
                 else if (name->isEqualTo("+5VSB")) {
-                    if (!addSensor(KEY_5VSB_VOLTAGE, TYPE_SP4B, 2, kSuperIOVoltageSensor, i,Ri,Rf,Vf)) {
+                    if (!addSensor(KEY_5VSB_VOLTAGE, TYPE_SP4B, 2, kSuperIOVoltageSensor, i, Ri, Rf, Vf)) {
                         WarningLog("ERROR Adding AVCC Voltage Sensor!");
                     }
                 }
                 else if (name->isEqualTo("+12VC")) {
-                    if (!addSensor(KEY_12V_VOLTAGE, TYPE_SP4B, 2, kSuperIOVoltageSensor, i,Ri,Rf,Vf)) {
+                    if (!addSensor(KEY_12V_VOLTAGE, TYPE_SP4B, 2, kSuperIOVoltageSensor, i, Ri, Rf, Vf)) {
                         WarningLog("ERROR Adding 12V Voltage Sensor!");
                     }
                 }
                 else if (name->isEqualTo("-12VC")) {
-                    if (!addSensor(KEY_N12VC_VOLTAGE, TYPE_SP4B, 2, kSuperIOVoltageSensor, i,Ri,Rf,Vf)) {
+                    if (!addSensor(KEY_N12VC_VOLTAGE, TYPE_SP4B, 2, kSuperIOVoltageSensor, i, Ri, Rf, Vf)) {
                         WarningLog("ERROR Adding 12V Voltage Sensor!");
                     }
                 }
                 else if (name->isEqualTo("3VCC")) {
-                    if (!addSensor(KEY_3VCC_VOLTAGE, TYPE_FP2E, 2, kSuperIOVoltageSensor, i,Ri,Rf,Vf)) {
+                    if (!addSensor(KEY_3VCC_VOLTAGE, TYPE_FP2E, 2, kSuperIOVoltageSensor, i, Ri, Rf, Vf)) {
                         WarningLog("ERROR Adding 3VCC Voltage Sensor!");
                     }
                 }
                 
                 else if (name->isEqualTo("3VSB")) {
-                    if (!addSensor(KEY_3VSB_VOLTAGE, TYPE_FP2E, 2, kSuperIOVoltageSensor, i,Ri,Rf,Vf)) {
+                    if (!addSensor(KEY_3VSB_VOLTAGE, TYPE_FP2E, 2, kSuperIOVoltageSensor, i, Ri, Rf, Vf)) {
                         WarningLog("ERROR Adding 3VSB Voltage Sensor!");
                     }
                 }
                 else if (name->isEqualTo("VBAT")) {
-                    if (!addSensor(KEY_VBAT_VOLTAGE, TYPE_FP2E, 2, kSuperIOVoltageSensor, i,Ri,Rf,Vf)) {
+                    if (!addSensor(KEY_VBAT_VOLTAGE, TYPE_FP2E, 2, kSuperIOVoltageSensor, i, Ri, Rf, Vf)) {
                         WarningLog("ERROR Adding VBAT Voltage Sensor!");
+                    }
+                }
+                else if (name->isEqualTo("AVCC")) {
+                    if (!addSensor(KEY_AVCC_VOLTAGE, TYPE_FP2E, 2, kSuperIOVoltageSensor, i, Ri, Rf, Vf)) {
+                        WarningLog("ERROR Adding AVCC Voltage Sensor!");
                     }
                 }
 			}

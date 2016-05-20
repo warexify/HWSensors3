@@ -189,6 +189,23 @@ UInt32 ATICard::read32(UInt32 reg)
 	return INVID(reg);
 }
 
+void ATICard::write32(UInt32 reg, UInt32 val)
+{
+	return OUTVID(reg, val);
+}
+
+UInt32 ATICard::read_ind(UInt32 reg)
+{
+    //	unsigned long flags;
+	UInt32 r;
+    
+    //	spin_lock_irqsave(&rdev->smc_idx_lock, flags);
+	OUTVID(TN_SMC_IND_INDEX_0, (reg));
+	r = INVID(TN_SMC_IND_DATA_0);
+    //	spin_unlock_irqrestore(&rdev->smc_idx_lock, flags);
+	return r;
+}
+
 IOReturn ATICard::R6xxTemperatureSensor(UInt16* data)
 {
 	UInt32 temp, actual_temp = 0;
@@ -273,7 +290,7 @@ IOReturn ATICard::HawaiiTemperatureSensor(UInt16* data)
 {
 	UInt32 temp, actual_temp = 0;
 	for (int i=0; i<1000; i++) {  //attempts to ready
-		temp = (read32(CG_CI_MULT_THERMAL_STATUS) & CI_CTF_TEMP_MASK) >> CI_CTF_TEMP_SHIFT;
+		temp = (read_ind(CG_CI_MULT_THERMAL_STATUS) & CI_CTF_TEMP_MASK) >> CI_CTF_TEMP_SHIFT;
 		if ((temp >> 10) & 1)
 			actual_temp = 0;
 		else if ((temp >> 9) & 1)

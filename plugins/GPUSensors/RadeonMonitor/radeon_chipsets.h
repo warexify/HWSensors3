@@ -26,6 +26,11 @@
 #include <IOKit/IOLib.h>
 #include "atombios.h"
 
+/* trinity */
+#define TN_SMC_IND_INDEX_0                              0x200
+#define TN_SMC_IND_DATA_0                               0x204
+
+
 #define	CG_MULT_THERMAL_STATUS			0x740
 #define		ASIC_TM(x)			        ((x) << 16)
 #define		ASIC_TM_MASK			    0x3FF0000
@@ -163,7 +168,6 @@ enum radeon_family {
 					(rinfo->ChipFamily == CHIP_FAMILY_RS740) ||  \
 					(rinfo->ChipFamily == CHIP_FAMILY_RS400) ||  \
 					(rinfo->ChipFamily == CHIP_FAMILY_RS480))
-
 
 
 #endif /* __RADEON_CHIPSETS_H__ */

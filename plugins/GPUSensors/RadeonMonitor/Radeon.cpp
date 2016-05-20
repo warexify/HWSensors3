@@ -52,11 +52,11 @@ IOService* RadeonMonitor::probe(IOService *provider, SInt32 *score)
 			
 			IOPCIDevice* device = 0;
 			do {
-			  device = OSDynamicCast(IOPCIDevice, iterator->getNextObject());
-        if (!device) {
-          break;
-        }
-        vendor_id = 0;
+                device = OSDynamicCast(IOPCIDevice, iterator->getNextObject());
+                if (!device) {
+                    break;
+                }
+                vendor_id = 0;
 				OSData *data = OSDynamicCast(OSData, device->getProperty(fVendor));
 				if (data)
 					vendor_id = *(UInt32*)data->getBytesNoCopy();
@@ -66,13 +66,13 @@ IOService* RadeonMonitor::probe(IOService *provider, SInt32 *score)
 						vendor_id = *(UInt32*)data->getBytesNoCopy();
 				}
 				
-        device_id = 0;
-				data = OSDynamicCast(OSData, device->getProperty(fDevice));				
+                device_id = 0;
+				data = OSDynamicCast(OSData, device->getProperty(fDevice));
 				if (data)
 					device_id = *(UInt32*)data->getBytesNoCopy();
 				
-        class_id = 0;
-				data = OSDynamicCast(OSData, device->getProperty(fClass));				
+                class_id = 0;
+				data = OSDynamicCast(OSData, device->getProperty(fClass));
 				if (data)
 					class_id = *(UInt32*)data->getBytesNoCopy();
 				
@@ -83,8 +83,8 @@ IOService* RadeonMonitor::probe(IOService *provider, SInt32 *score)
 					break;
 				}
 				/*else {
-					WarningLog("ATI Radeon not found!");
-				}*/
+                 WarningLog("ATI Radeon not found!");
+                 }*/
 			} while (device);	
 		}
 	}

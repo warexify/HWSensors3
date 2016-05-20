@@ -68,10 +68,6 @@ private:
 	
 	
 	bool			getRadeonInfo	();
-//	void			setup_R5xx		();  //todo
-//	void			setup_R6xx		();
-//	void			setup_R7xx		();
-//	void			setup_Evergreen	();
 		
 protected:
 //	IOService*		m_Service;  //???
@@ -80,7 +76,9 @@ public:
 //	Binding* boardSensor;
 //	Binding* fanSensor;  
 	UInt32			read32(UInt32 reg);
-	bool        initialize(void);
+    void            write32(UInt32 reg, UInt32 val);
+    UInt32			read_ind(UInt32 reg);
+	bool            initialize(void);
 	IOReturn		R6xxTemperatureSensor(UInt16* data);
 	IOReturn		R7xxTemperatureSensor(UInt16* data);
 	IOReturn		EverTemperatureSensor(UInt16* data); 
