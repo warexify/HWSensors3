@@ -901,7 +901,7 @@ IOReturn W836x::callPlatformFunction(const OSSymbol *functionName, bool waitForF
         }		
 		return kIOReturnBadArgument;
 	}
-    
+/* no write SMC in Winbond
 	if (functionName->isEqualTo(kFakeSMCSetValueCallback)) {
 		const char* name = (const char*)param1;
 		void * data = param2;
@@ -918,7 +918,7 @@ IOReturn W836x::callPlatformFunction(const OSSymbol *functionName, bool waitForF
         }
 		return kIOReturnBadArgument;
 	}
-    
+ */   
 	return super::callPlatformFunction(functionName, waitForFunction, param1, param2, param3, param4);
 }
 
