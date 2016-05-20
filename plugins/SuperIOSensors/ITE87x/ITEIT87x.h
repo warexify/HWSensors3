@@ -71,8 +71,8 @@ enum IT87xModel
 };
 
 enum SuperIOSensorGroupEx {
-	  kSuperIOSmartGuardPWMControl = kSuperIOVoltageSensor +1,
-	  kSuperIOSmartGuardTempFanStop,
+    kSuperIOSmartGuardPWMControl = kSuperIOVoltageSensor +1,
+    kSuperIOSmartGuardTempFanStop,
     kSuperIOSmartGuardTempFanStart,
     kSuperIOSmartGuardTempFanFullOn,
     kSuperIOSmartGuardPWMStart,
@@ -81,7 +81,6 @@ enum SuperIOSensorGroupEx {
     kSuperIOSmartGuardMainControl,
     kSuperIOSmartGuardRegControl
 };
-
 
 class IT87x;
 
@@ -99,25 +98,18 @@ public:
 
 class IT87x : public SuperIOMonitor
 {
-  OSDeclareDefaultStructors(IT87x)
-  
+    OSDeclareDefaultStructors(IT87x)
+    
 	
 private:
-  long              voltageGain;
-  bool              has16bitFanCounter;
-  bool              hasSmartGuardian;
-  bool              vbat_updates;
-  
-  char              vendor[40];
-  char              product[40];
-  
-  //	UInt8					readByte(UInt8 reg);
-  //	UInt16					readWord(UInt8 reg1, UInt8 reg2);
-  //  void					writeByte(UInt8 reg, UInt8 value);
-  //    Not actually needed - better inline them
-  
-  
-	
+    long              voltageGain;
+    bool              has16bitFanCounter;
+    bool              hasSmartGuardian;
+    bool              vbat_updates;
+    
+    char              vendor[40];
+    char              product[40];
+    	
 	virtual void			enter();
 	virtual void			exit();
 	
@@ -125,46 +117,42 @@ private:
 	virtual long			readVoltage(unsigned long index);
 	virtual long			readTachometer(unsigned long index);
 	
-  virtual int				getPortsCount();
+    virtual int				getPortsCount();
 	virtual const char *	getModelName();
 	
 public:
-	virtual bool			  init(OSDictionary *properties=0);
-	virtual IOService*	probe(IOService *provider, SInt32 *score);
-  virtual bool			  start(IOService *provider);
-	virtual void			  stop(IOService *provider);
-	virtual void			  free(void);
-  
-  
-  virtual bool      probePort();
-  //    virtual bool			startPlugin(IOService *provider);
-  
-  
-  virtual long			readSmartGuardPWMControl(unsigned long index);
-  virtual long			readSmartGuardTempFanStop(unsigned long index);
-  virtual long			readSmartGuardTempFanStart(unsigned long index);
-  virtual long			readSmartGuardTempFanFullOn(unsigned long index);
-  virtual long			readSmartGuardPWMStart(unsigned long index);
-  virtual long			readSmartGuardTempFanFullOff(unsigned long index);
-  virtual long			readSmartGuardFanControl(unsigned long index); 
-  virtual long			readSmartGuardMainControl(unsigned long index); 
-  virtual long			readSmartGuardRegControl(unsigned long index); 
-  //  New write SMC key value to SmartGuardian registers methods    
-  virtual void			writeSmartGuardPWMControl(unsigned long index, UInt16 value);
-  virtual void			writeSmartGuardTempFanStop(unsigned long index, UInt16 value);
-  virtual void			writeSmartGuardTempFanStart(unsigned long index, UInt16 value);
-  virtual void			writeSmartGuardTempFanFullOn(unsigned long index, UInt16 value);
-  virtual void			writeSmartGuardPWMStart(unsigned long index, UInt16 value);
-  virtual void			writeSmartGuardTempFanFullOff(unsigned long index, UInt16 value);
-  virtual void			writeSmartGuardFanControl(unsigned long index, UInt16 value); 
-  virtual void			writeSmartGuardMainControl(unsigned long index, UInt16 value); 
-  virtual void			writeSmartGuardRegControl(unsigned long index, UInt16 value); 
-  
-  SuperIOSensor *			addSensor(const char* key, const char* type, unsigned int size, SuperIOSensorGroup group, unsigned long index, long aRi=0, long aRf=1, long aVf=0);
-  
-  
-  
-  virtual IOReturn callPlatformFunction(const OSSymbol *functionName, bool waitForFunction, void *param1, void *param2, void *param3, void *param4 );
+	virtual bool			init(OSDictionary *properties=0);
+	virtual IOService*      probe(IOService *provider, SInt32 *score);
+    virtual bool			start(IOService *provider);
+	virtual void			stop(IOService *provider);
+	virtual void			free(void);
+    
+    
+    virtual bool            probePort();
+    
+    virtual long			readSmartGuardPWMControl(unsigned long index);
+    virtual long			readSmartGuardTempFanStop(unsigned long index);
+    virtual long			readSmartGuardTempFanStart(unsigned long index);
+    virtual long			readSmartGuardTempFanFullOn(unsigned long index);
+    virtual long			readSmartGuardPWMStart(unsigned long index);
+    virtual long			readSmartGuardTempFanFullOff(unsigned long index);
+    virtual long			readSmartGuardFanControl(unsigned long index);
+    virtual long			readSmartGuardMainControl(unsigned long index);
+    virtual long			readSmartGuardRegControl(unsigned long index);
+    //  New write SMC key value to SmartGuardian registers methods
+    virtual void			writeSmartGuardPWMControl(unsigned long index, UInt16 value);
+    virtual void			writeSmartGuardTempFanStop(unsigned long index, UInt16 value);
+    virtual void			writeSmartGuardTempFanStart(unsigned long index, UInt16 value);
+    virtual void			writeSmartGuardTempFanFullOn(unsigned long index, UInt16 value);
+    virtual void			writeSmartGuardPWMStart(unsigned long index, UInt16 value);
+    virtual void			writeSmartGuardTempFanFullOff(unsigned long index, UInt16 value);
+    virtual void			writeSmartGuardFanControl(unsigned long index, UInt16 value);
+    virtual void			writeSmartGuardMainControl(unsigned long index, UInt16 value);
+    virtual void			writeSmartGuardRegControl(unsigned long index, UInt16 value);
+    
+    SuperIOSensor *			addSensor(const char* key, const char* type, unsigned int size, SuperIOSensorGroup group, unsigned long index, long aRi=0, long aRf=1, long aVf=0);
+    
+    virtual IOReturn callPlatformFunction(const OSSymbol *functionName, bool waitForFunction, void *param1, void *param2, void *param3, void *param4 );
 };
 
 inline UInt8 readByte(UInt16 address, UInt8 reg)
@@ -179,7 +167,7 @@ inline UInt8 readByte(UInt16 address, UInt8 reg)
 
 inline UInt16 readWord(UInt16 address,UInt8 reg1, UInt8 reg2)
 {	
-	return readByte(address,reg1) << 8 | readByte(address,reg2);
+	return (readByte(address,reg1) << 8) | readByte(address,reg2);
 }
 
 inline void writeByte(UInt16 address,UInt8 reg, UInt8 value)

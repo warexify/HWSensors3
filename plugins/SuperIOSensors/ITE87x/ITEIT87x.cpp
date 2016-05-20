@@ -322,21 +322,21 @@ bool IT87x::probePort()
   IOSleep(50);
 	
 	if (!getLogicalDeviceAddress()) {
-    DebugLog("can't get monitoring LDN address");
+        DebugLog("can't get monitoring LDN address");
 		return false;
-  }
+    }
   
 	UInt8 vendor16 = readByte(address, ITE_VENDOR_ID_REGISTER);
 	
 	if (vendor16 != ITE_VENDOR_ID) {
-    DebugLog("invalid vendor ID=0x%x", vendor16);
-		return false;
-  }
+        DebugLog("invalid vendor ID=0x%x", vendor16);
+        return false;
+    }
 	
 	if ((readByte(address, ITE_CONFIGURATION_REGISTER) & 0x10) == 0) {
-    DebugLog("invalid configuration register value");
+        DebugLog("invalid configuration register value");
 		return false;
-  }
+    }
 	
   if (id == IT8721F || id == IT8728F || id == IT8772E || id == IT8620F)
     voltageGain = 12;
@@ -396,11 +396,11 @@ const char *IT87x::getModelName()
 
 bool IT87x::init(OSDictionary *properties)
 {
-  //	DebugLog("initialising...");
-  
-  if (!super::init(properties))
+    //	DebugLog("initialising...");
+    
+    if (!super::init(properties))
 		return false;
-  
+    
 	return true;
 }
 
@@ -417,11 +417,11 @@ IOService* IT87x::probe(IOService *provider, SInt32 *score)
 void IT87x::stop (IOService* provider)
 {
 	DebugLog("stoping...");
-  if (kIOReturnSuccess != fakeSMC->callPlatformFunction(kFakeSMCRemoveKeyHandler, true, this, NULL, NULL, NULL)) {
-    WarningLog("Can't remove key handler");
-    IOSleep(500);
-  }
-  
+    if (kIOReturnSuccess != fakeSMC->callPlatformFunction(kFakeSMCRemoveKeyHandler, true, this, NULL, NULL, NULL)) {
+        WarningLog("Can't remove key handler");
+        IOSleep(500);
+    }
+    
 	super::stop(provider);
 }
 
@@ -435,51 +435,51 @@ void IT87x::free ()
 bool IT87x::start(IOService * provider)
 {
 	DebugLog("starting ...");
-  
+    
 	if (!super::start(provider))
 		return false;
 	
 	InfoLog("found ITE %s", getModelName());
-  OSDictionary* list = OSDynamicCast(OSDictionary, getProperty("Sensors Configuration"));
-  
-  OSDictionary *configuration=NULL;
-  IORegistryEntry * rootNode = fromPath("/efi/platform", gIODTPlane);
-  
-  if(rootNode) {
-    OSData *data = OSDynamicCast(OSData, rootNode->getProperty("OEMVendor"));
-    if (data) {
-      bcopy(data->getBytesNoCopy(), vendor, data->getLength());
-      OSString * VendorNick = vendorID(OSString::withCString(vendor));
-      if (VendorNick) {
-        data = OSDynamicCast(OSData, rootNode->getProperty("OEMBoard"));
-        if (!data) {
-          WarningLog("no OEMBoard");
-          data = OSDynamicCast(OSData, rootNode->getProperty("OEMProduct"));
-        }
+    OSDictionary* list = OSDynamicCast(OSDictionary, getProperty("Sensors Configuration"));
+    
+    OSDictionary *configuration=NULL;
+    IORegistryEntry * rootNode = fromPath("/efi/platform", gIODTPlane);
+    
+    if(rootNode) {
+        OSData *data = OSDynamicCast(OSData, rootNode->getProperty("OEMVendor"));
         if (data) {
-          bcopy(data->getBytesNoCopy(), product, data->getLength());
-          OSDictionary *link = OSDynamicCast(OSDictionary, list->getObject(VendorNick));
-          if (link){
-            configuration = OSDynamicCast(OSDictionary, link->getObject(OSString::withCString(product)));
-            InfoLog(" mother vendor=%s product=%s", vendor, product);
-          }
+            bcopy(data->getBytesNoCopy(), vendor, data->getLength());
+            OSString * VendorNick = vendorID(OSString::withCString(vendor));
+            if (VendorNick) {
+                data = OSDynamicCast(OSData, rootNode->getProperty("OEMBoard"));
+                if (!data) {
+                    WarningLog("no OEMBoard");
+                    data = OSDynamicCast(OSData, rootNode->getProperty("OEMProduct"));
+                }
+                if (data) {
+                    bcopy(data->getBytesNoCopy(), product, data->getLength());
+                    OSDictionary *link = OSDynamicCast(OSDictionary, list->getObject(VendorNick));
+                    if (link){
+                        configuration = OSDynamicCast(OSDictionary, link->getObject(OSString::withCString(product)));
+                        InfoLog(" mother vendor=%s product=%s", vendor, product);
+                    }
+                }
+            } else {
+                WarningLog("unknown OEMVendor %s", vendor);
+            }
+        } else {
+            WarningLog("no OEMVendor");
         }
-      } else {
-        WarningLog("unknown OEMVendor %s", vendor);
-      }
-    } else {
-      WarningLog("no OEMVendor");
     }
-  }
-  
-  if (list && !configuration) {
-    configuration = OSDynamicCast(OSDictionary, list->getObject("Default"));
-    WarningLog("set default configuration");
-  }
-  
-  if(configuration) {
-    this->setProperty("Current Configuration", configuration);
-  }
+    
+    if (list && !configuration) {
+        configuration = OSDynamicCast(OSDictionary, list->getObject("Default"));
+        WarningLog("set default configuration");
+    }
+    
+    if(configuration) {
+        this->setProperty("Current Configuration", configuration);
+    }
 	
 	// Temperature Sensors
 	if (configuration) {
@@ -487,75 +487,75 @@ bool IT87x::start(IOService * provider)
 			char key[8];
 			
 			snprintf(key, 8, "TEMPIN%X", i);
-      if(readTemperature(i)<MAX_TEMP_THRESHOLD) { // Need to check if temperature sensor valid
-        if (OSString* name = OSDynamicCast(OSString, configuration->getObject(key))) {
-          if (name->isEqualTo("CPU")) {
-            if (!addSensor(KEY_CPU_HEATSINK_TEMPERATURE, TYPE_SP78, 2, kSuperIOTemperatureSensor, i)) {
-              WarningLog("error adding heatsink temperature sensor");
+            if(readTemperature(i)<MAX_TEMP_THRESHOLD) { // Need to check if temperature sensor valid
+                if (OSString* name = OSDynamicCast(OSString, configuration->getObject(key))) {
+                    if (name->isEqualTo("CPU")) {
+                        if (!addSensor(KEY_CPU_HEATSINK_TEMPERATURE, TYPE_SP78, 2, kSuperIOTemperatureSensor, i)) {
+                            WarningLog("error adding heatsink temperature sensor");
+                        }
+                    }
+                    else if (name->isEqualTo("System")) {
+                        if (!addSensor(KEY_NORTHBRIDGE_TEMPERATURE, TYPE_SP78, 2, kSuperIOTemperatureSensor,i)) {
+                            WarningLog("error adding system temperature sensor");
+                        }
+                    }
+                    else if (name->isEqualTo("Ambient")) {
+                        if (!addSensor(KEY_AMBIENT_TEMPERATURE, TYPE_SP78, 2, kSuperIOTemperatureSensor,i)) {
+                            WarningLog("error adding Ambient temperature sensor");
+                        }
+                    }
+                    else if (name->isEqualTo("Memory")) {
+                        if (!addSensor(KEY_DIMM_TEMPERATURE, TYPE_SP78, 2, kSuperIOTemperatureSensor,i)) {
+                            WarningLog("error adding Memory temperature sensor");
+                        }
+                    }
+                }
             }
-          }
-          else if (name->isEqualTo("System")) {
-            if (!addSensor(KEY_NORTHBRIDGE_TEMPERATURE, TYPE_SP78, 2, kSuperIOTemperatureSensor,i)) {
-              WarningLog("error adding system temperature sensor");
-            }
-          }
-          else if (name->isEqualTo("Ambient")) {
-            if (!addSensor(KEY_AMBIENT_TEMPERATURE, TYPE_SP78, 2, kSuperIOTemperatureSensor,i)) {
-              WarningLog("error adding Ambient temperature sensor");
-            }
-          }
-          else if (name->isEqualTo("Memory")) {
-            if (!addSensor(KEY_DIMM_TEMPERATURE, TYPE_SP78, 2, kSuperIOTemperatureSensor,i)) {
-              WarningLog("error adding Memory temperature sensor");
-            }
-          }
-        }
-      }
 		}
 	}
 	else {
-    if(readTemperature(0)<MAX_TEMP_THRESHOLD)  // Need to check if temperature sensor valid
-      if (!addSensor(KEY_CPU_HEATSINK_TEMPERATURE, TYPE_SP78, 2, kSuperIOTemperatureSensor, 0)) {
-        WarningLog("error adding heatsink temperature sensor");
-      }
-    if(readTemperature(1)<MAX_TEMP_THRESHOLD)  // Need to check if temperature sensor valid
-      if (!addSensor(KEY_DIMM_TEMPERATURE, TYPE_SP78, 2, kSuperIOTemperatureSensor, 1)) {
-        WarningLog("error adding Ambient temperature sensor");
-      }
-    if(readTemperature(2)<MAX_TEMP_THRESHOLD)  // Need to check if temperature sensor valid
-      if (!addSensor(KEY_NORTHBRIDGE_TEMPERATURE, TYPE_SP78, 2, kSuperIOTemperatureSensor, 2)) {
-        WarningLog("error adding system temperature sensor");
-      }
+        if(readTemperature(0)<MAX_TEMP_THRESHOLD)  // Need to check if temperature sensor valid
+            if (!addSensor(KEY_CPU_HEATSINK_TEMPERATURE, TYPE_SP78, 2, kSuperIOTemperatureSensor, 0)) {
+                WarningLog("error adding heatsink temperature sensor");
+            }
+        if(readTemperature(1)<MAX_TEMP_THRESHOLD)  // Need to check if temperature sensor valid
+            if (!addSensor(KEY_DIMM_TEMPERATURE, TYPE_SP78, 2, kSuperIOTemperatureSensor, 1)) {
+                WarningLog("error adding Ambient temperature sensor");
+            }
+        if(readTemperature(2)<MAX_TEMP_THRESHOLD)  // Need to check if temperature sensor valid
+            if (!addSensor(KEY_NORTHBRIDGE_TEMPERATURE, TYPE_SP78, 2, kSuperIOTemperatureSensor, 2)) {
+                WarningLog("error adding system temperature sensor");
+            }
 	}
 	
 	
 	// Voltage
-  UInt8 tmp = readByte(address, ITE_ADC_CHANNEL_ENABLE);
-  DebugLog("ADC Enable register = %X",tmp);
-  
-  vbat_updates = false;
-  if(configuration)
-  {
-    OSBoolean* smartGuard = OSDynamicCast(OSBoolean, configuration->getObject("VBATNeedUpdates"));
-    if(smartGuard && smartGuard->isTrue())
-      vbat_updates=true;
-  }
-  // Refresh VBAT reading on each access to the key
-  if(vbat_updates)
-    writeByte(address, ITE_CONFIGURATION_REGISTER, readByte(address, ITE_CONFIGURATION_REGISTER) | 0x40);
-  
+    UInt8 tmp = readByte(address, ITE_ADC_CHANNEL_ENABLE);
+    DebugLog("ADC Enable register = %X",tmp);
+    
+    vbat_updates = false;
+    if(configuration)
+    {
+        OSBoolean* smartGuard = OSDynamicCast(OSBoolean, configuration->getObject("VBATNeedUpdates"));
+        if(smartGuard && smartGuard->isTrue())
+            vbat_updates=true;
+    }
+    // Refresh VBAT reading on each access to the key
+    if(vbat_updates)
+        writeByte(address, ITE_CONFIGURATION_REGISTER, readByte(address, ITE_CONFIGURATION_REGISTER) | 0x40);
+    
 	if (configuration) {
 		for (int i = 0; i < 9; i++) {
 			char key[5];
-      OSString * name;
-      long Ri=0;
-      long Rf=1;
-      long Vf=0;
+            OSString * name;
+            long Ri=0;
+            long Rf=1;
+            long Vf=0;
 			
 			snprintf(key, 5, "VIN%X", i);
 			
 			if (process_sensor_entry(configuration->getObject(key), &name, &Ri, &Rf, &Vf)) {
-        //      DebugLog("Entry %d name=%s Ri=%ld", i, name->getCStringNoCopy(), Ri);
+                //      DebugLog("Entry %d name=%s Ri=%ld", i, name->getCStringNoCopy(), Ri);
 				if (name->isEqualTo("CPU")) {
 					if (!addSensor(KEY_CPU_VRM_SUPPLY0, TYPE_FP2E, 2, kSuperIOVoltageSensor, i,Ri,Rf,Vf))
 						WarningLog("error adding CPU voltage sensor");
@@ -564,42 +564,42 @@ bool IT87x::start(IOService * provider)
 					if (!addSensor(KEY_MEMORY_VOLTAGE, TYPE_FP2E, 2, kSuperIOVoltageSensor, i,Ri,Rf,Vf))
 						WarningLog("error adding memory voltage sensor");
 				}
-        else if (name->isEqualTo("+5VC")) {
-          if (!addSensor(KEY_5VC_VOLTAGE, TYPE_SP4B, 2, kSuperIOVoltageSensor, i,Ri,Rf,Vf)) {
-            WarningLog("ERROR Adding AVCC Voltage Sensor!");
-          }
-        }
-        else if (name->isEqualTo("+5VSB")) {
-          if (!addSensor(KEY_5VSB_VOLTAGE, TYPE_SP4B, 2, kSuperIOVoltageSensor, i,Ri,Rf,Vf)) {
-            WarningLog("ERROR Adding AVCC Voltage Sensor!");
-          }
-        }
-        else if (name->isEqualTo("+12VC")) {
-          if (!addSensor(KEY_12V_VOLTAGE, TYPE_SP4B, 2, kSuperIOVoltageSensor, i,Ri,Rf,Vf)) {
-            WarningLog("ERROR Adding 12V Voltage Sensor!");
-          }
-        }
-        else if (name->isEqualTo("-12VC")) {
-          if (!addSensor(KEY_N12VC_VOLTAGE, TYPE_SP4B, 2, kSuperIOVoltageSensor, i,Ri,Rf,Vf)) {
-            WarningLog("ERROR Adding 12V Voltage Sensor!");
-          }
-        }
-        else if (name->isEqualTo("3VCC")) {
-          if (!addSensor(KEY_3VCC_VOLTAGE, TYPE_FP2E, 2, kSuperIOVoltageSensor, i,Ri,Rf,Vf)) {
-            WarningLog("ERROR Adding 3VCC Voltage Sensor!");
-          }
-        }
-        
-        else if (name->isEqualTo("3VSB")) {
-          if (!addSensor(KEY_3VSB_VOLTAGE, TYPE_FP2E, 2, kSuperIOVoltageSensor, i,Ri,Rf,Vf)) {
-            WarningLog("ERROR Adding 3VSB Voltage Sensor!");
-          }
-        }
-        else if (name->isEqualTo("VBAT")) {
-          if (!addSensor(KEY_VBAT_VOLTAGE, TYPE_FP2E, 2, kSuperIOVoltageSensor, i,Ri,Rf,Vf)) {
-            WarningLog("ERROR Adding VBAT Voltage Sensor!");
-          }
-        }
+                else if (name->isEqualTo("+5VC")) {
+                    if (!addSensor(KEY_5VC_VOLTAGE, TYPE_SP4B, 2, kSuperIOVoltageSensor, i,Ri,Rf,Vf)) {
+                        WarningLog("ERROR Adding AVCC Voltage Sensor!");
+                    }
+                }
+                else if (name->isEqualTo("+5VSB")) {
+                    if (!addSensor(KEY_5VSB_VOLTAGE, TYPE_SP4B, 2, kSuperIOVoltageSensor, i,Ri,Rf,Vf)) {
+                        WarningLog("ERROR Adding AVCC Voltage Sensor!");
+                    }
+                }
+                else if (name->isEqualTo("+12VC")) {
+                    if (!addSensor(KEY_12V_VOLTAGE, TYPE_SP4B, 2, kSuperIOVoltageSensor, i,Ri,Rf,Vf)) {
+                        WarningLog("ERROR Adding 12V Voltage Sensor!");
+                    }
+                }
+                else if (name->isEqualTo("-12VC")) {
+                    if (!addSensor(KEY_N12VC_VOLTAGE, TYPE_SP4B, 2, kSuperIOVoltageSensor, i,Ri,Rf,Vf)) {
+                        WarningLog("ERROR Adding 12V Voltage Sensor!");
+                    }
+                }
+                else if (name->isEqualTo("3VCC")) {
+                    if (!addSensor(KEY_3VCC_VOLTAGE, TYPE_FP2E, 2, kSuperIOVoltageSensor, i,Ri,Rf,Vf)) {
+                        WarningLog("ERROR Adding 3VCC Voltage Sensor!");
+                    }
+                }
+                
+                else if (name->isEqualTo("3VSB")) {
+                    if (!addSensor(KEY_3VSB_VOLTAGE, TYPE_FP2E, 2, kSuperIOVoltageSensor, i,Ri,Rf,Vf)) {
+                        WarningLog("ERROR Adding 3VSB Voltage Sensor!");
+                    }
+                }
+                else if (name->isEqualTo("VBAT")) {
+                    if (!addSensor(KEY_VBAT_VOLTAGE, TYPE_FP2E, 2, kSuperIOVoltageSensor, i,Ri,Rf,Vf)) {
+                        WarningLog("ERROR Adding VBAT Voltage Sensor!");
+                    }
+                }
 			}
 		}
 	}
@@ -617,60 +617,60 @@ bool IT87x::start(IOService * provider)
 		UInt32 nameLength = name ? (UInt32)strlen(name->getCStringNoCopy()) : 0;
 		
 		if (readTachometer(i) > 10 || nameLength > 0) {
-      // Pff WTF ??? Add tachometer if it doesn't exist in a system but only the name defined in the config???
-      
+            // Pff WTF ??? Add tachometer if it doesn't exist in a system but only the name defined in the config???
+            
 			if (!addTachometer(i, (nameLength > 0 ? name->getCStringNoCopy() : 0)))
-        // Need to look at this a bit later
+                // Need to look at this a bit later
 				WarningLog("error adding tachometer sensor %d", i);
-    }
-    
-    // Check if this chip support SmartGuardian feature
-    
-    hasSmartGuardian=false;
-    if(configuration) {
-      if(OSBoolean* smartGuard=OSDynamicCast(OSBoolean, configuration->getObject("SmartGuardian")))
-        if(smartGuard->isTrue())
-          hasSmartGuardian=true;
-    }
-    
-    if(hasSmartGuardian) {
-      char key[5];
-      // Ugly development hack started for (SuperIOSensorGroup)
-      snprintf(key,5,KEY_FORMAT_FAN_TARGET_SPEED,i);
-      if (!addSensor(key, TYPE_UI8, 1, (SuperIOSensorGroup)kSuperIOSmartGuardPWMControl, i))
-        WarningLog("error adding PWM fan control");
-      
-      snprintf(key,5,KEY_FORMAT_FAN_START_TEMP,i);
-      if (!addSensor(key, TYPE_UI8, 1, (SuperIOSensorGroup)kSuperIOSmartGuardTempFanStart, i))
-        WarningLog("error adding start temp fan control");
-      
-      snprintf(key,5,KEY_FORMAT_FAN_OFF_TEMP,i);
-      if (!addSensor(key, TYPE_UI8, 1, (SuperIOSensorGroup)kSuperIOSmartGuardTempFanStop, i))
-        WarningLog("error adding stop temp fan control");
-      
-      snprintf(key,5,KEY_FORMAT_FAN_FULL_TEMP,i);
-      if (!addSensor(key, TYPE_UI8, 1, (SuperIOSensorGroup)kSuperIOSmartGuardTempFanFullOn, i))
-        WarningLog("error adding full speed temp fan control");
-      
-      snprintf(key,5,KEY_FORMAT_FAN_START_PWM,i);
-      if (!addSensor(key, TYPE_UI8, 1, (SuperIOSensorGroup)kSuperIOSmartGuardPWMStart, i))
-        WarningLog("error adding start PWM fan control");
-      
-      snprintf(key,5,KEY_FORMAT_FAN_TEMP_DELTA,i);
-      if (!addSensor(key, TYPE_UI8, 1, (SuperIOSensorGroup)kSuperIOSmartGuardTempFanFullOff, i))
-        WarningLog("error adding temp full off fan control");
-      
-      snprintf(key,5,KEY_FORMAT_FAN_CONTROL,i);
-      if (!addSensor(key, TYPE_UI8, 1, (SuperIOSensorGroup)kSuperIOSmartGuardTempFanControl, i))
-        WarningLog("error adding register fan control");
-    }
+        }
+        
+        // Check if this chip support SmartGuardian feature
+        
+        hasSmartGuardian=false;
+        if(configuration) {
+            if(OSBoolean* smartGuard=OSDynamicCast(OSBoolean, configuration->getObject("SmartGuardian")))
+                if(smartGuard->isTrue())
+                    hasSmartGuardian=true;
+        }
+        
+        if(hasSmartGuardian) {
+            char key[5];
+            // Ugly development hack started for (SuperIOSensorGroup)
+            snprintf(key,5,KEY_FORMAT_FAN_TARGET_SPEED,i);
+            if (!addSensor(key, TYPE_UI8, 1, (SuperIOSensorGroup)kSuperIOSmartGuardPWMControl, i))
+                WarningLog("error adding PWM fan control");
+            
+            snprintf(key,5,KEY_FORMAT_FAN_START_TEMP,i);
+            if (!addSensor(key, TYPE_UI8, 1, (SuperIOSensorGroup)kSuperIOSmartGuardTempFanStart, i))
+                WarningLog("error adding start temp fan control");
+            
+            snprintf(key,5,KEY_FORMAT_FAN_OFF_TEMP,i);
+            if (!addSensor(key, TYPE_UI8, 1, (SuperIOSensorGroup)kSuperIOSmartGuardTempFanStop, i))
+                WarningLog("error adding stop temp fan control");
+            
+            snprintf(key,5,KEY_FORMAT_FAN_FULL_TEMP,i);
+            if (!addSensor(key, TYPE_UI8, 1, (SuperIOSensorGroup)kSuperIOSmartGuardTempFanFullOn, i))
+                WarningLog("error adding full speed temp fan control");
+            
+            snprintf(key,5,KEY_FORMAT_FAN_START_PWM,i);
+            if (!addSensor(key, TYPE_UI8, 1, (SuperIOSensorGroup)kSuperIOSmartGuardPWMStart, i))
+                WarningLog("error adding start PWM fan control");
+            
+            snprintf(key,5,KEY_FORMAT_FAN_TEMP_DELTA,i);
+            if (!addSensor(key, TYPE_UI8, 1, (SuperIOSensorGroup)kSuperIOSmartGuardTempFanFullOff, i))
+                WarningLog("error adding temp full off fan control");
+            
+            snprintf(key,5,KEY_FORMAT_FAN_CONTROL,i);
+            if (!addSensor(key, TYPE_UI8, 1, (SuperIOSensorGroup)kSuperIOSmartGuardTempFanControl, i))
+                WarningLog("error adding register fan control");
+        }
 	}
-  if(hasSmartGuardian) {
-    if (!addSensor(KEY_FORMAT_FAN_MAIN_CONTROL, TYPE_UI8, 1, (SuperIOSensorGroup)kSuperIOSmartGuardMainControl, 0))
-      WarningLog("error adding Main fan control");
-    if (!addSensor(KEY_FORMAT_FAN_REG_CONTROL, TYPE_UI8, 1, (SuperIOSensorGroup)kSuperIOSmartGuardRegControl, 0))
-      WarningLog("error adding Main fan control");
-  }
+    if(hasSmartGuardian) {
+        if (!addSensor(KEY_FORMAT_FAN_MAIN_CONTROL, TYPE_UI8, 1, (SuperIOSensorGroup)kSuperIOSmartGuardMainControl, 0))
+            WarningLog("error adding Main fan control");
+        if (!addSensor(KEY_FORMAT_FAN_REG_CONTROL, TYPE_UI8, 1, (SuperIOSensorGroup)kSuperIOSmartGuardRegControl, 0))
+            WarningLog("error adding Main fan control");
+    }
 	
 	return true;
 }
@@ -685,17 +685,15 @@ SuperIOSensor * IT87x::addSensor(const char* name, const char* type, unsigned in
 {
 	if (NULL != getSensor(name))
 		return 0;
-  //  DebugLog("mults = %ld", aRi);
-  SuperIOSensor *sensor = IT87xSensor::withOwner(this, name, type, size, group, index, aRi, aRf, aVf);
-  
+    //  DebugLog("mults = %ld", aRi);
+    SuperIOSensor *sensor = IT87xSensor::withOwner(this, name, type, size, group, index, aRi, aRf, aVf);
+    
 	if (sensor && sensors->setObject(sensor))
 		if(kIOReturnSuccess == fakeSMC->callPlatformFunction(kFakeSMCAddKeyHandler, false, (void *)name, (void *)type, (void *)(long long)size, (void *)this))
-      return sensor;
+            return sensor;
 	
 	return 0;
 }
-
-
 
 IOReturn IT87x::callPlatformFunction(const OSSymbol *functionName, bool waitForFunction, void *param1, void *param2, void *param3, void *param4 )
 {
@@ -704,9 +702,9 @@ IOReturn IT87x::callPlatformFunction(const OSSymbol *functionName, bool waitForF
 		void * data = param2;
 		//UInt32 size = (UInt64)param3;
 		
-    
+        
 		if (name && data) {
-      SuperIOSensor * sensor = getSensor(name);
+            SuperIOSensor * sensor = getSensor(name);
 			if (sensor) {
 				UInt16 value = sensor->getValue();
 				
@@ -714,28 +712,28 @@ IOReturn IT87x::callPlatformFunction(const OSSymbol *functionName, bool waitForF
 				
 				return kIOReturnSuccess;
 			}
-    }
+        }
 		
 		return kIOReturnBadArgument;
 	}
-  
+    
 	if (functionName->isEqualTo(kFakeSMCSetValueCallback)) {
 		const char* name = (const char*)param1;
 		void * data = param2;
 		//UInt32 size = (UInt64)param3;
-    
+        
 		if (name && data) {
-      IT87xSensor *sensor = OSDynamicCast(IT87xSensor, getSensor(name));
+            IT87xSensor *sensor = OSDynamicCast(IT87xSensor, getSensor(name));
 			if (sensor) {
 				UInt16 value;
-        bcopy(data, &value, 2);
+                bcopy(data, &value, 2);
 				sensor->setValue(value);
-        
+                
 				return kIOReturnSuccess;
 			}
-    }
+        }
 		return kIOReturnBadArgument;
 	}
-  
+    
 	return super::callPlatformFunction(functionName, waitForFunction, param1, param2, param3, param4);
 }

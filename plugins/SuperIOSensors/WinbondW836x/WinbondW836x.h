@@ -71,39 +71,39 @@ const UInt8 WINBOND_TEMPERATURE_SOURCE_SELECT_REG	= 0x49;
 //private string[] TEMPERATURE_NAME = 
 //new string[] {"CPU", "Ambient", "System"};
 const UInt8 WINBOND_TEMPERATURE[]           = { 0x50, 0x50, 0x27 };
-const UInt8 WINBOND_TEMPERATURE_BANK[]			= { 1,    2,    0 };
+const UInt8 WINBOND_TEMPERATURE_BANK[]		= { 1,    2,    0 };
 
-// Voltages                                     VCORE RSV0  3VCC  AVCC +12V1 -12V2 -5VIN3  3VSB   VBAT
+// Voltages                                    VCORE RSV0  3VCC  AVCC +12V1 -12V2 -5VIN3  3VSB   VBAT
 const UInt16 WINBOND_VOLTAGE_REG[]          = { 0x20, 0x21, 0x22, 0x23, 0x24, 0x25, 0x26, 0x550, 0x551 };
 const float  WINBOND_VOLTAGE_SCALE[]        = { 8,    8,    16,   16,   8,    8,    8,    16,    16 };
 const UInt16 WINBOND_VOLTAGE_VBAT_REG       = 0x0551;
 
-const UInt8 WINBOND_TACHOMETER[]					  = { 0x28, 0x29, 0x2A, 0x3F, 0x53 };
-const UInt8 WINBOND_TACHOMETER_BANK[]				= { 0, 0, 0, 0, 5 };
+const UInt8 WINBOND_TACHOMETER[]			= { 0x28, 0x29, 0x2A, 0x3F, 0x53 };
+const UInt8 WINBOND_TACHOMETER_BANK[]		= { 0, 0, 0, 0, 5 };
 
-const UInt8 WINBOND_TACHOMETER_DIV0[]				= { 0x47, 0x47, 0x4B, 0x59, 0x59 };
-const UInt8 WINBOND_TACHOMETER_DIV0_BIT[]		= { 4,    6,    6,    0,    2 };
-const UInt8 WINBOND_TACHOMETER_DIV1[]				= { 0x47, 0x47, 0x4B, 0x59, 0x59 };
-const UInt8 WINBOND_TACHOMETER_DIV1_BIT[]		= { 5,    7,    7,    1,    3 };
-const UInt8 WINBOND_TACHOMETER_DIV2[]				= { 0x5D, 0x5D, 0x5D, 0x4C, 0x59 };
-const UInt8 WINBOND_TACHOMETER_DIV2_BIT[]		= { 5,    6,    7,    7,    7 };
+const UInt8 WINBOND_TACHOMETER_DIV0[]		= { 0x47, 0x47, 0x4B, 0x59, 0x59 };
+const UInt8 WINBOND_TACHOMETER_DIV0_BIT[]	= { 4,    6,    6,    0,    2 };
+const UInt8 WINBOND_TACHOMETER_DIV1[]		= { 0x47, 0x47, 0x4B, 0x59, 0x59 };
+const UInt8 WINBOND_TACHOMETER_DIV1_BIT[]	= { 5,    7,    7,    1,    3 };
+const UInt8 WINBOND_TACHOMETER_DIV2[]		= { 0x5D, 0x5D, 0x5D, 0x4C, 0x59 };
+const UInt8 WINBOND_TACHOMETER_DIV2_BIT[]	= { 5,    6,    7,    7,    7 };
 
-const UInt8 WINBOND_TACHOMETER_DIVISOR[]		= { 0x47, 0x4B, 0x4C, 0x59, 0x5D };
-const UInt8 WINBOND_TACHOMETER_DIVISOR0[]		= { 36, 38, 30, 8, 10 };
-const UInt8 WINBOND_TACHOMETER_DIVISOR1[]		= { 37, 39, 31, 9, 11 };
-const UInt8 WINBOND_TACHOMETER_DIVISOR2[]		= { 5, 6, 7, 23, 15 };
+const UInt8 WINBOND_TACHOMETER_DIVISOR[]	= { 0x47, 0x4B, 0x4C, 0x59, 0x5D };
+const UInt8 WINBOND_TACHOMETER_DIVISOR0[]	= { 36, 38, 30, 8, 10 };
+const UInt8 WINBOND_TACHOMETER_DIVISOR1[]	= { 37, 39, 31, 9, 11 };
+const UInt8 WINBOND_TACHOMETER_DIVISOR2[]	= { 5, 6, 7, 23, 15 };
 
 // Fan Control
-const UInt8 WINBOND_FAN_CONFIG[]					= { 0x04, 0x04, 0x12, 0x62 };
-const UInt8 WINBOND_FAN_CONTROL_BIT[]			= { 0x02, 0x04, 0x01, 0x04 };
-const UInt8 WINBOND_FAN_MODE_BIT[]				= { 0x00, 0x01, 0x00, 0x06 };
-const UInt8 WINBOND_FAN_OUTPUT[]					= { 0x01, 0x03, 0x11, 0x61 };
+const UInt8 WINBOND_FAN_CONFIG[]			= { 0x04, 0x04, 0x12, 0x62 };
+const UInt8 WINBOND_FAN_CONTROL_BIT[]		= { 0x02, 0x04, 0x01, 0x04 };
+const UInt8 WINBOND_FAN_MODE_BIT[]			= { 0x00, 0x01, 0x00, 0x06 };
+const UInt8 WINBOND_FAN_OUTPUT[]			= { 0x01, 0x03, 0x11, 0x61 };
 
 enum W836xModel {
 	W83627DHG	= 0xA020,
 	W83627UHG	= 0xA230,
     W83627DHGP  = 0xB070,
-    W83627EHF	= 0x8800,    
+    W83627EHF	= 0x8800,
     W83627HF	= 0x5200,
 	W83627THF	= 0x8280,
 	W83627SF	= 0x5950,
@@ -121,43 +121,59 @@ enum W836xModel {
     NCT6793D    = 0xD121,
 };
 
+class W836x;
+
+class W836xSensor : public SuperIOSensor
+{
+    OSDeclareDefaultStructors(W836xSensor)
+    
+public:
+    static SuperIOSensor *withOwner(SuperIOMonitor *aOwner, const char* aKey, const char* aType, unsigned char aSize, SuperIOSensorGroup aGroup, unsigned long aIndex , long aRi=0, long aRf=1, long aVf=0);
+    
+    virtual long	getValue();
+    virtual void    setValue(UInt16 value);
+};
+
+
 class W836x : public SuperIOMonitor
 {
     OSDeclareDefaultStructors(W836x)
-  
-public:
-	virtual bool			  init(OSDictionary *properties=0);
-	virtual IOService*	probe(IOService *provider, SInt32 *score);
-  virtual bool			  start(IOService *provider);
-	virtual void			  stop(IOService *provider);
-	virtual void			  free(void);
-  
-  
-	
-private:
-  char              vendor[40];
-  char              product[40];
-  
-	UInt8					fanLimit;
-	UInt16				fanValue[5];
-	bool					fanValueObsolete[5];
-	
-	void					writeByte(UInt8 bank, UInt8 reg, UInt8 value);
-	UInt8					readByte(UInt8 bank, UInt8 reg);
-  UInt64        setBit(UInt64 target, UInt16 bit, UInt32 value);
-	
-	virtual bool			probePort();
-//  virtual bool			startPlugin();
-	virtual void			enter();
-	virtual void			exit();
     
-	virtual long			readTemperature(unsigned long index);
-	virtual long			readVoltage(unsigned long index);
-	void              updateTachometers();
-	virtual long			readTachometer(unsigned long index);
+public:
+	virtual bool		init(OSDictionary *properties=0);
+	virtual IOService*	probe(IOService *provider, SInt32 *score);
+    virtual bool		start(IOService *provider);
+	virtual void		stop(IOService *provider);
+	virtual void		free(void);
+
+private:
+    char                vendor[40];
+    char                product[40];
+    
+	UInt8				fanLimit;
+	UInt16				fanValue[5];
+	bool				fanValueObsolete[5];
 	
-	virtual const char *	getModelName();
+	void				writeByte(UInt8 bank, UInt8 reg, UInt8 value);
+	UInt8				readByte(UInt8 bank, UInt8 reg);
+    UInt64              setBit(UInt64 target, UInt16 bit, UInt32 value);
+	
+	virtual bool		probePort();
+    //  virtual bool			startPlugin();
+	virtual void		enter();
+	virtual void		exit();
+    
+	virtual long		readTemperature(unsigned long index);
+	virtual long		readVoltage(unsigned long index);
+	void                updateTachometers();
+	virtual long		readTachometer(unsigned long index);
+	
+	virtual const char*	getModelName();
 	
 public:
-	
+    SuperIOSensor *		addSensor(const char* key, const char* type, unsigned int size, SuperIOSensorGroup group, unsigned long index, long aRi=0, long aRf=1, long aVf=0);
+    
+    virtual IOReturn callPlatformFunction(const OSSymbol *functionName, bool waitForFunction, void *param1, void *param2, void *param3, void *param4 );
+
+
 };

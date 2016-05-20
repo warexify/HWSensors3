@@ -63,6 +63,62 @@
 #define super SuperIOMonitor
 OSDefineMetaClassAndStructors(W836x, SuperIOMonitor)
 
+OSDefineMetaClassAndStructors(W836xSensor, SuperIOSensor)
+
+#pragma mark W836xSensor implementation
+
+SuperIOSensor * W836xSensor::withOwner(SuperIOMonitor *aOwner, const char* aKey, const char* aType, unsigned char aSize, SuperIOSensorGroup aGroup, unsigned long aIndex, long aRi, long aRf, long aVf)
+{
+	SuperIOSensor *me = new W836xSensor;
+    //  DebugLog("with owner mults = %ld", aRi);
+    if (me && !me->initWithOwner(aOwner, aKey, aType, aSize, aGroup, aIndex ,aRi,aRf,aVf)) {
+        me->release();
+        return 0;
+    }
+	
+    return me;
+}
+
+long W836xSensor::getValue()
+{
+	UInt16 value = 0;
+	switch (group) {
+		case kSuperIOTemperatureSensor:
+			value = owner->readTemperature(index);
+			break;
+		case kSuperIOVoltageSensor:
+			value = owner->readVoltage(index);
+			break;
+		case kSuperIOTachometerSensor:
+			value = owner->readTachometer(index);
+			break;
+        default:
+            break;
+    }
+    if (Rf == 0) {
+        Rf = 1;
+        WarningLog("Rf == 0 when getValue index=%d value=%04x", (int)index, value);
+    }
+    //  DebugLog("value = %ld Ri=%ld Rf=%ld", (long)value, Ri, Rf);
+    value =  value + ((value - Vf) * Ri)/Rf;
+    
+	if (*((uint32_t*)type) == *((uint32_t*)TYPE_FP2E)) {
+		value = encode_fp2e(value);
+	}
+    else if (*((uint32_t*)type) == *((uint32_t*)TYPE_SP4B)) {
+		value = encode_sp4b(value);
+	}
+	else if (*((uint32_t*)type) == *((uint32_t*)TYPE_FPE2)) {
+		value = encode_fpe2(value);
+	}
+    
+    //  value = encodeValue(value, scale);
+	
+	return value;
+}
+    
+
+
 UInt8 W836x::readByte(UInt8 bank, UInt8 reg)
 {
 	outb((UInt16)(address + WINBOND_ADDRESS_REGISTER_OFFSET), WINBOND_BANK_SELECT_REGISTER);
@@ -491,9 +547,9 @@ bool W836x::probePort()
   //    IOSleep(50);
   
 	if (!getLogicalDeviceAddress()) {
-    DebugLog("can't get monitoring logical device address");
-		return false;
-  }
+        DebugLog("can't get monitoring logical device address");
+        return false;
+    }
   
   
 	return true;
@@ -522,11 +578,11 @@ IOService* W836x::probe(IOService *provider, SInt32 *score)
 void W836x::stop (IOService* provider)
 {
 	DebugLog("stoping...");
-  if (kIOReturnSuccess != fakeSMC->callPlatformFunction(kFakeSMCRemoveKeyHandler, true, this, NULL, NULL, NULL)) {
-    WarningLog("Can't remove key handler");
-    IOSleep(500);
-  }
-  
+    if (kIOReturnSuccess != fakeSMC->callPlatformFunction(kFakeSMCRemoveKeyHandler, true, this, NULL, NULL, NULL)) {
+        WarningLog("Can't remove key handler");
+        IOSleep(500);
+    }
+    
 	super::stop(provider);
 }
 
@@ -540,55 +596,52 @@ void W836x::free ()
 bool W836x::start(IOService * provider)
 {
 	DebugLog("starting ...");
-  
+    
 	if (!super::start(provider))
 		return false;
-  
-  InfoLog("found %s", getModelName());
-	
-  OSDictionary* list = OSDynamicCast(OSDictionary, getProperty("Sensors Configuration"));
-  //  IOService * fRoot = getServiceRoot();
-  //  OSString *vendor=NULL, *product=NULL;
-  OSDictionary *configuration=NULL;
-  IORegistryEntry * rootNode;
-  
-  rootNode = fromPath("/efi/platform", gIODTPlane);
-  
-  if(rootNode) {
-    OSData *data = OSDynamicCast(OSData, rootNode->getProperty("OEMVendor"));
-    if (data) {
-      bcopy(data->getBytesNoCopy(), vendor, data->getLength());
-      OSString * VendorNick = vendorID(OSString::withCString(vendor));
-      if (VendorNick) {
-        data = OSDynamicCast(OSData, rootNode->getProperty("OEMBoard"));
-        if (!data) {
-          WarningLog("no OEMBoard");
-          data = OSDynamicCast(OSData, rootNode->getProperty("OEMProduct"));
-        }
+    
+    InfoLog("found %s", getModelName());	
+    OSDictionary* list = OSDynamicCast(OSDictionary, getProperty("Sensors Configuration"));
+    OSDictionary *configuration=NULL;
+    IORegistryEntry * rootNode;
+    
+    rootNode = fromPath("/efi/platform", gIODTPlane);
+    
+    if(rootNode) {
+        OSData *data = OSDynamicCast(OSData, rootNode->getProperty("OEMVendor"));
         if (data) {
-          bcopy(data->getBytesNoCopy(), product, data->getLength());
-          OSDictionary *link = OSDynamicCast(OSDictionary, list->getObject(VendorNick));
-          if (link){
-            configuration = OSDynamicCast(OSDictionary, link->getObject(OSString::withCString(product)));
-            InfoLog(" mother vendor=%s product=%s", vendor, product);
-          }
+            bcopy(data->getBytesNoCopy(), vendor, data->getLength());
+            OSString * VendorNick = vendorID(OSString::withCString(vendor));
+            if (VendorNick) {
+                data = OSDynamicCast(OSData, rootNode->getProperty("OEMBoard"));
+                if (!data) {
+                    WarningLog("no OEMBoard");
+                    data = OSDynamicCast(OSData, rootNode->getProperty("OEMProduct"));
+                }
+                if (data) {
+                    bcopy(data->getBytesNoCopy(), product, data->getLength());
+                    OSDictionary *link = OSDynamicCast(OSDictionary, list->getObject(VendorNick));
+                    if (link){
+                        configuration = OSDynamicCast(OSDictionary, link->getObject(OSString::withCString(product)));
+                        InfoLog(" mother vendor=%s product=%s", vendor, product);
+                    }
+                }
+            } else {
+                WarningLog("unknown OEMVendor %s", vendor);
+            }
+        } else {
+            WarningLog("no OEMVendor");
         }
-      } else {
-        WarningLog("unknown OEMVendor %s", vendor);
-      }
-    } else {
-      WarningLog("no OEMVendor");
     }
-  }
-  
-  if (list && !configuration) {
-    configuration = OSDynamicCast(OSDictionary, list->getObject("Default"));
-    WarningLog("set default configuration");
-  }
-  
-  if(configuration) {
-    this->setProperty("Current Configuration", configuration);
-  }
+    
+    if (list && !configuration) {
+        configuration = OSDynamicCast(OSDictionary, list->getObject("Default"));
+        WarningLog("set default configuration");
+    }
+    
+    if(configuration) {
+        this->setProperty("Current Configuration", configuration);
+    }
 	
 	OSBoolean* tempin0forced = configuration ? OSDynamicCast(OSBoolean, configuration->getObject("TEMPIN0FORCED")) : 0;
 	OSBoolean* tempin1forced = configuration ? OSDynamicCast(OSBoolean, configuration->getObject("TEMPIN1FORCED")) : 0;
@@ -596,29 +649,29 @@ bool W836x::start(IOService * provider)
 	if (OSNumber* fanlimit = configuration ? OSDynamicCast(OSNumber, configuration->getObject("FANINLIMIT")) : 0)
 		fanLimit = fanlimit->unsigned8BitValue();
 	
-//	cpuid_update_generic_info();
+    //	cpuid_update_generic_info();
 	
 	bool isCpuCore_i = false;
 	
-/*	if (strcmp(cpuid_info()->cpuid_vendor, CPUID_VID_INTEL) == 0)
-	{
-		switch (cpuid_info()->cpuid_family)
-		{
-			case 0x6:
-			{
-				switch (cpuid_info()->cpuid_model)
-				{
-					case 0x1A: // Intel Core i7 LGA1366 (45nm)
-					case 0x1E: // Intel Core i5, i7 LGA1156 (45nm)
-					case 0x25: // Intel Core i3, i5, i7 LGA1156 (32nm)
-					case 0x2C: // Intel Core i7 LGA1366 (32nm) 6 Core
-						isCpuCore_i = true;
-						break;
-				}
-			}	break;
-		}
-    isCpuCore_i = (cpuid_info()->cpuid_model >= 0x1A);
-	} */
+    /*	if (strcmp(cpuid_info()->cpuid_vendor, CPUID_VID_INTEL) == 0)
+     {
+     switch (cpuid_info()->cpuid_family)
+     {
+     case 0x6:
+     {
+     switch (cpuid_info()->cpuid_model)
+     {
+     case 0x1A: // Intel Core i7 LGA1366 (45nm)
+     case 0x1E: // Intel Core i5, i7 LGA1156 (45nm)
+     case 0x25: // Intel Core i3, i5, i7 LGA1156 (32nm)
+     case 0x2C: // Intel Core i7 LGA1366 (32nm) 6 Core
+     isCpuCore_i = true;
+     break;
+     }
+     }	break;
+     }
+     isCpuCore_i = (cpuid_info()->cpuid_model >= 0x1A);
+     } */
 	
 	if (isCpuCore_i)
 	{
@@ -690,10 +743,10 @@ bool W836x::start(IOService * provider)
 				if (!addSensor(KEY_CPU_HEATSINK_TEMPERATURE, TYPE_SP78, 2, kSuperIOTemperatureSensor, 0))
 					WarningLog("error adding heatsink temperature sensor");
 				// Ambient
-        
+                
 				if (!addSensor(KEY_AMBIENT_TEMPERATURE, TYPE_SP78, 2, kSuperIOTemperatureSensor, 1))
 					WarningLog("error adding ambient temperature sensor");
-        
+                
 				// Northbridge
 				if (!addSensor(KEY_NORTHBRIDGE_TEMPERATURE, TYPE_SP78, 2, kSuperIOTemperatureSensor, 2))
 					WarningLog("error adding system temperature sensor");
@@ -703,62 +756,62 @@ bool W836x::start(IOService * provider)
 		}
 	}
 	
-  // Voltage
+    // Voltage
 	if (configuration) {
 		for (int i = 0; i < 9; i++) {
 			char key[5];
-      long Ri=0;
-      long Rf=1;
-      long Vf=0;
-      OSString * name;
-      
+            long Ri=0;
+            long Rf=1;
+            long Vf=0;
+            OSString * name;
+            
 			snprintf(key, 5, "VIN%X", i);
 			
-      if (process_sensor_entry(configuration->getObject(key), &name, &Ri, &Rf, &Vf)) {
+            if (process_sensor_entry(configuration->getObject(key), &name, &Ri, &Rf, &Vf)) {
 				if (name->isEqualTo("CPU")) {
-					if (!addSensor(KEY_CPU_VRM_SUPPLY0, TYPE_FP2E, 2, kSuperIOVoltageSensor, i /*,Ri,Rf,Vf*/))
+					if (!addSensor(KEY_CPU_VRM_SUPPLY0, TYPE_FP2E, 2, kSuperIOVoltageSensor, i,Ri,Rf,Vf))
 						WarningLog("error adding CPU voltage sensor");
 				}
 				else if (name->isEqualTo("Memory")) {
-					if (!addSensor(KEY_MEMORY_VOLTAGE, TYPE_FP2E, 2, kSuperIOVoltageSensor, i/*,Ri,Rf,Vf*/))
+					if (!addSensor(KEY_MEMORY_VOLTAGE, TYPE_FP2E, 2, kSuperIOVoltageSensor, i,Ri,Rf,Vf))
 						WarningLog("error adding memory voltage sensor");
 				}
-        else if (name->isEqualTo("+5VC")) {
-          if (!addSensor(KEY_5VC_VOLTAGE, TYPE_FP4C, 2, kSuperIOVoltageSensor, i/*,Ri,Rf,Vf*/)) {
-            WarningLog("ERROR Adding AVCC Voltage Sensor!");
-          }
-        }
-        else if (name->isEqualTo("+5VSB")) {
-          if (!addSensor(KEY_5VSB_VOLTAGE, TYPE_FP4C, 2, kSuperIOVoltageSensor, i/*,Ri,Rf,Vf*/)) {
-            WarningLog("ERROR Adding AVCC Voltage Sensor!");
-          }
-        }
-        else if (name->isEqualTo("+12VC")) {
-          if (!addSensor(KEY_12V_VOLTAGE, TYPE_FP4C, 2, kSuperIOVoltageSensor, i/*,Ri,Rf,Vf*/)) {
-            WarningLog("ERROR Adding 12V Voltage Sensor!");
-          }
-        }
-        else if (name->isEqualTo("-12VC")) {
-          if (!addSensor(KEY_N12VC_VOLTAGE, TYPE_FP4C, 2, kSuperIOVoltageSensor, i/*,Ri,Rf,Vf*/)) {
-            WarningLog("ERROR Adding 12V Voltage Sensor!");
-          }
-        }
-        else if (name->isEqualTo("3VCC")) {
-          if (!addSensor(KEY_3VCC_VOLTAGE, TYPE_FP2E, 2, kSuperIOVoltageSensor, i/*,Ri,Rf,Vf*/)) {
-            WarningLog("ERROR Adding 3VCC Voltage Sensor!");
-          }
-        }
-        
-        else if (name->isEqualTo("3VSB")) {
-          if (!addSensor(KEY_3VSB_VOLTAGE, TYPE_FP2E, 2, kSuperIOVoltageSensor, i/*,Ri,Rf,Vf*/)) {
-            WarningLog("ERROR Adding 3VSB Voltage Sensor!");
-          }
-        }
-        else if (name->isEqualTo("VBAT")) {
-          if (!addSensor(KEY_VBAT_VOLTAGE, TYPE_FP2E, 2, kSuperIOVoltageSensor, i/*,Ri,Rf,Vf*/)) {
-            WarningLog("ERROR Adding VBAT Voltage Sensor!");
-          }
-        }
+                else if (name->isEqualTo("+5VC")) {
+                    if (!addSensor(KEY_5VC_VOLTAGE, TYPE_SP4B, 2, kSuperIOVoltageSensor, i,Ri,Rf,Vf)) {
+                        WarningLog("ERROR Adding AVCC Voltage Sensor!");
+                    }
+                }
+                else if (name->isEqualTo("+5VSB")) {
+                    if (!addSensor(KEY_5VSB_VOLTAGE, TYPE_SP4B, 2, kSuperIOVoltageSensor, i,Ri,Rf,Vf)) {
+                        WarningLog("ERROR Adding AVCC Voltage Sensor!");
+                    }
+                }
+                else if (name->isEqualTo("+12VC")) {
+                    if (!addSensor(KEY_12V_VOLTAGE, TYPE_SP4B, 2, kSuperIOVoltageSensor, i,Ri,Rf,Vf)) {
+                        WarningLog("ERROR Adding 12V Voltage Sensor!");
+                    }
+                }
+                else if (name->isEqualTo("-12VC")) {
+                    if (!addSensor(KEY_N12VC_VOLTAGE, TYPE_SP4B, 2, kSuperIOVoltageSensor, i,Ri,Rf,Vf)) {
+                        WarningLog("ERROR Adding 12V Voltage Sensor!");
+                    }
+                }
+                else if (name->isEqualTo("3VCC")) {
+                    if (!addSensor(KEY_3VCC_VOLTAGE, TYPE_FP2E, 2, kSuperIOVoltageSensor, i,Ri,Rf,Vf)) {
+                        WarningLog("ERROR Adding 3VCC Voltage Sensor!");
+                    }
+                }
+                
+                else if (name->isEqualTo("3VSB")) {
+                    if (!addSensor(KEY_3VSB_VOLTAGE, TYPE_FP2E, 2, kSuperIOVoltageSensor, i,Ri,Rf,Vf)) {
+                        WarningLog("ERROR Adding 3VSB Voltage Sensor!");
+                    }
+                }
+                else if (name->isEqualTo("VBAT")) {
+                    if (!addSensor(KEY_VBAT_VOLTAGE, TYPE_FP2E, 2, kSuperIOVoltageSensor, i,Ri,Rf,Vf)) {
+                        WarningLog("ERROR Adding VBAT Voltage Sensor!");
+                    }
+                }
 			}
 		}
 	}
@@ -774,9 +827,7 @@ bool W836x::start(IOService * provider)
 		
 		if (configuration) {
 			char key[7];
-			
 			snprintf(key, 7, "FANIN%X", i);
-			
 			name = OSDynamicCast(OSString, configuration->getObject(key));
 		}
 		
@@ -807,14 +858,68 @@ const char *W836x::getModelName()
 		case W83637HF:      return "W83637HF";
         case W83627UHG:     return "W83627UHG";
         case W83697SF:      return "W83697SF";
-        case NCT6771F:  return "NCT6771F";
-        case NCT6776F:  return "NCT6776F";
-        case NCT6779D:  return "NCT6779D";
-        case NCT6791D:  return "NCT6791D";
-        case NCT6792D:  return "NCT6792D";
-        case NCT6793D:  return "NCT6793D";
-  
+        case NCT6771F:      return "NCT6771F";
+        case NCT6776F:      return "NCT6776F";
+        case NCT6779D:      return "NCT6779D";
+        case NCT6791D:      return "NCT6791D";
+        case NCT6792D:      return "NCT6792D";
+        case NCT6793D:      return "NCT6793D";
+            
 	}
 	
 	return "unknown";
 }
+
+SuperIOSensor * W836x::addSensor(const char* name, const char* type, unsigned int size, SuperIOSensorGroup group, unsigned long index, long aRi, long aRf, long aVf)
+{
+	if (NULL != getSensor(name))
+		return 0;
+    //  DebugLog("mults = %ld", aRi);
+    SuperIOSensor *sensor = W836xSensor::withOwner(this, name, type, size, group, index, aRi, aRf, aVf);
+    
+	if (sensor && sensors->setObject(sensor))
+		if(kIOReturnSuccess == fakeSMC->callPlatformFunction(kFakeSMCAddKeyHandler, false, (void *)name, (void *)type, (void *)(long long)size, (void *)this))
+            return sensor;
+	
+	return 0;
+}
+
+IOReturn W836x::callPlatformFunction(const OSSymbol *functionName, bool waitForFunction, void *param1, void *param2, void *param3, void *param4 )
+{
+	if (functionName->isEqualTo(kFakeSMCGetValueCallback)) {
+		const char* name = (const char*)param1;
+		void * data = param2;
+		//UInt32 size = (UInt64)param3;		
+        
+		if (name && data) {
+            SuperIOSensor * sensor = getSensor(name);
+			if (sensor) {
+				UInt16 value = sensor->getValue();
+				bcopy(&value, data, 2);
+				return kIOReturnSuccess;
+			}
+        }		
+		return kIOReturnBadArgument;
+	}
+    
+	if (functionName->isEqualTo(kFakeSMCSetValueCallback)) {
+		const char* name = (const char*)param1;
+		void * data = param2;
+		//UInt32 size = (UInt64)param3;
+        
+		if (name && data) {
+            W836xSensor *sensor = OSDynamicCast(W836xSensor, getSensor(name));
+			if (sensor) {
+				UInt16 value;
+                bcopy(data, &value, 2);
+				sensor->setValue(value);
+				return kIOReturnSuccess;
+			}
+        }
+		return kIOReturnBadArgument;
+	}
+    
+	return super::callPlatformFunction(functionName, waitForFunction, param1, param2, param3, param4);
+}
+
+
