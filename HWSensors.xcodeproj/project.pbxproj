@@ -15,7 +15,6 @@
 		12B160971A3F01D8007C7B84 /* TigerAdditionals.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 12B160931A3F01D8007C7B84 /* TigerAdditionals.cpp */; };
 		12B160981A3F01D8007C7B84 /* TigerAdditionals.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 12B160931A3F01D8007C7B84 /* TigerAdditionals.cpp */; };
 		12B1609D1A3F02FC007C7B84 /* AmdCPUMonitor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 12B1609B1A3F02FC007C7B84 /* AmdCPUMonitor.cpp */; };
-		12B160A11A3F030A007C7B84 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 12B1609F1A3F030A007C7B84 /* InfoPlist.strings */; };
 		12B160A61A3F033E007C7B84 /* PC8739x.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 12B160A41A3F033E007C7B84 /* PC8739x.cpp */; };
 		12B160AE1A3F0364007C7B84 /* WinbondW836x.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 12B160AC1A3F0364007C7B84 /* WinbondW836x.cpp */; };
 		12B160B61A3F0386007C7B84 /* ITEIT87x.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 12B160B41A3F0386007C7B84 /* ITEIT87x.cpp */; };
@@ -54,7 +53,6 @@
 		12B161281A3F04D2007C7B84 /* ACPIMonitor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 12B161241A3F04D2007C7B84 /* ACPIMonitor.cpp */; };
 		12B161621A3F04F7007C7B84 /* adt7473.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 12B161291A3F04F7007C7B84 /* adt7473.cpp */; };
 		12B161631A3F04F7007C7B84 /* f75375.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 12B1612A1A3F04F7007C7B84 /* f75375.cpp */; };
-		12B161641A3F04F7007C7B84 /* GeForceSensors-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 12B1612C1A3F04F7007C7B84 /* GeForceSensors-Info.plist */; };
 		12B161651A3F04F7007C7B84 /* GeforceSensors.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 12B1612E1A3F04F7007C7B84 /* GeforceSensors.cpp */; };
 		12B161661A3F04F7007C7B84 /* i2c_algo_bit.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 12B161301A3F04F7007C7B84 /* i2c_algo_bit.cpp */; };
 		12B161671A3F04F7007C7B84 /* i2c_base.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 12B161321A3F04F7007C7B84 /* i2c_base.cpp */; };
@@ -81,7 +79,6 @@
 		12B1617C1A3F04F7007C7B84 /* w83l785r.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 12B1615D1A3F04F7007C7B84 /* w83l785r.cpp */; };
 		12B1617D1A3F04F7007C7B84 /* w83781d.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 12B1615E1A3F04F7007C7B84 /* w83781d.cpp */; };
 		12B1617E1A3F04F7007C7B84 /* xf86i2c.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 12B1615F1A3F04F7007C7B84 /* xf86i2c.cpp */; };
-		12B161861A3F0517007C7B84 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 12B161801A3F0517007C7B84 /* InfoPlist.strings */; };
 		12B161881A3F0517007C7B84 /* SMIMonitor-Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = 12B161831A3F0517007C7B84 /* SMIMonitor-Prefix.pch */; };
 		12B161891A3F0517007C7B84 /* SMIMonitor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 12B161841A3F0517007C7B84 /* SMIMonitor.cpp */; };
 		12B1618A1A3F0517007C7B84 /* SMIMonitor.h in Headers */ = {isa = PBXBuildFile; fileRef = 12B161851A3F0517007C7B84 /* SMIMonitor.h */; };
@@ -1368,7 +1365,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				12B161641A3F04F7007C7B84 /* GeForceSensors-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1406,7 +1402,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				12B161861A3F0517007C7B84 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1414,7 +1409,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				12B160A11A3F030A007C7B84 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1785,7 +1779,7 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_MODEL_TUNING = "";
 				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_VERSION = "";
 				INFOPLIST_FILE = "GeForceSensors/GeforceSensors-Info.plist";
 				MODULE_NAME = com.kozlek.driver.GeforceSensor;
 				MODULE_VERSION = 1.0.1;
@@ -1803,11 +1797,11 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_MODEL_TUNING = G5;
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_VERSION = "";
 				INFOPLIST_FILE = "plugins/GPUSensors/GeForceSensors/GeforceSensors-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				MODULE_NAME = com.kozlek.driver.GeforceSensor;
-				MODULE_VERSION = 1.0.1;
+				MODULE_VERSION = 1.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.kozlek.${PRODUCT_NAME}";
 				PRODUCT_NAME = GeforceSensor;
 				SDKROOT = macosx;
@@ -1822,7 +1816,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_MODEL_TUNING = G5;
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_VERSION = "";
 				INFOPLIST_FILE = "GeforceSensor-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.5;
 				MODULE_NAME = org.kozlek.driver.GeforceSensor;
@@ -1841,7 +1835,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_MODEL_TUNING = G5;
-				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_VERSION = "";
 				INFOPLIST_FILE = "GeforceSensor-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.4;
 				MODULE_NAME = org.kozlek.driver.GeforceSensor;
@@ -2699,7 +2693,7 @@
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "plugins/GPUSensors/RadeonMonitor/RadeonMonitor-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
-				MODULE_NAME = com.yourcompany.driver.RadeonMonitor;
+				MODULE_NAME = org.slice.RadeonMonitor;
 				MODULE_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = org.slice.RadeonMonitor;
 				PRODUCT_NAME = RadeonMonitor;
@@ -2720,7 +2714,7 @@
 				INFOPLIST_FILE = "plugins/GPUSensors/RadeonMonitor/RadeonMonitor-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				MODULE_NAME = org.slice.RadeonMonitor;
-				MODULE_VERSION = 1.2.0;
+				MODULE_VERSION = 1.3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = org.slice.RadeonMonitor;
 				PRODUCT_NAME = RadeonMonitor;
 				PROVISIONING_PROFILE = "";
@@ -2935,7 +2929,7 @@
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "plugins/SuperIOSensors/WinbondW836x/WinbondW836x-Info.plist";
 				MODULE_NAME = org.mozodojo.W836x;
-				MODULE_VERSION = 1.1.0;
+				MODULE_VERSION = 1.2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.mozodojo.${PRODUCT_NAME}";
 				PRODUCT_NAME = W836x;
 				PROVISIONING_PROFILE = "";
@@ -2955,7 +2949,7 @@
 				INFOPLIST_FILE = "plugins/SuperIOSensors/WinbondW836x/WinbondW836x-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				MODULE_NAME = org.mozodojo.W836x;
-				MODULE_VERSION = 1.1.0;
+				MODULE_VERSION = 1.2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.mozodojo.${PRODUCT_NAME}";
 				PRODUCT_NAME = W836x;
 				PROVISIONING_PROFILE = "";
@@ -2976,7 +2970,7 @@
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "W836x-pre106-Info.plist";
 				MODULE_NAME = org.mozodojo.W836x;
-				MODULE_VERSION = 1.1.0;
+				MODULE_VERSION = 1.2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.mozodojo.${PRODUCT_NAME}";
 				PRODUCT_NAME = W836x;
 				PROVISIONING_PROFILE = "";
@@ -2996,7 +2990,7 @@
 				INFOPLIST_FILE = "W836x-pre106-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.4;
 				MODULE_NAME = org.mozodojo.W836x;
-				MODULE_VERSION = 1.1.0;
+				MODULE_VERSION = 1.2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.mozodojo.${PRODUCT_NAME}";
 				PRODUCT_NAME = W836x;
 				PROVISIONING_PROFILE = "";
@@ -3098,7 +3092,7 @@
 				INFOPLIST_FILE = "ACPIMonitor-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				MODULE_NAME = org.slice.ACPIMonitor;
-				MODULE_VERSION = 1.0.1;
+				MODULE_VERSION = 1.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.slice.${PRODUCT_NAME}";
 				PRODUCT_NAME = ACPIMonitor;
 				SDKROOT = macosx10.8;
@@ -3116,7 +3110,7 @@
 				INFOPLIST_FILE = "plugins/ACPIMonitor/ACPIMonitor-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				MODULE_NAME = org.slice.ACPIMonitor;
-				MODULE_VERSION = 1.0.1;
+				MODULE_VERSION = 1.0.2;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.slice.${PRODUCT_NAME}";
 				PRODUCT_NAME = ACPIMonitor;
@@ -3138,7 +3132,7 @@
 				INFOPLIST_FILE = "ACPIMonitor-pre106-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				MODULE_NAME = org.slice.ACPIMonitor;
-				MODULE_VERSION = 1.0.1;
+				MODULE_VERSION = 1.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.slice.${PRODUCT_NAME}";
 				PRODUCT_NAME = ACPIMonitor;
 				SDKROOT = macosx10.8;
@@ -3157,7 +3151,7 @@
 				INFOPLIST_FILE = "ACPIMonitor-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				MODULE_NAME = org.slice.ACPIMonitor;
-				MODULE_VERSION = 1.0.1;
+				MODULE_VERSION = 1.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.slice.${PRODUCT_NAME}";
 				PRODUCT_NAME = ACPIMonitor;
 				SDKROOT = macosx10.8;

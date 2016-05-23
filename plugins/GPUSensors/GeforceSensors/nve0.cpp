@@ -57,6 +57,7 @@ bool nve0_identify(struct nouveau_device *device)
     case 0xf1:
       device->cname = "GK110B";
       break;
+    case 0x106:
     case 0x108:
       device->cname = "GK208";
       break;

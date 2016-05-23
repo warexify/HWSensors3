@@ -15,7 +15,8 @@ bool TSOD::init (OSDictionary* dict)
 	if (!(sensors = OSDictionary::withCapacity(0)))
 		return false;
   
-  DIMMaddr = 0x18;
+//  DIMMaddr = 0x18;
+    DIMMaddr = 0x40;
   
   return res;
 }

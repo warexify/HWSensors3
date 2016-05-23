@@ -144,19 +144,31 @@ bool ACPIMonitor::start(IOService * provider)
 	
 	//Voltage
 	if (kIOReturnSuccess == acpiDevice->validateObject("VCPU"))
-		addSensor("VSN0", KEY_CPU_VOLTAGE, TYPE_FP2E, 2);           //VC0C
+		addSensor("VCPU", KEY_CPU_VOLTAGE, TYPE_FP2E, 2);           //VC0C
 	
 	if (kIOReturnSuccess == acpiDevice->validateObject("VMEM"))
-		addSensor("VSN0", KEY_MEMORY_VOLTAGE, TYPE_FP2E, 2);      //VM0R
+		addSensor("VMEM", KEY_MEMORY_VOLTAGE, TYPE_FP2E, 2);      //VM0R
+    
+	if (kIOReturnSuccess == acpiDevice->validateObject("VP0R"))
+		addSensor("VP0R", KEY_12V_VOLTAGE, TYPE_SP4B, 2);      //VP0R
+      
+	if (kIOReturnSuccess == acpiDevice->validateObject("VSN0"))
+		addSensor("VSN0", KEY_N12VC_VOLTAGE, TYPE_SP4B, 2);     //Vp0C
   
 	if (kIOReturnSuccess == acpiDevice->validateObject("VSN1"))
-		addSensor("VSN1", "Vp0C", TYPE_FP2E, 2);
+		addSensor("VSN1", KEY_5VC_VOLTAGE, TYPE_SP4B, 2);       //Vp1C
   
 	if (kIOReturnSuccess == acpiDevice->validateObject("VSN2"))
-		addSensor("VSN2", "Vp1C", TYPE_FP2E, 2);
-  
+		addSensor("VSN2", KEY_5VSB_VOLTAGE, TYPE_SP4B, 2);      //Vp2C"
+	
 	if (kIOReturnSuccess == acpiDevice->validateObject("VSN3"))
-		addSensor("VSN3", "Vp2C", TYPE_FP2E, 2);
+		addSensor("VSN3", KEY_3VCC_VOLTAGE, TYPE_FP2E, 2);      //Vp3C"
+	
+	if (kIOReturnSuccess == acpiDevice->validateObject("VSN4"))
+		addSensor("VSN4", KEY_3VSB_VOLTAGE, TYPE_FP2E, 2);      //Vp4C"
+	
+	if (kIOReturnSuccess == acpiDevice->validateObject("VSN5"))
+		addSensor("VSN5", KEY_AVCC_VOLTAGE, TYPE_FP2E, 2);      //Vp5C"
 	
 	//Amperage
 	if (kIOReturnSuccess == acpiDevice->validateObject("ISN0"))
