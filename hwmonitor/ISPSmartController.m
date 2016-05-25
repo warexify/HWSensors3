@@ -24,7 +24,7 @@
 //#define __bridge_retained
 //#define __bridge_transfer
 
-
+/*
 static inline int convertTemperature(int format, int value) {
 	if(format == 0)
 		return value;
@@ -39,7 +39,7 @@ static inline int convertTemperature(int format, int value) {
 	
 	return value;
 }
-
+*/
 void SwapASCIIString(UInt16 *buffer, UInt16 length);
 
 @implementation ISPSmartController
@@ -173,7 +173,7 @@ void SwapASCIIString(UInt16 *buffer, UInt16 length) {
 	return nil;
 }
 
-- (NSNumber *)getSMARTTempForInterface:(IOATASMARTInterface **)smartInterface
+- (NSNumber *)getSMARTLifeForInterface:(IOATASMARTInterface **)smartInterface
 {
 	IOReturn									error				= kIOReturnSuccess;
 	Boolean										conditionExceeded	= false;
@@ -182,18 +182,16 @@ void SwapASCIIString(UInt16 *buffer, UInt16 length) {
 	ATASMARTDataThresholds						smartThresholds;
 	IOATASmartVendorSpecificDataThresholds		smartThresholdVendorSpecifics;
 	ATASMARTLogDirectory						smartLogDirectory;
-
+    
 	bzero(&smartData, sizeof(smartData));
 	bzero(&smartDataVendorSpecifics, sizeof(smartDataVendorSpecifics));
 	bzero(&smartThresholds, sizeof(smartThresholds));
 	bzero(&smartThresholdVendorSpecifics, sizeof(smartThresholdVendorSpecifics));
 	bzero(&smartLogDirectory, sizeof(smartLogDirectory));
 	
-	BOOL foundTemperature = NO;
-	NSNumber *temperature = nil;
-
-//	[smartResultsDict setObject:[NSNumber numberWithBool:NO] forKey:kWindowSMARTsDeviceOkKeyString];
-
+	BOOL foundLife = NO;
+//	NSNumber *life = nil;
+        
 	error = (*smartInterface)->SMARTEnableDisableOperations(smartInterface, true);
 	if(error != kIOReturnSuccess){
 		(*smartInterface)->SMARTEnableDisableAutosave(smartInterface, false);
@@ -207,7 +205,7 @@ void SwapASCIIString(UInt16 *buffer, UInt16 length) {
 		(*smartInterface)->SMARTEnableDisableOperations(smartInterface, false);
 		return [NSNumber numberWithInt:0];
 	}
-
+    
 	error = (*smartInterface)->SMARTReturnStatus(smartInterface, &conditionExceeded);
 	if(error != kIOReturnSuccess){
 		(*smartInterface)->SMARTEnableDisableAutosave(smartInterface, false);
@@ -215,9 +213,77 @@ void SwapASCIIString(UInt16 *buffer, UInt16 length) {
 		return [NSNumber numberWithInt:0];
 	}
 	
-//	if (!conditionExceeded)
-//		[smartResultsDict setObject:[NSNumber numberWithBool:YES] forKey:kWindowSMARTsDeviceOkKeyString];
+	error = (*smartInterface)->SMARTReadData(smartInterface, &smartData);
+	if (error == kIOReturnSuccess) {
+		error = (*smartInterface)->SMARTValidateReadData(smartInterface, &smartData);
+		if (error == kIOReturnSuccess) {
+			smartDataVendorSpecifics = *((IOATASmartVendorSpecificData *)&(smartData.vendorSpecific1));
+			int currentAttributeIndex = 0;
+			for (currentAttributeIndex = 0; currentAttributeIndex < kSMARTAttributeCount; currentAttributeIndex++) {
+				IOATASmartAttribute currentAttribute = smartDataVendorSpecifics.vendorAttributes[currentAttributeIndex];
+				if (currentAttribute.attributeId == kSMARTsDriveWearLevelingCount) {
+					UInt8 raw = currentAttribute.current;
+					life = [NSNumber numberWithUnsignedInt:raw];
+					foundLife = YES;
+					break;
+				}
+			}
+		}
+	}
+    
+	(*smartInterface)->SMARTEnableDisableAutosave(smartInterface, false);
+	(*smartInterface)->SMARTEnableDisableOperations(smartInterface, false);
+	
+	if(foundLife && life != nil && [life intValue] > 0)
+		return life;
+	return nil;
+}
 
+- (NSNumber *)getSMARTTempForInterface:(IOATASMARTInterface **)smartInterface
+{
+	IOReturn									error				= kIOReturnSuccess;
+	Boolean										conditionExceeded	= false;
+	ATASMARTData								smartData;
+	IOATASmartVendorSpecificData				smartDataVendorSpecifics;
+	ATASMARTDataThresholds						smartThresholds;
+	IOATASmartVendorSpecificDataThresholds		smartThresholdVendorSpecifics;
+	ATASMARTLogDirectory						smartLogDirectory;
+    
+	bzero(&smartData, sizeof(smartData));
+	bzero(&smartDataVendorSpecifics, sizeof(smartDataVendorSpecifics));
+	bzero(&smartThresholds, sizeof(smartThresholds));
+	bzero(&smartThresholdVendorSpecifics, sizeof(smartThresholdVendorSpecifics));
+	bzero(&smartLogDirectory, sizeof(smartLogDirectory));
+	
+	BOOL foundTemperature = NO;
+//	NSNumber *temperature = nil;
+    
+    //	[smartResultsDict setObject:[NSNumber numberWithBool:NO] forKey:kWindowSMARTsDeviceOkKeyString];
+    
+	error = (*smartInterface)->SMARTEnableDisableOperations(smartInterface, true);
+	if(error != kIOReturnSuccess){
+		(*smartInterface)->SMARTEnableDisableAutosave(smartInterface, false);
+		(*smartInterface)->SMARTEnableDisableOperations(smartInterface, false);
+		return [NSNumber numberWithInt:0];
+	}
+	
+	error = (*smartInterface)->SMARTEnableDisableAutosave(smartInterface, true);
+	if(error != kIOReturnSuccess){
+		(*smartInterface)->SMARTEnableDisableAutosave(smartInterface, false);
+		(*smartInterface)->SMARTEnableDisableOperations(smartInterface, false);
+		return [NSNumber numberWithInt:0];
+	}
+    
+	error = (*smartInterface)->SMARTReturnStatus(smartInterface, &conditionExceeded);
+	if(error != kIOReturnSuccess){
+		(*smartInterface)->SMARTEnableDisableAutosave(smartInterface, false);
+		(*smartInterface)->SMARTEnableDisableOperations(smartInterface, false);
+		return [NSNumber numberWithInt:0];
+	}
+	
+    //	if (!conditionExceeded)
+    //		[smartResultsDict setObject:[NSNumber numberWithBool:YES] forKey:kWindowSMARTsDeviceOkKeyString];
+    
 	error = (*smartInterface)->SMARTReadData(smartInterface, &smartData);
 	if (error == kIOReturnSuccess) {
 		error = (*smartInterface)->SMARTValidateReadData(smartInterface, &smartData);
@@ -227,20 +293,28 @@ void SwapASCIIString(UInt16 *buffer, UInt16 length) {
 			for (currentAttributeIndex = 0; currentAttributeIndex < kSMARTAttributeCount; currentAttributeIndex++) {
 				IOATASmartAttribute currentAttribute = smartDataVendorSpecifics.vendorAttributes[currentAttributeIndex];
 				if (currentAttribute.attributeId == kWindowSMARTsDriveTempAttribute || currentAttribute.attributeId==kWindowSMARTsDriveTempAttribute2) {
-					UInt8 temp = currentAttribute.rawvalue[0];
-					temperature = [NSNumber numberWithUnsignedInt:temp];
+					UInt8 raw = currentAttribute.rawvalue[0];
+					temp = [NSNumber numberWithUnsignedInt:raw];
 					foundTemperature = YES;
 					break;
 				}
+                if (currentAttribute.attributeId == kSMARTsDriveWearLevelingCount) {
+					UInt8 raw = currentAttribute.current;
+					life = [NSNumber numberWithUnsignedInt:raw];
+//					foundLife = YES;
+					break;
+				}
+
 			}
 		}
 	}
-
+    
 	(*smartInterface)->SMARTEnableDisableAutosave(smartInterface, false);
 	(*smartInterface)->SMARTEnableDisableOperations(smartInterface, false);
 	
-	if(foundTemperature && temperature != nil && [temperature intValue] > 0)
-		return temperature;
+	if(foundTemperature && temp != nil && [temp intValue] > 0) {
+		return temp;
+    }
 	return nil;
 }
 
@@ -267,8 +341,8 @@ void SwapASCIIString(UInt16 *buffer, UInt16 length) {
 	
 	NSMutableDictionary *diskInfo = [self getDiskInfo:smartInterface];
 	if(diskInfo != nil){
-		NSNumber *temp = [self getSMARTTempForInterface:smartInterface];
-		if(temp != nil){
+		[self getSMARTTempForInterface:smartInterface];
+		
             CFTypeRef  cfName = IORegistryEntrySearchCFProperty(object, kIOServicePlane, CFSTR("BSD Name"), kCFAllocatorDefault, kIORegistryIterateRecursively);
             NSString * bsdName;
             if(CFStringGetTypeID()==CFGetTypeID(cfName))
@@ -283,11 +357,17 @@ void SwapASCIIString(UInt16 *buffer, UInt16 length) {
 					[diskInfo setObject:[partitionData objectForKey:bsdName] forKey:@"partitions"];
 //				CFRelease(bsdName);
 			}
-			
+		if(temp != nil){	
 			[diskInfo setObject:temp forKey:@"temp"];
 			[diskData addObject:diskInfo];
 		}
 		//[diskInfo release];
+/*        NSNumber *life = [self getSMARTLifeForInterface:smartInterface]; */
+		if (life != nil) {
+			[diskInfo setObject:life forKey:@"life"];
+			[diskData addObject:diskInfo];
+		}
+
 	}
 
 	( *smartInterface )->Release ( smartInterface );
@@ -341,32 +421,57 @@ void SwapASCIIString(UInt16 *buffer, UInt16 length) {
 	latestData = diskData;
 }
 
-- (NSDictionary *)getDataSet:(int)degrees {
+- (NSDictionary *)getDataSet /*:(int)degrees*/ {
 //	NSString *degreesSuffix = [NSString stringWithUTF8String:"\xC2\xB0"];					
 //	if(degrees == 2)
 //		degreesSuffix = @"K";
 	
 	NSMutableDictionary *formattedTemps = [[NSMutableDictionary alloc] init];
-	int x;
+	unsigned long x;
 	for(x=0;x<[latestData count];x++){
-		int value = [[[latestData objectAtIndex:x] objectForKey:@"temp"] intValue];
+        NSMutableDictionary *diskInfo = [latestData objectAtIndex:x];
+        NSNumber *tempInfo = [diskInfo objectForKey:@"temp"];
+		unsigned long value = [tempInfo intValue];
 		//value = convertTemperature(degrees, value);
 		
 		NSString *name;
-		if([[latestData objectAtIndex:x] objectForKey:@"partitions"])
-			name = [NSString stringWithFormat:@"%@", [[[latestData objectAtIndex:x] objectForKey:@"partitions"] componentsJoinedByString:@", "]];
+		if([diskInfo objectForKey:@"partitions"])
+			name = [NSString stringWithFormat:@"%@", [[diskInfo objectForKey:@"partitions"] componentsJoinedByString:@", "]];
 		else 
-			name = [NSString stringWithFormat:@"%@ s/n %@", [[[latestData objectAtIndex:x] objectForKey:@"model"] stringByTrimmingLeadingWhitespace],[[[latestData objectAtIndex:x] objectForKey:@"serial"] stringByTrimmingLeadingWhitespace] ];
+			name = [NSString stringWithFormat:@"%@ s/n %@", [[diskInfo objectForKey:@"model"] stringByTrimmingLeadingWhitespace],[[diskInfo objectForKey:@"serial"] stringByTrimmingLeadingWhitespace] ];
 		
-		[formattedTemps setObject:[NSData dataWithBytes:&value length:sizeof( value)] forKey:name];
+        if (diskInfo != nil) {
+          [formattedTemps setObject:[NSData dataWithBytes:&value length:sizeof( value)] forKey:name];
+        }
+		
 	}
 	return formattedTemps;
 }
 
+- (NSDictionary *)getSSDLife {
+    NSMutableDictionary *formattedLife = [[NSMutableDictionary alloc] init];
+	unsigned long x;
+	for(x=0;x<[latestData count];x++){
+        NSMutableDictionary *diskInfo = [latestData objectAtIndex:x];
+        NSNumber *lifeInfo = [diskInfo objectForKey:@"life"];
+		unsigned long value = [lifeInfo intValue];
+		NSString *name;
+		if([diskInfo objectForKey:@"partitions"])
+			name = [NSString stringWithFormat:@"_%@", [[diskInfo objectForKey:@"partitions"] componentsJoinedByString:@"_"]];
+		else
+			name = [NSString stringWithFormat:@"%@ s/n:%@", [[diskInfo objectForKey:@"model"] stringByTrimmingLeadingWhitespace],[[diskInfo objectForKey:@"serial"] stringByTrimmingLeadingWhitespace] ];
+		if (lifeInfo != nil) {
+          [formattedLife setObject:[NSData dataWithBytes:&value length:sizeof(value)] forKey:name];
+        }
+		
+    }
+    return formattedLife;
+}
+
+
 - (void)getPartitions {
 	if(partitionData){
 		[partitionData removeAllObjects];
-		
 	}
 	
 	partitionData = [[NSMutableDictionary alloc] init];

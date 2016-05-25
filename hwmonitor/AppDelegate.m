@@ -47,8 +47,10 @@
       lastcall = [NSDate date];
       [smartController update];
     }
-    [values addEntriesFromDictionary:[smartController getDataSet:1]];
+    [values addEntriesFromDictionary:[smartController getSSDLife]];
+    [values addEntriesFromDictionary:[smartController getDataSet /*:1*/]];
   }
+    
   NSDictionary * temp = [IOBatteryStatus getAllBatteriesLevel];
   if ([temp count] >0)
   {
@@ -119,7 +121,10 @@
 
 - (HWMonitorSensor *)addSensorWithKey:(NSString *)key andType:(NSString *) aType andCaption:(NSString *)caption intoGroup:(SensorGroup)group
 {
-  if(group==HDSmartTempSensorGroup || [HWMonitorSensor readValueForKey:key] || group==BatterySensorsGroup)
+  if(group == HDSmartTempSensorGroup ||
+     group == HDSmartLifeSensorGroup ||
+     [HWMonitorSensor readValueForKey:key] ||
+     group == BatterySensorsGroup)
   {
     caption = [caption stringByTruncatingToWidth:180.0f withFont:statusMenuFont];
     HWMonitorSensor * sensor = [[HWMonitorSensor alloc] initWithKey:key andType: aType andGroup:group withCaption:caption];
@@ -208,7 +213,8 @@
     smart = YES;
     [smartController getPartitions];
     [smartController update];
-    DisksList = [smartController getDataSet:1];
+    DisksList = [smartController getDataSet /*:1*/];
+    SSDList = [smartController getSSDLife];
   }
 	
   BatteriesList = [IOBatteryStatus getAllBatteriesLevel];
@@ -243,26 +249,27 @@
   
   for (int i=0; i<0xA; i++)
   {
-    [self addSensorWithKey:[NSString stringWithFormat:@"TC%XD",i] andType: ((type = [HWMonitorSensor getTypeOfKey:[NSString stringWithFormat:@"TC%XD",i]]) ? type : @TYPE_SP78) andCaption:[[NSString alloc] initWithFormat:@"CPU %X Diode",i] intoGroup:TemperatureSensorGroup ];
-    [self addSensorWithKey:[NSString stringWithFormat:@"TC%XH",i] andType: ((type = [HWMonitorSensor getTypeOfKey:[NSString stringWithFormat:@"TC%XH",i]]) ? type : @TYPE_SP78) andCaption:[[NSString alloc] initWithFormat:@"CPU %X Core",i] intoGroup:TemperatureSensorGroup ];
+    [self addSensorWithKey:[NSString stringWithFormat:@KEY_FORMAT_CPU_DIODE_TEMPERATURE,i] andType: ((type = [HWMonitorSensor getTypeOfKey:[NSString stringWithFormat:@KEY_FORMAT_CPU_DIODE_TEMPERATURE,i]]) ? type : @TYPE_SP78) andCaption:[[NSString alloc] initWithFormat:@"CPU %X Diode",i] intoGroup:TemperatureSensorGroup ];
+      //there was TC%XH, I change to TC%XC
+    [self addSensorWithKey:[NSString stringWithFormat:@KEY_FORMAT_CPU_DIE_CORE_TEMPERATURE,i] andType: ((type = [HWMonitorSensor getTypeOfKey:[NSString stringWithFormat:@KEY_FORMAT_CPU_DIE_CORE_TEMPERATURE,i]]) ? type : @TYPE_SP78) andCaption:[[NSString alloc] initWithFormat:@"CPU %X Core",i] intoGroup:TemperatureSensorGroup ];
   }
-  [self addSensorWithKey:@"TC0P" andType: ((type = [HWMonitorSensor getTypeOfKey:@"TC0P"]) ? type : @TYPE_SP78) andCaption:NSLocalizedString( @"CPU Proximity", nil) intoGroup:TemperatureSensorGroup ];
-  [self addSensorWithKey:@"Th0H" andType: ((type = [HWMonitorSensor getTypeOfKey:@"Th0H"]) ? type : @TYPE_SP78) andCaption:NSLocalizedString( @"CPU Heatsink", nil) intoGroup:TemperatureSensorGroup ];
-  [self addSensorWithKey:@"TN0P" andType: ((type = [HWMonitorSensor getTypeOfKey:@"TN0P"]) ? type : @TYPE_SP78) andCaption:NSLocalizedString(@"Motherboard",nil) intoGroup:TemperatureSensorGroup ];
-  [self addSensorWithKey:@"Tm0P" andType: ((type = [HWMonitorSensor getTypeOfKey:@"Tm0P"]) ? type : @TYPE_SP78) andCaption:NSLocalizedString(@"DIMM 0",nil) intoGroup:TemperatureSensorGroup ];
-  [self addSensorWithKey:@"Tm1P" andType: ((type = [HWMonitorSensor getTypeOfKey:@"Tm1P"]) ? type : @TYPE_SP78) andCaption:NSLocalizedString(@"DIMM 1",nil) intoGroup:TemperatureSensorGroup ];
-  [self addSensorWithKey:@"TA0P" andType: ((type = [HWMonitorSensor getTypeOfKey:@"TA0P"]) ? type : @TYPE_SP78) andCaption:NSLocalizedString(@"Ambient",nil) intoGroup:TemperatureSensorGroup ];
+  [self addSensorWithKey:@KEY_CPU_PROXIMITY_TEMPERATURE andType: ((type = [HWMonitorSensor getTypeOfKey:@KEY_CPU_PROXIMITY_TEMPERATURE]) ? type : @TYPE_SP78) andCaption:NSLocalizedString( @"CPU Proximity", nil) intoGroup:TemperatureSensorGroup ];
+  [self addSensorWithKey:@KEY_CPU_HEATSINK_TEMPERATURE andType: ((type = [HWMonitorSensor getTypeOfKey:@KEY_CPU_HEATSINK_TEMPERATURE]) ? type : @TYPE_SP78) andCaption:NSLocalizedString( @"CPU Heatsink", nil) intoGroup:TemperatureSensorGroup ];
+  [self addSensorWithKey:@KEY_NORTHBRIDGE_TEMPERATURE andType: ((type = [HWMonitorSensor getTypeOfKey:@KEY_NORTHBRIDGE_TEMPERATURE]) ? type : @TYPE_SP78) andCaption:NSLocalizedString(@"Motherboard",nil) intoGroup:TemperatureSensorGroup ];
+  [self addSensorWithKey:@KEY_DIMM_TEMPERATURE andType: ((type = [HWMonitorSensor getTypeOfKey:@KEY_DIMM_TEMPERATURE]) ? type : @TYPE_SP78) andCaption:NSLocalizedString(@"DIMM 0",nil) intoGroup:TemperatureSensorGroup ];
+  [self addSensorWithKey:@KEY_DIMM2_TEMPERATURE andType: ((type = [HWMonitorSensor getTypeOfKey:@KEY_DIMM2_TEMPERATURE]) ? type : @TYPE_SP78) andCaption:NSLocalizedString(@"DIMM 1",nil) intoGroup:TemperatureSensorGroup ];
+  [self addSensorWithKey:@KEY_AMBIENT_TEMPERATURE andType: ((type = [HWMonitorSensor getTypeOfKey:@KEY_AMBIENT_TEMPERATURE]) ? type : @TYPE_SP78) andCaption:NSLocalizedString(@"Ambient",nil) intoGroup:TemperatureSensorGroup ];
   
   for (int i=0; i<0xA; i++) {
-    [self addSensorWithKey:[NSString stringWithFormat:@"TG%XD",i] andType: ((type = [HWMonitorSensor getTypeOfKey:[NSString stringWithFormat:@"TG%XD",i]]) ? type : @TYPE_SP78) andCaption:[[NSString alloc] initWithFormat:NSLocalizedString(@"GPU %X Core",nil) ,i] intoGroup:TemperatureSensorGroup ];
-    [self addSensorWithKey:[NSString stringWithFormat:@"TG%XH",i] andType: ((type = [HWMonitorSensor getTypeOfKey:[NSString stringWithFormat:@"TG%XH",i]]) ? type : @TYPE_SP78) andCaption:[[NSString alloc] initWithFormat:NSLocalizedString(@"GPU %X Board",nil),i] intoGroup:TemperatureSensorGroup ];
-    [self addSensorWithKey:[NSString stringWithFormat:@"TG%XP",i] andType: ((type = [HWMonitorSensor getTypeOfKey:[NSString stringWithFormat:@"TG%XP",i]]) ? type : @TYPE_SP78) andCaption:[[NSString alloc] initWithFormat:NSLocalizedString(@"GPU %X Proximity",nil),i] intoGroup:TemperatureSensorGroup ];
+    [self addSensorWithKey:[NSString stringWithFormat:@KEY_FORMAT_GPU_DIODE_TEMPERATURE,i] andType: ((type = [HWMonitorSensor getTypeOfKey:[NSString stringWithFormat:@KEY_FORMAT_GPU_DIODE_TEMPERATURE,i]]) ? type : @TYPE_SP78) andCaption:[[NSString alloc] initWithFormat:NSLocalizedString(@"GPU %X Core",nil) ,i] intoGroup:TemperatureSensorGroup ];
+    [self addSensorWithKey:[NSString stringWithFormat:@KEY_FORMAT_GPU_BOARD_TEMPERATURE,i] andType: ((type = [HWMonitorSensor getTypeOfKey:[NSString stringWithFormat:@KEY_FORMAT_GPU_BOARD_TEMPERATURE,i]]) ? type : @TYPE_SP78) andCaption:[[NSString alloc] initWithFormat:NSLocalizedString(@"GPU %X Board",nil),i] intoGroup:TemperatureSensorGroup ];
+    [self addSensorWithKey:[NSString stringWithFormat:@KEY_FORMAT_GPU_PROXIMITY_TEMPERATURE,i] andType: ((type = [HWMonitorSensor getTypeOfKey:[NSString stringWithFormat:@KEY_FORMAT_GPU_PROXIMITY_TEMPERATURE,i]]) ? type : @TYPE_SP78) andCaption:[[NSString alloc] initWithFormat:NSLocalizedString(@"GPU %X Proximity",nil),i] intoGroup:TemperatureSensorGroup ];
   }
   
   [self insertFooterAndTitle:NSLocalizedString( @"TEMPERATURES",nil) andImage:[NSImage imageNamed:@"temp_alt_small"]];
   
   for (int i=0; i<16; i++)
-    [self addSensorWithKey:[[NSString alloc] initWithFormat:@"FRC%X",i] andType: @TYPE_FREQ andCaption:[[NSString alloc] initWithFormat:NSLocalizedString(@"CPU %X",nil),i] intoGroup:FrequencySensorGroup ];
+    [self addSensorWithKey:[[NSString alloc] initWithFormat:@KEY_FORMAT_NON_APPLE_CPU_FREQUENCY,i] andType: @TYPE_FREQ andCaption:[[NSString alloc] initWithFormat:NSLocalizedString(@"CPU %X",nil),i] intoGroup:FrequencySensorGroup ];
   
   //
   for (int i=0; i<0xA; i++) {
@@ -278,9 +285,9 @@
   //Multipliers
   
   for (int i=0; i<0xA; i++) {
-    [self addSensorWithKey:[[NSString alloc] initWithFormat:@"MC%XC",i] andType: @TYPE_FP4C andCaption:[[NSString alloc] initWithFormat:NSLocalizedString(@"CPU %X Multiplier",nil),i] intoGroup:MultiplierSensorGroup ];
+    [self addSensorWithKey:[[NSString alloc] initWithFormat:@KEY_FORMAT_NON_APPLE_CPU_MULTIPLIER,i] andType: @TYPE_FP4C andCaption:[[NSString alloc] initWithFormat:NSLocalizedString(@"CPU %X Multiplier",nil),i] intoGroup:MultiplierSensorGroup ];
   }
-  [self addSensorWithKey:@"MPkC" andType: @TYPE_FP4C andCaption:NSLocalizedString(@"CPU Package Multiplier",nil) intoGroup:MultiplierSensorGroup ];
+  [self addSensorWithKey:@KEY_NON_APPLE_PACKAGE_MULTIPLIER andType: @TYPE_FP4C andCaption:NSLocalizedString(@"CPU Package Multiplier",nil) intoGroup:MultiplierSensorGroup ];
   
   [self insertFooterAndTitle:NSLocalizedString(@"MULTIPLIERS",nil)andImage:[NSImage imageNamed:@"multiply_small"]];
   
@@ -307,7 +314,7 @@
   //
   for (int i=0; i<10; i++)   {
     FanTypeDescStruct * fds;
-    NSData * keydata = [HWMonitorSensor readValueForKey:[[NSString alloc] initWithFormat:@"F%XID",i]];
+    NSData * keydata = [HWMonitorSensor readValueForKey:[[NSString alloc] initWithFormat:@KEY_FORMAT_FAN_ID,i]];
     NSString * caption;
     if(keydata) {
       fds = (FanTypeDescStruct*)[keydata bytes];
@@ -318,7 +325,7 @@
     if([caption length] <= 0) {
       caption = [[NSString alloc] initWithFormat:@"Fan %d",i];
     }
-    [self addSensorWithKey:[NSString stringWithFormat:@"F%XAc",i] andType: ((type = [HWMonitorSensor getTypeOfKey:[NSString stringWithFormat:@"F%XAc",i]]) ? type : @TYPE_FPE2) andCaption:caption intoGroup:TachometerSensorGroup ];
+    [self addSensorWithKey:[NSString stringWithFormat:@KEY_FORMAT_FAN_SPEED,i] andType: ((type = [HWMonitorSensor getTypeOfKey:[NSString stringWithFormat:@KEY_FORMAT_FAN_SPEED,i]]) ? type : @TYPE_FPE2) andCaption:caption intoGroup:TachometerSensorGroup ];
   }
   
   [self insertFooterAndTitle:NSLocalizedString(@"FANS",nil) andImage:[NSImage imageNamed:@"fan_small"]];
@@ -332,7 +339,21 @@
   }
   
   [self insertFooterAndTitle:NSLocalizedString(@"HARD DRIVES TEMPERATURES",nil) andImage:[NSImage imageNamed:@"hd_small"]];
-  
+    //
+    // SSD Life
+    //
+  if (SSDList != nil) {
+    NSEnumerator * SSDEnumerator = [SSDList keyEnumerator];
+    id nextSSD;
+    while (nextSSD = [SSDEnumerator nextObject]) {
+        [self addSensorWithKey:nextSSD andType: @TYPE_FPE2 andCaption:nextSSD intoGroup:HDSmartLifeSensorGroup];
+    }
+    
+    [self insertFooterAndTitle:NSLocalizedString(@"SSD LIFE",nil) andImage:[NSImage imageNamed:@"ssd_small"]];
+  }
+  //
+  // Battery
+  //
   NSEnumerator * BatteryEnumerator = [BatteriesList keyEnumerator];
   id nextBattery;
   

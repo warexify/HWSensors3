@@ -17,8 +17,9 @@
   NSDictionary*           statusItemAttributes;
   
   NSMutableArray *        sensorsList;
-    NSDictionary *        DisksList;
-    NSDictionary *   BatteriesList;
+  NSDictionary *          DisksList;
+  NSDictionary *          SSDList;
+  NSDictionary *          BatteriesList;
   
   ISPSmartController *    smartController;
   

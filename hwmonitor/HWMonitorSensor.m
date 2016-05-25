@@ -196,6 +196,13 @@ float decodeNumericValue(NSData* _data, NSString*_type)
 				return [[NSString alloc] initWithFormat:@"%ld%%",*t];
       }
 
+        case HDSmartLifeSensorGroup:
+        {
+            NSInteger * l;
+            l = (NSInteger*)[value bytes];
+            return [[NSString alloc] initWithFormat:@"%ld%%",*l];
+        }
+            
       case VoltageSensorGroup:
         return [[NSString alloc] initWithFormat:@"%2.3fV", v];
 

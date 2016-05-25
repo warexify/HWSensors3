@@ -51,7 +51,8 @@
 #define KEY_ACDC_TEMPERATURE                    "Tp0C" // PSMI Supply AC/DC Supply 1
 #define KEY_AMBIENT_TEMPERATURE                 "TA0P"
 #define KEY_AMBIENT1_TEMPERATURE                "TA1P"
-#define KEY_DIMM_TEMPERATURE                    "Tm0P" // MLB Proximity/DC In Proximity Airflow
+#define KEY_DIMM_TEMPERATURE                    "Tm0P" 
+#define KEY_DIMM2_TEMPERATURE                    "Tm1P" 
 #define KEY_AIRVENT_TEMPERATURE                 "TV0P" // Air Vent Exit
 #define KEY_AIRPORT_TEMPERATURE                 "TW0P"
 
@@ -121,8 +122,8 @@
 #define KEY_FAKESMC_GPU_ROP_FREQUENCY           "CG0R"
 #define KEY_FAKESMC_FORMAT_GPU_ROP_FREQUENCY    "CG%XR"
 
-#define KEY_FORMAT_NON_APPLE_CPU_FREQUENCY		  "FRC%X"
-#define KEY_FORMAT_NON_APPLE_CPU_MULTIPLIER		  "MC%XC"
+#define KEY_FORMAT_NON_APPLE_CPU_FREQUENCY		"FRC%X"
+#define KEY_FORMAT_NON_APPLE_CPU_MULTIPLIER		"MC%XC"
 #define KEY_FORMAT_NON_APPLE_GPU_FREQUENCY      "FGC%X"
 
 #define KEY_NON_APPLE_PACKAGE_MULTIPLIER        "MPkC"
@@ -132,7 +133,7 @@
 #define KEY_FORMAT_FAN_MAIN_CONTROL             "FMCL"
 #define KEY_FORMAT_FAN_REG_CONTROL              "FMCR"
 
-#define KEY_FORMAT_FAN_TARGET_SPEED         "F%dTg"
+#define KEY_FORMAT_FAN_TARGET_SPEED             "F%dTg"
 // Old bad legacy naming but i have to keep it actually means
 
 //￼￼￼￼￼￼Bit - 7 R/W Auto/Manual mode selection: 0 - software control, 1 - automatic chip control

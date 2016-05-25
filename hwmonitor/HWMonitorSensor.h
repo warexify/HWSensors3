@@ -10,13 +10,14 @@
 #import "ISPSmartController.h"
 
 enum {
-    TemperatureSensorGroup =   1,
-    VoltageSensorGroup =       2,
-    TachometerSensorGroup =    3,
-    FrequencySensorGroup =     4,
-    MultiplierSensorGroup =    5,
-    HDSmartTempSensorGroup = 6, 
-    BatterySensorsGroup = 7,
+    TemperatureSensorGroup  =   1,
+    VoltageSensorGroup      =   2,
+    TachometerSensorGroup   =   3,
+    FrequencySensorGroup    =   4,
+    MultiplierSensorGroup   =   5,
+    HDSmartTempSensorGroup  =   6, 
+    BatterySensorsGroup     =   7,
+    HDSmartLifeSensorGroup  =   8,
 
 };
 typedef NSUInteger SensorGroup;

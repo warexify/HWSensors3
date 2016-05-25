@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1252AC891CF5A04700109431 /* ssd_small.png in Resources */ = {isa = PBXBuildFile; fileRef = 1252AC881CF5A04600109431 /* ssd_small.png */; };
 		1260E4A516C4E759006515EB /* default.icns in Resources */ = {isa = PBXBuildFile; fileRef = 1260E4A116C4E759006515EB /* default.icns */; };
 		1260E4A616C4E759006515EB /* fan_small.png in Resources */ = {isa = PBXBuildFile; fileRef = 1260E4A216C4E759006515EB /* fan_small.png */; };
 		1260E4A716C4E759006515EB /* freq_small.png in Resources */ = {isa = PBXBuildFile; fileRef = 1260E4A316C4E759006515EB /* freq_small.png */; };
@@ -34,6 +35,8 @@
 /* Begin PBXFileReference section */
 		089C165DFE840E0CC02AAC07 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = /System/Library/Frameworks/Cocoa.framework; sourceTree = "<absolute>"; };
+		1252AC861CF58D9A00109431 /* definitions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = definitions.h; path = ../utils/definitions.h; sourceTree = "<group>"; };
+		1252AC881CF5A04600109431 /* ssd_small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ssd_small.png; sourceTree = "<group>"; };
 		1260E4A116C4E759006515EB /* default.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = default.icns; sourceTree = "<group>"; };
 		1260E4A216C4E759006515EB /* fan_small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fan_small.png; sourceTree = "<group>"; };
 		1260E4A316C4E759006515EB /* freq_small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = freq_small.png; sourceTree = "<group>"; };
@@ -134,6 +137,7 @@
 		29B97315FDCFA39411CA2CEA /* Other Sources */ = {
 			isa = PBXGroup;
 			children = (
+				1252AC861CF58D9A00109431 /* definitions.h */,
 				256AC3F00F4B6AF500CF3369 /* HWMonitorSMC_Prefix.pch */,
 				29B97316FDCFA39411CA2CEA /* main.m */,
 				1260E4C616C4E802006515EB /* HWMonitorSensor.h */,
@@ -161,6 +165,7 @@
 				1260E4B216C4E7A2006515EB /* monitor_icon_small.png */,
 				1260E4B316C4E7A2006515EB /* monitor-icon.icns */,
 				1260E4B416C4E7A2006515EB /* multiply_small.png */,
+				1252AC881CF5A04600109431 /* ssd_small.png */,
 				1260E4C016C4E7F1006515EB /* temp_alt_small.png */,
 				1260E4C116C4E7F1006515EB /* temperature_small.png */,
 				1260E4C216C4E7F1006515EB /* voltage_small.png */,
@@ -246,6 +251,7 @@
 				1260E4C316C4E7F1006515EB /* temp_alt_small.png in Resources */,
 				1260E4C416C4E7F1006515EB /* temperature_small.png in Resources */,
 				1260E4C516C4E7F1006515EB /* voltage_small.png in Resources */,
+				1252AC891CF5A04700109431 /* ssd_small.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -373,13 +379,14 @@
 		C01FCF4F08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = macosx;
+				SDKROOT = "";
 			};
 			name = Debug;
 		};
@@ -392,7 +399,8 @@
 				GCC_MODEL_TUNING = "";
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				SDKROOT = macosx;
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				SDKROOT = "";
 			};
 			name = Release;
 		};

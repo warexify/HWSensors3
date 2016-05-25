@@ -12,8 +12,9 @@
 
 
 #define kATADefaultSectorSize 512
-#define kWindowSMARTsDriveTempAttribute 0xC2
-#define kWindowSMARTsDriveTempAttribute2    0xE7
+#define kWindowSMARTsDriveTempAttribute     194
+#define kWindowSMARTsDriveTempAttribute2    190
+#define kSMARTsDriveWearLevelingCount       177
 #define kSMARTAttributeCount 30
 
 @interface ISPSmartController : NSObject {
@@ -22,8 +23,11 @@
 	NSArray *temps;
 	NSArray *disksStatus;
 	NSMutableDictionary *partitionData;
+    NSNumber *temp;
+    NSNumber *life;
 }
 - (void)getPartitions;
 - (void)update;
-- (NSDictionary *)getDataSet:(int)degrees;
+- (NSDictionary *)getDataSet /*:(int)degrees*/;
+- (NSDictionary *)getSSDLife;
 @end
