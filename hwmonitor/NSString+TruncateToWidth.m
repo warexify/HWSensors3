@@ -50,7 +50,7 @@
 }
 
 -(NSString*)stringByTrimmingLeadingWhitespace {
-    NSInteger i = 0;
+    NSUInteger i = 0;
     
     while ((i < [self length])
            && [[NSCharacterSet whitespaceCharacterSet] characterIsMember:[self characterAtIndex:i]]) {

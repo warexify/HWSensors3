@@ -292,7 +292,8 @@ void SwapASCIIString(UInt16 *buffer, UInt16 length) {
 			int currentAttributeIndex = 0;
 			for (currentAttributeIndex = 0; currentAttributeIndex < kSMARTAttributeCount; currentAttributeIndex++) {
 				IOATASmartAttribute currentAttribute = smartDataVendorSpecifics.vendorAttributes[currentAttributeIndex];
-				if (currentAttribute.attributeId == kWindowSMARTsDriveTempAttribute || currentAttribute.attributeId==kWindowSMARTsDriveTempAttribute2) {
+				if (currentAttribute.attributeId == kWindowSMARTsDriveTempAttribute ||
+                    currentAttribute.attributeId == kWindowSMARTsDriveTempAttribute2) {
 					UInt8 raw = currentAttribute.rawvalue[0];
 					temp = [NSNumber numberWithUnsignedInt:raw];
 					foundTemperature = YES;
@@ -318,7 +319,7 @@ void SwapASCIIString(UInt16 *buffer, UInt16 length) {
 	return nil;
 }
 
-- (void) getSMARTData:(io_service_t) object 
+- (void) getSMARTData:(io_service_t) object
 {
 	IOCFPlugInInterface **		cfPlugInInterface	= NULL;
 	IOATASMARTInterface **		smartInterface		= NULL;
@@ -367,7 +368,6 @@ void SwapASCIIString(UInt16 *buffer, UInt16 length) {
 			[diskInfo setObject:life forKey:@"life"];
 			[diskData addObject:diskInfo];
 		}
-
 	}
 
 	( *smartInterface )->Release ( smartInterface );
@@ -378,6 +378,10 @@ void SwapASCIIString(UInt16 *buffer, UInt16 length) {
 }
 
 - (void)update {
+//    if(diskData){
+//        [diskData release];
+//        diskData = nil;
+//    }
 	diskData = [[NSMutableArray alloc] init];
 	IOReturn				error 			= kIOReturnSuccess;
 	NSMutableDictionary		*matchingDict	= [[NSMutableDictionary alloc] initWithCapacity:8];
@@ -430,20 +434,24 @@ void SwapASCIIString(UInt16 *buffer, UInt16 length) {
 	unsigned long x;
 	for(x=0;x<[latestData count];x++){
         NSMutableDictionary *diskInfo = [latestData objectAtIndex:x];
-        NSNumber *tempInfo = [diskInfo objectForKey:@"temp"];
-		unsigned long value = [tempInfo intValue];
-		//value = convertTemperature(degrees, value);
-		
-		NSString *name;
-		if([diskInfo objectForKey:@"partitions"])
-			name = [NSString stringWithFormat:@"%@", [[diskInfo objectForKey:@"partitions"] componentsJoinedByString:@", "]];
-		else 
-			name = [NSString stringWithFormat:@"%@ s/n %@", [[diskInfo objectForKey:@"model"] stringByTrimmingLeadingWhitespace],[[diskInfo objectForKey:@"serial"] stringByTrimmingLeadingWhitespace] ];
-		
         if (diskInfo != nil) {
-          [formattedTemps setObject:[NSData dataWithBytes:&value length:sizeof( value)] forKey:name];
-        }
+            NSNumber *tempInfo = [diskInfo objectForKey:@"temp"];
+            if (tempInfo != nil) {
+                unsigned long value = [tempInfo intValue];
+                //value = convertTemperature(degrees, value);
 		
+                NSString *name;
+                if([diskInfo objectForKey:@"partitions"])
+                    name = [NSString stringWithFormat:@"%@", [[diskInfo objectForKey:@"partitions"] componentsJoinedByString:@", "]];
+                else 
+                    name = [NSString stringWithFormat:@"%@ s/n %@", [[diskInfo objectForKey:@"model"] stringByTrimmingLeadingWhitespace],[[diskInfo objectForKey:@"serial"] stringByTrimmingLeadingWhitespace] ];
+		
+        
+                [formattedTemps setObject:[NSData dataWithBytes:&value length:sizeof( value)] forKey:name];
+       //         [diskInfo setObject:life forKey:@"life"];
+       //         [diskData addObject:diskInfo];
+           }
+        }		
 	}
 	return formattedTemps;
 }
@@ -453,17 +461,19 @@ void SwapASCIIString(UInt16 *buffer, UInt16 length) {
 	unsigned long x;
 	for(x=0;x<[latestData count];x++){
         NSMutableDictionary *diskInfo = [latestData objectAtIndex:x];
-        NSNumber *lifeInfo = [diskInfo objectForKey:@"life"];
-		unsigned long value = [lifeInfo intValue];
-		NSString *name;
-		if([diskInfo objectForKey:@"partitions"])
-			name = [NSString stringWithFormat:@"_%@", [[diskInfo objectForKey:@"partitions"] componentsJoinedByString:@"_"]];
-		else
-			name = [NSString stringWithFormat:@"%@ s/n:%@", [[diskInfo objectForKey:@"model"] stringByTrimmingLeadingWhitespace],[[diskInfo objectForKey:@"serial"] stringByTrimmingLeadingWhitespace] ];
-		if (lifeInfo != nil) {
-          [formattedLife setObject:[NSData dataWithBytes:&value length:sizeof(value)] forKey:name];
-        }
+        if (diskInfo != nil) {
+            NSNumber *lifeInfo = [diskInfo objectForKey:@"life"];
+            if (lifeInfo != nil) {
+                unsigned long value = [lifeInfo intValue];
+                NSString *name;
+                if([diskInfo objectForKey:@"partitions"])
+                    name = [NSString stringWithFormat:@"_%@", [[diskInfo objectForKey:@"partitions"] componentsJoinedByString:@"_"]];
+                else
+                    name = [NSString stringWithFormat:@"%@ s/n:%@", [[diskInfo objectForKey:@"model"] stringByTrimmingLeadingWhitespace],[[diskInfo objectForKey:@"serial"] stringByTrimmingLeadingWhitespace] ];
 		
+                [formattedLife setObject:[NSData dataWithBytes:&value length:sizeof(value)] forKey:name];
+            }
+		}
     }
     return formattedLife;
 }

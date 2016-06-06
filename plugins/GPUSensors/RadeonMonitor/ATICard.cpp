@@ -111,9 +111,9 @@ bool ATICard::getRadeonInfo()
 		}
 		devices++;
 	}
-if (((devID >= 0x67A0) && (devID <= 0x6800)) ||
-             ((devID & 0xFF00) == 0x6900) ||
-             ((devID & 0xFF00) == 0x6600))  {
+if (((devID >= 0x67A0) && (devID <= 0x6800)) ||  //Hawaii
+             ((devID & 0xFF00) == 0x6900) ||  //Volcanic Island ?
+             ((devID >= 0x6640) && (devID < 0x6660)))  { //Bonair
     rinfo->device_id = devID;
     rinfo->ChipFamily = CHIP_FAMILY_HAWAII;
     family = CHIP_FAMILY_HAWAII;
@@ -122,7 +122,9 @@ if (((devID >= 0x67A0) && (devID <= 0x6800)) ||
     IOLog(" Common ATI Radeon like HAWAII DID=%04lx\n", (long unsigned int)devID);
     return true;
 
-} else   if ((devID >= 0x6780) && (devID <= 0x6840)) {
+} else   if (((devID >= 0x6780) && (devID <= 0x6840)) || //Tahiti
+             ((devID >= 0x6660) && (devID < 0x6670)) ||  //Hainan
+             ((devID >= 0x6600) && (devID < 0x6640)) ) { //Oland
   rinfo->device_id = devID;
   rinfo->ChipFamily = CHIP_FAMILY_PITCAIRN;
   family = CHIP_FAMILY_PITCAIRN;
