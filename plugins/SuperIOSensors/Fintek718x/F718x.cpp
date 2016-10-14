@@ -177,6 +177,16 @@ bool F718x::probePort()
 					break;              
 			}
 		} break;
+		case 0x10:
+		{
+			switch (revision)
+			{
+				case 0x05:
+					model = F71889AD;
+					logicalDeviceNumber = FINTEK_HARDWARE_MONITOR_LDN;
+					break;
+			}
+		} break;
 		case 0x11:
 		{
 			switch (revision)
@@ -212,6 +222,7 @@ const char *F718x::getModelName()
     case F71869:   return "F71869";
     case F71882:   return "F71882";
     case F71889ED: return "F71889ED";
+    case F71889AD: return "F71889AD";
     case F71889F:  return "F71889F";
 		case F71808:   return "F71808";	
 	}
