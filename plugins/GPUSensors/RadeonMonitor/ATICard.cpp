@@ -48,6 +48,15 @@ bool ATICard::initialize()
 	
 	if(!getRadeonInfo())
 		return false;
+  
+  if (rinfo->ChipFamily == CHIP_FAMILY_HAWAII) {
+    IOMemoryMap *   mmio5;
+    mmio5 = VCard->mapDeviceMemoryWithIndex(5);
+    if (mmio5 && mmio5->getPhysicalAddress() != 0) {
+      mmio = mmio5;
+      mmio_base = (volatile UInt8 *)mmio->getVirtualAddress();
+    }    
+  }
 
 	switch (rinfo->ChipFamily) {
 		case CHIP_FAMILY_R600:
@@ -113,7 +122,7 @@ bool ATICard::getRadeonInfo()
 	}
 if (((devID >= 0x67A0) && (devID <= 0x6800)) ||  //Hawaii
              ((devID & 0xFF00) == 0x6900) ||  //Volcanic Island ?
-             ((devID >= 0x6640) && (devID < 0x6660)))  { //Bonair
+             ((devID >= 0x6640) && (devID < 0x6670)))  { //Bonair & Hainan
     rinfo->device_id = devID;
     rinfo->ChipFamily = CHIP_FAMILY_HAWAII;
     family = CHIP_FAMILY_HAWAII;
@@ -123,7 +132,7 @@ if (((devID >= 0x67A0) && (devID <= 0x6800)) ||  //Hawaii
     return true;
 
 } else   if (((devID >= 0x6780) && (devID <= 0x6840)) || //Tahiti
-             ((devID >= 0x6660) && (devID < 0x6670)) ||  //Hainan
+         //    ((devID >= 0x6660) && (devID < 0x6670)) ||  //Hainan
              ((devID >= 0x6600) && (devID < 0x6640)) ) { //Oland
   rinfo->device_id = devID;
   rinfo->ChipFamily = CHIP_FAMILY_PITCAIRN;
