@@ -129,6 +129,9 @@ bool gm100_identify(struct nouveau_device *device)
             //#endif
          //   nv_fatal(device, "GM204 not supported yet\n");
             return true;
+        case 0x126:
+            device->cname = "GM206";
+            return true;
 
         default:
             nv_fatal(device, "unknown Maxwell chipset 0x%x\n", device->chipset);
