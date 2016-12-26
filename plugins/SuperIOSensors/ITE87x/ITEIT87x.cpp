@@ -338,7 +338,7 @@ bool IT87x::probePort()
 		return false;
     }
 	
-  if (id == IT8721F || id == IT8728F || id == IT8772E || id == IT8620F)
+  if (id == IT8721F || id == IT8728F || id == IT8772E || id == IT8620F || id == IT8628F)
     voltageGain = 12;
   else
     voltageGain = 16;
@@ -378,7 +378,7 @@ const char *IT87x::getModelName()
 	switch (model) {
         case IT8512F: return "IT8512F";
         case IT8620F: return "IT8620F";
-        case IT8628F: return "IT8620F";
+        case IT8628F: return "IT8628F";
         case IT8712F: return "IT8712F";
         case IT8716F: return "IT8716F";
         case IT8718F: return "IT8718F";
