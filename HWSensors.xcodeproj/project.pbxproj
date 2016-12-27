@@ -88,6 +88,7 @@
 		12B161961A3F052E007C7B84 /* HWInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 12B161911A3F052E007C7B84 /* HWInfo.h */; };
 		12B161A31A3F1256007C7B84 /* ADT7470.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 12B161091A3F0468007C7B84 /* ADT7470.cpp */; };
 		12B161B11A3F2966007C7B84 /* gm100.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 12B161AF1A3F2966007C7B84 /* gm100.cpp */; };
+		12E31F231E126A14003BD663 /* gp100.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 12E31F221E126A14003BD663 /* gp100.cpp */; };
 		2C7719BC14EA483A0005C3C7 /* SuperIOFamily.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AED9E582125FC23900736A5A /* SuperIOFamily.cpp */; };
 		AEF4C81712602F2600297B2B /* FakeSMCDevice.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AEF4C80E12602F2600297B2B /* FakeSMCDevice.cpp */; };
 		AEF4C81812602F2600297B2B /* FakeSMCKey.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AEF4C81012602F2600297B2B /* FakeSMCKey.cpp */; };
@@ -383,6 +384,8 @@
 		12CB0F3A12C087D400068B06 /* IntelCPUMonitor.kext */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = IntelCPUMonitor.kext; sourceTree = BUILT_PRODUCTS_DIR; };
 		12CBB17E12BDEA9F00157341 /* X3100.kext */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = X3100.kext; sourceTree = BUILT_PRODUCTS_DIR; };
 		12D78B1E12BFDCFD002C61EA /* RadeonMonitor.kext */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RadeonMonitor.kext; sourceTree = BUILT_PRODUCTS_DIR; };
+		12E31F221E126A14003BD663 /* gp100.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = gp100.cpp; path = plugins/GPUSensors/GeforceSensors/gp100.cpp; sourceTree = SOURCE_ROOT; };
+		12E31F251E126A24003BD663 /* gp100.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = gp100.h; path = plugins/GPUSensors/GeforceSensors/gp100.h; sourceTree = SOURCE_ROOT; };
 		AE00C785126A1F440068E69A /* F718x.kext */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = F718x.kext; sourceTree = BUILT_PRODUCTS_DIR; };
 		AE00C7BD126A24960068E69A /* PC8739x.kext */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PC8739x.kext; sourceTree = BUILT_PRODUCTS_DIR; };
 		AE212C6A12678D3500145048 /* W836x.kext */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = W836x.kext; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -537,6 +540,8 @@
 				12B1612F1A3F04F7007C7B84 /* GeforceSensors.h */,
 				12B161AF1A3F2966007C7B84 /* gm100.cpp */,
 				12B161B01A3F2966007C7B84 /* gm100.h */,
+				12E31F221E126A14003BD663 /* gp100.cpp */,
+				12E31F251E126A24003BD663 /* gp100.h */,
 				12B161301A3F04F7007C7B84 /* i2c_algo_bit.cpp */,
 				12B161311A3F04F7007C7B84 /* i2c_algo_bit.h */,
 				12B161321A3F04F7007C7B84 /* i2c_base.cpp */,
@@ -1472,6 +1477,7 @@
 				12B1617D1A3F04F7007C7B84 /* w83781d.cpp in Sources */,
 				12B1617E1A3F04F7007C7B84 /* xf86i2c.cpp in Sources */,
 				12B161B11A3F2966007C7B84 /* gm100.cpp in Sources */,
+				12E31F231E126A14003BD663 /* gp100.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1801,7 +1807,7 @@
 				INFOPLIST_FILE = "plugins/GPUSensors/GeForceSensors/GeforceSensors-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				MODULE_NAME = com.kozlek.driver.GeforceSensor;
-				MODULE_VERSION = 1.1.0;
+				MODULE_VERSION = 1.2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.kozlek.${PRODUCT_NAME}";
 				PRODUCT_NAME = GeforceSensor;
 				SDKROOT = macosx;

@@ -133,7 +133,7 @@ bool gm100_identify(struct nouveau_device *device)
             device->cname = "GM206";
             return true;
         case 0x120:
-            device->cname = "GT120";
+            device->cname = "GM200";
             return true;
 
         default:
