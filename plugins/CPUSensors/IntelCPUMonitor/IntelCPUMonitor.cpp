@@ -321,24 +321,27 @@ IOService* IntelCPUMonitor::probe(IOService *provider, SInt32 *score)
 				case CPU_MODEL_SANDY_BRIDGE:
 				case CPU_MODEL_IVY_BRIDGE:
 				case CPU_MODEL_JAKETOWN:
-                case CPU_MODEL_HASWELL:
-                case CPU_MODEL_HASWELL_MB:
-                case CPU_MODEL_HASWELL_ULT:
-                case CPU_MODEL_HASWELL_ULX:
-                case CPU_MODEL_HASWELL_U5:
-                case CPU_MODEL_IVY_BRIDGE_E5:
-                case CPU_MODEL_BROADWELL_HQ:
-                case CPU_MODEL_AIRMONT:
-                case CPU_MODEL_AVOTON:
-                case CPU_MODEL_SKYLAKE_U:
-                case CPU_MODEL_BROADWELL_E5:
-                case CPU_MODEL_BROADWELL_DE:
-                case CPU_MODEL_KNIGHT:
-                case CPU_MODEL_MOOREFIELD:
-                case CPU_MODEL_GOLDMONT:
-                case CPU_MODEL_ATOM_X3:
-                case CPU_MODEL_SKYLAKE_S:
-                case CPU_MODEL_CANNONLAKE:
+        case CPU_MODEL_HASWELL:
+        case CPU_MODEL_HASWELL_MB:
+        case CPU_MODEL_HASWELL_ULT:
+        case CPU_MODEL_HASWELL_ULX:
+        case CPU_MODEL_HASWELL_U5:
+        case CPU_MODEL_IVY_BRIDGE_E5:
+        case CPU_MODEL_BROADWELL_HQ:
+        case CPU_MODEL_AIRMONT:
+        case CPU_MODEL_AVOTON:
+        case CPU_MODEL_SKYLAKE_U:
+        case CPU_MODEL_BROADWELL_E5:
+        case CPU_MODEL_BROADWELL_DE:
+        case CPU_MODEL_KNIGHT:
+        case CPU_MODEL_MOOREFIELD:
+        case CPU_MODEL_GOLDMONT:
+        case CPU_MODEL_ATOM_X3:
+        case CPU_MODEL_SKYLAKE_S:
+        case CPU_MODEL_CANNONLAKE:
+        case CPU_MODEL_KABYLAKE1:
+        case CPU_MODEL_KABYLAKE2:
+
 				{
 					nehalemArch = true;
           

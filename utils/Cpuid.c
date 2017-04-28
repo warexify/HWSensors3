@@ -203,6 +203,8 @@ void cpuid_update_generic_info()
             case CPU_MODEL_ATOM_X3:
             case CPU_MODEL_SKYLAKE_S:
             case CPU_MODEL_CANNONLAKE:
+            case CPU_MODEL_KABYLAKE1:
+            case CPU_MODEL_KABYLAKE2:
                 
                 msr = rdmsr64(MSR_CORE_THREAD_COUNT);
                 info_p->core_count   = bitfield((uint32_t)msr, 31, 16);
