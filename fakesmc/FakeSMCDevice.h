@@ -12,6 +12,7 @@
 
 #include <IOKit/acpi/IOACPIPlatformDevice.h>
 #include <IOKit/IOService.h>
+#include <IOKit/IONVRAM.h>
 #include "FakeSMCKey.h"
 
 #define APPLESMC_DATA_PORT				0x300
@@ -51,6 +52,8 @@ private:
 	int               interrupt_source;
 	
 	struct AppleSMCStatus	*status;
+    
+    IODTNVRAM *dtNvram;
 	
 	OSArray           *keys;
   OSDictionary      *values;

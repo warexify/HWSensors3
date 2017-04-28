@@ -2382,7 +2382,7 @@
 				CURRENT_PROJECT_VERSION = 1.0.0d1;
 				GCC_C_LANGUAGE_STANDARD = "compiler-default";
 				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_KERNEL_DEVELOPMENT = NO;
+				GCC_ENABLE_KERNEL_DEVELOPMENT = YES;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -2422,7 +2422,7 @@
 				CURRENT_PROJECT_VERSION = 1.0.0d1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_C_LANGUAGE_STANDARD = "compiler-default";
-				GCC_ENABLE_KERNEL_DEVELOPMENT = NO;
+				GCC_ENABLE_KERNEL_DEVELOPMENT = YES;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "plugins/SMIMonitor/SMIMonitor-Prefix.pch";
@@ -2455,7 +2455,7 @@
 				CURRENT_PROJECT_VERSION = 1.0.0d1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_C_LANGUAGE_STANDARD = "compiler-default";
-				GCC_ENABLE_KERNEL_DEVELOPMENT = NO;
+				GCC_ENABLE_KERNEL_DEVELOPMENT = YES;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "plugins/SMIMonitor/SMIMonitor-Prefix.pch";
@@ -2488,7 +2488,7 @@
 				CURRENT_PROJECT_VERSION = 1.0.0d1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_C_LANGUAGE_STANDARD = "compiler-default";
-				GCC_ENABLE_KERNEL_DEVELOPMENT = NO;
+				GCC_ENABLE_KERNEL_DEVELOPMENT = YES;
 				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "plugins/SMIMonitor/SMIMonitor-Prefix.pch";
@@ -3101,7 +3101,7 @@
 				MODULE_VERSION = 1.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.slice.${PRODUCT_NAME}";
 				PRODUCT_NAME = ACPIMonitor;
-				SDKROOT = macosx10.8;
+				SDKROOT = macosx;
 				WRAPPER_EXTENSION = kext;
 			};
 			name = Debug;
@@ -3120,7 +3120,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.slice.${PRODUCT_NAME}";
 				PRODUCT_NAME = ACPIMonitor;
-				SDKROOT = macosx10.8;
+				SDKROOT = macosx;
 				WRAPPER_EXTENSION = kext;
 			};
 			name = "Release 10.6";
@@ -3141,7 +3141,7 @@
 				MODULE_VERSION = 1.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.slice.${PRODUCT_NAME}";
 				PRODUCT_NAME = ACPIMonitor;
-				SDKROOT = macosx10.8;
+				SDKROOT = macosx;
 				WRAPPER_EXTENSION = kext;
 			};
 			name = "Release 10.5";
@@ -3160,7 +3160,7 @@
 				MODULE_VERSION = 1.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.slice.${PRODUCT_NAME}";
 				PRODUCT_NAME = ACPIMonitor;
-				SDKROOT = macosx10.8;
+				SDKROOT = macosx;
 				WRAPPER_EXTENSION = kext;
 			};
 			name = "Release 10.4";
@@ -3168,7 +3168,7 @@
 		AEABE454125F8E7400F08235 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				ARCHS = "$(ARCHS_STANDARD)";
 				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_IDENTITY = "";
 				COPY_PHASE_STRIP = NO;
@@ -3185,7 +3185,7 @@
 		AEABE455125F8E7400F08235 /* Release 10.6 */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				ARCHS = "$(ARCHS_STANDARD)";
 				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_IDENTITY = "";
 				COPY_PHASE_STRIP = YES;
@@ -3261,7 +3261,7 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_VERSION = "";
 				INFOPLIST_FILE = "fakesmc/FakeSMC-Info.plist";
-				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				MODULE_NAME = org.netkas.FakeSMC;
 				MODULE_VERSION = 3.4.1;
 				ONLY_ACTIVE_ARCH = NO;
@@ -3282,9 +3282,9 @@
 				GCC_AUTO_VECTORIZATION = NO;
 				GCC_VERSION = "";
 				INFOPLIST_FILE = "fakesmc/FakeSMC-Info.plist";
-				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				MODULE_NAME = org.netkas.FakeSMC;
-				MODULE_VERSION = 3.4.1;
+				MODULE_VERSION = 3.4.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.netkas.${PRODUCT_NAME}";
 				PRODUCT_NAME = FakeSMC;
 				PROVISIONING_PROFILE = "";
@@ -3296,7 +3296,7 @@
 		AEF4C8381260304100297B2B /* Release 10.5 */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				ARCHS = "$(ARCHS_STANDARD)";
 				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_IDENTITY = "";
 				COPY_PHASE_STRIP = YES;
@@ -3343,7 +3343,7 @@
 				GCC_MODEL_TUNING = "";
 				GCC_VERSION = "";
 				INFOPLIST_FILE = "FakeSMC-pre106-Info.plist";
-				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				MODULE_NAME = org.netkas.FakeSMC;
 				MODULE_VERSION = 3.1.0d1;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.netkas.${PRODUCT_NAME}";
@@ -3357,7 +3357,7 @@
 		AEF4C83C1260304900297B2B /* Release 10.4 */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				ARCHS = "$(ARCHS_STANDARD)";
 				ARCHS_STANDARD_32_BIT_PRE_XCODE_3_1 = "ppc i386";
 				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_IDENTITY = "";
@@ -3403,7 +3403,7 @@
 				GCC_MODEL_TUNING = G5;
 				GCC_VERSION = "";
 				INFOPLIST_FILE = "FakeSMC-pre106-Info.plist";
-				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				MODULE_NAME = org.netkas.FakeSMC;
 				MODULE_VERSION = 3.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.netkas.${PRODUCT_NAME}";

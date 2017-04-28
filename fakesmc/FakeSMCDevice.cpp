@@ -339,6 +339,7 @@ bool FakeSMCDevice::init(IOService *platform, OSDictionary *properties)
 	
 	debug = false;
 	interrupt_handler=0;
+    dtNvram = 0;
   
   //  platformFunctionLock = IOLockAlloc();
 	
@@ -409,6 +410,17 @@ bool FakeSMCDevice::init(IOService *platform, OSDictionary *properties)
 	this->setProperty( gIOInterruptControllersKey, controllers ) && this->setProperty( gIOInterruptSpecifiersKey,  specifiers );
 	
 	this->attachToParent(platform, gIOServicePlane);
+    
+    if (IORegistryEntry *options = OSDynamicCast(IORegistryEntry, IORegistryEntry::fromPath("/options", gIODTPlane)))
+    {
+        if (IODTNVRAM *nvram = OSDynamicCast(IODTNVRAM, options))
+        {
+            dtNvram = nvram;
+        }
+        else
+            WarningLog("Registry entry /options can't be casted to IONVRAM.");
+    }
+
 	
 	InfoLog("successfully initialized");
 	
@@ -578,19 +590,21 @@ FakeSMCKey *FakeSMCDevice::addKeyWithHandler(const char *name, const char *type,
 
 void FakeSMCDevice::saveKeyToNVRAM(FakeSMCKey *key)
 {
-  
-  if (IORegistryEntry *nvram = OSDynamicCast(IORegistryEntry, fromPath("/options", gIODTPlane))) {
+  if (dtNvram != 0) {
     char name[32];
     
     snprintf(name, 32, "%s-%s-%s", kFakeSMCKeyPropertyPrefix, key->getName(), key->getType());
     
     const OSSymbol *tempName = OSSymbol::withCString(name);
     
-    nvram->setProperty(tempName, OSData::withBytes(key->getValue(), key->getSize()));
+    dtNvram->setProperty(tempName, OSData::withBytes(key->getValue(), key->getSize()));
     
     OSSafeRelease(tempName);
-    OSSafeRelease(nvram);
+    //OSSafeRelease(nvram);
   }
+    
+  //if (entry)
+  //   entry->release();
 }
 
 
