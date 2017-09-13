@@ -157,48 +157,48 @@ bool GeforceSensors::init(OSDictionary *properties)
 
 IOService* GeforceSensors::probe(IOService *provider, SInt32 *score)
 {
-    UInt32 vendor_id, device_id, class_id;
+  UInt32 vendor_id, device_id, class_id;
 	DebugLog("Probing...");
 	
 	if (super::probe(provider, score) != this) return 0;
 	
 	InfoLog("GeforceSensors by kozlek (C) 2012");
 	s8 ret = 0;
-	if (OSDictionary * dictionary = serviceMatching(kGenericPCIDevice)) {
-		if (OSIterator * iterator = getMatchingServices(dictionary)) {
-			ret = 1;
-			IOPCIDevice* device = 0;
-			do {
-                device = OSDynamicCast(IOPCIDevice, iterator->getNextObject());
-                if (!device) {
-                    break;
-                }
-				OSData *data = OSDynamicCast(OSData, device->getProperty(fVendor));
-                vendor_id = 0;
-				if (data)
-					vendor_id = *(UInt32*)data->getBytesNoCopy();
-				
-                device_id = 0;
-				data = OSDynamicCast(OSData, device->getProperty(fDevice));
-				if (data)
-					device_id = *(UInt32*)data->getBytesNoCopy();
-				
-                class_id = 0;
-				data = OSDynamicCast(OSData, device->getProperty(fClass));
-				if (data)
-					class_id = *(UInt32*)data->getBytesNoCopy();
-				
-				if ((vendor_id==0x10de) && (class_id == 0x030000)) {
-					InfoLog("found %x Nvidia chip", (unsigned int)device_id);
-					card.pcidev = device;
-                    card.device_id = device_id;
-					ret = 1; //TODO - count a number of cards
-                    card.card_index = ret;
-					break;
-				}
-			} while (device);
-		}
-	}
+  if (OSDictionary * dictionary = serviceMatching(kGenericPCIDevice)) {
+    if (OSIterator * iterator = getMatchingServices(dictionary)) {
+//      ret = 1;
+      IOPCIDevice* device = 0;
+      do {
+        device = OSDynamicCast(IOPCIDevice, iterator->getNextObject());
+        if (!device) {
+          break;
+        }
+        OSData *data = OSDynamicCast(OSData, device->getProperty(fVendor));
+        vendor_id = 0;
+        if (data)
+          vendor_id = *(UInt32*)data->getBytesNoCopy();
+
+        device_id = 0;
+        data = OSDynamicCast(OSData, device->getProperty(fDevice));
+        if (data)
+          device_id = *(UInt32*)data->getBytesNoCopy();
+
+        class_id = 0;
+        data = OSDynamicCast(OSData, device->getProperty(fClass));
+        if (data)
+          class_id = *(UInt32*)data->getBytesNoCopy();
+
+        if ((vendor_id==0x10de) && (class_id == 0x030000)) {
+          InfoLog("found %x Nvidia chip", (unsigned int)device_id);
+          card.pcidev = device;
+          card.device_id = device_id;
+          ret = 1; //TODO - count a number of cards
+          card.card_index = ret;
+          break;
+        }
+      } while (device);
+    }
+  }
 	if(ret)
 		return this;
 	else return 0;
@@ -437,7 +437,7 @@ void GeforceSensors::stop (IOService* provider)
 void GeforceSensors::free(void)
 {
     if (card.mmio)
-        OSSafeRelease(card.mmio);
+        OSSafeReleaseNULL(card.mmio);
     
     if (card.bios.data) {
         IOFree(card.bios.data, card.bios.size);

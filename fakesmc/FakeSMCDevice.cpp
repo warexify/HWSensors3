@@ -350,6 +350,7 @@ bool FakeSMCDevice::init(IOService *platform, OSDictionary *properties)
 	keys->setObject(sharpKEY);
 	
 	loadKeysFromDictionary(OSDynamicCast(OSDictionary, properties->getObject("Keys")));
+  loadKeysFromClover(platform);
 	
 	this->setName("SMC");
 	
@@ -417,8 +418,9 @@ bool FakeSMCDevice::init(IOService *platform, OSDictionary *properties)
         {
             dtNvram = nvram;
         }
-        else
+        else {
             WarningLog("Registry entry /options can't be casted to IONVRAM.");
+        }
     }
 
 	
@@ -491,6 +493,74 @@ IOReturn FakeSMCDevice::setProperties(OSObject * properties)
   
 }
 
+void  FakeSMCDevice::loadKeysFromClover(IOService *platform)
+{
+  IORegistryEntry * rootNode;
+  OSData *data;
+
+  UInt32					SMCConfig;
+  UInt8					  Mobile;
+  char					  Platform[8];
+  char					  PlatformB[8];
+  UInt8           SMCRevision[6];
+  UInt8           WakeType;
+  UInt16          ClockWake;
+
+  rootNode = fromPath("/efi/platform", gIODTPlane);
+  if (rootNode) {
+    data = OSDynamicCast(OSData, rootNode->getProperty("RPlt"));
+    if (data) {
+      bcopy(data->getBytesNoCopy(), Platform, 8);
+      InfoLog("SMC Platform: %s", Platform);
+      this->addKeyWithValue("RPlt", "ch8*", 8, Platform);
+    }
+
+    //we propose that RBr always follow RPlt and no additional check
+    data = OSDynamicCast(OSData, rootNode->getProperty("RBr"));
+    if (data) {
+      bcopy(data->getBytesNoCopy(), PlatformB, 8);
+      InfoLog("SMC Branch: %s", PlatformB);
+      this->addKeyWithValue("RBr ", "ch8*", 8, PlatformB);
+    }
+    data = OSDynamicCast(OSData, rootNode->getProperty("REV"));
+    if (data) {
+      bcopy(data->getBytesNoCopy(), SMCRevision, 6);
+      InfoLog("SMC Revision set to: %01x.%02xf%02x", SMCRevision[0], SMCRevision[1], SMCRevision[5]);
+      this->addKeyWithValue("REV ", "{rev", 6, SMCRevision);
+    }
+    data = OSDynamicCast(OSData, rootNode->getProperty("EPCI"));
+    if (data) {
+      SMCConfig = *(UInt32*)data->getBytesNoCopy();
+      InfoLog("SMC ConfigID set to: %02x %02x %02x %02x",
+              (unsigned int)SMCConfig & 0xFF,
+              (unsigned int)(SMCConfig >> 8) & 0xFF,
+              (unsigned int)(SMCConfig >> 16) & 0xFF,
+              (unsigned int)(SMCConfig >> 24) & 0xFF);
+      this->addKeyWithValue("EPCI", "ui32", 4, data->getBytesNoCopy());
+    }
+    data = OSDynamicCast(OSData, rootNode->getProperty("BEMB"));
+    if (data) {
+      Mobile = *(UInt8*)data->getBytesNoCopy();
+      InfoLog("Mobile Platform: %d", Mobile);
+      this->addKeyWithValue("BEMB", "flag", 1, data->getBytesNoCopy());
+    }
+    data = OSDynamicCast(OSData, rootNode->getProperty("WKTP"));
+    if (data) {
+      WakeType = *(UInt8*)data->getBytesNoCopy();
+      InfoLog("Wake type: %d", WakeType);
+      this->addKeyWithValue("WKTP", "ui8 ", 1, data->getBytesNoCopy());
+    }
+    data = OSDynamicCast(OSData, rootNode->getProperty("CLWK"));
+    if (data) {
+      ClockWake = *(UInt16*)data->getBytesNoCopy();
+      InfoLog("Wake clock: %d", ClockWake);
+      this->addKeyWithValue("CLWK", "ui16", 2, data->getBytesNoCopy());
+    }
+
+  }
+
+
+}
 
 void FakeSMCDevice::loadKeysFromDictionary(OSDictionary *dictionary)
 {
@@ -599,7 +669,7 @@ void FakeSMCDevice::saveKeyToNVRAM(FakeSMCKey *key)
     
     dtNvram->setProperty(tempName, OSData::withBytes(key->getValue(), key->getSize()));
     
-    OSSafeRelease(tempName);
+    OSSafeReleaseNULL(tempName);
     //OSSafeRelease(nvram);
   }
     
@@ -768,7 +838,7 @@ IOReturn FakeSMCDevice::callPlatformFunction(const OSSymbol *functionName, bool 
               key->setHandler(NULL);
           }
           result = kIOReturnSuccess;
-          OSSafeRelease(iterator);
+          OSSafeReleaseNULL(iterator);
         }
       }
     }

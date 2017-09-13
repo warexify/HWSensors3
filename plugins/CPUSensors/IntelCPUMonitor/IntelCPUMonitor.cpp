@@ -31,7 +31,7 @@ static UInt64       lastUCR[MaxCpuCount];
 
 const UInt32 Kilo = 1000; //Slice
 const UInt32 Mega = Kilo * 1000;
-const UInt32 Giga = Mega * 1000;
+//const UInt32 Giga = Mega * 1000;
 
 
 inline  UInt32 BaseOperatingFreq(void){

@@ -66,13 +66,13 @@ bool HWInfo::start(IOService * provider)
       RPltset = true;
     }
     //we propose that RBr always follow RPlt and no additional check
-    data = OSDynamicCast(OSData, rootNode->getProperty("RBr"));
+    data = OSDynamicCast(OSData, rootNode->getProperty("RBr "));
     if (data) {
       bcopy(data->getBytesNoCopy(), PlatformB, 8);
       InfoLog("SMC Branch: %s", PlatformB);
     }
     REVset = false;
-    data = OSDynamicCast(OSData, rootNode->getProperty("REV"));
+    data = OSDynamicCast(OSData, rootNode->getProperty("REV "));
     if (data) {
       bcopy(data->getBytesNoCopy(), SMCRevision, 6);
       InfoLog("SMC Revision set to: %01x.%02xf%02x", SMCRevision[0], SMCRevision[1], SMCRevision[5]);

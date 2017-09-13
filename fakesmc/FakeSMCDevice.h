@@ -89,6 +89,7 @@ public:
   virtual IOReturn	setProperties(OSObject * properties);
 	
 	virtual void      loadKeysFromDictionary(OSDictionary *dictionary);
+  virtual void      loadKeysFromClover(IOService *platform);
 	//virtual FakeSMCKey	*addKey(const char *name, const char *type, unsigned char size);
 	virtual FakeSMCKey	*addKeyWithValue(const char *name, const char *type, unsigned char size, const void *value);
 	virtual FakeSMCKey	*addKeyWithHandler(const char *name, const char *type, unsigned char size, IOService *handler);
