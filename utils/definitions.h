@@ -88,6 +88,14 @@
 #define KEY_AVCC_VOLTAGE                        "Vp5C"
 #define KEY_VBAT_VOLTAGE                        "VBAT"
 
+#define KEY_BAT0_VOLTAGE                        "B0AV"
+#define KEY_BAT1_VOLTAGE                        "B1AV"
+#define KEY_BAT2_VOLTAGE                        "B2AV"
+#define KEY_CEL1_VOLTAGE                        "BC1V"
+#define KEY_CEL2_VOLTAGE                        "BC2V"
+#define KEY_BAT0_AMPERAGE                       "B0AC"
+
+
 #define KEY_NORTHBRIDGE_VOLTAGE                 "VN0C"
 
 // Current (Amps)

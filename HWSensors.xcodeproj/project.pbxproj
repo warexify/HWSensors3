@@ -3281,7 +3281,7 @@
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "ITEIT87x/ITEIT87x-Info.plist";
 				MODULE_NAME = org.mozodojo.IT87x;
-				MODULE_VERSION = 1.0.1;
+				MODULE_VERSION = 1.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = org.mozodojo.ITEIT87x;
 				PRODUCT_NAME = ITEIT87x;
 				SDKROOT = macosx;
@@ -3301,7 +3301,7 @@
 				INFOPLIST_FILE = "plugins/SuperIOSensors/ITE87x/ITEIT87x-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				MODULE_NAME = org.mozodojo.IT87x;
-				MODULE_VERSION = 1.0.1;
+				MODULE_VERSION = 1.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = org.mozodojo.ITEIT87x;
 				PRODUCT_NAME = ITEIT87x;
 				SDKROOT = macosx;
@@ -3388,7 +3388,7 @@
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "IT87x-pre106-Info.plist";
 				MODULE_NAME = org.mozodojo.IT87x;
-				MODULE_VERSION = 1.0.1;
+				MODULE_VERSION = 1.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = org.mozodojo.ITEIT87x;
 				PRODUCT_NAME = ITEIT87x;
 				SDKROOT = macosx;
@@ -3452,7 +3452,7 @@
 				INFOPLIST_FILE = "IT87x-pre106-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.4;
 				MODULE_NAME = org.mozodojo.IT87x;
-				MODULE_VERSION = 1.0.1;
+				MODULE_VERSION = 1.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = org.mozodojo.ITEIT87x;
 				PRODUCT_NAME = IT87x;
 				SDKROOT = macosx;
