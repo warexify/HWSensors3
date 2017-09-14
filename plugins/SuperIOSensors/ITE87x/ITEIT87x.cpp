@@ -296,26 +296,29 @@ bool IT87x::probePort()
   }
 	hasSmartGuardian = false;
 	switch (id)
-	{
-		case IT8512F:
-        case IT8620F:
-        case IT8628F:
-		case IT8712F:
-		case IT8716F:
-		case IT8718F:
-		case IT8720F:
-		case IT8721F:
-		case IT8726F:
-		case IT8728F:
-		case IT8752F:
-        case IT8771E:
-        case IT8772E:
-			model = id;
-			break;
-		default:
-			DebugLog("found unsupported chip ID=0x%x", id);
-			return false;
-	}
+  {
+    case IT8512F:
+    case IT8620F:
+    case IT8628F:
+    case IT8686E:
+    case IT8705F:
+    case IT8712F:
+    case IT8716F:
+    case IT8718F:
+    case IT8720F:
+    case IT8721F:
+    case IT8726F:
+    case IT8728F:
+    case IT8752F:
+    case IT8771E:
+    case IT8772E:
+    case IT8792E:
+      model = id;
+      break;
+    default:
+      DebugLog("found unsupported chip ID=0x%x", id);
+      return false;
+  }
   
 	selectLogicalDevice(ITE_ENVIRONMENT_CONTROLLER_LDN);
   
@@ -338,7 +341,9 @@ bool IT87x::probePort()
 		return false;
     }
 	
-  if (id == IT8721F || id == IT8728F || id == IT8772E || id == IT8620F || id == IT8628F)
+  if (id == IT8721F || id == IT8726F || id == IT8728F || id == IT8752F ||
+      id == IT8771E || id == IT8772E || id == IT8792E ||
+      id == IT8620F || id == IT8628F || id == IT8686E)
     voltageGain = 12;
   else
     voltageGain = 16;
@@ -375,23 +380,26 @@ void IT87x::exit()
 
 const char *IT87x::getModelName()
 {
-	switch (model) {
-        case IT8512F: return "IT8512F";
-        case IT8620F: return "IT8620F";
-        case IT8628F: return "IT8628F";
-        case IT8712F: return "IT8712F";
-        case IT8716F: return "IT8716F";
-        case IT8718F: return "IT8718F";
-        case IT8720F: return "IT8720F";
-        case IT8721F: return "IT8721F";
-        case IT8726F: return "IT8726F";
-		case IT8728F: return "IT8728F";
-        case IT8752F: return "IT8752F";
-        case IT8771E: return "IT8771E";
-        case IT8772E: return "IT8772E";
-	}
-  
-	return "unknown";
+  switch (model) {
+    case IT8512F: return "IT8512F";
+    case IT8620F: return "IT8620F";
+    case IT8628F: return "IT8628F";
+    case IT8686E: return "IT8686E";
+    case IT8705F: return "IT8705F";
+    case IT8712F: return "IT8712F";
+    case IT8716F: return "IT8716F";
+    case IT8718F: return "IT8718F";
+    case IT8720F: return "IT8720F";
+    case IT8721F: return "IT8721F";
+    case IT8726F: return "IT8726F";
+    case IT8728F: return "IT8728F";
+    case IT8752F: return "IT8752F";
+    case IT8771E: return "IT8771E";
+    case IT8772E: return "IT8772E";
+    case IT8792E: return "IT8792E";
+  }
+
+  return "unknown";
 }
 
 bool IT87x::init(OSDictionary *properties)
