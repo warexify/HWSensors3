@@ -266,7 +266,6 @@ plugins/VoodooBattery/Info.plist -text
 plugins/VoodooBattery/Support.h -text
 plugins/VoodooBattery/VoodooBattery.cpp -text
 plugins/VoodooBattery/VoodooBattery.h -text
-plugins/VoodooBattery/definitions.h -text
 utils/Cpuid.c -text
 utils/TigerAdditionals.cpp -text
 utils/TigerAdditionals.h -text

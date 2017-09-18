@@ -399,7 +399,6 @@
 		A55E16891F7041A50049A107 /* VoodooBatterySMC.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = VoodooBatterySMC.hpp; sourceTree = "<group>"; };
 		A55E168B1F7041A50049A107 /* VoodooBatterySMC.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = VoodooBatterySMC.cpp; sourceTree = "<group>"; };
 		A55E168D1F7041A50049A107 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		A55E16941F7041CF0049A107 /* definitions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = definitions.h; sourceTree = "<group>"; };
 		A55E16961F7041CF0049A107 /* English */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		A55E16971F7041CF0049A107 /* FakeSMC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FakeSMC.h; sourceTree = "<group>"; };
 		A55E16981F7041CF0049A107 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -863,7 +862,6 @@
 		A55E16931F7041CF0049A107 /* VoodooBattery */ = {
 			isa = PBXGroup;
 			children = (
-				A55E16941F7041CF0049A107 /* definitions.h */,
 				A55E16951F7041CF0049A107 /* InfoPlist.strings */,
 				A55E16971F7041CF0049A107 /* FakeSMC.h */,
 				A55E16981F7041CF0049A107 /* Info.plist */,
@@ -3872,6 +3870,7 @@
 				A55E16921F7041A50049A107 /* Release 10.4 */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = "Release 10.6";
 		};
 		AE00C78B126A1F440068E69A /* Build configuration list for PBXNativeTarget "F718x" */ = {
 			isa = XCConfigurationList;

@@ -22,7 +22,7 @@
 
 #include "Support.h"
 #include "VoodooBattery.h"
-#include "definitions.h"
+#include "../../utils/definitions.h"
 
 #pragma mark -
 #pragma mark VoodooBattery Controller
@@ -156,7 +156,7 @@ VoodooBattery::start(IOService * provider) {
 	
 	for (UInt8 i = 0; i < AcAdapterCount; i++) {
 		if (attach(AcAdapterDevice[i])) {
-			IOLog("A/C adapter %s available\n", AcAdapterDevice[i]->getName());
+			InfoLog("A/C adapter %s available", AcAdapterDevice[i]->getName());
 		}
 	}
   
@@ -193,6 +193,12 @@ VoodooBattery::start(IOService * provider) {
         
       }
     }
+    snprintf(key, 5, KEY_BAT_POWERED, 0);
+    addSensor(key, TYPE_FLAG, 1, 0);
+    snprintf(key, 5, KEY_NUMBER_OF_BATTERIES, 0);
+    addSensor(key, TYPE_UI8, 1, 0);
+    snprintf(key, 5, KEY_BAT_INSERTED, 0);
+    addSensor(key, TYPE_UI8, 1, 0);
   }
 
 	
@@ -359,29 +365,11 @@ VoodooBattery::BatteryInformation(UInt8 battery) {
 				BatteryPowerSource[battery]->setSerialString(GetSymbolFromArray(info, 10));
 				BatteryPowerSource[battery]->setManufacturer(GetSymbolFromArray(info, 12));
 
-//from zprood
-/*
-    uint32_t cycleCnt = -1;
-    if(acpibat_bif->getCount() >= 13) {
-        cycleCnt = GetValueFromArray(acpibat_bif, 13);
-    }
-    
-    if (-1 == cycleCnt) {
-        if (fDesignCapacity > fMaxCapacity) {
-            setCycleCount((fDesignCapacity - fMaxCapacity) / 7);
-        } else {
-            setCycleCount((fMaxCapacity - fDesignCapacity) / 7);
-        }
-    } else {
-        setCycleCount(cycleCnt);
-    }
-*/
-
 				if (Battery[battery].LastFullChargeCapacity && Battery[battery].DesignCapacity) {
 					UInt32 last		= Battery[battery].LastFullChargeCapacity;
 					UInt32 design	= Battery[battery].DesignCapacity;
 					//UInt32 cycle	= 2 * (10 - (last * 10 / design)) / 3;
-					UInt32 cycle	= (design - last) * 1000 / design; //assume battery designed for 1000 cicles
+					UInt32 cycle	= (design - last) * 1000 / design; //assume battery designed for 1000 cycles
 					BatteryPowerSource[battery]->setCycleCount(cycle);
 				}
 				acpi->release();
@@ -404,9 +392,8 @@ VoodooBattery::BatteryStatus(UInt8 battery) {
 	if (kIOReturnSuccess == BatteryDevice[battery]->evaluateObject(AcpiBatteryStatus, &acpi)) { //_BST
 		if (acpi && (OSTypeIDInst(acpi) == OSTypeID(OSArray))) {
 			OSArray * status = OSDynamicCast(OSArray, acpi);
-#if 1 //DEBUG 
 			setProperty(BatteryDevice[battery]->getName(), status);
-#endif
+      
 			UInt32 TimeRemaining = 0;
 			UInt32 HighAverageBound, LowAverageBound; 
 			bool bogus = false;
@@ -551,33 +538,43 @@ IOReturn	VoodooBattery::callPlatformFunction(const OSSymbol *functionName, bool 
     
     if (name && data) {
       //      WarningLog("callPF for key %s", name);
-      if ((name[0] != 'B') || (name[2] != 'A')) {
+      if ((name[0] == 'B') && (name[2] == 'A')) {
+        batNum = name[1] - 0x30;
+        if (OSNumber *number = OSDynamicCast(OSNumber, sensors->getObject(name))) {
+          index = number->unsigned16BitValue();
+          if (index >= MaxBatteriesSupported) {
+            WarningLog("called battery # %d", index);
+            return kIOReturnBadArgument;
+          }
+        }
+        BatteryStatus(batNum);
+        switch (name[3]) {
+          case 'C':
+            value = Battery[batNum].AverageRate;
+            break;
+          case 'V':
+            value = Battery[batNum].PresentVoltage;
+            break;
+          default:
+            return kIOReturnBadArgument;
+        }
+        memcpy(data, &value, 2);
+        return kIOReturnSuccess;
+      } else if ((name[0] == 'B') && (name[1] == 'A')
+                 (name[2] == 'T') && (name[3] == 'P')) {
+        value = ExternalPowerConnected;
+      } else if ((name[0] == 'B') && (name[1] == 'B')
+                 (name[2] == 'I') && (name[3] == 'N')) {
+        value = BatteriesConnected;
+      } else if ((name[0] == 'B') && (name[1] == 'N')
+                 (name[2] == 'u') && (name[3] == 'm')) {
+        value = BatteryCount;
+      } else {
         return kIOReturnBadArgument;
       }
-      
-      batNum = name[1] - 0x30;
-      if (OSNumber *number = OSDynamicCast(OSNumber, sensors->getObject(name))) {
-        index = number->unsigned16BitValue();
-        if (index >= MaxBatteriesSupported) {
-          WarningLog("called battery # %d", index);
-          return kIOReturnBadArgument;
-        }
-      }
-      BatteryStatus(batNum);
-      switch (name[3]) {
-        case 'C':
-          value = Battery[batNum].AverageRate;
-          break;
-        case 'V':
-          value = Battery[batNum].PresentVoltage;
-          break;
-        default:
-          return kIOReturnBadArgument;
-      }
-      memcpy(data, &value, 2);
+      memcpy(data, &value, 1);
       return kIOReturnSuccess;
     }
-    
     return kIOReturnBadArgument;
   }
   
