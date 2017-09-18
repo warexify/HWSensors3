@@ -21,10 +21,10 @@
 #define super IOService
 OSDefineMetaClassAndStructors(ACPIMonitor, IOService)
 
-bool ACPIMonitor::addSensor(const char* method, const char* key, const char* type, unsigned int size)
+bool ACPIMonitor::addSensor(const char* method, const char* key, const char* type, unsigned long long size)
 {
 	if (kIOReturnSuccess == fakeSMC->callPlatformFunction(kFakeSMCAddKeyHandler, false, (void *)key, (void *)type, (void *)size, (void *)this))
-		if (sensors->setObject(key, OSString::withCString(method))) {
+		if (sensors && sensors->setObject(key, OSString::withCString(method))) {
 			InfoLog("%s registered", method);
 			return true;
 		}

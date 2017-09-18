@@ -174,67 +174,67 @@ float decodeNumericValue(NSData* _data, NSString*_type)
 - (NSString *) formatedValue:(NSData *)value
 {
   if (value != nil) {
-		float v = decodeNumericValue(value, type);
+    float v = decodeNumericValue(value, type);
     switch (self.group) {
       case TemperatureSensorGroup:
-				return [[NSString alloc] initWithFormat:@"%2d°",(int)v];
-
+        return [[NSString alloc] initWithFormat:@"%2d°",(int)v];
+        
       case HDSmartTempSensorGroup:
       {
         unsigned int t = 0;
-
+        
         bcopy([value bytes], &t, 2);
-
+        
         //t = [NSSensor swapBytes:t] >> 8;
         return [[NSString alloc] initWithFormat:@"%d°",t];
       }
-
+        
       case BatterySensorsGroup:
       {
         NSInteger * t;
         t = (NSInteger*)[value bytes];
-				return [[NSString alloc] initWithFormat:@"%ld%%",*t];
+        return [[NSString alloc] initWithFormat:@"%ld",*t];
       }
-
-        case HDSmartLifeSensorGroup:
-        {
-            NSInteger * l;
-            l = (NSInteger*)[value bytes];
-            return [[NSString alloc] initWithFormat:@"%ld%%",*l];
-        }
-            
+        
+      case HDSmartLifeSensorGroup:
+      {
+        NSInteger * l;
+        l = (NSInteger*)[value bytes];
+        return [[NSString alloc] initWithFormat:@"%ld%%",*l];
+      }
+        
       case VoltageSensorGroup:
         return [[NSString alloc] initWithFormat:@"%2.3fV", v];
-
+        
       case TachometerSensorGroup:
         return [[NSString alloc] initWithFormat:@"%drpm",(int)v];
-
+        
       case FrequencySensorGroup:
       {
         unsigned int MHZ = 0;
-
+        
         bcopy([value bytes], &MHZ, 2);
-
+        
         MHZ = [HWMonitorSensor swapBytes:MHZ];
-
+        
         return [[NSString alloc] initWithFormat:@"%dMHz",MHZ];
-
+        
       }
-
+        
       case MultiplierSensorGroup:
       {
         unsigned int mlt = 0;
-
+        
         bcopy([value bytes], &mlt, 2);
-
+        
         return [[NSString alloc] initWithFormat:@"x%1.1f",(float)mlt / 10.0];
-
+        
       } break;
-
-
+        
+        
     }
   }
-
+  
   return @"-";
 }
 

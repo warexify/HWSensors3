@@ -41,6 +41,9 @@ HWSensors.xcodeproj/xcshareddata/xcschemes/SMIMonitor.xcscheme -text
 HWSensors.xcodeproj/xcshareddata/xcschemes/W836x.xcscheme -text
 HWSensors.xcodeproj/xcshareddata/xcschemes/X3100.xcscheme -text
 HWSensors.xcodeproj/xcshareddata/xcschemes/xcschememanagement.plist -text
+VoodooBatterySMC/Info.plist -text
+VoodooBatterySMC/VoodooBatterySMC.cpp -text
+VoodooBatterySMC/VoodooBatterySMC.hpp -text
 fakesmc/FakeSMC-Info.plist -text
 fakesmc/FakeSMC-pre106-info.plist -text
 fakesmc/FakeSMC.cpp -text
@@ -257,6 +260,13 @@ plugins/SuperIOSensors/WinbondW836x/WinbondW836x-Prefix.pch -text
 plugins/SuperIOSensors/WinbondW836x/WinbondW836x.cpp -text
 plugins/SuperIOSensors/WinbondW836x/WinbondW836x.h -text
 plugins/SuperIOSensors/WinbondW836x/en.lproj/InfoPlist.strings -text
+plugins/VoodooBattery/English.lproj/InfoPlist.strings -text
+plugins/VoodooBattery/FakeSMC.h -text
+plugins/VoodooBattery/Info.plist -text
+plugins/VoodooBattery/Support.h -text
+plugins/VoodooBattery/VoodooBattery.cpp -text
+plugins/VoodooBattery/VoodooBattery.h -text
+plugins/VoodooBattery/definitions.h -text
 utils/Cpuid.c -text
 utils/TigerAdditionals.cpp -text
 utils/TigerAdditionals.h -text

@@ -18,7 +18,7 @@ private:
 	IOACPIPlatformDevice *	acpiDevice;
 	OSDictionary*			sensors;
 	
-	bool				addSensor(const char* method, const char* key, const char* type, unsigned int size);
+	bool				addSensor(const char* method, const char* key, const char* type, unsigned long long size);
 	bool				addTachometer(const char* method, const char* caption);
 	
 public:

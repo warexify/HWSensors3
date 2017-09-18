@@ -114,7 +114,7 @@
       return 0; //nil;
     }
     // __bridge_transfer NSNumber 
-    NSNumber * percent = (__bridge_transfer  NSNumber *)IORegistryEntryCreateCFProperty(service, CFSTR("BatteryPercent"), kCFAllocatorDefault, 0);
+    NSNumber * percent = (__bridge_transfer  NSNumber *)IORegistryEntryCreateCFProperty(service, CFSTR("BatteryPercent, "), kCFAllocatorDefault, 0);
 
 /*  CFStringRef idc = IORegistryEntryCreateCFProperty(service, CFSTR("Product"), kCFAllocatorDefault, 0);
   //   value = (__bridge_transfer  NSString *)IORegistryEntryCreateCFProperty(service, CFSTR("Product"), kCFAllocatorDefault, 0);
