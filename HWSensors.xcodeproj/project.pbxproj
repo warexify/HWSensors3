@@ -2910,7 +2910,7 @@
 					"-DINFO",
 					"-DDEBUG",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = org.slice.VoodooBatterySMC;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.superhai.driver.${PRODUCT_NAME:identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = kext;
 			};
@@ -2958,7 +2958,7 @@
 					"-DINFO",
 					"-DERROR",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = org.slice.VoodooBatterySMC;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.superhai.driver.${PRODUCT_NAME:identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				WRAPPER_EXTENSION = kext;
@@ -3003,7 +3003,7 @@
 				MODULE_NAME = org.slice.VoodooBatterySMC;
 				MODULE_VERSION = 1.4.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = org.slice.VoodooBatterySMC;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.superhai.driver.${PRODUCT_NAME:identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				WRAPPER_EXTENSION = kext;
@@ -3048,7 +3048,7 @@
 				MODULE_NAME = org.slice.VoodooBatterySMC;
 				MODULE_VERSION = 1.4.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PRODUCT_BUNDLE_IDENTIFIER = org.slice.VoodooBatterySMC;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.superhai.driver.${PRODUCT_NAME:identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				WRAPPER_EXTENSION = kext;
