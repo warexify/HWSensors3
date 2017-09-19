@@ -27,6 +27,7 @@ HWSensors.xcodeproj/xcshareddata/xcschemes/ACPIMonitor.xcscheme -text
 HWSensors.xcodeproj/xcshareddata/xcschemes/ADT7470.xcscheme -text
 HWSensors.xcodeproj/xcshareddata/xcschemes/AmdCPUMonitor.xcscheme -text
 HWSensors.xcodeproj/xcshareddata/xcschemes/Andigilog.xcscheme -text
+HWSensors.xcodeproj/xcshareddata/xcschemes/DIMMSensor.xcscheme -text
 HWSensors.xcodeproj/xcshareddata/xcschemes/F718x.xcscheme -text
 HWSensors.xcodeproj/xcshareddata/xcschemes/FakeSMC.xcscheme -text
 HWSensors.xcodeproj/xcshareddata/xcschemes/GeforceSensor.xcscheme -text
@@ -38,12 +39,10 @@ HWSensors.xcodeproj/xcshareddata/xcschemes/NVClockX.xcscheme -text
 HWSensors.xcodeproj/xcshareddata/xcschemes/PC8739x.xcscheme -text
 HWSensors.xcodeproj/xcshareddata/xcschemes/RadeonMonitor.xcscheme -text
 HWSensors.xcodeproj/xcshareddata/xcschemes/SMIMonitor.xcscheme -text
+HWSensors.xcodeproj/xcshareddata/xcschemes/VoodooBatterySMC.xcscheme -text
 HWSensors.xcodeproj/xcshareddata/xcschemes/W836x.xcscheme -text
 HWSensors.xcodeproj/xcshareddata/xcschemes/X3100.xcscheme -text
 HWSensors.xcodeproj/xcshareddata/xcschemes/xcschememanagement.plist -text
-VoodooBatterySMC/Info.plist -text
-VoodooBatterySMC/VoodooBatterySMC.cpp -text
-VoodooBatterySMC/VoodooBatterySMC.hpp -text
 fakesmc/FakeSMC-Info.plist -text
 fakesmc/FakeSMC-pre106-info.plist -text
 fakesmc/FakeSMC.cpp -text

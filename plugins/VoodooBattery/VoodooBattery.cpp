@@ -193,11 +193,11 @@ VoodooBattery::start(IOService * provider) {
         
       }
     }
-    snprintf(key, 5, KEY_BAT_POWERED, 0);
+    snprintf(key, 5, KEY_BAT_POWERED);
     addSensor(key, TYPE_FLAG, 1, 0);
-    snprintf(key, 5, KEY_NUMBER_OF_BATTERIES, 0);
+    snprintf(key, 5, KEY_NUMBER_OF_BATTERIES);
     addSensor(key, TYPE_UI8, 1, 0);
-    snprintf(key, 5, KEY_BAT_INSERTED, 0);
+    snprintf(key, 5, KEY_BAT_INSERTED);
     addSensor(key, TYPE_UI8, 1, 0);
   }
 
@@ -560,13 +560,13 @@ IOReturn	VoodooBattery::callPlatformFunction(const OSSymbol *functionName, bool 
         }
         memcpy(data, &value, 2);
         return kIOReturnSuccess;
-      } else if ((name[0] == 'B') && (name[1] == 'A')
+      } else if ((name[0] == 'B') && (name[1] == 'A') &&
                  (name[2] == 'T') && (name[3] == 'P')) {
         value = ExternalPowerConnected;
-      } else if ((name[0] == 'B') && (name[1] == 'B')
+      } else if ((name[0] == 'B') && (name[1] == 'B') &&
                  (name[2] == 'I') && (name[3] == 'N')) {
         value = BatteriesConnected;
-      } else if ((name[0] == 'B') && (name[1] == 'N')
+      } else if ((name[0] == 'B') && (name[1] == 'N') &&
                  (name[2] == 'u') && (name[3] == 'm')) {
         value = BatteryCount;
       } else {

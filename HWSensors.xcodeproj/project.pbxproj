@@ -90,8 +90,10 @@
 		12B161B11A3F2966007C7B84 /* gm100.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 12B161AF1A3F2966007C7B84 /* gm100.cpp */; };
 		12E31F231E126A14003BD663 /* gp100.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 12E31F221E126A14003BD663 /* gp100.cpp */; };
 		2C7719BC14EA483A0005C3C7 /* SuperIOFamily.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AED9E582125FC23900736A5A /* SuperIOFamily.cpp */; };
-		A55E168A1F7041A50049A107 /* VoodooBatterySMC.hpp in Headers */ = {isa = PBXBuildFile; fileRef = A55E16891F7041A50049A107 /* VoodooBatterySMC.hpp */; };
-		A55E168C1F7041A50049A107 /* VoodooBatterySMC.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A55E168B1F7041A50049A107 /* VoodooBatterySMC.cpp */; };
+		A522F6761F706E0F005F81B8 /* VoodooBattery.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A55E169A1F7041CF0049A107 /* VoodooBattery.cpp */; };
+		A522F6771F706E50005F81B8 /* Support.h in Headers */ = {isa = PBXBuildFile; fileRef = A55E16991F7041CF0049A107 /* Support.h */; };
+		A522F6781F706E52005F81B8 /* VoodooBattery.h in Headers */ = {isa = PBXBuildFile; fileRef = A55E169B1F7041CF0049A107 /* VoodooBattery.h */; };
+		A522F6791F706E57005F81B8 /* definitions.h in Headers */ = {isa = PBXBuildFile; fileRef = 12B160921A3F01D8007C7B84 /* definitions.h */; };
 		AEF4C81712602F2600297B2B /* FakeSMCDevice.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AEF4C80E12602F2600297B2B /* FakeSMCDevice.cpp */; };
 		AEF4C81812602F2600297B2B /* FakeSMCKey.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AEF4C81012602F2600297B2B /* FakeSMCKey.cpp */; };
 		AEF4C81C12602F2600297B2B /* FakeSMC.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AEF4C81512602F2600297B2B /* FakeSMC.cpp */; };
@@ -400,7 +402,6 @@
 		A55E168B1F7041A50049A107 /* VoodooBatterySMC.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = VoodooBatterySMC.cpp; sourceTree = "<group>"; };
 		A55E168D1F7041A50049A107 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A55E16961F7041CF0049A107 /* English */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		A55E16971F7041CF0049A107 /* FakeSMC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FakeSMC.h; sourceTree = "<group>"; };
 		A55E16981F7041CF0049A107 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A55E16991F7041CF0049A107 /* Support.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Support.h; sourceTree = "<group>"; };
 		A55E169A1F7041CF0049A107 /* VoodooBattery.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = VoodooBattery.cpp; sourceTree = "<group>"; };
@@ -863,7 +864,6 @@
 			isa = PBXGroup;
 			children = (
 				A55E16951F7041CF0049A107 /* InfoPlist.strings */,
-				A55E16971F7041CF0049A107 /* FakeSMC.h */,
 				A55E16981F7041CF0049A107 /* Info.plist */,
 				A55E16991F7041CF0049A107 /* Support.h */,
 				A55E169A1F7041CF0049A107 /* VoodooBattery.cpp */,
@@ -1057,7 +1057,9 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A55E168A1F7041A50049A107 /* VoodooBatterySMC.hpp in Headers */,
+				A522F6771F706E50005F81B8 /* Support.h in Headers */,
+				A522F6781F706E52005F81B8 /* VoodooBattery.h in Headers */,
+				A522F6791F706E57005F81B8 /* definitions.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1656,7 +1658,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A55E168C1F7041A50049A107 /* VoodooBatterySMC.cpp in Sources */,
+				A522F6761F706E0F005F81B8 /* VoodooBattery.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2658,7 +2660,7 @@
 				INFOPLIST_FILE = "plugins/CPUSensors/IntelCPUMonitor/IntelCPUMonitor-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				MODULE_NAME = org.slice.IntelCPUMonitor;
-				MODULE_VERSION = 1.2.0;
+				MODULE_VERSION = 1.2.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.slice.${PRODUCT_NAME}";
 				PRODUCT_NAME = IntelCPUMonitor;
 				SDKROOT = macosx;
@@ -2791,7 +2793,7 @@
 		12D78B2112BFDCFF002C61EA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -2815,7 +2817,7 @@
 		12D78B2212BFDCFF002C61EA /* Release 10.6 */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_MODEL_TUNING = "";
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
@@ -2835,7 +2837,7 @@
 		12D78B2312BFDCFF002C61EA /* Release 10.5 */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_AUTO_VECTORIZATION = YES;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
@@ -2857,7 +2859,7 @@
 		12D78B2412BFDCFF002C61EA /* Release 10.4 */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "RadeonMonitor-Info.plist";
@@ -2878,8 +2880,8 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
+				CLANG_CXX_LIBRARY = "compiler-default";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
@@ -2904,6 +2906,10 @@
 				MODULE_NAME = org.slice.VoodooBatterySMC;
 				MODULE_VERSION = 1.4.2;
 				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_CFLAGS = (
+					"-DINFO",
+					"-DDEBUG",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.slice.VoodooBatterySMC;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = kext;
@@ -2915,8 +2921,8 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
+				CLANG_CXX_LIBRARY = "compiler-default";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
@@ -2948,6 +2954,10 @@
 				MODULE_NAME = org.slice.VoodooBatterySMC;
 				MODULE_VERSION = 1.4.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_CFLAGS = (
+					"-DINFO",
+					"-DERROR",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.slice.VoodooBatterySMC;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
@@ -2960,8 +2970,8 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
+				CLANG_CXX_LIBRARY = "compiler-default";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
@@ -3005,8 +3015,8 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
+				CLANG_CXX_LIBRARY = "compiler-default";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
@@ -3556,7 +3566,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -3565,7 +3575,7 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_VERSION = "";
 				INFOPLIST_FILE = "fakesmc/FakeSMC-Info.plist";
-				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				MODULE_NAME = org.netkas.FakeSMC;
 				MODULE_VERSION = 3.5.0;
 				ONLY_ACTIVE_ARCH = NO;
@@ -3580,13 +3590,13 @@
 		AEF4C80712602EE700297B2B /* Release 10.6 */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = YES;
 				GCC_AUTO_VECTORIZATION = NO;
 				GCC_VERSION = "";
 				INFOPLIST_FILE = "fakesmc/FakeSMC-Info.plist";
-				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				MODULE_NAME = org.netkas.FakeSMC;
 				MODULE_VERSION = 3.5.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.netkas.${PRODUCT_NAME}";
@@ -3654,7 +3664,7 @@
 		AEF4C83B1260304100297B2B /* Release 10.5 */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = YES;
 				GCC_AUTO_VECTORIZATION = YES;
@@ -3662,7 +3672,7 @@
 				GCC_MODEL_TUNING = "";
 				GCC_VERSION = "";
 				INFOPLIST_FILE = "FakeSMC-pre106-Info.plist";
-				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				MODULE_NAME = org.netkas.FakeSMC;
 				MODULE_VERSION = 3.1.0d1;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.netkas.${PRODUCT_NAME}";
@@ -3731,13 +3741,13 @@
 		AEF4C83F1260304900297B2B /* Release 10.4 */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = YES;
 				GCC_MODEL_TUNING = G5;
 				GCC_VERSION = "";
 				INFOPLIST_FILE = "FakeSMC-pre106-Info.plist";
-				MACOSX_DEPLOYMENT_TARGET = 10.8;
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				MODULE_NAME = org.netkas.FakeSMC;
 				MODULE_VERSION = 3.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.netkas.${PRODUCT_NAME}";
