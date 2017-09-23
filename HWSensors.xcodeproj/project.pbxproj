@@ -2909,6 +2909,8 @@
 				OTHER_CFLAGS = (
 					"-DINFO",
 					"-DDEBUG",
+					"-DKEXT_PRODUCTNAME=$(PRODUCT_NAME)",
+					"-DKEXT_VERSION=$(MODULE_VERSION)",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.superhai.driver.${PRODUCT_NAME:identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2957,6 +2959,8 @@
 				OTHER_CFLAGS = (
 					"-DINFO",
 					"-DERROR",
+					"-DKEXT_PRODUCTNAME=$(PRODUCT_NAME)",
+					"-DKEXT_VERSION=$(MODULE_VERSION)",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.superhai.driver.${PRODUCT_NAME:identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
