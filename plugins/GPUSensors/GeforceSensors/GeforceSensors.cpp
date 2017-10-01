@@ -162,7 +162,6 @@ IOService* GeforceSensors::probe(IOService *provider, SInt32 *score)
 	
 	if (super::probe(provider, score) != this) return 0;
 	
-	InfoLog("GeforceSensors by kozlek (C) 2012");
 	s8 ret = 0;
   if (OSDictionary * dictionary = serviceMatching(kGenericPCIDevice)) {
     if (OSIterator * iterator = getMatchingServices(dictionary)) {
@@ -257,11 +256,13 @@ bool GeforceSensors::start(IOService * provider)
 	if (!super::start(provider))
         return false;
     
-    if (!(fakeSMC = waitForService(serviceMatching(kFakeSMCDeviceService)))) {
+  if (!(fakeSMC = waitForService(serviceMatching(kFakeSMCDeviceService)))) {
 		WarningLog("Can't locate fake SMC device, kext will not load");
 		return false;
 	}
-    
+  
+  InfoLog("GeforceSensors by kozlek (C) 2012");
+
     struct nouveau_device *device = &card;
     
     //Find card number

@@ -1895,6 +1895,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -1916,6 +1917,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_MODEL_TUNING = G5;
@@ -1935,6 +1937,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_MODEL_TUNING = G5;
@@ -1954,6 +1957,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_MODEL_TUNING = G5;
@@ -2911,6 +2915,7 @@
 					"-DDEBUG",
 					"-DKEXT_PRODUCTNAME=$(PRODUCT_NAME)",
 					"-DKEXT_VERSION=$(MODULE_VERSION)",
+					"-DKEXT_CONFIG=Debug",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.superhai.driver.${PRODUCT_NAME:identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2961,6 +2966,7 @@
 					"-DERROR",
 					"-DKEXT_PRODUCTNAME=$(PRODUCT_NAME)",
 					"-DKEXT_VERSION=$(MODULE_VERSION)",
+					"-DKEXT_CONFIG=Release",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.superhai.driver.${PRODUCT_NAME:identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";

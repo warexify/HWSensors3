@@ -130,13 +130,13 @@ VoodooBattery::start(IOService * provider) {
 
 
 	// Printout banner
-	InfoLog("%s %s (%s) %s %s [%s]",
+	InfoLog("%s %s (%s) %s %s",
 			KextProductName,
 			KextVersion,
 			KextConfig,
 			KextBuildDate,
-			KextBuildTime,
-			KextOSX);
+			KextBuildTime /*,
+			KextOSX */);
 	InfoLog("(C) 2009 Superhai, All Rights Reserved, 2017 Slice");
 	
 	for (UInt8 i = 0; i < BatteryCount; i++) {
