@@ -202,7 +202,7 @@ bool ACPIMonitor::start(IOService * provider)
 	
 	// Here if ACDC returns 0 we need to set the on battery BATP flag
 	
-	// Battery stuff, need to implement rest of the keys once i figure those
+	// Battery stuff, need to implement rest of the keys once I figure those
   if (kIOReturnSuccess == acpiDevice->validateObject("BAK0")) // Battery 0 Current
     addSensor("BAK0", "B0AC", TYPE_SI16, 2);
 	
