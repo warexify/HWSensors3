@@ -223,7 +223,7 @@ bool ACPIMonitor::start(IOService * provider)
 				//WarningLog(" Found key %s", acpiName);
 				OSString *tmpString = OSDynamicCast(OSString, keysToAdd->getObject(dictKey));
 				if (tmpString) {
-					char aKey[5];
+					char aKey[8];
 					snprintf(aKey, 5, "%s", tmpString->getCStringNoCopy());
 					InfoLog("Custom name=%s key=%s", acpiName, aKey);
 					if (kIOReturnSuccess == acpiDevice->validateObject(acpiName)) {
@@ -232,7 +232,36 @@ bool ACPIMonitor::start(IOService * provider)
 								WarningLog("Can't add tachometer sensor, key %s", aKey);
               
 						} else {
-							addSensor(acpiName, aKey, TYPE_UI16, 2);
+              const char *Type = TYPE_UI16;
+              int Size = 2;
+              if (aKey[4] == '-') {
+                int Len = aKey[5] - '0';                
+                aKey[4] = '\0';
+                aKey[6] = '\0';
+                switch (Len) {
+                  case 0:
+                    Type = TYPE_FLAG;
+                    Size = 1;
+                    break;
+                  case 1:
+                    Type = TYPE_UI8;
+                    Size = 1;
+                    break;
+                  case 4:
+                    Type = TYPE_UI32;
+                    Size = 4;
+                    break;
+                  case 3:
+                    Type = TYPE_SP78;
+                    Size = 4;
+                    break;
+                  case 2:
+                  default:
+                    Type = TYPE_UI16;
+                    break;
+                }
+              }
+              addSensor(acpiName, aKey, Type, Size);
 						}
 					}
 				}
