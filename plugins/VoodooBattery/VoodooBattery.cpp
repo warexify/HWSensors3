@@ -562,7 +562,7 @@ IOReturn	VoodooBattery::callPlatformFunction(const OSSymbol *functionName, bool 
         return kIOReturnSuccess;
       } else if ((name[0] == 'B') && (name[1] == 'A') &&
                  (name[2] == 'T') && (name[3] == 'P')) {
-        value = ExternalPowerConnected;
+        value = ExternalPowerConnected?0:1;
       } else if ((name[0] == 'B') && (name[1] == 'B') &&
                  (name[2] == 'I') && (name[3] == 'N')) {
         value = BatteriesConnected;

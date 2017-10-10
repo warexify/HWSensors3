@@ -224,7 +224,7 @@ bool ACPIMonitor::start(IOService * provider)
 				OSString *tmpString = OSDynamicCast(OSString, keysToAdd->getObject(dictKey));
 				if (tmpString) {
 					char aKey[8];
-					snprintf(aKey, 5, "%s", tmpString->getCStringNoCopy());
+					snprintf(aKey, 8, "%s", tmpString->getCStringNoCopy());
 					InfoLog("Custom name=%s key=%s", acpiName, aKey);
 					if (kIOReturnSuccess == acpiDevice->validateObject(acpiName)) {
 						if (aKey[0] == 'F') {
@@ -237,7 +237,7 @@ bool ACPIMonitor::start(IOService * provider)
               if (aKey[4] == '-') {
                 int Len = aKey[5] - '0';                
                 aKey[4] = '\0';
-                aKey[6] = '\0';
+                aKey[5] = '\0';
                 switch (Len) {
                   case 0:
                     Type = TYPE_FLAG;
@@ -253,7 +253,7 @@ bool ACPIMonitor::start(IOService * provider)
                     break;
                   case 3:
                     Type = TYPE_SP78;
-                    Size = 4;
+                    Size = 2;
                     break;
                   case 2:
                   default:
@@ -319,14 +319,15 @@ IOReturn ACPIMonitor::callPlatformFunction(const OSSymbol *functionName, bool wa
 {
 	const char* name = (const char*)param1;
 	void * data = param2;
-  //	UInt64 size = (UInt64)param3;
+ UInt64 size = (UInt64)param3;
+//callPlatformFunction(kFakeSMCAddKeyHandler, false, (void *)key, (void *)type, (void *)size, (void *)this))
 	OSString* key;
 #if __LP64__
-	UInt64 value;
+	UInt64 value = 0;
 #else
 	UInt32 value;
 #endif
-	UInt16 val;
+	UInt16 val = 0;
 	
 	if (functionName->isEqualTo(kFakeSMCSetValueCallback)) {
 		if (name && data) {
@@ -382,7 +383,7 @@ IOReturn ACPIMonitor::callPlatformFunction(const OSSymbol *functionName, bool wa
             val = value;
           }
           
-          bcopy(&val, data, 2);
+          bcopy(&val, data, size);
           return kIOReturnSuccess;
 				}
 			}
