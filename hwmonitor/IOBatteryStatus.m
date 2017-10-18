@@ -6,6 +6,7 @@
 //
 //
 
+#import <IOKit/pwr_mgt/IOPM.h>
 #import "IOBatteryStatus.h"
 
 //#define __bridge_transfer
@@ -178,4 +179,39 @@
     }
     return dataset;
 }
+
++ (NSDictionary *) getIOPMPowerSource
+{
+  CFMutableDictionaryRef matching , properties = NULL;
+  io_registry_entry_t entry = 0;
+  matching = IOServiceMatching( "IOPMPowerSource" );
+  entry = IOServiceGetMatchingService( kIOMasterPortDefault , matching );
+  IORegistryEntryCreateCFProperties( entry , &properties , NULL , 0 );
+
+  NSDictionary * dict = CFBridgingRelease(properties);
+  IOObjectRelease( entry );
+  return dict;
+}
+
+// Voltage measured in mV
++ (int) getBatteryVoltageFrom:(NSDictionary *)IOPMPowerSource
+{
+  if (IOPMPowerSource && [IOPMPowerSource objectForKey:@kIOPMPSVoltageKey]) {
+    return [[IOPMPowerSource objectForKey:@kIOPMPSVoltageKey] intValue];
+  }
+
+  return 0;
+}
+
+// Capacity measured in mA
++ (int) getBatteryAmperageFrom:(NSDictionary *)IOPMPowerSource
+{
+  if (IOPMPowerSource && [IOPMPowerSource objectForKey:@kIOPMPSAmperageKey]) {
+    int mA = [[IOPMPowerSource objectForKey:@kIOPMPSAmperageKey] intValue];
+    return (mA > 0) ? mA : (0 - mA);
+  }
+
+  return 0;
+}
+
 @end

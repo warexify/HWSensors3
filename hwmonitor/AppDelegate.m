@@ -5,13 +5,15 @@
 //  Created by mozo,Navi on 20.10.11.
 //  Copyright (c) 2011 mozo. All rights reserved.
 //
+//  Francesco Renga (vector sigma) 2017, read battery from common path
+//
 
 #import "AppDelegate.h"
 #import "NSString+TruncateToWidth.h"
 #import "IOBatteryStatus.h"
 #include "../utils/definitions.h"
 
-//#define __bridge_transfer
+#define USE_BATTERY_POWER_SOURCE 1
 
 @implementation AppDelegate
 
@@ -28,7 +30,10 @@
 
 - (void)updateTitles
 {
-  
+    NSDictionary *pb = nil;
+    if (USE_BATTERY_POWER_SOURCE) {
+        pb = [IOBatteryStatus getIOPMPowerSource];
+    }
   NSEnumerator * enumerator = nil;
   HWMonitorSensor * sensor = nil;
   
@@ -73,7 +78,8 @@
       
     }];
     if(needFooter)
-      [self insertFooterAndTitle:NSLocalizedString(@"BATTERIES",nil) andImage:[NSImage imageNamed:@"modern-battery-icon"]];
+            [self insertFooterAndTitle:NSLocalizedString(@"BATTERIES",nil)
+                              andImage:[NSImage imageNamed:@"modern-battery-icon"]];
   }
   
   if (values) {
@@ -82,24 +88,37 @@
     
     while (sensor = (HWMonitorSensor *)[enumerator nextObject]) {
       
-      if (isMenuVisible) {
+            NSString * value;
+            if ((USE_BATTERY_POWER_SOURCE) &&
+                ([[sensor key] isEqualToString:@KEY_BAT0_VOLTAGE] || [[sensor key] isEqualToString:@KEY_BAT0_AMPERAGE])) {
+                if (pb) {
+                    if ([[sensor key] isEqualToString:@KEY_BAT0_VOLTAGE]) {
+                        value = [NSString stringWithFormat:@"%d", [IOBatteryStatus getBatteryVoltageFrom:pb]];
+                    } else {
+                        // amperage
+                        value = [NSString stringWithFormat:@"%d", [IOBatteryStatus getBatteryAmperageFrom:pb]];
+                    }
+                } else {
+                    value = @"-";
+                }
+            } else {
+                value = [sensor formatedValue:
+                         [values objectForKey:[sensor key]] ?
+                         [values objectForKey:[sensor key]] :
+                         [HWMonitorSensor readValueForKey:[sensor key]]];
+            }
         
-        
-        NSString * value =[sensor formatedValue:[values objectForKey:[sensor key]] ? [values objectForKey:[sensor key]] : [HWMonitorSensor readValueForKey:[sensor key]]];
-        
+            if (isMenuVisible) {
         
         // Update menu item title
         
         NSString * str = [[sensor caption] stringByPaddingToLength:28 withString:@" " startingAtIndex:0];
         
         if(![[(NSMenuItem *)[sensor object] title] isEqualToString:str])
-          [(NSMenuItem *)[sensor object] setTitle:[NSString stringWithFormat:@"%@%@",str,value ]] ;
+                    [(NSMenuItem *)[sensor object] setTitle:[NSString stringWithFormat:@"%@%@",str,value]];
       }
       
       if ([sensor favorite]) {
-        NSString * value =[sensor formatedValue:[values objectForKey:[sensor key]] ? [values objectForKey:[sensor key]] : [HWMonitorSensor readValueForKey:[sensor key]]];
-        
-        
         [statusString appendString:@" "];
         [statusString appendString:value];
         
@@ -108,15 +127,13 @@
     }
   }
   
-  
-  if (count > 0) {
+    //if (count > 0) { /* let update the title */
     // Update status bar title
     NSMutableAttributedString * title = [[NSMutableAttributedString alloc] initWithString:statusString attributes:statusItemAttributes];
     [title addAttribute:NSFontAttributeName value:statusItemFont range:NSMakeRange(0, [title length])];
     [statusItem setAttributedTitle:title];
     
-  }
-  
+    //}
 }
 
 - (HWMonitorSensor *)addSensorWithKey:(NSString *)key andType:(NSString *) aType andCaption:(NSString *)caption intoGroup:(SensorGroup)group
@@ -135,15 +152,13 @@
     
     [menuItem setRepresentedObject:sensor];
     [menuItem setAction:@selector(menuItemClicked:)];
-    
-    if ([sensor favorite]) [menuItem setState:TRUE];
+    [menuItem setState:[sensor favorite]? YES : NO];
     
     [statusMenu insertItem:menuItem atIndex:menusCount++];
     
     [sensor setObject:menuItem];
     
     [sensorsList addObject:sensor];
-    
     return sensor;
     
   }
@@ -156,7 +171,7 @@
     NSMenuItem * titleItem = [[NSMenuItem alloc] initWithTitle:title action:nil keyEquivalent:@""];
     if(img)
       [titleItem setImage:img];
-    [titleItem setEnabled:FALSE];
+    [titleItem setEnabled:NO];
     //[titleItem setIndentationLevel:1];
     
     [statusMenu insertItem:titleItem atIndex:lastMenusCount]; menusCount++;
@@ -358,7 +373,7 @@
   //KEY_BAT0_AMPERAGE
   [self addSensorWithKey:@KEY_BAT0_AMPERAGE andType: ((type = [HWMonitorSensor getTypeOfKey:@KEY_BAT0_AMPERAGE]) ? type : @TYPE_SI16) andCaption:NSLocalizedString(@"Battery Amperage, mA",nil) intoGroup:BatterySensorsGroup ];
 
-  
+
   NSEnumerator * BatteryEnumerator = [BatteriesList keyEnumerator];
   id nextBattery;
   
@@ -371,7 +386,7 @@
   if (![sensorsList count]) {
     NSMenuItem * item = [[NSMenuItem alloc]initWithTitle:@"No sensors found or FakeSMCDevice unavailable" action:nil keyEquivalent:@""];
     
-    [item setEnabled:FALSE];
+    [item setEnabled:NO];
     
     [statusMenu insertItem:item atIndex:0];
   }

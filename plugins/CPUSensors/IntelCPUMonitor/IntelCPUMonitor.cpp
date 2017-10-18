@@ -710,7 +710,7 @@ UInt32 IntelCPUMonitor::IntelGetFrequency(UInt8 cpu_id)
     if(deltaUCR>0) {
       float num = (float)deltaUCC*BaseFreqRatio/(float)deltaUCR;
       int n = (int)(num < 0 ? (num - 0.5) : (num + 0.5));
-      return (UInt32)(BusClock * n);
+      return (UInt32)BusClock * n;
     }
     
   }

@@ -29,6 +29,14 @@ typedef NSUInteger SensorGroup;
   NSString *    caption;
   id            object;
   BOOL          favorite;
+    
+  // instance vars for the below @property
+  NSString *    _key;
+  NSString *    _type;
+  SensorGroup   _group;
+  NSString *    _caption;
+  id            _object;
+  BOOL          _favorite;
 }
 
 @property (readwrite, retain) NSString *    key;
@@ -47,7 +55,11 @@ typedef NSUInteger SensorGroup;
 + (NSData *)            readValueForKey:(NSString *)key;
 + (NSString* )			getTypeOfKey:(NSString*)key;
 
-- (HWMonitorSensor *)   initWithKey:(NSString *)aKey andType: aType andGroup:(NSUInteger)aGroup withCaption:(NSString *)aCaption;
+- (HWMonitorSensor *)   initWithKey:(NSString *)aKey
+                            andType: aType
+                           andGroup:(NSUInteger)aGroup
+                        withCaption:(NSString *)aCaption;
+
 - (NSString *)          formatedValue:(NSData *)value;
 
 @end
