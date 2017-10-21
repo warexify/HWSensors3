@@ -337,8 +337,10 @@ IOService* IntelCPUMonitor::probe(IOService *provider, SInt32 *score)
         case CPU_MODEL_MOOREFIELD:
         case CPU_MODEL_GOLDMONT:
         case CPU_MODEL_ATOM_X3:
-        case CPU_MODEL_SKYLAKE_S:
+        case CPU_MODEL_SKYLAKE_D:
+        case CPU_MODEL_SKYLAKE_X:
         case CPU_MODEL_CANNONLAKE:
+        case CPU_MODEL_XEON_MILL:
         case CPU_MODEL_KABYLAKE1:
         case CPU_MODEL_KABYLAKE2:
 

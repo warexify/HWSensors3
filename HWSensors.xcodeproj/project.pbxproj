@@ -177,13 +177,6 @@
 			remoteGlobalIDString = AED9E18D125FBEF400736A5A;
 			remoteInfo = IT87x;
 		};
-		A55E169D1F70428D0049A107 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = AEABE453125F8E7400F08235 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = A55E16861F7041A50049A107;
-			remoteInfo = VoodooBatterySMC;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -1763,11 +1756,6 @@
 			target = AED9E18D125FBEF400736A5A /* IT87x */;
 			targetProxy = 1D1CAAC913657046003878D0 /* PBXContainerItemProxy */;
 		};
-		A55E169E1F70428D0049A107 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = A55E16861F7041A50049A107 /* VoodooBatterySMC */;
-			targetProxy = A55E169D1F70428D0049A107 /* PBXContainerItemProxy */;
-		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
@@ -2611,7 +2599,7 @@
 				INFOPLIST_FILE = "plugins/CPUSensors/IntelCPUMonitor/IntelCPUMonitor-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				MODULE_NAME = org.slice.IntelCPUMonitor;
-				MODULE_VERSION = 1.2.1;
+				MODULE_VERSION = 1.2.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.slice.${PRODUCT_NAME}";
 				PRODUCT_NAME = IntelCPUMonitor;
 				SDKROOT = macosx;

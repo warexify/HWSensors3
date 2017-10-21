@@ -168,13 +168,15 @@
 #define CPU_MODEL_AVOTON        0x4D
 #define CPU_MODEL_SKYLAKE_U     0x4E
 #define CPU_MODEL_BROADWELL_E5  0x4F
+#define CPU_MODEL_SKYLAKE_X     0x55  /* Intel® Core™ X-series Processors */
 #define CPU_MODEL_BROADWELL_DE  0x56
 #define CPU_MODEL_KNIGHT        0x57
 #define CPU_MODEL_MOOREFIELD    0x5A
 #define CPU_MODEL_GOLDMONT      0x5C
 #define CPU_MODEL_ATOM_X3       0x5D
-#define CPU_MODEL_SKYLAKE_S     0x5E
+#define CPU_MODEL_SKYLAKE_D     0x5E /* Skylake Desktop */
 #define CPU_MODEL_CANNONLAKE    0x66
+#define CPU_MODEL_XEON_MILL     0x85  /* Knights Mill */
 #define CPU_MODEL_KABYLAKE1     0x8E /* Kabylake Mobile */
 #define CPU_MODEL_KABYLAKE2     0x9E /* Kabylake Dektop */
 
@@ -316,7 +318,7 @@ extern "C" {
 
 i386_cpu_info_t	*cpuid_info(void);
 
-extern void cpuid_update_generic_info();
+  extern void cpuid_update_generic_info(void);
 #ifdef __cplusplus
 };
 #endif
