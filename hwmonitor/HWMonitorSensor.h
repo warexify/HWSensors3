@@ -10,15 +10,15 @@
 #import "ISPSmartController.h"
 
 enum {
-    TemperatureSensorGroup  =   1,
-    VoltageSensorGroup      =   2,
-    TachometerSensorGroup   =   3,
-    FrequencySensorGroup    =   4,
-    MultiplierSensorGroup   =   5,
-    HDSmartTempSensorGroup  =   6, 
-    BatterySensorsGroup     =   7,
-    HDSmartLifeSensorGroup  =   8,
-
+  TemperatureSensorGroup  =   1,
+  VoltageSensorGroup      =   2,
+  TachometerSensorGroup   =   3,
+  FrequencySensorGroup    =   4,
+  MultiplierSensorGroup   =   5,
+  HDSmartTempSensorGroup  =   6,
+  BatterySensorsGroup     =   7,
+  HDSmartLifeSensorGroup  =   8,
+  
 };
 typedef NSUInteger SensorGroup;
 
@@ -29,7 +29,7 @@ typedef NSUInteger SensorGroup;
   NSString *    caption;
   id            object;
   BOOL          favorite;
-    
+  
   // instance vars for the below @property
   NSString *    _key;
   NSString *    _type;
@@ -48,18 +48,19 @@ typedef NSUInteger SensorGroup;
 
 
 
-+ (unsigned int)        swapBytes:(unsigned int) value;
++ (unsigned int) swapBytes:(unsigned int) value;
 
-//+ (NSDictionary *)      populateValues;
-//+ (NSData *)            populateValueForKey:(NSString *)key;
-+ (NSData *)            readValueForKey:(NSString *)key;
-+ (NSString* )			getTypeOfKey:(NSString*)key;
+//+ (NSDictionary *)populateValues;
+//+ (NSData *)populateValueForKey:(NSString *)key;
++ (NSData *)readValueForKey:(NSString *)key;
++ (NSString* )getTypeOfKey:(NSString*)key;
 
-- (HWMonitorSensor *)   initWithKey:(NSString *)aKey
-                            andType: aType
-                           andGroup:(NSUInteger)aGroup
-                        withCaption:(NSString *)aCaption;
+- (HWMonitorSensor *)initWithKey:(NSString *)aKey
+                         andType: aType
+                        andGroup:(NSUInteger)aGroup
+                     withCaption:(NSString *)aCaption;
 
-- (NSString *)          formatedValue:(NSData *)value;
+- (NSString *)formatedValue:(NSData *)value;
 
 @end
+

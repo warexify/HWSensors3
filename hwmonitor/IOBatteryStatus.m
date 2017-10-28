@@ -14,204 +14,187 @@
 @implementation IOBatteryStatus
 
 
-+(BOOL) keyboardAvailable
-{
-    io_service_t service = IOServiceGetMatchingService(0, IOServiceNameMatching("AppleBluetoothHIDKeyboard"));
-    BOOL value=YES;
-   
-    if (!service ) {
-		value =  NO;
-    }
-    IOObjectRelease(service);
-    return value;
++ (BOOL)keyboardAvailable {
+  io_service_t service = IOServiceGetMatchingService(0, IOServiceNameMatching("AppleBluetoothHIDKeyboard"));
+  BOOL value=YES;
+  
+  if (!service ) {
+    value =  NO;
+  }
+  IOObjectRelease(service);
+  return value;
 }
 
 
 
-+(BOOL) trackpadAvailable
-{
-    io_service_t service = IOServiceGetMatchingService(0, IOServiceNameMatching("BNBTrackpadDevice"));
-    BOOL value=YES;
-    
-    if (!service ) {
-		value =  NO;
-    }
-    IOObjectRelease(service);
-    return value;
++ (BOOL)trackpadAvailable {
+  io_service_t service = IOServiceGetMatchingService(0, IOServiceNameMatching("BNBTrackpadDevice"));
+  BOOL value=YES;
+  
+  if (!service ) {
+    value =  NO;
+  }
+  IOObjectRelease(service);
+  return value;
 }
 
-+(BOOL) mouseAvailable
-{
-    io_service_t service = IOServiceGetMatchingService(0, IOServiceNameMatching("BNBMouseDevice"));
-    BOOL value=YES;
-    
-    if (!service ) {
-		value =  NO;
-    }
-    IOObjectRelease(service);
-    return value;
++ (BOOL)mouseAvailable {
+  io_service_t service = IOServiceGetMatchingService(0, IOServiceNameMatching("BNBMouseDevice"));
+  BOOL value=YES;
+  
+  if (!service ) {
+    value =  NO;
+  }
+  IOObjectRelease(service);
+  return value;
 }
 
-+(NSString *) getKeyboardName
-{
++ (NSString *)getKeyboardName {
   io_service_t service = IOServiceGetMatchingService(0, IOServiceNameMatching("AppleBluetoothHIDKeyboard"));
   NSString * value = nil;
   
   if (!service ) {
-		return nil;
+    return nil;
   }
-//  CFStringRef idc = IORegistryEntryCreateCFProperty(service, CFSTR("Product"), kCFAllocatorDefault, 0);
-     value = (__bridge_transfer  NSString *)IORegistryEntryCreateCFProperty(service, CFSTR("Product"), kCFAllocatorDefault, 0);
-//  value = [NSString stringWithFormat:@"%@", (NSString*)idc];
- // if(idc) CFRelease(idc);
+  //  CFStringRef idc = IORegistryEntryCreateCFProperty(service, CFSTR("Product"), kCFAllocatorDefault, 0);
+  value = (__bridge_transfer  NSString *)IORegistryEntryCreateCFProperty(service, CFSTR("Product"), kCFAllocatorDefault, 0);
+  //  value = [NSString stringWithFormat:@"%@", (NSString*)idc];
+  // if(idc) CFRelease(idc);
   
   IOObjectRelease(service);
   return value;
-  
 }
 
-+(NSString *) getTrackpadName
-{
-    io_service_t service = IOServiceGetMatchingService(0, IOServiceNameMatching("BNBTrackpadDevice"));
-    NSString * value = nil;
-    
++ (NSString *)getTrackpadName {
+  io_service_t service = IOServiceGetMatchingService(0, IOServiceNameMatching("BNBTrackpadDevice"));
+  NSString * value = nil;
+  
   if (!service ) {
-		return nil;
-    }
- // CFStringRef idc = IORegistryEntryCreateCFProperty(service, CFSTR("Product"), kCFAllocatorDefault, 0);
-    value = (__bridge_transfer  NSString *)IORegistryEntryCreateCFProperty(service, CFSTR("Product"), kCFAllocatorDefault, 0);
-//  value = [NSString stringWithFormat:@"%@", (NSString*)idc];
-//  if(idc) CFRelease(idc);
+    return nil;
+  }
+  // CFStringRef idc = IORegistryEntryCreateCFProperty(service, CFSTR("Product"), kCFAllocatorDefault, 0);
+  value = (__bridge_transfer  NSString *)IORegistryEntryCreateCFProperty(service, CFSTR("Product"), kCFAllocatorDefault, 0);
+  //  value = [NSString stringWithFormat:@"%@", (NSString*)idc];
+  //  if(idc) CFRelease(idc);
   
-    IOObjectRelease(service);
-    return value;
-    
+  IOObjectRelease(service);
+  return value;
 }
 
-+(NSString *) getMouseName
-{
-    io_service_t service = IOServiceGetMatchingService(0, IOServiceNameMatching("BNBMouseDevice"));
-    NSString * value = nil;
-    
-   if (!service ) {
-		return nil;
-    }
-//  CFStringRef idc = IORegistryEntryCreateCFProperty(service, CFSTR("Product"), kCFAllocatorDefault, 0);
-     value = (__bridge_transfer  NSString *)IORegistryEntryCreateCFProperty(service, CFSTR("Product"), kCFAllocatorDefault, 0);
-//  value = [NSString stringWithFormat:@"%@", (NSString*)idc];
-//  if(idc) CFRelease(idc);
++ (NSString *)getMouseName {
+  io_service_t service = IOServiceGetMatchingService(0, IOServiceNameMatching("BNBMouseDevice"));
+  NSString * value = nil;
   
-    IOObjectRelease(service);
-    return value;
-    
-}
-
-+(NSInteger ) getKeyboardBatteryLevel
-{
-    io_service_t service = IOServiceGetMatchingService(0, IOServiceNameMatching("AppleBluetoothHIDKeyboard"));
-   
-    
-    if (!service ) {
-      return 0; //nil;
-    }
-    // __bridge_transfer NSNumber 
-    NSNumber * percent = (__bridge_transfer  NSNumber *)IORegistryEntryCreateCFProperty(service, CFSTR("BatteryPercent, "), kCFAllocatorDefault, 0);
-
-/*  CFStringRef idc = IORegistryEntryCreateCFProperty(service, CFSTR("Product"), kCFAllocatorDefault, 0);
-  //   value = (__bridge_transfer  NSString *)IORegistryEntryCreateCFProperty(service, CFSTR("Product"), kCFAllocatorDefault, 0);
-  value = [NSString stringWithFormat:@"%@", (NSString*)idc];
-  if(idc) CFRelease(idc); */
+  if (!service ) {
+    return nil;
+  }
+  //  CFStringRef idc = IORegistryEntryCreateCFProperty(service, CFSTR("Product"), kCFAllocatorDefault, 0);
+  value = (__bridge_transfer  NSString *)IORegistryEntryCreateCFProperty(service, CFSTR("Product"), kCFAllocatorDefault, 0);
+  //  value = [NSString stringWithFormat:@"%@", (NSString*)idc];
+  //  if(idc) CFRelease(idc);
   
-    IOObjectRelease(service);
-    return [percent integerValue];
-    
+  IOObjectRelease(service);
+  return value;
 }
 
-+(NSInteger ) getTrackpadBatteryLevel
-{
-    io_service_t service = IOServiceGetMatchingService(0, IOServiceNameMatching("BNBTrackpadDevice"));
-
-    
-    if (!service ) {
-      return 0; //nil;
-    }
-    NSNumber * percent = (__bridge_transfer  NSNumber *)IORegistryEntryCreateCFProperty(service, CFSTR("BatteryPercent"), kCFAllocatorDefault, 0);
-    
-    IOObjectRelease(service);
-    return [percent integerValue];
-    
++ (NSInteger )getKeyboardBatteryLevel {
+  io_service_t service = IOServiceGetMatchingService(0, IOServiceNameMatching("AppleBluetoothHIDKeyboard"));
+  
+  
+  if (!service ) {
+    return 0; //nil;
+  }
+  // __bridge_transfer NSNumber
+  NSNumber * percent = (__bridge_transfer  NSNumber *)IORegistryEntryCreateCFProperty(service,
+                                                                                      CFSTR("BatteryPercent, "),
+                                                                                      kCFAllocatorDefault, 0);
+  
+  /*  CFStringRef idc = IORegistryEntryCreateCFProperty(service, CFSTR("Product"), kCFAllocatorDefault, 0);
+   //   value = (__bridge_transfer  NSString *)IORegistryEntryCreateCFProperty(service, CFSTR("Product"), kCFAllocatorDefault, 0);
+   value = [NSString stringWithFormat:@"%@", (NSString*)idc];
+   if(idc) CFRelease(idc); */
+  
+  IOObjectRelease(service);
+  return [percent integerValue];
 }
 
-+(NSInteger ) getMouseBatteryLevel
-{
-    io_service_t service = IOServiceGetMatchingService(0, IOServiceNameMatching("BNBMouseDevice"));
++ (NSInteger )getTrackpadBatteryLevel {
+  io_service_t service = IOServiceGetMatchingService(0, IOServiceNameMatching("BNBTrackpadDevice"));
+  
+  
+  if (!service ) {
+    return 0; //nil;
+  }
+  NSNumber * percent = (__bridge_transfer  NSNumber *)IORegistryEntryCreateCFProperty(service,
+                                                                                      CFSTR("BatteryPercent"),
+                                                                                      kCFAllocatorDefault, 0);
+  
+  IOObjectRelease(service);
+  return [percent integerValue];
+}
 
-    
-    if (!service ) {
-      return 0; //nil;
-    }
-    NSNumber * percent = (__bridge_transfer  NSNumber *)IORegistryEntryCreateCFProperty(service, CFSTR("BatteryPercent"), kCFAllocatorDefault, 0);
-    
-    IOObjectRelease(service);
-    return [percent integerValue];
-    
++ (NSInteger )getMouseBatteryLevel {
+  io_service_t service = IOServiceGetMatchingService(0, IOServiceNameMatching("BNBMouseDevice"));
+  
+  
+  if (!service ) {
+    return 0; //nil;
+  }
+  NSNumber * percent = (__bridge_transfer  NSNumber *)IORegistryEntryCreateCFProperty(service,
+                                                                                      CFSTR("BatteryPercent"),
+                                                                                      kCFAllocatorDefault, 0);
+  
+  IOObjectRelease(service);
+  return [percent integerValue];
 }
 
 
-+(NSDictionary *) getAllBatteriesLevel
-{
-    NSMutableDictionary * dataset = [[NSMutableDictionary alloc] initWithCapacity:0];
-    NSInteger value = 0;
-    if([IOBatteryStatus keyboardAvailable])
-    {
-        value = [IOBatteryStatus getKeyboardBatteryLevel];
-        [dataset setValue:[NSData dataWithBytes:&value  length:sizeof(value)]  forKey:[IOBatteryStatus getKeyboardName]];
-    }
-    if([IOBatteryStatus trackpadAvailable])
-    {
-        value = [IOBatteryStatus getTrackpadBatteryLevel];
-        [dataset setValue: [NSData dataWithBytes:&value  length:sizeof(value)] forKey:[IOBatteryStatus getTrackpadName]];
-    }
-    if([IOBatteryStatus mouseAvailable])
-    {
-        value = [IOBatteryStatus getMouseBatteryLevel];
-        [dataset setValue:[NSData dataWithBytes:&value  length:sizeof(value)] forKey:[IOBatteryStatus getMouseName]];
-    }
-    return dataset;
++ (NSDictionary *)getAllBatteriesLevel {
+  NSMutableDictionary * dataset = [[NSMutableDictionary alloc] initWithCapacity:0];
+  NSInteger value = 0;
+  if([IOBatteryStatus keyboardAvailable]) {
+    value = [IOBatteryStatus getKeyboardBatteryLevel];
+    [dataset setValue:[NSData dataWithBytes:&value  length:sizeof(value)]  forKey:[IOBatteryStatus getKeyboardName]];
+  }
+  if([IOBatteryStatus trackpadAvailable]) {
+    value = [IOBatteryStatus getTrackpadBatteryLevel];
+    [dataset setValue: [NSData dataWithBytes:&value  length:sizeof(value)] forKey:[IOBatteryStatus getTrackpadName]];
+  }
+  if([IOBatteryStatus mouseAvailable]) {
+    value = [IOBatteryStatus getMouseBatteryLevel];
+    [dataset setValue:[NSData dataWithBytes:&value  length:sizeof(value)] forKey:[IOBatteryStatus getMouseName]];
+  }
+  return dataset;
 }
 
-+ (NSDictionary *) getIOPMPowerSource
-{
++ (NSDictionary *)getIOPMPowerSource {
   CFMutableDictionaryRef matching , properties = NULL;
   io_registry_entry_t entry = 0;
   matching = IOServiceMatching( "IOPMPowerSource" );
   entry = IOServiceGetMatchingService( kIOMasterPortDefault , matching );
   IORegistryEntryCreateCFProperties( entry , &properties , NULL , 0 );
-
+  
   NSDictionary * dict = CFBridgingRelease(properties);
   IOObjectRelease( entry );
   return dict;
 }
 
 // Voltage measured in mV
-+ (int) getBatteryVoltageFrom:(NSDictionary *)IOPMPowerSource
-{
++ (int)getBatteryVoltageFrom:(NSDictionary *)IOPMPowerSource {
   if (IOPMPowerSource && [IOPMPowerSource objectForKey:@kIOPMPSVoltageKey]) {
     return [[IOPMPowerSource objectForKey:@kIOPMPSVoltageKey] intValue];
   }
-
   return 0;
 }
 
 // Capacity measured in mA
-+ (int) getBatteryAmperageFrom:(NSDictionary *)IOPMPowerSource
-{
++ (int) getBatteryAmperageFrom:(NSDictionary *)IOPMPowerSource {
   if (IOPMPowerSource && [IOPMPowerSource objectForKey:@kIOPMPSAmperageKey]) {
     int mA = [[IOPMPowerSource objectForKey:@kIOPMPSAmperageKey] intValue];
     return (mA > 0) ? mA : (0 - mA);
   }
-
   return 0;
 }
 
 @end
+

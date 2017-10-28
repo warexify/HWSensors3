@@ -14,26 +14,24 @@
 #include "../utils/definitions.h"
 
 #define USE_BATTERY_POWER_SOURCE 1
+#define LOG_NULL_VALUES 0
 
 @implementation AppDelegate
 
 #define SMART_UPDATE_INTERVAL 5*60
 
-- (id) init
-{
-    if (self = [super init])
-    {
-        lastcall = [NSDate date];
-    }
-    return self;
+- (id) init {
+  if (self = [super init]) {
+    lastcall = [NSDate date];
+  }
+  return self;
 }
 
-- (void)updateTitles
-{
-    NSDictionary *pb = nil;
-    if (USE_BATTERY_POWER_SOURCE) {
-        pb = [IOBatteryStatus getIOPMPowerSource];
-    }
+- (void)updateTitles {
+  NSDictionary *pb = nil;
+  if (USE_BATTERY_POWER_SOURCE) {
+    pb = [IOBatteryStatus getIOPMPowerSource];
+  }
   NSEnumerator * enumerator = nil;
   HWMonitorSensor * sensor = nil;
   
@@ -45,20 +43,17 @@
   values = [NSMutableDictionary dictionaryWithCapacity:0];
   
   
-  if(smart)
-  {
-    if (fabs([lastcall timeIntervalSinceNow]) > SMART_UPDATE_INTERVAL)
-    {
+  if(smart) {
+    if (fabs([lastcall timeIntervalSinceNow]) > SMART_UPDATE_INTERVAL) {
       lastcall = [NSDate date];
       [smartController update];
     }
     [values addEntriesFromDictionary:[smartController getSSDLife]];
     [values addEntriesFromDictionary:[smartController getDataSet /*:1*/]];
   }
-    
+  
   NSDictionary * temp = [IOBatteryStatus getAllBatteriesLevel];
-  if ([temp count] >0)
-  {
+  if ([temp count] >0) {
     [values addEntriesFromDictionary:temp];
     BOOL __block needFooter = YES;
     [temp enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
@@ -74,66 +69,62 @@
       if(!found){
         [self addSensorWithKey:key andType:@TYPE_FPE2 andCaption:key intoGroup:BatterySensorsGroup];
       }
-      
-      
     }];
-    if(needFooter)
-            [self insertFooterAndTitle:NSLocalizedString(@"BATTERIES",nil)
-                              andImage:[NSImage imageNamed:@"modern-battery-icon"]];
+    if(needFooter) {
+      [self insertFooterAndTitle:NSLocalizedString(@"BATTERIES",nil)
+                        andImage:[NSImage imageNamed:@"modern-battery-icon"]];
+    }
   }
   
   if (values) {
-    
     enumerator = [sensorsList objectEnumerator];
     
     while (sensor = (HWMonitorSensor *)[enumerator nextObject]) {
+      NSString * value;
+      if ((USE_BATTERY_POWER_SOURCE) &&
+          ([[sensor key] isEqualToString:@KEY_BAT0_VOLTAGE] || [[sensor key] isEqualToString:@KEY_BAT0_AMPERAGE])) {
+        if (pb) {
+          if ([[sensor key] isEqualToString:@KEY_BAT0_VOLTAGE]) {
+            value = [NSString stringWithFormat:@"%d", [IOBatteryStatus getBatteryVoltageFrom:pb]];
+          } else {
+            // amperage
+            value = [NSString stringWithFormat:@"%d", [IOBatteryStatus getBatteryAmperageFrom:pb]];
+          }
+        } else {
+          value = @"-";
+        }
+      } else {
+        value = [sensor formatedValue:
+                 [values objectForKey:[sensor key]] ?
+                 [values objectForKey:[sensor key]] :
+                 [HWMonitorSensor readValueForKey:[sensor key]]];
+      }
       
-            NSString * value;
-            if ((USE_BATTERY_POWER_SOURCE) &&
-                ([[sensor key] isEqualToString:@KEY_BAT0_VOLTAGE] || [[sensor key] isEqualToString:@KEY_BAT0_AMPERAGE])) {
-                if (pb) {
-                    if ([[sensor key] isEqualToString:@KEY_BAT0_VOLTAGE]) {
-                        value = [NSString stringWithFormat:@"%d", [IOBatteryStatus getBatteryVoltageFrom:pb]];
-                    } else {
-                        // amperage
-                        value = [NSString stringWithFormat:@"%d", [IOBatteryStatus getBatteryAmperageFrom:pb]];
-                    }
-                } else {
-                    value = @"-";
-                }
-            } else {
-                value = [sensor formatedValue:
-                         [values objectForKey:[sensor key]] ?
-                         [values objectForKey:[sensor key]] :
-                         [HWMonitorSensor readValueForKey:[sensor key]]];
-            }
-        
-            if (isMenuVisible) {
-        
+      if (isMenuVisible) {
         // Update menu item title
         
         NSString * str = [[sensor caption] stringByPaddingToLength:28 withString:@" " startingAtIndex:0];
         
-        if(![[(NSMenuItem *)[sensor object] title] isEqualToString:str])
-                    [(NSMenuItem *)[sensor object] setTitle:[NSString stringWithFormat:@"%@%@",str,value]];
+        if(![[(NSMenuItem *)[sensor object] title] isEqualToString:str]) {
+          [(NSMenuItem *)[sensor object] setTitle:[NSString stringWithFormat:@"%@%@",str,value]];
+        }
       }
       
       if ([sensor favorite]) {
         [statusString appendString:@" "];
         [statusString appendString:value];
-        
         count++;
       }
     }
   }
   
-    //if (count > 0) { /* let update the title */
-    // Update status bar title
-    NSMutableAttributedString * title = [[NSMutableAttributedString alloc] initWithString:statusString attributes:statusItemAttributes];
-    [title addAttribute:NSFontAttributeName value:statusItemFont range:NSMakeRange(0, [title length])];
-    [statusItem setAttributedTitle:title];
-    
-    //}
+  //if (count > 0) { /* let update the title */
+  // Update status bar title
+  NSMutableAttributedString * title = [[NSMutableAttributedString alloc] initWithString:statusString attributes:statusItemAttributes];
+  [title addAttribute:NSFontAttributeName value:statusItemFont range:NSMakeRange(0, [title length])];
+  [statusItem setAttributedTitle:title];
+  
+  //}
 }
 
 - (HWMonitorSensor *)addSensorWithKey:(NSString *)key andType:(NSString *) aType andCaption:(NSString *)caption intoGroup:(SensorGroup)group
@@ -141,8 +132,7 @@
   if(group == HDSmartTempSensorGroup ||
      group == HDSmartLifeSensorGroup ||
      [HWMonitorSensor readValueForKey:key] ||
-     group == BatterySensorsGroup)
-  {
+     group == BatterySensorsGroup) {
     caption = [caption stringByTruncatingToWidth:180.0f withFont:statusMenuFont];
     HWMonitorSensor * sensor = [[HWMonitorSensor alloc] initWithKey:key andType: aType andGroup:group withCaption:caption];
     
@@ -165,18 +155,17 @@
   return NULL;
 }
 
-- (void)insertFooterAndTitle:(NSString *)title andImage:(NSImage *)img
-{
+- (void)insertFooterAndTitle:(NSString *)title andImage:(NSImage *)img {
   if (lastMenusCount < menusCount) {
     NSMenuItem * titleItem = [[NSMenuItem alloc] initWithTitle:title action:nil keyEquivalent:@""];
-    if(img)
+    if(img) {
       [titleItem setImage:img];
+    }
     [titleItem setEnabled:NO];
     //[titleItem setIndentationLevel:1];
     
     [statusMenu insertItem:titleItem atIndex:lastMenusCount]; menusCount++;
     [statusMenu insertItem:[NSMenuItem separatorItem] atIndex:menusCount++];
-    
     lastMenusCount = menusCount;
   }
 }
@@ -184,22 +173,19 @@
 // Events
 
 - (void)menuWillOpen:(NSMenu *)menu {
-    isMenuVisible = YES;
-    
-    [self updateTitles];
+  isMenuVisible = YES;
+  [self updateTitles];
 }
 
 - (void)menuDidClose:(NSMenu *)menu {
-    isMenuVisible = NO;
+  isMenuVisible = NO;
 }
 
 - (void)menuItemClicked:(id)sender {
   NSMenuItem * menuItem = (NSMenuItem *)sender;
   
   [menuItem setState:![menuItem state]];
-  
   HWMonitorSensor * sensor = (HWMonitorSensor *)[menuItem representedObject];
-  
   [sensor setFavorite:[menuItem state]];
   
   [self updateTitles];
@@ -208,8 +194,7 @@
   [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
-- (void)applicationDidFinishLaunching:(NSNotification *)aNotification
-{
+- (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
   NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:
                               [self methodSignatureForSelector:@selector(updateTitles)]];
   [invocation setTarget:self];
@@ -219,19 +204,18 @@
   [self updateTitles];
 }
 
-- (void)awakeFromNib
-{
+- (void)awakeFromNib {
   menusCount = 0;
   lastcall = [NSDate date];
   smartController = [[ISPSmartController alloc] init];
-	if (smartController) {
+  if (smartController) {
     smart = YES;
     [smartController getPartitions];
     [smartController update];
     DisksList = [smartController getDataSet /*:1*/];
     SSDList = [smartController getSSDLife];
   }
-	
+  
   BatteriesList = [IOBatteryStatus getAllBatteriesLevel];
   
   statusItem = [[NSStatusBar systemStatusBar] statusItemWithLength:NSVariableStatusItemLength];
@@ -262,10 +246,9 @@
   //Temperatures
   NSString* type;
   
-  for (int i=0; i<0xA; i++)
-  {
+  for (int i=0; i<0xA; i++) {
     [self addSensorWithKey:[NSString stringWithFormat:@KEY_FORMAT_CPU_DIODE_TEMPERATURE,i] andType: ((type = [HWMonitorSensor getTypeOfKey:[NSString stringWithFormat:@KEY_FORMAT_CPU_DIODE_TEMPERATURE,i]]) ? type : @TYPE_SP78) andCaption:[[NSString alloc] initWithFormat:@"CPU %X Diode",i] intoGroup:TemperatureSensorGroup ];
-      //there was TC%XH, I change to TC%XC
+    //there was TC%XH, I change to TC%XC
     [self addSensorWithKey:[NSString stringWithFormat:@KEY_FORMAT_CPU_DIE_CORE_TEMPERATURE,i] andType: ((type = [HWMonitorSensor getTypeOfKey:[NSString stringWithFormat:@KEY_FORMAT_CPU_DIE_CORE_TEMPERATURE,i]]) ? type : @TYPE_SP78) andCaption:[[NSString alloc] initWithFormat:@"CPU %X Core",i] intoGroup:TemperatureSensorGroup ];
   }
   [self addSensorWithKey:@KEY_CPU_PROXIMITY_TEMPERATURE andType: ((type = [HWMonitorSensor getTypeOfKey:@KEY_CPU_PROXIMITY_TEMPERATURE]) ? type : @TYPE_SP78) andCaption:NSLocalizedString( @"CPU Proximity", nil) intoGroup:TemperatureSensorGroup ];
@@ -283,8 +266,9 @@
   
   [self insertFooterAndTitle:NSLocalizedString( @"TEMPERATURES",nil) andImage:[NSImage imageNamed:@"temp_alt_small"]];
   
-  for (int i=0; i<16; i++)
+  for (int i=0; i<16; i++) {
     [self addSensorWithKey:[[NSString alloc] initWithFormat:@KEY_FORMAT_NON_APPLE_CPU_FREQUENCY,i] andType: @TYPE_FREQ andCaption:[[NSString alloc] initWithFormat:NSLocalizedString(@"CPU %X",nil),i] intoGroup:FrequencySensorGroup ];
+  }
   
   //
   for (int i=0; i<0xA; i++) {
@@ -318,7 +302,7 @@
   [self addSensorWithKey:@KEY_3VCC_VOLTAGE andType: ((type = [HWMonitorSensor getTypeOfKey:@KEY_3VCC_VOLTAGE]) ? type : @TYPE_FP2E) andCaption:NSLocalizedString(@"3.3 VCC Voltage",nil) intoGroup:VoltageSensorGroup ];
   [self addSensorWithKey:@KEY_3VSB_VOLTAGE andType: ((type = [HWMonitorSensor getTypeOfKey:@KEY_3VSB_VOLTAGE]) ? type : @TYPE_FP2E) andCaption:NSLocalizedString(@"3.3 VSB Voltage",nil) intoGroup:VoltageSensorGroup ];
   [self addSensorWithKey:@KEY_AVCC_VOLTAGE andType: ((type = [HWMonitorSensor getTypeOfKey:@KEY_AVCC_VOLTAGE]) ? type : @TYPE_FP2E) andCaption:NSLocalizedString(@"3.3 AVCC Voltage",nil) intoGroup:VoltageSensorGroup ];
-
+  
   for (int i=0; i<0xA; i++) {
     [self addSensorWithKey:[NSString stringWithFormat:@KEY_FORMAT_GPU_VOLTAGE,i] andType: ((type = [HWMonitorSensor getTypeOfKey:[NSString stringWithFormat:@KEY_FORMAT_GPU_VOLTAGE,i]]) ? type : @TYPE_FP2E) andCaption:[[NSString alloc] initWithFormat:NSLocalizedString(@"GPU %X Voltage",nil) ,i] intoGroup:VoltageSensorGroup ];
   }
@@ -327,7 +311,7 @@
   //
   // Fans
   //
-  for (int i=0; i<10; i++)   {
+  for (int i=0; i<10; i++) {
     FanTypeDescStruct * fds;
     NSData * keydata = [HWMonitorSensor readValueForKey:[[NSString alloc] initWithFormat:@KEY_FORMAT_FAN_ID,i]];
     NSString * caption;
@@ -354,14 +338,14 @@
   }
   
   [self insertFooterAndTitle:NSLocalizedString(@"HARD DRIVES TEMPERATURES",nil) andImage:[NSImage imageNamed:@"hd_small"]];
-    //
-    // SSD Life
-    //
+  //
+  // SSD Life
+  //
   if (SSDList != nil) {
     NSEnumerator * SSDEnumerator = [SSDList keyEnumerator];
     id nextSSD;
     while (nextSSD = [SSDEnumerator nextObject]) {
-        [self addSensorWithKey:nextSSD andType: @TYPE_FPE2 andCaption:nextSSD intoGroup:HDSmartLifeSensorGroup];
+      [self addSensorWithKey:nextSSD andType: @TYPE_FPE2 andCaption:nextSSD intoGroup:HDSmartLifeSensorGroup];
     }
     
     [self insertFooterAndTitle:NSLocalizedString(@"SSD LIFE",nil) andImage:[NSImage imageNamed:@"ssd_small"]];
@@ -372,8 +356,8 @@
   [self addSensorWithKey:@KEY_BAT0_VOLTAGE andType: ((type = [HWMonitorSensor getTypeOfKey:@KEY_BAT0_VOLTAGE]) ? type : @TYPE_UI16) andCaption:NSLocalizedString(@"Battery Voltage, mV",nil) intoGroup:BatterySensorsGroup ];
   //KEY_BAT0_AMPERAGE
   [self addSensorWithKey:@KEY_BAT0_AMPERAGE andType: ((type = [HWMonitorSensor getTypeOfKey:@KEY_BAT0_AMPERAGE]) ? type : @TYPE_SI16) andCaption:NSLocalizedString(@"Battery Amperage, mA",nil) intoGroup:BatterySensorsGroup ];
-
-
+  
+  
   NSEnumerator * BatteryEnumerator = [BatteriesList keyEnumerator];
   id nextBattery;
   
@@ -393,3 +377,4 @@
 }
 
 @end
+

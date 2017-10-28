@@ -10,22 +10,22 @@
 
 @interface IOBatteryStatus : NSObject
 
-+(BOOL) keyboardAvailable;
-+(BOOL) trackpadAvailable;
-+(BOOL) mouseAvailable;
++ (BOOL)keyboardAvailable;
++ (BOOL)trackpadAvailable;
++ (BOOL)mouseAvailable;
 
-+(NSString *) getKeyboardName;
-+(NSString *) getTrackpadName;
-+(NSString *) getMouseName;
++ (NSString *)getKeyboardName;
++ (NSString *)getTrackpadName;
++ (NSString *)getMouseName;
 
-+(NSInteger ) getKeyboardBatteryLevel;
-+(NSInteger ) getTrackpadBatteryLevel;
-+(NSInteger ) getMouseBatteryLevel;
++ (NSInteger )getKeyboardBatteryLevel;
++ (NSInteger )getTrackpadBatteryLevel;
++ (NSInteger )getMouseBatteryLevel;
 
-+(NSDictionary *)getIOPMPowerSource;
-+(int) getBatteryVoltageFrom:(NSDictionary *)IOPMPowerSource;
-+(int) getBatteryAmperageFrom:(NSDictionary *)IOPMPowerSource; 
++ (NSDictionary *)getIOPMPowerSource;
++ (int)getBatteryVoltageFrom:(NSDictionary *)IOPMPowerSource;
++ (int)getBatteryAmperageFrom:(NSDictionary *)IOPMPowerSource;
 
-+(NSDictionary *) getAllBatteriesLevel;
++ (NSDictionary *)getAllBatteriesLevel;
 
 @end
