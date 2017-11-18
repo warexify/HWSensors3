@@ -48,7 +48,7 @@ bool nouveau_identify(struct nouveau_device *device)
   nv_debug(device, "identifying the chipset\n");
 
   /* read boot0 and strapping information */
-  UInt32 boot0 = nv_rd32(device, 0x000000);  //0x124020a1
+  UInt32 boot0 = nv_rd32(device, 0x000000);  //0x0c1e00a1 = Fermi
   UInt32 strap = nv_rd32(device, 0x101000);
 
   /* determine chipset and derive architecture from it */
@@ -107,7 +107,7 @@ bool nouveau_identify(struct nouveau_device *device)
     case 0x00000040: device->crystal = 14318; break;
     case 0x00400000: device->crystal = 27000; break;
     case 0x00400040: device->crystal = 25000; break;
-      default:
+      default: //impossible
       device->crystal = 27000; break;
   }
 
@@ -128,8 +128,8 @@ bool nouveau_init(struct nouveau_device *device)
 		case NV_C0:
 		case NV_D0: nvc0_init(device); break;
 		case NV_E0: nve0_init(device); break;
-        case GM100: gm100_init(device); break;
-        case GP100: gp100_init(device); break;
+    case GM100: gm100_init(device); break;
+    case GP100: gp100_init(device); break;
     default: break;
   }
   

@@ -49,7 +49,9 @@ void nvd0_therm_init(struct nouveau_device *device)
 
 int nvd0_gpio_sense(struct nouveau_device *device, int line)
 {
-	return !!(nv_rd32(device, 0x00d610 + (line * 4)) & 0x00004000);
+  u32 gp_sens = nv_rd32(device, 0x00d610 + (line * 4)) & 0x00004000;
+  nv_debug(device, "nvd0_gpio_sense return 0x%x\n", gp_sens);
+  return !!gp_sens;
 }
 
 static int pwm_info(struct nouveau_device *device, int line)

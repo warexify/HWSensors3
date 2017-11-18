@@ -38,38 +38,38 @@ static int nr_vidtag = sizeof(vidtag) / sizeof(vidtag[0]);
 
 void nouveau_volt_init(struct nouveau_device *device)
 {
-	struct dcb_gpio_func func;
-	struct bit_entry P;
-	u8 *volt = NULL, *entry;
-	int i, headerlen, recordlen, entries, vidmask, vidshift;
+  struct dcb_gpio_func func;
+  struct bit_entry P;
+  u8 *volt = NULL, *entry;
+  int i, headerlen, recordlen, entries, vidmask, vidshift;
   
-	if (device->vbios.type == NVBIOS_BIT) {
-		if (nouveau_bit_table(device, 'P', &P))
-			return;
+  if (device->vbios.type == NVBIOS_BIT) {
+    if (nouveau_bit_table(device, 'P', &P))
+      return;
     
-		if (P.version == 1)
-			volt = ROMPTR(device, P.data[16]);
-		else
+    if (P.version == 1)
+      volt = ROMPTR(device, P.data[16]);
+    else
       if (P.version == 2)
         volt = ROMPTR(device, P.data[12]);
       else {
         nv_warn(device, "unknown volt for BIT P %d\n", P.version);
       }
-	} else {
-		if (device->vbios.data[device->vbios.offset + 6] < 0x27) {
-			nv_debug(device, "BMP version too old for voltage\n");
-			return;
-		}
+  } else {
+    if (device->vbios.data[device->vbios.offset + 6] < 0x27) {
+      nv_debug(device, "BMP version too old for voltage\n");
+      return;
+    }
     
-		volt = ROMPTR(device, device->vbios.data[device->vbios.offset + 0x98]);
-	}
+    volt = ROMPTR(device, device->vbios.data[device->vbios.offset + 0x98]);
+  }
   
-	if (!volt) {
-		nv_debug(device, "voltage table pointer invalid\n");
-		return;
-	}
+  if (!volt) {
+    nv_debug(device, "voltage table pointer invalid\n");
+    return;
+  }
   
-	switch (volt[0]) {
+  switch (volt[0]) {
     case 0x10:
     case 0x11:
     case 0x12:
@@ -111,69 +111,69 @@ void nouveau_volt_init(struct nouveau_device *device)
     default:
       nv_debug(device, "voltage table 0x%02x unknown\n", volt[0]);
       return;
-	}
-  
-	/* validate vid mask */
-	device->voltage.vid_mask = vidmask;
-	if (!device->voltage.vid_mask) {
-    nv_debug(device, "voltage vidmask is insane 0x%02x\n", vidmask);
-		return;
   }
   
-	i = 0;
-	while (vidmask) {
-		if (i > nr_vidtag) {
-			nv_debug(device, "vid bit %d unknown\n", i);
-			return;
-		}
-    
-		if (nouveau_gpio_find(device, 0, vidtag[i], 0xff, &func)) {
-			nv_debug(device, "vid bit %d has no gpio tag\n", i);
-			return;
-		}
-    
-		vidmask >>= 1;
-		i++;
-	}
+  /* validate vid mask */
+  device->voltage.vid_mask = vidmask;
+  if (!device->voltage.vid_mask) {
+    nv_debug(device, "voltage vidmask is insane 0x%02x\n", vidmask);
+    return;
+  }
   
-	/* parse vbios entries into common format */
-	device->voltage.version = volt[0];
-	if (device->voltage.version < 0x40) {
-		device->voltage.nr_level = entries;
-//		device->voltage.level = (nouveau_pm_voltage_level*)IOMalloc(device->voltage.nr_level * sizeof(nouveau_pm_voltage_level));
-		device->voltage.level = new nouveau_pm_voltage_level[device->voltage.nr_level];
-		if (!device->voltage.level) {
-           nv_debug(device, "can't allocate voltage structure\n");
-		   return;
-        }
+  i = 0;
+  while (vidmask) {
+    if (i > nr_vidtag) {
+      nv_debug(device, "vid bit %d unknown\n", i);
+      return;
+    }
     
-		entry = volt + headerlen;
-		for (i = 0; i < entries; i++, entry += recordlen) {
-			device->voltage.level[i].voltage = entry[0] * 10000;
-			device->voltage.level[i].vid     = entry[1] >> vidshift;
-		}
-	} else {
-		u32 volt_uv = ROM32(volt[4]);
-		s16 step_uv = ROM16(volt[8]);
-		u8 vid;
+    if (nouveau_gpio_find(device, 0, vidtag[i], 0xff, &func)) {
+      nv_debug(device, "vid bit %d has no gpio tag\n", i);
+      return;
+    }
     
-		device->voltage.nr_level = device->voltage.vid_mask + 1;
-//		device->voltage.level = (nouveau_pm_voltage_level*)IOMalloc(device->voltage.nr_level * sizeof(nouveau_pm_voltage_level));
-   		device->voltage.level = new nouveau_pm_voltage_level[device->voltage.nr_level];
-
-		if (!device->voltage.level) {
-          nv_debug(device, "can't allocate voltage structure\n");
-	      return;
-        }
-    
-		for (vid = 0; vid <= device->voltage.vid_mask; vid++) {
-			device->voltage.level[vid].voltage = volt_uv;
-			device->voltage.level[vid].vid = vid;
-			volt_uv += step_uv;
-		}
-	}
+    vidmask >>= 1;
+    i++;
+  }
   
-	device->voltage.supported = true;
+  /* parse vbios entries into common format */
+  device->voltage.version = volt[0];
+  if (device->voltage.version < 0x40) {
+    device->voltage.nr_level = entries;
+    //		device->voltage.level = (nouveau_pm_voltage_level*)IOMalloc(device->voltage.nr_level * sizeof(nouveau_pm_voltage_level));
+    device->voltage.level = new nouveau_pm_voltage_level[device->voltage.nr_level];
+    if (!device->voltage.level) {
+      nv_debug(device, "can't allocate voltage structure\n");
+      return;
+    }
+    
+    entry = volt + headerlen;
+    for (i = 0; i < entries; i++, entry += recordlen) {
+      device->voltage.level[i].voltage = entry[0] * 10000;
+      device->voltage.level[i].vid     = entry[1] >> vidshift;
+    }
+  } else {
+    u32 volt_uv = ROM32(volt[4]);
+    s16 step_uv = ROM16(volt[8]);
+    u8 vid;
+    
+    device->voltage.nr_level = device->voltage.vid_mask + 1;
+    //		device->voltage.level = (nouveau_pm_voltage_level*)IOMalloc(device->voltage.nr_level * sizeof(nouveau_pm_voltage_level));
+    device->voltage.level = new nouveau_pm_voltage_level[device->voltage.nr_level];
+    
+    if (!device->voltage.level) {
+      nv_debug(device, "can't allocate voltage structure\n");
+      return;
+    }
+    
+    for (vid = 0; vid <= device->voltage.vid_mask; vid++) {
+      device->voltage.level[vid].voltage = volt_uv;
+      device->voltage.level[vid].vid = vid;
+      volt_uv += step_uv;
+    }
+  }
+  
+  device->voltage.supported = true;
 }
 
 static int nouveau_volt_lvl_lookup(struct nouveau_device *device, int vid)
