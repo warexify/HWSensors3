@@ -1838,9 +1838,10 @@
 				GCC_MODEL_TUNING = "";
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_VERSION = "";
-				INFOPLIST_FILE = "GeForceSensors/GeforceSensors-Info.plist";
-				MODULE_NAME = com.kozlek.driver.GeforceSensor;
-				MODULE_VERSION = 1.2.1;
+				INFOPLIST_FILE = "plugins/GPUSensors/GeForceSensors/GeforceSensors-Info.plist";
+				MODULE_NAME = org.kozlek.driver.GeforceSensor;
+				MODULE_VERSION = 1.2.2;
+				OTHER_CFLAGS = "-DNV_DEBUG_ENABLED=1";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.kozlek.${PRODUCT_NAME}";
 				PRODUCT_NAME = GeforceSensor;
 				SDKROOT = macosx;
@@ -1858,9 +1859,10 @@
 				GCC_MODEL_TUNING = G5;
 				GCC_VERSION = "";
 				INFOPLIST_FILE = "plugins/GPUSensors/GeForceSensors/GeforceSensors-Info.plist";
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
-				MODULE_NAME = com.kozlek.driver.GeforceSensor;
-				MODULE_VERSION = 1.2.1;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				MODULE_NAME = org.kozlek.driver.GeforceSensor;
+				MODULE_VERSION = 1.2.2;
+				OTHER_CFLAGS = "-DNV_DEBUG_ENABLED=0";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.kozlek.${PRODUCT_NAME}";
 				PRODUCT_NAME = GeforceSensor;
 				SDKROOT = macosx;

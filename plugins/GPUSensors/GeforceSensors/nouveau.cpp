@@ -44,54 +44,54 @@
 bool nouveau_identify(struct nouveau_device *device)
 {
   /* identify the chipset */
-  
+
   nv_debug(device, "identifying the chipset\n");
-  
+
   /* read boot0 and strapping information */
   UInt32 boot0 = nv_rd32(device, 0x000000);  //0x124020a1
   UInt32 strap = nv_rd32(device, 0x101000);
-  
+
   /* determine chipset and derive architecture from it */
-    if ((boot0 & 0x1f000000) > 0) {
+  if ((boot0 & 0x1f000000) > 0) {
     device->chipset = (boot0 & 0x1ff00000) >> 20;
     switch (device->chipset & 0x1f0) {
-		case 0x40:
-		case 0x60: device->card_type = NV_40; break;
-		case 0x50:
-		case 0x80:
-		case 0x90:
-		case 0xa0: device->card_type = NV_50; break;
-		case 0xc0: device->card_type = NV_C0; break;
-		case 0xd0: device->card_type = NV_D0; break;
-		case 0xe0:
-        case 0xf0:
-        case 0x100: device->card_type = NV_E0; break;
-        case 0x110:
-        case 0x120: device->card_type = GM100; break;
-        case 0x130: device->card_type = GP100; break;
-			default:
-				break;
+      case 0x40:
+      case 0x60: device->card_type = NV_40; break;
+      case 0x50:
+      case 0x80:
+      case 0x90:
+      case 0xa0: device->card_type = NV_50; break;
+      case 0xc0: device->card_type = NV_C0; break;
+      case 0xd0: device->card_type = NV_D0; break;
+      case 0xe0:
+      case 0xf0:
+      case 0x100: device->card_type = NV_E0; break;
+      case 0x110:
+      case 0x120: device->card_type = GM100; break;
+      case 0x130: device->card_type = GP100; break;
+      default:
+        break;
     }
   }
-  
+
   bool ret = FALSE;
-  
+
   switch (device->card_type) {
-		case NV_40: ret = nv40_identify(device); break;
-		case NV_50: ret = nv50_identify(device); break;
-		case NV_C0:
-		case NV_D0: ret = nvc0_identify(device); break;
-		case NV_E0: ret = nve0_identify(device); break;
-		case GM100: ret = gm100_identify(device); break;
-        case GP100: ret = gp100_identify(device); break;
+    case NV_40: ret = nv40_identify(device); break;
+    case NV_50: ret = nv50_identify(device); break;
+    case NV_C0:
+    case NV_D0: ret = nvc0_identify(device); break;
+    case NV_E0: ret = nve0_identify(device); break;
+    case GM100: ret = gm100_identify(device); break;
+    case GP100: ret = gp100_identify(device); break;
     default: break;
   }
-  
+
   if (!ret) {
     nv_error(device, "unknown chipset, 0x%08x\n", (unsigned int)boot0);
     return false;
   }
-  
+
   nv_debug(device, "BOOT0  : 0x%08x\n", (unsigned int)boot0);
   nv_debug(device, "chipset: %s (NV%02X) family: NV%02X\n",
            device->cname, (unsigned int)device->chipset, (unsigned int)device->card_type);
@@ -101,16 +101,18 @@ bool nouveau_identify(struct nouveau_device *device)
     strap &= 0x00000040;
   else
     strap &= 0x00400040;
-  
+
   switch (strap) {
-		case 0x00000000: device->crystal = 13500; break;
-		case 0x00000040: device->crystal = 14318; break;
-		case 0x00400000: device->crystal = 27000; break;
-		case 0x00400040: device->crystal = 25000; break;
+    case 0x00000000: device->crystal = 13500; break;
+    case 0x00000040: device->crystal = 14318; break;
+    case 0x00400000: device->crystal = 27000; break;
+    case 0x00400040: device->crystal = 25000; break;
+      default:
+      device->crystal = 27000; break;
   }
-  
+
   nv_debug(device, "crystal freq: %dKHz\n", (unsigned int)device->crystal);
-  
+
   return true;
 }
 

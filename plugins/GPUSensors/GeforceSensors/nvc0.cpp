@@ -110,6 +110,52 @@ static u32 read_vco(struct nouveau_device *device, u32 dsrc)
 	return read_pll(device, 0x00e820);
 }
 
+#if 0
+int
+nvkm_clk_read(struct nvkm_clk *clk, enum nv_clk_src src)
+{
+  return clk->func->read(clk, src);
+}
+struct nvkm_clk {
+  const struct nvkm_clk_func *func;
+//...
+};
+static const struct nvkm_clk_func
+gf100_clk = {
+  .read = gf100_clk_read,
+  .calc = gf100_clk_calc,
+  .prog = gf100_clk_prog,
+  .tidy = gf100_clk_tidy,
+  .domains = {
+    { nv_clk_src_crystal, 0xff },
+    { nv_clk_src_href   , 0xff },
+    { nv_clk_src_hubk06 , 0x00 },
+    { nv_clk_src_hubk01 , 0x01 },
+    { nv_clk_src_copy   , 0x02 },
+    { nv_clk_src_gpc    , 0x03, NVKM_CLK_DOM_FLAG_VPSTATE, "core", 2000 },
+    { nv_clk_src_rop    , 0x04 },
+    { nv_clk_src_mem    , 0x05, 0, "memory", 1000 },
+    { nv_clk_src_vdec   , 0x06 },
+    { nv_clk_src_pmu    , 0x0a },
+    { nv_clk_src_hubk07 , 0x0b },
+    { nv_clk_src_max }
+  }
+};
+
+
+static u32
+read_vco(struct gf100_clk *clk, u32 dsrc)
+{
+  struct nvkm_device *device = clk->base.subdev.device;
+  u32 ssrc = nvkm_rd32(device, dsrc);
+  if (!(ssrc & 0x00000100))
+    return nvkm_clk_read(&clk->base, nv_clk_src_sppll0);
+  return nvkm_clk_read(&clk->base, nv_clk_src_sppll1);
+}
+
+#endif
+
+
 static u32 read_pll(struct nouveau_device *device, u32 pll)
 {
 	u32 ctrl = nv_rd32(device, pll + 0);
@@ -122,26 +168,24 @@ static u32 read_pll(struct nouveau_device *device, u32 pll)
 	if (!(ctrl & 0x00000001))
 		return 0;
   
-	switch (pll & 0xfff000) {
+	switch (pll) {
     case 0x00e000:
-      sclk = 27000;
+    case 0x00e820:
+      sclk = device->crystal;
       P = 1;
       break;
     case 0x137000:
+    case 0x137020:
+    case 0x137040:
+    case 0x1370e0:
       doff = (pll - 0x137000) / 0x20;
       sclk = read_div(device, doff, 0x137120, 0x137140);
       break;
     case 0x132000:
-      switch (pll) {
-        case 0x132000:
-          sclk = read_pll(device, 0x132020);
-          break;
-        case 0x132020:
-          sclk = read_div(device, 0, 0x137320, 0x137330);
-          break;
-        default:
-          return 0;
-      }
+      sclk = read_pll(device, 0x132020);
+      break;
+    case 0x132020:
+      sclk = read_div(device, 0, 0x137320, 0x137330);
       break;
     default:
       return 0;
@@ -153,23 +197,30 @@ static u32 read_pll(struct nouveau_device *device, u32 pll)
 static u32 read_div(struct nouveau_device *device, int doff, u32 dsrc, u32 dctl)
 {
 	u32 ssrc = nv_rd32(device, dsrc + (doff * 4));
-	u32 sctl = nv_rd32(device, dctl + (doff * 4));
-  
+  u32 sclk, sctl, sdiv = 2;
+
 	switch (ssrc & 0x00000003) {
     case 0:
       if ((ssrc & 0x00030000) != 0x00030000)
-        return 27000;
+        return device->crystal;
       return 108000;
     case 2:
       return 100000;
     case 3:
-      if (sctl & 0x80000000) {
-        u32 sclk = read_vco(device, dsrc + (doff * 4));
-        u32 sdiv = (sctl & 0x0000003f) + 2;
-        return (sclk * 2) / sdiv;
+      sclk = read_vco(device, dsrc + (doff * 4));
+      /* Memclk has doff of 0 despite its alt. location */
+      if (doff <= 2) {
+        sctl = nv_rd32(device, dctl + (doff * 4));
+
+        if (sctl & 0x80000000) {
+          if (ssrc & 0x100)
+            sctl >>= 8;
+
+          sdiv = (sctl & 0x3f) + 2;
+        }
       }
-      
-      return read_vco(device, dsrc + (doff * 4));
+
+      return (sclk * 2) / sdiv;
     default:
       return 0;
 	}
@@ -178,20 +229,22 @@ static u32 read_div(struct nouveau_device *device, int doff, u32 dsrc, u32 dctl)
 static u32 read_mem(struct nouveau_device *device)
 {
 	u32 ssel = nv_rd32(device, 0x1373f0);
+  if (ssel & 0x00000002)
+    return read_pll(device, 0x132000);
+
   u32 base = read_div(device, 0, 0x137300, 0x137310);
-	
-  if (ssel & 0x00000001)
-		return base / 2.0f;
-  
+  return base;
+/*
   if (device->card_type == NV_C0)
     return read_pll(device, 0x132000) / 4.0f;
   
 	return read_pll(device, 0x132000);
+ */
 }
 
 static u32 read_clk(struct nouveau_device *device, int clk)
 {
-	u32 sctl = nv_rd32(device, 0x137250 + (clk * 4));
+  u32 sctl = nv_rd32(device, 0x137250 + (clk * 4));
 	u32 ssel = nv_rd32(device, 0x137100);
 	u32 sclk, sdiv;
   
@@ -210,7 +263,7 @@ static u32 read_clk(struct nouveau_device *device, int clk)
 		return (sclk * 2) / sdiv;
 	return sclk;
 }
-
+//gf100_clk_read(struct nvkm_clk *base, enum nv_clk_src src)
 int nvc0_clocks_get(struct nouveau_device *device, u8 source)
 {
   switch (source) {
@@ -234,6 +287,14 @@ int nvc0_clocks_get(struct nouveau_device *device, u8 source)
       return read_clk(device, 0x0c);
     case nouveau_clock_copy:
       return read_clk(device, 0x09);
+
+    case nouveau_clock_mpllref:
+      return read_div(device, 0, 0x137320, 0x137330);
+    case nouveau_clock_mpllsrc:
+      return read_pll(device, 0x132020);
+    case nouveau_clock_mpll:
+      return read_pll(device, 0x132000);
+
     default:
       return 0;
   }

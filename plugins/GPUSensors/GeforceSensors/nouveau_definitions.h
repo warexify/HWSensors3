@@ -11,7 +11,7 @@
 
 #include "linux_definitions.h"
 
-#define NV_DEBUG_ENABLED false
+//#define NV_DEBUG_ENABLED false
 #define NV_TRACE_ENABLED false
 #define NV_SPAM_ENABLED false
 

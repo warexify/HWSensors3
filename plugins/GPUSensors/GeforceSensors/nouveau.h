@@ -17,7 +17,7 @@
 #include "nouveau_volt.h"
 #include "nouveau_i2c.h"
 
-enum nouveau_clock_source {
+enum nouveau_clock_source {  //enum nv_clk_src
   nouveau_clock_core      = 1,
   nouveau_clock_shader    = 2,
   nouveau_clock_memory    = 3,
@@ -29,7 +29,10 @@ enum nouveau_clock_source {
 	nouveau_clock_unka0    	= 9,	/* nva3:nvc0 */
 	nouveau_clock_hub01     = 10,	/* nvc0- */
 	nouveau_clock_hub06    	= 11,	/* nvc0- */
-	nouveau_clock_hub07    	= 12	/* nvc0- */
+	nouveau_clock_hub07    	= 12,	/* nvc0- */
+  nouveau_clock_mpll      = 13,
+  nouveau_clock_mpllsrc   = 14,
+  nouveau_clock_mpllref   = 15
 };
 
 struct nouveau_pm_temp_sensor_constants {
