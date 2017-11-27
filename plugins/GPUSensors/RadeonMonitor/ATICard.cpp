@@ -205,14 +205,31 @@ void ATICard::write32(UInt32 reg, UInt32 val)
 	return OUTVID(reg, val);
 }
 
+//linux 4.14
+#define mmSMC_IND_INDEX_11                            0x1AC
+#define mmSMC_IND_DATA_11                             0x1AD
+
+#define mmPCIE_INDEX                                                                                   0x000c
+#define mmPCIE_DATA
+
+//read_ind_pcie ->
+/*
+WREG32(mmPCIE_INDEX, reg);
+(void)RREG32(mmPCIE_INDEX);
+r = RREG32(mmPCIE_DATA);
+*/
+
 UInt32 ATICard::read_ind(UInt32 reg)
 {
     //	unsigned long flags;
 	UInt32 r;
     
     //	spin_lock_irqsave(&rdev->smc_idx_lock, flags);
-	OUTVID(TN_SMC_IND_INDEX_0, (reg));
+/*	OUTVID(TN_SMC_IND_INDEX_0, (reg));
 	r = INVID(TN_SMC_IND_DATA_0);
+ */
+  OUTVID(mmSMC_IND_INDEX_11, (reg));
+  r = INVID(mmSMC_IND_DATA_11);
     //	spin_unlock_irqrestore(&rdev->smc_idx_lock, flags);
 	return r;
 }
@@ -307,7 +324,7 @@ IOReturn ATICard::HawaiiTemperatureSensor(UInt16* data)
 		else if ((temp >> 9) & 1)
 			actual_temp = 255;
 		else {
-			actual_temp = temp; //(temp >> 1) & 0xff;
+			actual_temp = temp & 0x1ff; //(temp >> 1) & 0xff;
 			break;
 		}
 		IOSleep(10);

@@ -153,6 +153,7 @@ static u32 read_pll(struct nouveau_device *device, u32 pll)
 	u32 N = (coef & 0x0000ff00) >> 8;
 	u32 M = (coef & 0x000000ff) >> 0;
 	u32 sclk, doff;
+  u16 fN = 0xf000;
   
   nv_debug(device, "read pll=0x%x, ctrl=0x%x, coef=0x%x\n", pll, ctrl, coef);
   //read pll=0xe820, ctrl=0x1030005, coef=0x5063c01 => P=6 N=60 M=1
@@ -160,7 +161,10 @@ static u32 read_pll(struct nouveau_device *device, u32 pll)
   //read pll=0xe800, ctrl=0x1030005, coef=0x5063c01
 	if (!(ctrl & 0x00000001))
 		return 0;
-  
+
+  if (P == 0) P = 1;
+  if (M == 0) M = 1;
+
 	switch (pll) {
     case 0x00e820:
       sclk = device->crystal;
@@ -179,17 +183,18 @@ static u32 read_pll(struct nouveau_device *device, u32 pll)
       break;
     case 0x132000:
       sclk = read_pll(device, 0x132020);
+      P = (coef & 0x10000000) ? 2 : 1;
       break;
     case 0x132020:
       sclk = read_div(device, 0, 0x137320, 0x137330);
+      fN   = nv_rd32(device, pll + 0x10) >> 16;
       break;
     default:
       return 0;
 	}
-  
-  ctrl = sclk * N / M / P;
-  nv_debug(device, "return sclk=0x%x\n", ctrl); //0x41eb0 = 270000
-	return ctrl;
+
+  sclk = (sclk * N) + (((u16)(fN + 4096) * sclk) >> 13);
+	return sclk / (M * P);
 }
 
 static u32 read_div(struct nouveau_device *device, int doff, u32 dsrc, u32 dctl)
