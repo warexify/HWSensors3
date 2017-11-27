@@ -58,46 +58,46 @@ bool ATICard::initialize()
     }    
   }
 
-	switch (rinfo->ChipFamily) {
-		case CHIP_FAMILY_R600:
-		case CHIP_FAMILY_RV610:
-		case CHIP_FAMILY_RV630:
-		case CHIP_FAMILY_RV670:
-			//setup_R6xx();
-			tempFamily = R6xx;
-			break;
-		case CHIP_FAMILY_R700:
-		case CHIP_FAMILY_R710:
-		case CHIP_FAMILY_R730:
-		case CHIP_FAMILY_RV740:
-		case CHIP_FAMILY_RV770:
-		case CHIP_FAMILY_RV790:
-			//setup_R7xx();
-			tempFamily = R7xx;
-			break;
-		case CHIP_FAMILY_Evergreen:
-			//setup_Evergreen();
-			tempFamily = R8xx;
-			break;
-        case   CHIP_FAMILY_PITCAIRN:
-        case   CHIP_FAMILY_TAHITI:
-        case   CHIP_FAMILY_VERDE:
-			tempFamily = R9xx;
-            break;
-        case   CHIP_FAMILY_HAWAII:
-        case   CHIP_FAMILY_OLAND:
-        case   CHIP_FAMILY_BONAIRE:
-        case   CHIP_FAMILY_HAINAN:
-        case   CHIP_FAMILY_TONGA:
+  switch (rinfo->ChipFamily) {
+    case CHIP_FAMILY_R600:
+    case CHIP_FAMILY_RV610:
+    case CHIP_FAMILY_RV630:
+    case CHIP_FAMILY_RV670:
+      //setup_R6xx();
+      tempFamily = R6xx;
+      break;
+    case CHIP_FAMILY_R700:
+    case CHIP_FAMILY_R710:
+    case CHIP_FAMILY_R730:
+    case CHIP_FAMILY_RV740:
+    case CHIP_FAMILY_RV770:
+    case CHIP_FAMILY_RV790:
+      //setup_R7xx();
+      tempFamily = R7xx;
+      break;
+    case CHIP_FAMILY_Evergreen:
+      //setup_Evergreen();
+      tempFamily = R8xx;
+      break;
+    case   CHIP_FAMILY_PITCAIRN:
+    case   CHIP_FAMILY_TAHITI:
+    case   CHIP_FAMILY_VERDE:
+      tempFamily = R9xx;
+      break;
+    case   CHIP_FAMILY_HAWAII:
+    case   CHIP_FAMILY_OLAND:
+    case   CHIP_FAMILY_BONAIRE:
+    case   CHIP_FAMILY_HAINAN:
+    case   CHIP_FAMILY_TONGA:
 
-			tempFamily = RCIx;
-			break;
-			
-		default:
-			InfoLog("sorry, but your card %04lx is not supported!\n", (long unsigned int)(rinfo->device_id));
-			return false;
-	}
-	
+      tempFamily = RCIx;
+      break;
+
+    default:
+      InfoLog("sorry, but your card %04lx is not supported!\n", (long unsigned int)(rinfo->device_id));
+      return false;
+  }
+
 	return true;
 }
 
@@ -206,8 +206,9 @@ void ATICard::write32(UInt32 reg, UInt32 val)
 }
 
 //linux 4.14
-#define mmSMC_IND_INDEX_11                            0x1AC
-#define mmSMC_IND_DATA_11                             0x1AD
+//using byte addressing instead of Linux u32 addressing
+#define mmSMC_IND_INDEX_11                            (0x1AC * 4)
+#define mmSMC_IND_DATA_11                             (0x1AD * 4)
 
 #define mmPCIE_INDEX                                                                                   0x000c
 #define mmPCIE_DATA
