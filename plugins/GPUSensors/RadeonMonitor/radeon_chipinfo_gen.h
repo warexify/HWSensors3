@@ -366,7 +366,7 @@ RADEONCardInfo radeon_device_list[] = {
   { 0x9713, CHIP_FAMILY_RS880, 1, 0, 0, 0, 0 },
   { 0x9714, CHIP_FAMILY_RS880, 1, 0, 0, 0, 0 },
   { 0x9715, CHIP_FAMILY_RS880, 1, 0, 0, 0, 0 },
-    
+ /*
     // Oland: R7-240, 250
     { 0x6600,	CHIP_FAMILY_OLAND,	0, 0, 0, 0, 0 },//	"AMD Radeon HD 8600/8700M",	kNull       }, // Mobile
     { 0x6601,	CHIP_FAMILY_OLAND,	0, 0, 0, 0, 0 },//		"AMD Radeon HD 8500/8700M",	kNull       }, // Mobile
@@ -533,6 +533,7 @@ RADEONCardInfo radeon_device_list[] = {
     { 0x692b,	CHIP_FAMILY_TONGA, 0, 0, 0, 0, 0 },//   "ATI Firepro W7100",      kBaladi	},
     { 0x6938,	CHIP_FAMILY_TONGA, 1, 0, 0, 0, 0 },// "ATI Radeon R9 M295X",      kExmoor	},
     { 0x6939,	CHIP_FAMILY_TONGA, 0, 0, 0, 0, 0 },//    "ATI Radeon R9 285",        kBaladi	},
+  */
 
 	{0, 0, 0, 0, 0, 0, 0 },
 };

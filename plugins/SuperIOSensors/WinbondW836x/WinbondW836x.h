@@ -71,7 +71,7 @@ const UInt8 WINBOND_TEMPERATURE_SOURCE_SELECT_REG	= 0x49;
 //private string[] TEMPERATURE_NAME = 
 //new string[] {"CPU", "Ambient", "System"};
 const UInt8 WINBOND_TEMPERATURE[]           = { 0x50, 0x50, 0x27 };
-const UInt8 WINBOND_TEMPERATURE_BANK[]		= { 1,    2,    0 };
+const UInt8 WINBOND_TEMPERATURE_BANK[]		  = { 1,    2,    0 };
 
 // Voltages                                    VCORE RSV0  3VCC  AVCC +12V1 -12V2 -5VIN3  3VSB   VBAT
 const UInt16 WINBOND_VOLTAGE_REG[]          = { 0x20, 0x21, 0x22, 0x23, 0x24, 0x25, 0x26, 0x550, 0x551 };
@@ -94,31 +94,32 @@ const UInt8 WINBOND_TACHOMETER_DIVISOR1[]	= { 37, 39, 31, 9, 11 };
 const UInt8 WINBOND_TACHOMETER_DIVISOR2[]	= { 5, 6, 7, 23, 15 };
 
 // Fan Control
-const UInt8 WINBOND_FAN_CONFIG[]			= { 0x04, 0x04, 0x12, 0x62 };
+const UInt8 WINBOND_FAN_CONFIG[]			  = { 0x04, 0x04, 0x12, 0x62 };
 const UInt8 WINBOND_FAN_CONTROL_BIT[]		= { 0x02, 0x04, 0x01, 0x04 };
 const UInt8 WINBOND_FAN_MODE_BIT[]			= { 0x00, 0x01, 0x00, 0x06 };
-const UInt8 WINBOND_FAN_OUTPUT[]			= { 0x01, 0x03, 0x11, 0x61 };
+const UInt8 WINBOND_FAN_OUTPUT[]			  = { 0x01, 0x03, 0x11, 0x61 };
 
 enum W836xModel {
-	W83627DHG	= 0xA020,
-	W83627UHG	= 0xA230,
-    W83627DHGP  = 0xB070,
-    W83627EHF	= 0x8800,
-    W83627HF	= 0x5200,
-	W83627THF	= 0x8280,
-	W83627SF	= 0x5950,
-	W83637HF	= 0x7080,
-    W83667HG	= 0xA510,
-    W83667HGB	= 0xB350,
-    W83687THF	= 0x8541,
-	W83697HF	= 0x6010,
-	W83697SF	= 0x6810,
-    NCT6771F    = 0xB470,
-    NCT6776F    = 0xC330,
-    NCT6779D    = 0xC560,
-    NCT6791D    = 0xC803,
-    NCT6792D    = 0xC911,
-    NCT6793D    = 0xD121,
+  W83627DHG  = 0xA020,
+  W83627UHG  = 0xA230,
+  W83627DHGP = 0xB070,
+  W83627EHF  = 0x8800,
+  W83627HF   = 0x5200,
+  W83627THF  = 0x8280,
+  W83627SF   = 0x5950,
+  W83637HF   = 0x7080,
+  W83667HG   = 0xA510,
+  W83667HGB  = 0xB350,
+  W83687THF  = 0x8541,
+  W83697HF   = 0x6010,
+  W83697SF   = 0x6810,
+  NCT6771F   = 0xB470,
+  NCT6776F   = 0xC330,
+  NCT6779D   = 0xC560,
+  NCT6791D   = 0xC803,
+  NCT6792D   = 0xC911,
+  NCT6793D   = 0xD121,
+  NCT6796D   = 0xD423,
 };
 
 class W836x;

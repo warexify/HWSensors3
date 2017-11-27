@@ -103,57 +103,65 @@ bool ATICard::initialize()
 
 bool ATICard::getRadeonInfo()
 {
-	UInt16 devID = chipID & 0xffff;
-	RADEONCardInfo *devices = radeon_device_list;
-	//rinfo = new RADEONCardInfo;
-	while (devices->device_id != NULL) {
-		//IOLog("check %d/n", devices->device_id ); //Debug
-		if ((devices->device_id & 0xffff) == devID ) {
-			//			rinfo->device_id = devID;
-			rinfo->device_id = devices->device_id;
-			rinfo->ChipFamily = devices->ChipFamily;
-			family = devices->ChipFamily;
-			rinfo->igp = devices->igp;
-			rinfo->is_mobility = devices->is_mobility;
-			IOLog(" Found ATI Radeon %04lx\n", (long unsigned int)devID);
-			return true;
-		}
-		devices++;
-	}
-if (((devID >= 0x67A0) && (devID <= 0x6800)) ||  //Hawaii
-             ((devID & 0xFF00) == 0x6900) ||  //Volcanic Island ?
-             ((devID >= 0x6640) && (devID < 0x6670)))  { //Bonair & Hainan
+  UInt16 devID = chipID & 0xffff;
+
+  RADEONCardInfo *devices = radeon_device_list;
+  //rinfo = new RADEONCardInfo;
+  //old devices
+  while (devices->device_id != NULL) {
+    //IOLog("check %d/n", devices->device_id ); //Debug
+    if ((devices->device_id & 0xffff) == devID ) {
+      //      rinfo->device_id = devID;
+      rinfo->device_id = devices->device_id;
+      rinfo->ChipFamily = devices->ChipFamily;
+      family = devices->ChipFamily;
+      rinfo->igp = devices->igp;
+      rinfo->is_mobility = devices->is_mobility;
+      IOLog(" Found ATI Radeon %04lx\n", (long unsigned int)devID);
+      return true;
+    }
+    devices++;
+  }
+  //SeaIsland R7-2xx, 3xx, 4xx, 5xx, Polaris, Vega
+  if (((devID >= 0x67A0) && (devID <= 0x67BF)) ||  //Hawaii
+      ((devID >= 0x6900) && (devID <= 0x693F)) ||  //Volcanic Island
+      ((devID >= 0x67C0) && (devID <= 0x67FF)) ||  //Polaris 10,11
+      ((devID >= 0x6980) && (devID <= 0x699F)) ||  //Polaris 12, RX550
+      ((devID >= 0x6860) && (devID <= 0x687F)) ||  //Vega
+      ((devID >= 0x6600) && (devID <= 0x663F)) ||  //Oland
+      ((devID >= 0x6640) && (devID <= 0x666F))) {  //Bonair & Hainan
     rinfo->device_id = devID;
     rinfo->ChipFamily = CHIP_FAMILY_HAWAII;
     family = CHIP_FAMILY_HAWAII;
     rinfo->igp = 0;
     rinfo->is_mobility = false;
-    IOLog(" Common ATI Radeon like HAWAII DID=%04lx\n", (long unsigned int)devID);
+    IOLog(" Common ATI Radeon SeaIsland/Polaris DID=%04lx\n", (long unsigned int)devID);
     return true;
+    //SouthernIsland HD7xxx
+  } else   if (((devID >= 0x6780) && (devID <= 0x679F)) ||  //Tahiti
+               ((devID >= 0x6800) && (devID <= 0x683F))) {  //Pitcairn, Verde
 
-} else   if (((devID >= 0x6780) && (devID <= 0x6840)) || //Tahiti
-         //    ((devID >= 0x6660) && (devID < 0x6670)) ||  //Hainan
-             ((devID >= 0x6600) && (devID < 0x6640)) ) { //Oland
-  rinfo->device_id = devID;
-  rinfo->ChipFamily = CHIP_FAMILY_PITCAIRN;
-  family = CHIP_FAMILY_PITCAIRN;
-  rinfo->igp = 0;
-  rinfo->is_mobility = false;
-  IOLog(" Common ATI Radeon like PITCAIRN DID=%04lx\n", (long unsigned int)devID);
-  return true;
-} else if (((devID & 0xFF00) == 0x6700) || ((devID & 0xFF00) == 0x6800)) {
+    rinfo->device_id = devID;
+    rinfo->ChipFamily = CHIP_FAMILY_PITCAIRN;
+    family = CHIP_FAMILY_PITCAIRN;
+    rinfo->igp = 0;
+    rinfo->is_mobility = false;
+    IOLog(" Common ATI Radeon SouthernIsland DID=%04lx\n", (long unsigned int)devID);
+    return true;
+    //Evergreen HD5xxx and NothenIsland HD6xxx
+  } else if (((devID & 0xFF00) == 0x6700) || ((devID & 0xFF00) == 0x6800)) {
     rinfo->device_id = devID;
     rinfo->ChipFamily = CHIP_FAMILY_Evergreen;
     family = CHIP_FAMILY_Evergreen;
     rinfo->igp = 0;
     rinfo->is_mobility = false;
-    IOLog(" Common ATI Radeon like Evergreen DID=%04lx\n", (long unsigned int)devID);
+    IOLog(" Common ATI Radeon Evergreen/NothenIsland DID=%04lx\n", (long unsigned int)devID);
     //    IOLog("sorry, not supported yet, please report DeviceID=0x%x\n", devID);
     return true;
   }
 
-	InfoLog("Unknown DeviceID!\n");
-	return false;
+  InfoLog("Unknown DeviceID!\n");
+  return false;
 }
 /*
 void ATICard::setup_R6xx()
@@ -205,19 +213,39 @@ void ATICard::write32(UInt32 reg, UInt32 val)
 	return OUTVID(reg, val);
 }
 
-//linux 4.14
-//using byte addressing instead of Linux u32 addressing
-#define mmSMC_IND_INDEX_11                            (0x1AC * 4)
-#define mmSMC_IND_DATA_11                             (0x1AD * 4)
-
-#define mmPCIE_INDEX                                                                                   0x000c
-#define mmPCIE_DATA
-
 //read_ind_pcie ->
 /*
 WREG32(mmPCIE_INDEX, reg);
 (void)RREG32(mmPCIE_INDEX);
 r = RREG32(mmPCIE_DATA);
+*/
+
+//GetClock
+/*
+PPSMC_Result amdgpu_ci_send_msg_to_smc(struct amdgpu_device *adev, PPSMC_Msg msg)
+{
+  u32 tmp;
+  int i;
+
+  if (!amdgpu_ci_is_smc_running(adev))
+    return PPSMC_Result_Failed;
+
+  WREG32(mmSMC_MESSAGE_0, msg);
+
+  for (i = 0; i < adev->usec_timeout; i++) {
+    tmp = RREG32(mmSMC_RESP_0);
+    if (tmp != 0)
+      break;
+    udelay(1);
+  }
+  tmp = RREG32(mmSMC_RESP_0);
+
+  return (PPSMC_Result)tmp;
+}
+
+ amdgpu_ci_send_msg_to_smc(adev, PPSMC_MSG_API_GetSclkFrequency); //SCLK
+ amdgpu_ci_send_msg_to_smc(adev, PPSMC_MSG_API_GetMclkFrequency); //MCLK
+ clock = RREG32(mmSMC_MSG_ARG_0); units=100MHz
 */
 
 UInt32 ATICard::read_ind(UInt32 reg)
