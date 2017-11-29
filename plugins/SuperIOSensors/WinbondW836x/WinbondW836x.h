@@ -70,13 +70,16 @@ const UInt8 WINBOND_TEMPERATURE_SOURCE_SELECT_REG	= 0x49;
 
 //private string[] TEMPERATURE_NAME = 
 //new string[] {"CPU", "Ambient", "System"};
-const UInt8 WINBOND_TEMPERATURE[]           = { 0x50, 0x50, 0x27 };
-const UInt8 WINBOND_TEMPERATURE_BANK[]		  = { 1,    2,    0 };
+const UInt16 WINBOND_TEMPERATURE[]           = { 0x150, 0x250, 0x27 };
+const UInt16 NUVOTON_TEMPERATURE[]           = { 0x455, 0x456, 0x454 };
+
 
 // Voltages                                    VCORE RSV0  3VCC  AVCC +12V1 -12V2 -5VIN3  3VSB   VBAT
-const UInt16 WINBOND_VOLTAGE_REG[]          = { 0x20, 0x21, 0x22, 0x23, 0x24, 0x25, 0x26, 0x550, 0x551 };
+const UInt16 WINBOND_VOLTAGE_REG[]          = { 0x20, 0x21, 0x23, 0x22, 0x24, 0x25, 0x26, 0x550, 0x551 };
 const float  WINBOND_VOLTAGE_SCALE[]        = { 8,    8,    16,   16,   8,    8,    8,    16,    16 };
 const UInt16 WINBOND_VOLTAGE_VBAT_REG       = 0x0551;
+const UInt16 NUVOTON_VOLTAGE_REG[]          = { 0x480, 0x484, 0x483, 0x482, 0x481, 0x485, 0x486, 0x487, 0x488 };
+
 
 const UInt8 WINBOND_TACHOMETER[]			= { 0x28, 0x29, 0x2A, 0x3F, 0x53 };
 const UInt8 WINBOND_TACHOMETER_BANK[]		= { 0, 0, 0, 0, 5 };

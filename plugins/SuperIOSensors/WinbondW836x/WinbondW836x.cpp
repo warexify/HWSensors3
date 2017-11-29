@@ -96,8 +96,10 @@ long W836xSensor::getValue()
             break;
     }
     if (Rf == 0) {
-        Rf = 1;
-        WarningLog("Rf == 0 when getValue index=%d value=%04x", (int)index, value);
+      Rf = 1;
+      Ri = 0;
+      Vf = 0;
+      WarningLog("Rf == 0 when getValue index=%d value=%04x", (int)index, value);
     }
     //  DebugLog("value = %ld Ri=%ld Rf=%ld", (long)value, Ri, Rf);
     value =  value + ((value - Vf) * Ri)/Rf;
@@ -111,9 +113,7 @@ long W836xSensor::getValue()
 	else if (*((uint32_t*)type) == *((uint32_t*)TYPE_FPE2)) {
 		value = encode_fpe2(value);
 	}
-    
-    //  value = encodeValue(value, scale);
-	
+
 	return value;
 }
     
@@ -148,10 +148,18 @@ UInt64 W836x::setBit(UInt64 target, UInt16 bit, UInt32 value)
 
 long W836x::readTemperature(unsigned long index)
 {
-	UInt32 value = readByte(WINBOND_TEMPERATURE_BANK[index], WINBOND_TEMPERATURE[index]) << 1;
+  UInt32 bank, reg;
+  if (model >= NCT6791D) {
+    bank = NUVOTON_TEMPERATURE[index] >> 8;
+    reg = NUVOTON_TEMPERATURE[index] & 0xFF;
+  } else {
+    bank = WINBOND_TEMPERATURE[index] >> 8;
+    reg = WINBOND_TEMPERATURE[index] & 0xFF;
+  }
+	UInt32 value = readByte(bank, reg) << 1;
 	
-	if (WINBOND_TEMPERATURE_BANK[index] > 0)
-		value |= readByte(WINBOND_TEMPERATURE_BANK[index], (UInt8)(WINBOND_TEMPERATURE[index] + 1)) >> 7;
+	if (bank > 0)
+		value |= readByte(bank, (UInt8)(reg + 1)) >> 7;
 	
 	float temperature = (float)value / 2.0f;
 	
@@ -160,15 +168,25 @@ long W836x::readTemperature(unsigned long index)
 
 long W836x::readVoltage(unsigned long index)
 {
+  UInt32 scale, reg, bank;
+  if (model >= NCT6791D) {
+    scale = 8;
+    reg = NUVOTON_VOLTAGE_REG[index] & 0xFF;
+    bank = NUVOTON_VOLTAGE_REG[index] >> 8;
+  } else {
+    scale = WINBOND_VOLTAGE_SCALE[index];
+    reg = WINBOND_VOLTAGE_REG[index] & 0xFF;
+    bank = WINBOND_VOLTAGE_REG[index] >> 8;
+  }
   if (index < 9) {
     
-    float value = readByte(0,WINBOND_VOLTAGE_REG[index]) * (WINBOND_VOLTAGE_SCALE[index]);
+    float value = readByte(bank, reg) * scale;
     
     bool valid = value > 0;
     
     // check if battery voltage monitor is enabled
-    if (valid && WINBOND_VOLTAGE_REG[index] == WINBOND_VOLTAGE_VBAT_REG) {
-      valid = (readByte(0,0x5D) & 0x01) > 0;
+    if (valid && reg == WINBOND_VOLTAGE_VBAT_REG) {
+      valid = (readByte(0, 0x5D) & 0x01) > 0;
     }
     
     return valid ? value : 0;
@@ -271,265 +289,241 @@ bool W836x::probePort()
 	
 	fanLimit = 3;
 	
-	switch (id)
-	{
-		case 0x52:
-		{
-			switch (revision & 0xf0)
-			{
-				case 0x10:
-				case 0x30:
-				case 0x40:
-				case 0x41:
-					model = W83627HF;
-					break;
-					/*case 0x70:
-					 model = W83977CTF;
-					 break;
-					 case 0xf0:
-					 model = W83977EF;
-					 break;*/
-					
-			}
-		}
-		case 0x59:
-		{
-			switch (revision & 0xf0)
-			{
-				case 0x50:
-					model = W83627SF;
-					break;
-			}
-			break;
-		}
-			
-		case 0x60:
-		{
-			switch (revision & 0xf0)
-			{
-				case 0x10:
-					model = W83697HF;
-					fanLimit = 2;
-					break;
-			}
-			break;
-		}
-			
-			/*case 0x61:
-			 {
-			 switch (revision & 0xf0)
-			 {
-			 case 0x00:
-			 model = W83L517D;
-			 break;
-			 }
-			 break;
-			 }*/
-			
-		case 0x68:
-		{
-			switch (revision & 0xf0)
-			{
-				case 0x10:
-					model = W83697SF;
-					fanLimit = 2;
-					break;
-			}
-			break;
-		}
-			
-		case 0x70:
-		{
-			switch (revision & 0xf0)
-			{
-				case 0x80:
-					model = W83637HF;
-					fanLimit = 5;
-					break;
-			}
-			break;
-		}
-			
-			
-		case 0x82:
-		{
-			switch (revision & 0xF0)
-			{
-				case 0x80:
-					model = W83627THF;
-					break;
-			}
-			break;
-		}
-			
-		case 0x85:
-		{
-			switch (revision)
-			{
-				case 0x41:
-					model = W83687THF;
-					// No datasheet
-					break;
-			}
-			break;
-		}
-			
-		case 0x88:
-		{
-			switch (revision & 0xF0)
-			{
-				case 0x50:
-				case 0x60:
-					model = W83627EHF;
-					fanLimit = 5;
-					break;
-			}
-			break;
-		}
-			
-			/*case 0x97:
-			 {
-			 switch (revision)
-			 {
-			 case 0x71:
-			 model = W83977FA;
-			 break;
-			 case 0x73:
-			 model = W83977TF;
-			 break;
-			 case 0x74:
-			 model = W83977ATF;
-			 break;
-			 case 0x77:
-			 model = W83977AF;
-			 break;
-			 }
-			 break;
-			 }*/
-			
-		case 0xA0:
-		{
-			switch (revision & 0xF0)
-			{
-				case 0x20:
-					model = W83627DHG;
-					fanLimit = 5;
-					break;
-			}
-			break;
-		}
-			
-		case 0xA2:
-		{
-			switch (revision & 0xF0)
-			{
-				case 0x30:
-					model = W83627UHG;
-					fanLimit = 2;
-					break;
-			}
-			break;
-		}
-			
-		case 0xA5:
-		{
-			switch (revision & 0xF0)
-			{
-				case 0x10:
-					model = W83667HG;
-					fanLimit = 2;
-					break;
-			}
-			break;
-		}
-			
-		case 0xB0:
-		{
-			switch (revision & 0xF0)
-			{
-				case 0x70:
-					model = W83627DHGP;
-					fanLimit = 5;
-					break;
-			}
-			break;
-		}
-			
-		case 0xB3:
-		{
-			switch (revision & 0xF0)
-			{
-				case 0x50:
-					model = W83667HGB;
-                    fanLimit = 4;
-					break;
-			}
-			break;
-		}
-            
-        case 0xB4:
-            switch (revision & 0xF0) {
-                case 0x70:
-                    model = NCT6771F;
-                    //          minFanRPM = (int)(1.35e6 / 0xFFFF);
-                    break;
-            } break;
-        case 0xC3:
-            switch (revision & 0xF0) {
-                case 0x30:
-                    model = NCT6776F;
-                    //          minFanRPM = (int)(1.35e6 / 0x1FFF);
-                    break;
-            } break;
-        case 0xC5:
-            switch (revision & 0xF0) {
-                case 0x60:
-                    model = NCT6779D;
-                    //          minFanRPM = (int)(1.35e6 / 0x1FFF);
-                    break;
-            } break;
-        case 0xC8:
-            /*      switch (revision & 0xFF) {
-             case 0x03:
-             model = NCT6791D;
-             minFanRPM = (int)(1.35e6 / 0x1FFF);
-             break;
-             } break; */
-            model = NCT6791D;
-            //      minFanRPM = (int)(1.35e6 / 0x1FFF);
-            break;
-        case 0xC9:
-            model = NCT6792D;
-            break;
-        case 0xD1:
-            model = NCT6793D;
-            break;
+  switch (id)
+  {
+    case 0x52:
+    {
+      switch (revision & 0xf0)
+      {
+        case 0x10:
+        case 0x30:
+        case 0x40:
+        case 0x41:
+          model = W83627HF;
+          break;
+          /*case 0x70:
+           model = W83977CTF;
+           break;
+           case 0xf0:
+           model = W83977EF;
+           break;*/
+
+      }
+    }
+    case 0x59:
+    {
+      switch (revision & 0xf0)
+      {
+        case 0x50:
+          model = W83627SF;
+          break;
+      }
+      break;
+    }
+
+    case 0x60:
+    {
+      switch (revision & 0xf0)
+      {
+        case 0x10:
+          model = W83697HF;
+          fanLimit = 2;
+          break;
+      }
+      break;
+    }
+
+      /*case 0x61:
+       {
+       switch (revision & 0xf0)
+       {
+       case 0x00:
+       model = W83L517D;
+       break;
+       }
+       break;
+       }*/
+
+    case 0x68:
+    {
+      switch (revision & 0xf0)
+      {
+        case 0x10:
+          model = W83697SF;
+          fanLimit = 2;
+          break;
+      }
+      break;
+    }
+
+    case 0x70:
+    {
+      switch (revision & 0xf0)
+      {
+        case 0x80:
+          model = W83637HF;
+          fanLimit = 5;
+          break;
+      }
+      break;
+    }
+
+
+    case 0x82:
+    {
+      switch (revision & 0xF0)
+      {
+        case 0x80:
+          model = W83627THF;
+          break;
+      }
+      break;
+    }
+
+    case 0x85:
+    {
+      switch (revision)
+      {
+        case 0x41:
+          model = W83687THF;
+          // No datasheet
+          break;
+      }
+      break;
+    }
+
+    case 0x88:
+    {
+      switch (revision & 0xF0)
+      {
+        case 0x50:
+        case 0x60:
+          model = W83627EHF;
+          fanLimit = 5;
+          break;
+      }
+      break;
+    }
+
+      /*case 0x97:
+       {
+       switch (revision)
+       {
+       case 0x71:
+       model = W83977FA;
+       break;
+       case 0x73:
+       model = W83977TF;
+       break;
+       case 0x74:
+       model = W83977ATF;
+       break;
+       case 0x77:
+       model = W83977AF;
+       break;
+       }
+       break;
+       }*/
+
+    case 0xA0:
+    {
+      switch (revision & 0xF0)
+      {
+        case 0x20:
+          model = W83627DHG;
+          fanLimit = 5;
+          break;
+      }
+      break;
+    }
+
+    case 0xA2:
+    {
+      switch (revision & 0xF0)
+      {
+        case 0x30:
+          model = W83627UHG;
+          fanLimit = 2;
+          break;
+      }
+      break;
+    }
+
+    case 0xA5:
+    {
+      switch (revision & 0xF0)
+      {
+        case 0x10:
+          model = W83667HG;
+          fanLimit = 2;
+          break;
+      }
+      break;
+    }
+
+    case 0xB0:
+    {
+      switch (revision & 0xF0)
+      {
+        case 0x70:
+          model = W83627DHGP;
+          fanLimit = 5;
+          break;
+      }
+      break;
+    }
+
+    case 0xB3:
+    {
+      switch (revision & 0xF0)
+      {
+        case 0x50:
+          model = W83667HGB;
+          fanLimit = 4;
+          break;
+      }
+      break;
+    }
+
+    case 0xB4:
+      switch (revision & 0xF0) {
+        case 0x70:
+          model = NCT6771F;
+          //          minFanRPM = (int)(1.35e6 / 0xFFFF);
+          break;
+      } break;
+    case 0xC3:
+      switch (revision & 0xF0) {
+        case 0x30:
+          model = NCT6776F;
+          //          minFanRPM = (int)(1.35e6 / 0x1FFF);
+          break;
+      } break;
+    case 0xC5:
+      switch (revision & 0xF0) {
+        case 0x60:
+          model = NCT6779D;
+          //          minFanRPM = (int)(1.35e6 / 0x1FFF);
+          break;
+      } break;
+    case 0xC8:
+      model = NCT6791D;
+      //      minFanRPM = (int)(1.35e6 / 0x1FFF);
+      break;
+    case 0xC9:
+      model = NCT6792D;
+      break;
+    case 0xD1:
+      model = NCT6793D;
+      break;
     case 0xD4:
       model = NCT6796D;
       break;
-       default:
-            break;
-            
-			
-			/*default:
-			 {
-			 switch (id & 0x0f) {
-			 case 0x0a:
-			 model = W83877F;
-			 break;
-			 case 0x0b:
-			 model = W83877AF;
-			 break;
-			 case 0x0c:
-			 model = W83877TF;
-			 break;
-			 case 0x0d:
-			 model = W83877ATF;
-			 break;
-			 }
-			 }*/
-	}
-	
+    default:
+      break;
+
+  }
+
 	if (!model)
 	{
 		WarningLog("found unsupported chip ID=0x%x REVISION=0x%x", id, revision);
@@ -598,255 +592,288 @@ void W836x::free ()
 
 bool W836x::start(IOService * provider)
 {
-	DebugLog("starting ...");
-    
-	if (!super::start(provider))
-		return false;
-    
-    InfoLog("found %s", getModelName());	
-    OSDictionary* list = OSDynamicCast(OSDictionary, getProperty("Sensors Configuration"));
-    OSDictionary *configuration=NULL;
-    IORegistryEntry * rootNode;
-    
-    rootNode = fromPath("/efi/platform", gIODTPlane);
-    
-    if(rootNode) {
-        OSData *data = OSDynamicCast(OSData, rootNode->getProperty("OEMVendor"));
-        if (data) {
-            bcopy(data->getBytesNoCopy(), vendor, data->getLength());
-            OSString * VendorNick = vendorID(OSString::withCString(vendor));
-            if (VendorNick) {
-                data = OSDynamicCast(OSData, rootNode->getProperty("OEMBoard"));
-                if (!data) {
-                    WarningLog("no OEMBoard");
-                    data = OSDynamicCast(OSData, rootNode->getProperty("OEMProduct"));
-                }
-                if (data) {
-                    bcopy(data->getBytesNoCopy(), product, data->getLength());
-                    OSDictionary *link = OSDynamicCast(OSDictionary, list->getObject(VendorNick));
-                    if (link){
-                        configuration = OSDynamicCast(OSDictionary, link->getObject(OSString::withCString(product)));
-                        InfoLog(" mother vendor=%s product=%s", vendor, product);
-                    }
-                }
-            } else {
-                WarningLog("unknown OEMVendor %s", vendor);
-            }
-        } else {
-            WarningLog("no OEMVendor");
+  DebugLog("starting ...");
+
+  if (!super::start(provider))
+    return false;
+
+  InfoLog("found %s", getModelName());
+  OSDictionary* list = OSDynamicCast(OSDictionary, getProperty("Sensors Configuration"));
+  OSDictionary *configuration=NULL;
+  IORegistryEntry * rootNode;
+
+  rootNode = fromPath("/efi/platform", gIODTPlane);
+
+  if(rootNode) {
+    OSData *data = OSDynamicCast(OSData, rootNode->getProperty("OEMVendor"));
+    if (data) {
+      bcopy(data->getBytesNoCopy(), vendor, data->getLength());
+      OSString * VendorNick = vendorID(OSString::withCString(vendor));
+      if (VendorNick) {
+        data = OSDynamicCast(OSData, rootNode->getProperty("OEMBoard"));
+        if (!data) {
+          WarningLog("no OEMBoard");
+          data = OSDynamicCast(OSData, rootNode->getProperty("OEMProduct"));
         }
+        if (data) {
+          bcopy(data->getBytesNoCopy(), product, data->getLength());
+          OSDictionary *link = OSDynamicCast(OSDictionary, list->getObject(VendorNick));
+          if (link){
+            configuration = OSDynamicCast(OSDictionary, link->getObject(OSString::withCString(product)));
+            InfoLog(" mother vendor=%s product=%s", vendor, product);
+          }
+        }
+      } else {
+        WarningLog("unknown OEMVendor %s", vendor);
+      }
+    } else {
+      WarningLog("no OEMVendor");
     }
-    
-    if (list && !configuration) {
-        configuration = OSDynamicCast(OSDictionary, list->getObject("Default"));
-        WarningLog("set default configuration");
+  }
+
+  if (list && !configuration) {
+    configuration = OSDynamicCast(OSDictionary, list->getObject("Default"));
+    WarningLog("set default configuration");
+  }
+
+  if(configuration) {
+    this->setProperty("Current Configuration", configuration);
+  }
+
+  OSBoolean* tempin0forced = configuration ? OSDynamicCast(OSBoolean, configuration->getObject("TEMPIN0FORCED")) : 0;
+  OSBoolean* tempin1forced = configuration ? OSDynamicCast(OSBoolean, configuration->getObject("TEMPIN1FORCED")) : 0;
+
+  if (OSNumber* fanlimit = configuration ? OSDynamicCast(OSNumber, configuration->getObject("FANINLIMIT")) : 0)
+    fanLimit = fanlimit->unsigned8BitValue();
+
+  //  cpuid_update_generic_info();
+
+  bool isCpuCore_i = false;
+
+  /*  if (strcmp(cpuid_info()->cpuid_vendor, CPUID_VID_INTEL) == 0)
+   {
+   switch (cpuid_info()->cpuid_family)
+   {
+   case 0x6:
+   {
+   switch (cpuid_info()->cpuid_model)
+   {
+   case 0x1A: // Intel Core i7 LGA1366 (45nm)
+   case 0x1E: // Intel Core i5, i7 LGA1156 (45nm)
+   case 0x25: // Intel Core i3, i5, i7 LGA1156 (32nm)
+   case 0x2C: // Intel Core i7 LGA1366 (32nm) 6 Core
+   isCpuCore_i = true;
+   break;
+   }
+   }  break;
+   }
+   isCpuCore_i = (cpuid_info()->cpuid_model >= 0x1A);
+   } */
+
+  if (isCpuCore_i)
+  {
+    // Heatsink
+    if (!addSensor(KEY_CPU_HEATSINK_TEMPERATURE, TYPE_SP78, 2, kSuperIOTemperatureSensor, 2))
+      return false;
+  }
+  else
+  {
+    switch (model)
+    {
+      case W83667HG:
+      case W83667HGB:
+      {
+        // do not add temperature sensor registers that read PECI
+        UInt8 flag = readByte(0, WINBOND_TEMPERATURE_SOURCE_SELECT_REG);
+
+        if ((flag & 0x04) == 0 || (tempin0forced && tempin0forced->getValue()))
+        {
+          // Heatsink
+          if (!addSensor(KEY_CPU_HEATSINK_TEMPERATURE, TYPE_SP78, 2, kSuperIOTemperatureSensor, 0))
+            WarningLog("error adding heatsink temperature sensor");
+        }
+        else if ((flag & 0x40) == 0 || (tempin1forced && tempin1forced->getValue()))
+        {
+          // Ambient
+          if (!addSensor(KEY_AMBIENT_TEMPERATURE, TYPE_SP78, 2, kSuperIOTemperatureSensor, 1))
+            WarningLog("error adding ambient temperature sensor");
+        }
+
+        // Northbridge
+        if (!addSensor(KEY_NORTHBRIDGE_TEMPERATURE, TYPE_SP78, 2, kSuperIOTemperatureSensor, 2))
+          WarningLog("error adding system temperature sensor");
+
+        break;
+      }
+
+      case W83627DHG:
+      case W83627DHGP:
+      {
+        // do not add temperature sensor registers that read PECI
+        UInt8 sel = readByte(0, WINBOND_TEMPERATURE_SOURCE_SELECT_REG);
+
+        if ((sel & 0x07) == 0 || (tempin0forced && tempin0forced->getValue()))
+        {
+          // Heatsink
+          if (!addSensor(KEY_CPU_HEATSINK_TEMPERATURE, TYPE_SP78, 2, kSuperIOTemperatureSensor, 0))
+            WarningLog("error adding heatsink temperature sensor");
+        }
+        else if ((sel & 0x70) == 0 || (tempin1forced && tempin1forced->getValue()))
+        {
+          // Ambient
+          if (!addSensor(KEY_AMBIENT_TEMPERATURE, TYPE_SP78, 2, kSuperIOTemperatureSensor, 1))
+            WarningLog("error adding ambient temperature sensor");
+        }
+
+        // Northbridge
+        if (!addSensor(KEY_NORTHBRIDGE_TEMPERATURE, TYPE_SP78, 2, kSuperIOTemperatureSensor, 2))
+          WarningLog("error adding system temperature sensor");
+
+        break;
+      }
+
+      default:
+      {
+        // no PECI support, add all sensors
+
+        // Heatsink
+        if (!addSensor(KEY_CPU_HEATSINK_TEMPERATURE, TYPE_SP78, 2, kSuperIOTemperatureSensor, 0))
+          WarningLog("error adding heatsink temperature sensor");
+        // Ambient
+
+        if (!addSensor(KEY_AMBIENT_TEMPERATURE, TYPE_SP78, 2, kSuperIOTemperatureSensor, 1))
+          WarningLog("error adding ambient temperature sensor");
+
+        // Northbridge
+        if (!addSensor(KEY_NORTHBRIDGE_TEMPERATURE, TYPE_SP78, 2, kSuperIOTemperatureSensor, 2))
+          WarningLog("error adding system temperature sensor");
+
+        break;
+      }
     }
-    
-    if(configuration) {
-        this->setProperty("Current Configuration", configuration);
+  }
+
+  // Voltage
+  if (configuration) {
+    for (int i = 0; i < 9; i++) {
+      char key[5];
+      long Ri=0;
+      long Rf=1;
+      long Vf=0;
+      OSString * name;
+
+      snprintf(key, 5, "VIN%X", i);
+
+      if (process_sensor_entry(configuration->getObject(key), &name, &Ri, &Rf, &Vf)) {
+        if (name->isEqualTo("CPU")) {
+          if (!addSensor(KEY_CPU_VRM_SUPPLY0, TYPE_FP2E, 2, kSuperIOVoltageSensor, i,Ri,Rf,Vf))
+            WarningLog("error adding CPU voltage sensor");
+        }
+        else if (name->isEqualTo("Memory")) {
+          if (!addSensor(KEY_MEMORY_VOLTAGE, TYPE_FP2E, 2, kSuperIOVoltageSensor, i, Ri, Rf, Vf))
+            WarningLog("error adding memory voltage sensor");
+        }
+        else if (name->isEqualTo("+5VC")) {
+          if (Ri == 0) {
+            Ri = 20;
+            Rf = 10;
+          }
+          if (!addSensor(KEY_5VC_VOLTAGE, TYPE_SP4B, 2, kSuperIOVoltageSensor, i, Ri, Rf, Vf)) {
+            WarningLog("ERROR Adding AVCC Voltage Sensor!");
+          }
+        }
+        else if (name->isEqualTo("+5VSB")) {
+          if (Ri == 0) {
+            Ri = 20;
+            Rf = 10;
+          }
+          if (!addSensor(KEY_5VSB_VOLTAGE, TYPE_SP4B, 2, kSuperIOVoltageSensor, i, Ri, Rf, Vf)) {
+            WarningLog("ERROR Adding AVCC Voltage Sensor!");
+          }
+        }
+        else if (name->isEqualTo("+12VC")) {
+          if (Ri == 0) {
+            Ri = 56;
+            Rf = 10;
+          }
+          if (!addSensor(KEY_12V_VOLTAGE, TYPE_SP4B, 2, kSuperIOVoltageSensor, i, Ri, Rf, Vf)) {
+            WarningLog("ERROR Adding 12V Voltage Sensor!");
+          }
+        }
+        else if (name->isEqualTo("-12VC")) {
+          if (Ri == 0) {
+            Ri = 232;
+            Rf = 10;
+            Vf = 2048;
+          }
+          if (!addSensor(KEY_N12VC_VOLTAGE, TYPE_SP4B, 2, kSuperIOVoltageSensor, i, Ri, Rf, Vf)) {
+            WarningLog("ERROR Adding 12V Voltage Sensor!");
+          }
+        }
+        else if (name->isEqualTo("3VCC")) {
+          if (Ri == 0) {
+            Ri = 34;
+            Rf = 34;
+          }
+          if (!addSensor(KEY_3VCC_VOLTAGE, TYPE_FP2E, 2, kSuperIOVoltageSensor, i, Ri, Rf, Vf)) {
+            WarningLog("ERROR Adding 3VCC Voltage Sensor!");
+          }
+        }
+
+        else if (name->isEqualTo("3VSB")) {
+          if (Ri == 0) {
+            Ri = 34;
+            Rf = 34;
+          }
+          if (!addSensor(KEY_3VSB_VOLTAGE, TYPE_FP2E, 2, kSuperIOVoltageSensor, i, Ri, Rf, Vf)) {
+            WarningLog("ERROR Adding 3VSB Voltage Sensor!");
+          }
+        }
+        else if (name->isEqualTo("VBAT")) {
+          if (Ri == 0) {
+            Ri = 34;
+            Rf = 34;
+          }
+          if (!addSensor(KEY_VBAT_VOLTAGE, TYPE_FP2E, 2, kSuperIOVoltageSensor, i, Ri, Rf, Vf)) {
+            WarningLog("ERROR Adding VBAT Voltage Sensor!");
+          }
+        }
+        else if (name->isEqualTo("AVCC")) {
+          if (Ri == 0) {
+            Ri = 34;
+            Rf = 34;
+          }
+          if (!addSensor(KEY_AVCC_VOLTAGE, TYPE_FP2E, 2, kSuperIOVoltageSensor, i, Ri, Rf, Vf)) {
+            WarningLog("ERROR Adding AVCC Voltage Sensor!");
+          }
+        }
+      }
     }
-	
-	OSBoolean* tempin0forced = configuration ? OSDynamicCast(OSBoolean, configuration->getObject("TEMPIN0FORCED")) : 0;
-	OSBoolean* tempin1forced = configuration ? OSDynamicCast(OSBoolean, configuration->getObject("TEMPIN1FORCED")) : 0;
-	
-	if (OSNumber* fanlimit = configuration ? OSDynamicCast(OSNumber, configuration->getObject("FANINLIMIT")) : 0)
-		fanLimit = fanlimit->unsigned8BitValue();
-	
-    //	cpuid_update_generic_info();
-	
-	bool isCpuCore_i = false;
-	
-    /*	if (strcmp(cpuid_info()->cpuid_vendor, CPUID_VID_INTEL) == 0)
-     {
-     switch (cpuid_info()->cpuid_family)
-     {
-     case 0x6:
-     {
-     switch (cpuid_info()->cpuid_model)
-     {
-     case 0x1A: // Intel Core i7 LGA1366 (45nm)
-     case 0x1E: // Intel Core i5, i7 LGA1156 (45nm)
-     case 0x25: // Intel Core i3, i5, i7 LGA1156 (32nm)
-     case 0x2C: // Intel Core i7 LGA1366 (32nm) 6 Core
-     isCpuCore_i = true;
-     break;
-     }
-     }	break;
-     }
-     isCpuCore_i = (cpuid_info()->cpuid_model >= 0x1A);
-     } */
-	
-	if (isCpuCore_i)
-	{
-		// Heatsink
-		if (!addSensor(KEY_CPU_HEATSINK_TEMPERATURE, TYPE_SP78, 2, kSuperIOTemperatureSensor, 2))
-			return false;
-	}
-	else
-	{
-		switch (model)
-		{
-			case W83667HG:
-			case W83667HGB:
-			{
-				// do not add temperature sensor registers that read PECI
-				UInt8 flag = readByte(0, WINBOND_TEMPERATURE_SOURCE_SELECT_REG);
-				
-				if ((flag & 0x04) == 0 || (tempin0forced && tempin0forced->getValue()))
-				{
-					// Heatsink
-					if (!addSensor(KEY_CPU_HEATSINK_TEMPERATURE, TYPE_SP78, 2, kSuperIOTemperatureSensor, 0))
-						WarningLog("error adding heatsink temperature sensor");
-				}
-				else if ((flag & 0x40) == 0 || (tempin1forced && tempin1forced->getValue()))
-				{
-					// Ambient
-					if (!addSensor(KEY_AMBIENT_TEMPERATURE, TYPE_SP78, 2, kSuperIOTemperatureSensor, 1))
-						WarningLog("error adding ambient temperature sensor");
-				}
-				
-				// Northbridge
-				if (!addSensor(KEY_NORTHBRIDGE_TEMPERATURE, TYPE_SP78, 2, kSuperIOTemperatureSensor, 2))
-					WarningLog("error adding system temperature sensor");
-				
-				break;
-			}
-				
-			case W83627DHG:
-			case W83627DHGP:
-			{
-				// do not add temperature sensor registers that read PECI
-				UInt8 sel = readByte(0, WINBOND_TEMPERATURE_SOURCE_SELECT_REG);
-				
-				if ((sel & 0x07) == 0 || (tempin0forced && tempin0forced->getValue()))
-				{
-					// Heatsink
-					if (!addSensor(KEY_CPU_HEATSINK_TEMPERATURE, TYPE_SP78, 2, kSuperIOTemperatureSensor, 0))
-						WarningLog("error adding heatsink temperature sensor");
-				}
-				else if ((sel & 0x70) == 0 || (tempin1forced && tempin1forced->getValue()))
-				{
-					// Ambient
-					if (!addSensor(KEY_AMBIENT_TEMPERATURE, TYPE_SP78, 2, kSuperIOTemperatureSensor, 1))
-						WarningLog("error adding ambient temperature sensor");
-				}
-				
-				// Northbridge
-				if (!addSensor(KEY_NORTHBRIDGE_TEMPERATURE, TYPE_SP78, 2, kSuperIOTemperatureSensor, 2))
-					WarningLog("error adding system temperature sensor");
-				
-				break;
-			}
-				
-			default:
-			{
-				// no PECI support, add all sensors
-				
-				// Heatsink
-				if (!addSensor(KEY_CPU_HEATSINK_TEMPERATURE, TYPE_SP78, 2, kSuperIOTemperatureSensor, 0))
-					WarningLog("error adding heatsink temperature sensor");
-				// Ambient
-                
-				if (!addSensor(KEY_AMBIENT_TEMPERATURE, TYPE_SP78, 2, kSuperIOTemperatureSensor, 1))
-					WarningLog("error adding ambient temperature sensor");
-                
-				// Northbridge
-				if (!addSensor(KEY_NORTHBRIDGE_TEMPERATURE, TYPE_SP78, 2, kSuperIOTemperatureSensor, 2))
-					WarningLog("error adding system temperature sensor");
-                				
-				break;
-			}
-		}
-	}
-	
-    // Voltage
-	if (configuration) {
-		for (int i = 0; i < 9; i++) {
-			char key[5];
-            long Ri=0;
-            long Rf=1;
-            long Vf=0;
-            OSString * name;
-            
-			snprintf(key, 5, "VIN%X", i);
-			
-            if (process_sensor_entry(configuration->getObject(key), &name, &Ri, &Rf, &Vf)) {
-				if (name->isEqualTo("CPU")) {
-					if (!addSensor(KEY_CPU_VRM_SUPPLY0, TYPE_FP2E, 2, kSuperIOVoltageSensor, i,Ri,Rf,Vf))
-						WarningLog("error adding CPU voltage sensor");
-				}
-				else if (name->isEqualTo("Memory")) {
-					if (!addSensor(KEY_MEMORY_VOLTAGE, TYPE_FP2E, 2, kSuperIOVoltageSensor, i, Ri, Rf, Vf))
-						WarningLog("error adding memory voltage sensor");
-				}
-                else if (name->isEqualTo("+5VC")) {
-                    if (!addSensor(KEY_5VC_VOLTAGE, TYPE_SP4B, 2, kSuperIOVoltageSensor, i, Ri, Rf, Vf)) {
-                        WarningLog("ERROR Adding AVCC Voltage Sensor!");
-                    }
-                }
-                else if (name->isEqualTo("+5VSB")) {
-                    if (!addSensor(KEY_5VSB_VOLTAGE, TYPE_SP4B, 2, kSuperIOVoltageSensor, i, Ri, Rf, Vf)) {
-                        WarningLog("ERROR Adding AVCC Voltage Sensor!");
-                    }
-                }
-                else if (name->isEqualTo("+12VC")) {
-                    if (!addSensor(KEY_12V_VOLTAGE, TYPE_SP4B, 2, kSuperIOVoltageSensor, i, Ri, Rf, Vf)) {
-                        WarningLog("ERROR Adding 12V Voltage Sensor!");
-                    }
-                }
-                else if (name->isEqualTo("-12VC")) {
-                    if (!addSensor(KEY_N12VC_VOLTAGE, TYPE_SP4B, 2, kSuperIOVoltageSensor, i, Ri, Rf, Vf)) {
-                        WarningLog("ERROR Adding 12V Voltage Sensor!");
-                    }
-                }
-                else if (name->isEqualTo("3VCC")) {
-                    if (!addSensor(KEY_3VCC_VOLTAGE, TYPE_FP2E, 2, kSuperIOVoltageSensor, i, Ri, Rf, Vf)) {
-                        WarningLog("ERROR Adding 3VCC Voltage Sensor!");
-                    }
-                }
-                
-                else if (name->isEqualTo("3VSB")) {
-                    if (!addSensor(KEY_3VSB_VOLTAGE, TYPE_FP2E, 2, kSuperIOVoltageSensor, i, Ri, Rf, Vf)) {
-                        WarningLog("ERROR Adding 3VSB Voltage Sensor!");
-                    }
-                }
-                else if (name->isEqualTo("VBAT")) {
-                    if (!addSensor(KEY_VBAT_VOLTAGE, TYPE_FP2E, 2, kSuperIOVoltageSensor, i, Ri, Rf, Vf)) {
-                        WarningLog("ERROR Adding VBAT Voltage Sensor!");
-                    }
-                }
-                else if (name->isEqualTo("AVCC")) {
-                    if (!addSensor(KEY_AVCC_VOLTAGE, TYPE_FP2E, 2, kSuperIOVoltageSensor, i, Ri, Rf, Vf)) {
-                        WarningLog("ERROR Adding AVCC Voltage Sensor!");
-                    }
-                }
-			}
-		}
-	}
-	
-	// FANs
-	for (int i = 0; i < fanLimit; i++)
-		fanValueObsolete[i] = true;
-	
-	updateTachometers();
-	
-	for (int i = 0; i < fanLimit; i++) {
-		OSString* name = 0;
-		
-		if (configuration) {
-			char key[7];
-			snprintf(key, 7, "FANIN%X", i);
-			name = OSDynamicCast(OSString, configuration->getObject(key));
-		}
-		
-		UInt64 nameLength = name ? name->getLength() : 0;
-		
-		if (readTachometer(i) > 10 || nameLength > 0)
-			if (!addTachometer(i, (nameLength > 0 ? name->getCStringNoCopy() : 0)))
-				WarningLog("error adding tachometer sensor %d", i);
-	}
-	
-	return true;
+  }
+
+  // FANs
+  for (int i = 0; i < fanLimit; i++)
+    fanValueObsolete[i] = true;
+
+  updateTachometers();
+
+  for (int i = 0; i < fanLimit; i++) {
+    OSString* name = 0;
+
+    if (configuration) {
+      char key[7];
+      snprintf(key, 7, "FANIN%X", i);
+      name = OSDynamicCast(OSString, configuration->getObject(key));
+    }
+
+    UInt64 nameLength = name ? name->getLength() : 0;
+
+    if (readTachometer(i) > 10 || nameLength > 0)
+      if (!addTachometer(i, (nameLength > 0 ? name->getCStringNoCopy() : 0)))
+        WarningLog("error adding tachometer sensor %d", i);
+  }
+
+  return true;
 }
 
 const char *W836x::getModelName()
@@ -872,7 +899,7 @@ const char *W836x::getModelName()
     case NCT6791D:      return "NCT6791D";
     case NCT6792D:      return "NCT6792D";
     case NCT6793D:      return "NCT6793D";
-      case NCT6796D:      return "NCT6796D";
+    case NCT6796D:      return "NCT6796D";
 
   }
 
@@ -884,7 +911,7 @@ SuperIOSensor * W836x::addSensor(const char* name, const char* type, unsigned in
 	if (NULL != getSensor(name))
 		return 0;
     //  DebugLog("mults = %ld", aRi);
-    SuperIOSensor *sensor = W836xSensor::withOwner(this, name, type, size, group, index, aRi, aRf, aVf);
+  SuperIOSensor *sensor = W836xSensor::withOwner(this, name, type, size, group, index, aRi, aRf, aVf);
     
 	if (sensor && sensors->setObject(sensor))
 		if(kIOReturnSuccess == fakeSMC->callPlatformFunction(kFakeSMCAddKeyHandler, false, (void *)name, (void *)type, (void *)(long long)size, (void *)this))

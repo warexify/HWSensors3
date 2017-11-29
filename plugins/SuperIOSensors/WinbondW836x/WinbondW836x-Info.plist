@@ -587,7 +587,7 @@
 					<key>FANIN0</key>
 					<string>CPU Fan</string>
 					<key>FANIN1</key>
-					<string></string>
+					<string>System Fan</string>
 					<key>FANIN2</key>
 					<string></string>
 					<key>FANIN3</key>
@@ -595,7 +595,7 @@
 					<key>FANIN4</key>
 					<string></string>
 					<key>FANINLIMIT</key>
-					<integer>1</integer>
+					<integer>2</integer>
 					<key>TEMPIN0FORCED</key>
 					<false/>
 					<key>TEMPIN1FORCED</key>
