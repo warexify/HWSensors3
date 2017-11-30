@@ -18,13 +18,14 @@ bool ATICard::initialize()
 	rinfo = (RADEONCardInfo*)IOMalloc(sizeof(RADEONCardInfo));
 	VCard->setMemoryEnable(true);
   IOMemoryDescriptor *    theDescriptor;
-  IOPhysicalAddress bar = (IOPhysicalAddress)((VCard->configRead32(0x20)) & ~0x3f);
-  InfoLog("RadeonMonitor: register space=%08lx\n", (long unsigned int)bar);
-  theDescriptor = IOMemoryDescriptor::withPhysicalAddress (bar, 0x400000, kIODirectionOutIn); // | kIOMapInhibitCache);
+  IOPhysicalAddress bar = (IOPhysicalAddress)((VCard->configRead32(kIOPCIConfigBaseAddress5)) & ~0x3f);
+  InfoLog("RadeonMonitor: register space5=%08lx\n", (long unsigned int)bar);
+  theDescriptor = IOMemoryDescriptor::withPhysicalAddress (bar, 0x80000, kIODirectionOutIn); // | kIOMapInhibitCache);
   if(theDescriptor != NULL)
   {
     mmio5 = theDescriptor->map();
   }
+
 	/*	
 	 // PCI dump
 	 for (int i=0; i<0xff; i +=16) {
@@ -52,6 +53,7 @@ bool ATICard::initialize()
   mmio = VCard->mapDeviceMemoryWithIndex(1);
 	if (mmio)	{
 		mmio_base = (volatile UInt8 *)mmio->getVirtualAddress();
+    InfoLog("mmio_base=0x%llx\n", mmio->getPhysicalAddress());
 	} 
 	else {
 		InfoLog(" have no mmio\n ");
