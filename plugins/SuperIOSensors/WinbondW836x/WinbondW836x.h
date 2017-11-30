@@ -71,7 +71,7 @@ const UInt8 WINBOND_TEMPERATURE_SOURCE_SELECT_REG	= 0x49;
 //private string[] TEMPERATURE_NAME = 
 //new string[] {"CPU", "Ambient", "System"};
 const UInt16 WINBOND_TEMPERATURE[]           = { 0x150, 0x250, 0x27 };
-const UInt16 NUVOTON_TEMPERATURE[]           = { 0x455, 0x456, 0x454 };
+const UInt16 NUVOTON_TEMPERATURE[]           = { 0x150, 0x670, 0x27 };
 
 
 // Voltages                                    VCORE RSV0  3VCC  AVCC +12V1 -12V2 -5VIN3  3VSB   VBAT
