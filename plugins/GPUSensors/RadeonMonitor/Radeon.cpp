@@ -45,52 +45,52 @@ bool RadeonMonitor::addSensor(const char* key, const char* type, unsigned int si
 
 IOService* RadeonMonitor::probe(IOService *provider, SInt32 *score)
 {
-	if (super::probe(provider, score) != this) return 0;
-	bool ret = 0;
-	if (OSDictionary * dictionary = serviceMatching(kGenericPCIDevice)) {
-		if (OSIterator * iterator = getMatchingServices(dictionary)) {
-			
-			IOPCIDevice* device = 0;
-			do {
-                device = OSDynamicCast(IOPCIDevice, iterator->getNextObject());
-                if (!device) {
-                    break;
-                }
-                vendor_id = 0;
-				OSData *data = OSDynamicCast(OSData, device->getProperty(fVendor));
-				if (data)
-					vendor_id = *(UInt32*)data->getBytesNoCopy();
-				else {
-					data = OSDynamicCast(OSData, device->getProperty(fATYVendor));
-					if (data)
-						vendor_id = *(UInt32*)data->getBytesNoCopy();
-				}
-				
-                device_id = 0;
-				data = OSDynamicCast(OSData, device->getProperty(fDevice));
-				if (data)
-					device_id = *(UInt32*)data->getBytesNoCopy();
-				
-                class_id = 0;
-				data = OSDynamicCast(OSData, device->getProperty(fClass));
-				if (data)
-					class_id = *(UInt32*)data->getBytesNoCopy();
-				
-				if ((vendor_id==0x1002) && (class_id == 0x030000)) {
-					InfoLog("found Radeon chip id=%x ", (unsigned int)device_id);
-					VCard = device;
-					ret = 1; //TODO - count a number of cards
-					break;
-				}
-				/*else {
-                 WarningLog("ATI Radeon not found!");
-                 }*/
-			} while (device);	
-		}
-	}
-	if(ret)
-		return this;
-	else return 0;
+  if (super::probe(provider, score) != this) return 0;
+  bool ret = 0;
+  if (OSDictionary * dictionary = serviceMatching(kGenericPCIDevice)) {
+    if (OSIterator * iterator = getMatchingServices(dictionary)) {
+
+      IOPCIDevice* device = 0;
+      do {
+        device = OSDynamicCast(IOPCIDevice, iterator->getNextObject());
+        if (!device) {
+          break;
+        }
+        vendor_id = 0;
+        OSData *data = OSDynamicCast(OSData, device->getProperty(fVendor));
+        if (data)
+          vendor_id = *(UInt32*)data->getBytesNoCopy();
+        else {
+          data = OSDynamicCast(OSData, device->getProperty(fATYVendor));
+          if (data)
+            vendor_id = *(UInt32*)data->getBytesNoCopy();
+        }
+
+        device_id = 0;
+        data = OSDynamicCast(OSData, device->getProperty(fDevice));
+        if (data)
+          device_id = *(UInt32*)data->getBytesNoCopy();
+
+        class_id = 0;
+        data = OSDynamicCast(OSData, device->getProperty(fClass));
+        if (data)
+          class_id = *(UInt32*)data->getBytesNoCopy();
+
+        if ((vendor_id==0x1002) && (class_id == 0x030000)) {
+          InfoLog("found Radeon chip id=%x ", (unsigned int)device_id);
+          VCard = device;
+          ret = 1; //TODO - count a number of cards
+          break;
+        }
+        /*else {
+         WarningLog("ATI Radeon not found!");
+         }*/
+      } while (device);
+    }
+  }
+  if(ret)
+    return this;
+  else return 0;
 }
 
 bool RadeonMonitor::start(IOService * provider)

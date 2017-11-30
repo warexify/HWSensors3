@@ -14,8 +14,17 @@ OSDefineMetaClassAndStructors(ATICard, OSObject)
 
 bool ATICard::initialize()
 {
+  IOMemoryMap *   mmio5;
 	rinfo = (RADEONCardInfo*)IOMalloc(sizeof(RADEONCardInfo));
 	VCard->setMemoryEnable(true);
+  IOMemoryDescriptor *    theDescriptor;
+  IOPhysicalAddress bar = (IOPhysicalAddress)((VCard->configRead32(0x20)) & ~0x3f);
+  InfoLog("RadeonMonitor: register space=%08lx\n", (long unsigned int)bar);
+  theDescriptor = IOMemoryDescriptor::withPhysicalAddress (bar, 0x400000, kIODirectionOutIn); // | kIOMapInhibitCache);
+  if(theDescriptor != NULL)
+  {
+    mmio5 = theDescriptor->map();
+  }
 	/*	
 	 // PCI dump
 	 for (int i=0; i<0xff; i +=16) {
@@ -53,8 +62,8 @@ bool ATICard::initialize()
 		return false;
   
   if (!mmio_base || rinfo->ChipFamily >= CHIP_FAMILY_HAWAII) {
-    IOMemoryMap *   mmio5;
-    mmio5 = VCard->mapDeviceMemoryWithIndex(4);
+//    IOMemoryMap *   mmio5;
+//    mmio5 = VCard->mapDeviceMemoryWithIndex(4);
     if (mmio5 && mmio5->getPhysicalAddress() != 0) {
       mmio = mmio5;
       mmio_base = (volatile UInt8 *)mmio->getVirtualAddress();
