@@ -28,7 +28,7 @@ void FakeSMCKey::copySymbol(const char *from, char* to)
 {
 	bzero(to, 5);
 	
-	UInt32 len = strlen(from);
+	size_t len = strlen(from);
 	
 	bcopy(from, to, len > 4 ? 4 : len);
 }

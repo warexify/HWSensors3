@@ -180,7 +180,7 @@ long  SuperIOSensor::encodeValue(UInt32 value, int sscale) //Vscale=1, Tscale=10
       return out;
     }
   }
-  
+  return svalue;
 }
 
 long SuperIOSensor::getValue()

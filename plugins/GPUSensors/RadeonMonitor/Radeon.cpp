@@ -38,7 +38,8 @@ OSDefineMetaClassAndStructors(RadeonMonitor, IOService)
 
 bool RadeonMonitor::addSensor(const char* key, const char* type, unsigned int size, int index)
 {
-	if (kIOReturnSuccess == fakeSMC->callPlatformFunction(kFakeSMCAddKeyHandler, false, (void *)key, (void *)type, (void *)size, (void *)this))
+  void *tmp = (void *)(long long)size;
+	if (kIOReturnSuccess == fakeSMC->callPlatformFunction(kFakeSMCAddKeyHandler, false, (void *)key, (void *)type, tmp, (void *)this))
 		return sensors->setObject(key, OSNumber::withNumber(index, 32));	
 	return false;
 }
