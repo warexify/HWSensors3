@@ -14,7 +14,7 @@ OSDefineMetaClassAndStructors(ATICard, OSObject)
 
 bool ATICard::initialize()
 {
-  IOMemoryMap *   mmio5;
+  IOMemoryMap *   mmio5 = NULL;
 	rinfo = (RADEONCardInfo*)IOMalloc(sizeof(RADEONCardInfo));
 	VCard->setMemoryEnable(true);
   IOMemoryDescriptor *    theDescriptor;

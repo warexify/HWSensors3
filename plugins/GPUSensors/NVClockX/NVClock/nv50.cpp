@@ -65,7 +65,7 @@ static I2CBusPtr nv50_i2c_create_bus_ptr(char *name, int bus)
 
 static int nv50_get_default_mask(char *smask, char *rmask)
 {
-	int mask;
+	int mask = 0;
 	switch(nv_card->arch)
 	{
 		case NV50:

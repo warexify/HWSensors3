@@ -435,7 +435,7 @@ static int nouveau_i2c_identify(struct nouveau_i2c *i2c, int index, const char *
                !strncmp(info->type, "lm63", sizeof("lm63"))) {
         if(!lm99_detect(dev)) return false;
       }
-    }
+
     
     device->nvclock_i2c_sensor = dev;
     
@@ -475,7 +475,7 @@ static int nouveau_i2c_identify(struct nouveau_i2c *i2c, int index, const char *
       default:
         break;
     }
-    
+    }
     return true;
 #else
     struct i2c_client *client;

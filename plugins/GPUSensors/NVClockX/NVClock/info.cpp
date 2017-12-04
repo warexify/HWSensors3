@@ -715,7 +715,7 @@ const char *get_card_name(int device_id, gpu_type *gpu)
  */
 int get_gpu_arch(int device_id)
 {
-	int arch;
+	int arch = UNKNOWN;
 	
 	switch(device_id & 0xfff0)
 	{
@@ -1144,7 +1144,7 @@ static char* get_agp_supported_rates()
 			snprintf(temp, 4, "%dX ", i);
 			char* newrate=new char[strlen(rate)+4];
 			strncpy(newrate, rate, strlen(rate)+4);
-			delete[] rate;
+			delete rate;
 			rate=newrate;
 			rate = strncat(rate, temp, strlen(rate));
 			delete[] temp;

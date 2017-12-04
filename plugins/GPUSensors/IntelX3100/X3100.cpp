@@ -53,7 +53,7 @@ bool X3100monitor::addSensor(const char* key, const char* type, unsigned int siz
 IOService* X3100monitor::probe(IOService *provider, SInt32 *score)
 {
 	if (super::probe(provider, score) != this) return 0;
-	UInt32 vendor_id, device_id;
+	UInt32 vendor_id = 0, device_id = 0;
   VCard = NULL;
 	if (OSDictionary * dictionary = serviceMatching(kGenericPCIDevice)) {
 		if (OSIterator * iterator = getMatchingServices(dictionary)) {

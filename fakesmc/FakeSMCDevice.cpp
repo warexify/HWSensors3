@@ -250,9 +250,9 @@ uint32_t FakeSMCDevice::applesmc_io_cmd_readb(void *opaque, uint32_t addr1)
 UInt32 FakeSMCDevice::ioRead32( UInt16 offset, IOMemoryMap * map )
 {
   UInt32  value=0;
-  UInt16  base = 0;
+//  UInt16  base = 0;
 	
-  if (map) base = map->getPhysicalAddress();
+//  if (map) base = map->getPhysicalAddress();
 	
 	//DebugLog("ioread32 called");
 	
@@ -262,9 +262,9 @@ UInt32 FakeSMCDevice::ioRead32( UInt16 offset, IOMemoryMap * map )
 UInt16 FakeSMCDevice::ioRead16( UInt16 offset, IOMemoryMap * map )
 {
   UInt16  value=0;
-  UInt16  base = 0;
+//  UInt16  base = 0;
 	
-  if (map) base = map->getPhysicalAddress();
+//  if (map) base = map->getPhysicalAddress();
 	
 	//DebugLog("ioread16 called");
   

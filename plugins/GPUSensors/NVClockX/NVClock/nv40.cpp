@@ -120,7 +120,7 @@ unsigned int abs0 (int number)
 
 static int nv40_get_default_mask(char *pmask, char *vmask)
 {
-	int mask;
+	int mask = 0;
 	switch(nv_card->arch)
 	{
 		case NV40:
@@ -344,8 +344,8 @@ static int nv43_get_gpu_temp(void *sensor)
 {
 	int temp;
 	int correction=0;
-	float offset;
-	float slope;
+	float offset = 0;
+	float slope = 1.0f;
 
 	/* For now duplicate the temperature offset code here. It is needed for Mobile users in most cases the bios can't be read on those GPUs. */
 	if(!nv_card->bios)

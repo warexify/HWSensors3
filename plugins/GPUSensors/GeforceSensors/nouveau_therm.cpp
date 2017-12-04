@@ -78,13 +78,14 @@ static u16 nvbios_therm_entry(struct nouveau_device *device, int idx, u8 *ver, u
 
 static int nvbios_therm_sensor_parse(struct nouveau_device *device, nvbios_therm_sensor *sensor)
 {
-	s8 thrs_section, sensor_section, offset;
+//	s8 thrs_section,
+  s8 sensor_section, offset;
 	u8 ver, len, i;
 	u16 entry;
   
   
 	/* Read the entries from the table */
-	thrs_section = 0;
+//	thrs_section = 0;
 	sensor_section = -1;
 	i = 0;
 	while ((entry = nvbios_therm_entry(device, i++, &ver, &len))) {
@@ -92,7 +93,7 @@ static int nvbios_therm_sensor_parse(struct nouveau_device *device, nvbios_therm
     
 		switch (nv_ro08(device, entry + 0)) {
       case 0x0:
-        thrs_section = value;
+//        thrs_section = value;
         if (value > 0)
           return 0; /* we do not try to support ambient */
         break;

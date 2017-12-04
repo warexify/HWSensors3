@@ -363,9 +363,6 @@
 		12E31F221E126A14003BD663 /* gp100.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = gp100.cpp; path = plugins/GPUSensors/GeforceSensors/gp100.cpp; sourceTree = SOURCE_ROOT; };
 		12E31F251E126A24003BD663 /* gp100.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = gp100.h; path = plugins/GPUSensors/GeforceSensors/gp100.h; sourceTree = SOURCE_ROOT; };
 		A55E16871F7041A50049A107 /* VoodooBatterySMC.kext */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VoodooBatterySMC.kext; sourceTree = BUILT_PRODUCTS_DIR; };
-		A55E16891F7041A50049A107 /* VoodooBatterySMC.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = VoodooBatterySMC.hpp; sourceTree = "<group>"; };
-		A55E168B1F7041A50049A107 /* VoodooBatterySMC.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = VoodooBatterySMC.cpp; sourceTree = "<group>"; };
-		A55E168D1F7041A50049A107 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A55E16961F7041CF0049A107 /* English */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		A55E16981F7041CF0049A107 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A55E16991F7041CF0049A107 /* Support.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Support.h; sourceTree = "<group>"; };
@@ -815,16 +812,6 @@
 			name = NSCPC8739x;
 			sourceTree = "<group>";
 		};
-		A55E16881F7041A50049A107 /* VoodooBatterySMC */ = {
-			isa = PBXGroup;
-			children = (
-				A55E16891F7041A50049A107 /* VoodooBatterySMC.hpp */,
-				A55E168B1F7041A50049A107 /* VoodooBatterySMC.cpp */,
-				A55E168D1F7041A50049A107 /* Info.plist */,
-			);
-			path = VoodooBatterySMC;
-			sourceTree = "<group>";
-		};
 		A55E16931F7041CF0049A107 /* VoodooBattery */ = {
 			isa = PBXGroup;
 			children = (
@@ -896,7 +883,6 @@
 			isa = PBXGroup;
 			children = (
 				AEABE469125F8F0700F08235 /* Sources */,
-				A55E16881F7041A50049A107 /* VoodooBatterySMC */,
 				124E606716C818AD004D3FE0 /* Frameworks */,
 				AEABE461125F8E9300F08235 /* Products */,
 			);
@@ -3423,20 +3409,25 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CLANG_WARN__EXIT_TIME_DESTRUCTORS = YES;
 				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_IDENTITY = "-";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = c11;
+				GCC_ENABLE_BUILTIN_FUNCTIONS = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_VERSION = "";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				LLVM_LTO = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				ONLY_ACTIVE_ARCH = YES;
 				PROVISIONING_PROFILE = "";
+				RUN_CLANG_STATIC_ANALYZER = YES;
 				SDKROOT = macosx;
 				VALID_ARCHS = "i386 x86_64";
 			};
@@ -3461,11 +3452,14 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CLANG_WARN__EXIT_TIME_DESTRUCTORS = YES;
 				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_IDENTITY = "-";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_AUTO_VECTORIZATION = NO;
+				GCC_C_LANGUAGE_STANDARD = c11;
+				GCC_ENABLE_BUILTIN_FUNCTIONS = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_MODEL_TUNING = "";
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -3481,8 +3475,10 @@
 				GCC_WARN_UNUSED_PARAMETER = NO;
 				GCC_WARN_UNUSED_VALUE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				LLVM_LTO = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				PROVISIONING_PROFILE = "";
+				RUN_CLANG_STATIC_ANALYZER = YES;
 				SDKROOT = macosx;
 				VALID_ARCHS = "i386 x86_64";
 			};
@@ -3593,11 +3589,14 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CLANG_WARN__EXIT_TIME_DESTRUCTORS = YES;
 				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_IDENTITY = "-";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_AUTO_VECTORIZATION = YES;
+				GCC_C_LANGUAGE_STANDARD = c11;
+				GCC_ENABLE_BUILTIN_FUNCTIONS = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_MODEL_TUNING = "";
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -3606,8 +3605,10 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				LLVM_LTO = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				PROVISIONING_PROFILE = "";
+				RUN_CLANG_STATIC_ANALYZER = YES;
 				SDKROOT = macosx;
 				VALID_ARCHS = i386;
 			};
@@ -3676,11 +3677,14 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CLANG_WARN__EXIT_TIME_DESTRUCTORS = YES;
 				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_IDENTITY = "-";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_AUTO_VECTORIZATION = YES;
+				GCC_C_LANGUAGE_STANDARD = c11;
+				GCC_ENABLE_BUILTIN_FUNCTIONS = NO;
 				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
 				GCC_MODEL_TUNING = "";
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -3689,9 +3693,11 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				LLVM_LTO = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				OTHER_CFLAGS = "-DTIGER";
 				PROVISIONING_PROFILE = "";
+				RUN_CLANG_STATIC_ANALYZER = YES;
 				SDKROOT = macosx;
 				VALID_ARCHS = i386;
 			};
