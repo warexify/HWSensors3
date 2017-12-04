@@ -261,6 +261,50 @@ PPSMC_Result amdgpu_ci_send_msg_to_smc(struct amdgpu_device *adev, PPSMC_Msg msg
  amdgpu_ci_send_msg_to_smc(adev, PPSMC_MSG_API_GetSclkFrequency); //SCLK
  amdgpu_ci_send_msg_to_smc(adev, PPSMC_MSG_API_GetMclkFrequency); //MCLK
  clock = RREG32(mmSMC_MSG_ARG_0); units=100MHz
+
+//get FAN
+ #define  CG_THERMAL_STATUS      0xC0300008
+ #define    FDO_PWM_DUTY(x)        ((x) << 9)
+ #define    FDO_PWM_DUTY_MASK      (0xff << 9)
+ #define    FDO_PWM_DUTY_SHIFT      9
+ #define  CG_FDO_CTRL1          0xC0300068
+ #define    FMAX_DUTY100(x)        ((x) << 0)
+ #define    FMAX_DUTY100_MASK      0x000000FF
+ #define    FMAX_DUTY100_SHIFT      0
+RREG32_SMC based on 0x200
+ cik -> mmSMC_IND_INDEX_0             0x200
+ si  -> SMC_IND_INDEX_0               0x200
+ vi  -> mmSMC_IND_INDEX_11   0x1AC => 0x6b0
+ ni  -> TN_SMC_IND_INDEX_0            0x200
+ cz  ->
+ #define mmMP0PUB_IND_INDEX  0x180 => 0x600
+ #define mmMP0PUB_IND_DATA   0x181
+
+
+int ci_fan_ctrl_get_fan_speed_percent(struct radeon_device *rdev,
+                                      u32 *speed)
+{
+  u32 duty, duty100;
+  u64 tmp64;
+
+  if (rdev->pm.no_fan)
+    return -ENOENT;
+
+  duty100 = (RREG32_SMC(CG_FDO_CTRL1) & FMAX_DUTY100_MASK) >> FMAX_DUTY100_SHIFT;
+  duty = (RREG32_SMC(CG_THERMAL_STATUS) & FDO_PWM_DUTY_MASK) >> FDO_PWM_DUTY_SHIFT;
+
+  if (duty100 == 0)
+    return -EINVAL;
+
+  tmp64 = (u64)duty * 100;
+  do_div(tmp64, duty100);
+  *speed = (u32)tmp64;
+
+  if (*speed > 100)
+    *speed = 100;
+
+  return 0;
+}
 */
 
 UInt32 ATICard::read_ind(UInt32 reg)

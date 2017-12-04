@@ -815,8 +815,10 @@ IOReturn FakeSMCDevice::callPlatformFunction(const OSSymbol *functionName, bool 
           result = kIOReturnBadArgument;
           
           if (param2) {
-            IOService *handler = (IOService *)param2;
-            bcopy(key->getHandler(), handler, sizeof(handler));
+            IOService **handler = (IOService **)param2;
+            IOService *keyHandler = key->getHandler();
+         //   bcopy((void*)keyHandler, (void*)handler, sizeof(handler));
+            *handler = keyHandler;
             result = kIOReturnSuccess;
           }
         }
