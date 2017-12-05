@@ -65,7 +65,6 @@
 #define PPSMC_MSG_SetFanMinPwm                ((uint16_t) 0x209)
 #define PPSMC_MSG_SetFanTemperatureTarget     ((uint16_t) 0x20A)
 
-//SeaIsland+
 //linux 4.14
 //using byte addressing instead of Linux u32 addressing
 #define mmSMC_IND_INDEX_11                            (0x1AC * 4)
@@ -75,6 +74,9 @@
 #define mmSMC_MESSAGE_0                               (0x94 * 4) /* SMU_7 */
 #define mmSMC_RESP_0                                  (0x95 * 4) /* SMU_7 */
 
+//SeaIsland+
+#define SMC_IND_INDEX_0             0x200
+#define SMC_IND_DATA_0              0x204
 
 #define mmPCIE_INDEX                                  (0x000C * 4)
 #define mmPCIE_DATA                                   (0x000D * 4)
@@ -153,6 +155,7 @@ enum radeon_family {
   CHIP_FAMILY_BONAIRE,
   CHIP_FAMILY_HAINAN,
   CHIP_FAMILY_TONGA,
+  CHIP_FAMILY_POLARIS,
   CHIP_FAMILY_LAST,
 };
 

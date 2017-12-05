@@ -45,8 +45,9 @@ enum TempFamilies {
 	R6xx,
 	R7xx,
 	R8xx,
-    R9xx,
-    RCIx,
+  R9xx,
+  RCIx,
+  RAIx,
 };
 
 class ATICard : public OSObject {
@@ -67,23 +68,27 @@ private:
 	int             card_number;
 	
 	
-	bool			getRadeonInfo	();
+	bool			  getRadeonInfo	();
 		
 protected:
 //	IOService*		m_Service;  //???
 public:
-//	Binding* tempSensor;
-//	Binding* boardSensor;
-//	Binding* fanSensor;  
-	UInt32			read32(UInt32 reg);
-    void            write32(UInt32 reg, UInt32 val);
-    UInt32			read_ind(UInt32 reg);
-	bool            initialize(void);
-	IOReturn		R6xxTemperatureSensor(UInt16* data);
-	IOReturn		R7xxTemperatureSensor(UInt16* data);
-	IOReturn		EverTemperatureSensor(UInt16* data); 
-    IOReturn		TahitiTemperatureSensor(UInt16* data); 
-    IOReturn		HawaiiTemperatureSensor(UInt16* data);
+  //  Binding* tempSensor;
+  //  Binding* boardSensor;
+  //  Binding* fanSensor;
+  UInt32      read32(UInt32 reg);
+  void        write32(UInt32 reg, UInt32 val);
+  UInt32      read_ind(UInt32 reg);
+  UInt32      read_smc(UInt32 reg);
+
+  bool        initialize(void);
+  IOReturn    R6xxTemperatureSensor(UInt16* data);
+  IOReturn    R7xxTemperatureSensor(UInt16* data);
+  IOReturn    EverTemperatureSensor(UInt16* data);
+  IOReturn    TahitiTemperatureSensor(UInt16* data);
+  IOReturn    HawaiiTemperatureSensor(UInt16* data);
+  IOReturn    ArcticTemperatureSensor(UInt16* data);
+
 };
 
 

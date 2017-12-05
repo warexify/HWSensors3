@@ -202,6 +202,9 @@ IOReturn RadeonMonitor::callPlatformFunction(const OSSymbol *functionName, bool 
 				case RCIx:
 					Card->HawaiiTemperatureSensor(&t);
 					break;
+        case RAIx:
+          Card->ArcticTemperatureSensor(&t);
+          break;
 				default:
 					break;
 			}

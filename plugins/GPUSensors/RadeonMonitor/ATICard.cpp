@@ -104,8 +104,10 @@ bool ATICard::initialize()
     case   CHIP_FAMILY_BONAIRE:
     case   CHIP_FAMILY_HAINAN:
     case   CHIP_FAMILY_TONGA:
-
       tempFamily = RCIx;
+      break;
+    case   CHIP_FAMILY_POLARIS:
+      tempFamily = RAIx;
       break;
 
     default:
@@ -137,12 +139,22 @@ bool ATICard::getRadeonInfo()
     }
     devices++;
   }
-  //SeaIsland R7-2xx, 3xx, 4xx, 5xx, Polaris, Vega
-  if (((devID >= 0x67A0) && (devID <= 0x67BF)) ||  //Hawaii
-      ((devID >= 0x6900) && (devID <= 0x693F)) ||  //Volcanic Island
-      ((devID >= 0x67C0) && (devID <= 0x67FF)) ||  //Polaris 10,11
+
+  //Polaris, Vega
+  if (((devID >= 0x67C0) && (devID <= 0x67FF)) ||  //Polaris 10,11
       ((devID >= 0x6980) && (devID <= 0x699F)) ||  //Polaris 12, RX550
-      ((devID >= 0x6860) && (devID <= 0x687F)) ||  //Vega
+      ((devID >= 0x6860) && (devID <= 0x687F))) {  //Vega
+    rinfo->device_id = devID;
+    rinfo->ChipFamily = CHIP_FAMILY_POLARIS;
+    family = CHIP_FAMILY_POLARIS;
+    rinfo->igp = 0;
+    rinfo->is_mobility = false;
+    InfoLog(" Common ATI Radeon Polaris DID=%04lx\n", (long unsigned int)devID);
+    return true;
+
+  //SeaIsland R7-2xx, 3xx, 4xx, 5xx,
+  } else if (((devID >= 0x67A0) && (devID <= 0x67BF)) ||  //Hawaii
+      ((devID >= 0x6900) && (devID <= 0x693F)) ||  //Volcanic Island, Tonga
       ((devID >= 0x6600) && (devID <= 0x663F)) ||  //Oland
       ((devID >= 0x6640) && (devID <= 0x666F))) {  //Bonair & Hainan
     rinfo->device_id = devID;
@@ -150,7 +162,7 @@ bool ATICard::getRadeonInfo()
     family = CHIP_FAMILY_HAWAII;
     rinfo->igp = 0;
     rinfo->is_mobility = false;
-    InfoLog(" Common ATI Radeon SeaIsland/Polaris DID=%04lx\n", (long unsigned int)devID);
+    InfoLog(" Common ATI Radeon SeaIsland DID=%04lx\n", (long unsigned int)devID);
     return true;
     //SouthernIsland HD7xxx
   } else   if (((devID >= 0x6780) && (devID <= 0x679F)) ||  //Tahiti
@@ -307,15 +319,20 @@ int ci_fan_ctrl_get_fan_speed_percent(struct radeon_device *rdev,
 }
 */
 
+UInt32 ATICard::read_smc(UInt32 reg)
+{
+  UInt32 r;
+  OUTVID(SMC_IND_INDEX_0, (reg));
+  r = INVID(SMC_IND_DATA_0);
+  return r;
+}
+
+
 UInt32 ATICard::read_ind(UInt32 reg)
 {
     //	unsigned long flags;
 	UInt32 r;
-    
     //	spin_lock_irqsave(&rdev->smc_idx_lock, flags);
-/*	OUTVID(TN_SMC_IND_INDEX_0, (reg));
-	r = INVID(TN_SMC_IND_DATA_0);
- */
   OUTVID(mmSMC_IND_INDEX_11, (reg));
   r = INVID(mmSMC_IND_DATA_11);
     //	spin_unlock_irqrestore(&rdev->smc_idx_lock, flags);
@@ -406,7 +423,7 @@ IOReturn ATICard::HawaiiTemperatureSensor(UInt16* data)
 {
 	UInt32 temp, actual_temp = 0;
 	for (int i=0; i<1000; i++) {  //attempts to ready
-		temp = (read_ind(CG_CI_MULT_THERMAL_STATUS) & CI_CTF_TEMP_MASK) >> CI_CTF_TEMP_SHIFT;
+		temp = (read_smc(CG_CI_MULT_THERMAL_STATUS) & CI_CTF_TEMP_MASK) >> CI_CTF_TEMP_SHIFT;
 		if ((temp >> 10) & 1)
 			actual_temp = 0;
 		else if ((temp >> 9) & 1)
@@ -421,5 +438,26 @@ IOReturn ATICard::HawaiiTemperatureSensor(UInt16* data)
 	*data = (UInt16)(actual_temp & 0x1ff);
 	//data[1] = 0;
 	return kIOReturnSuccess;
+}
+
+IOReturn ATICard::ArcticTemperatureSensor(UInt16* data)
+{
+  UInt32 temp, actual_temp = 0;
+  for (int i=0; i<1000; i++) {  //attempts to ready
+    temp = (read_ind(CG_CI_MULT_THERMAL_STATUS) & CI_CTF_TEMP_MASK) >> CI_CTF_TEMP_SHIFT;
+    if ((temp >> 10) & 1)
+      actual_temp = 0;
+    else if ((temp >> 9) & 1)
+      actual_temp = 255;
+    else {
+      actual_temp = temp & 0x1ff; //(temp >> 1) & 0xff;
+      break;
+    }
+    IOSleep(10);
+  }
+
+  *data = (UInt16)(actual_temp & 0x1ff);
+  //data[1] = 0;
+  return kIOReturnSuccess;
 }
 
