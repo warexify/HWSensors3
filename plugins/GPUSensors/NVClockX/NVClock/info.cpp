@@ -1144,7 +1144,7 @@ static char* get_agp_supported_rates()
 			snprintf(temp, 4, "%dX ", i);
 			char* newrate=new char[strlen(rate)+4];
 			strncpy(newrate, rate, strlen(rate)+4);
-			delete rate;
+			delete[] rate;
 			rate=newrate;
 			rate = strncat(rate, temp, strlen(rate));
 			delete[] temp;

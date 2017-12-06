@@ -2266,7 +2266,7 @@
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_VERSION = "";
-				INFOPLIST_FILE = "AmdCPUMonitor/AmdCPUMonitor-Info.plist";
+				INFOPLIST_FILE = "plugins/CPUSensors/AmdCPUMonitor/AmdCPUMonitor-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				MODULE_NAME = org.slice.sensor.AmdCPUMonitor;
 				MODULE_VERSION = 1.0.1;
@@ -2346,7 +2346,7 @@
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_VERSION = "";
-				INFOPLIST_FILE = "SMBusSensors/ADT7470-Info.plist";
+				INFOPLIST_FILE = "plugins/SMBusSensors/ADT7470-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				MODULE_NAME = com.yourcompany.driver.ADT7470;
 				MODULE_VERSION = 1.0.1;
@@ -2564,7 +2564,7 @@
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
-				INFOPLIST_FILE = "IntelCPUMonitor-Info.plist";
+				INFOPLIST_FILE = "plugins/CPUSensors/IntelCPUMonitor/IntelCPUMonitor-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				MODULE_NAME = com.yourcompany.driver.IntelCPUMonitor;
 				MODULE_VERSION = 1.0.1;
@@ -2648,7 +2648,7 @@
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
-				INFOPLIST_FILE = "X3100-Info.plist";
+				INFOPLIST_FILE = "plugins/GPUSensors/IntelX3100/X3100-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				MODULE_NAME = com.yourcompany.driver.X3100;
 				MODULE_VERSION = 1.0.1;
@@ -3003,7 +3003,7 @@
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
-				INFOPLIST_FILE = "F718x-Info.plist";
+				INFOPLIST_FILE = "plugins/SuperIOSensors/Fintek718x/F718x-Info.plist";
 				MODULE_NAME = com.yourcompany.driver.F718x;
 				MODULE_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.mozodojo.${PRODUCT_NAME}";
@@ -3079,7 +3079,7 @@
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
-				INFOPLIST_FILE = "PC8739x-Info.plist";
+				INFOPLIST_FILE = "plugins/SuperIOSensors/NSCPC8739x/PC8739x-Info.plist";
 				MODULE_NAME = com.yourcompany.driver.PC8739x;
 				MODULE_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.slice.${PRODUCT_NAME}";
@@ -3237,7 +3237,7 @@
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
-				INFOPLIST_FILE = "NVClockX-Info.plist";
+				INFOPLIST_FILE = "plugins/GPUSensors/NVClockX/NVClockX-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				MODULE_NAME = com.yourcompany.driver.NVClockX;
 				MODULE_VERSION = 1.0.2;
@@ -3317,7 +3317,7 @@
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
-				INFOPLIST_FILE = "ACPIMonitor-Info.plist";
+				INFOPLIST_FILE = "plugins/ACPIMonitor/ACPIMonitor-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				MODULE_NAME = org.slice.ACPIMonitor;
 				MODULE_VERSION = 1.0.3;
@@ -3495,7 +3495,7 @@
 				GCC_MODEL_TUNING = G5;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
-				INFOPLIST_FILE = "ITEIT87x/ITEIT87x-Info.plist";
+				INFOPLIST_FILE = "plugins/SuperIOSensors/ITE87x/ITEIT87x-Info.plist";
 				MODULE_NAME = org.mozodojo.IT87x;
 				MODULE_VERSION = 1.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = org.mozodojo.ITEIT87x;
