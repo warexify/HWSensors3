@@ -299,18 +299,18 @@ UInt8 FakeSMCDevice::ioRead8( UInt16 offset, IOMemoryMap * map )
 
 void FakeSMCDevice::ioWrite32( UInt16 offset, UInt32 value, IOMemoryMap * map )
 {
-  UInt16 base = 0;
+//  UInt16 base = 0;
 	
-  if (map) base = map->getPhysicalAddress();
+//  if (map) base = map->getPhysicalAddress();
 	
 	//DebugLog("iowrite32 called");
 }
 
 void FakeSMCDevice::ioWrite16( UInt16 offset, UInt16 value, IOMemoryMap * map )
 {
-  UInt16 base = 0;
+//  UInt16 base = 0;
 	
-  if (map) base = map->getPhysicalAddress();
+// if (map) base = map->getPhysicalAddress();
 	
 	//DebugLog("iowrite16 called");
 }
@@ -815,10 +815,11 @@ IOReturn FakeSMCDevice::callPlatformFunction(const OSSymbol *functionName, bool 
           result = kIOReturnBadArgument;
           
           if (param2) {
-            IOService **handler = (IOService **)param2;
-            IOService *keyHandler = key->getHandler();
+         //   IOService **handler = (IOService **)param2;
+          //  IOService *keyHandler = key->getHandler();
          //   bcopy((void*)keyHandler, (void*)handler, sizeof(handler));
-            *handler = keyHandler;
+        //   memcpy(handler, keyHandler, sizeof(*handler));
+            *(IOService **)param2 = key->getHandler();
             result = kIOReturnSuccess;
           }
         }

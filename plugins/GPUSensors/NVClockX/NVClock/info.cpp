@@ -1134,7 +1134,7 @@ static char* get_agp_supported_rates()
 		agp_rates <<= PCI_AGP_STATUS_RATE_8X_SHIFT;
 	}
   
-	rate = new char;
+	rate = new char[1];
   
 	for(i=1; i <= 8; i*=2)
 	{

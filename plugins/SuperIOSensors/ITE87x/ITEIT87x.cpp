@@ -538,9 +538,11 @@ bool IT87x::start(IOService * provider)
 	
 	
 	// Voltage
+
     UInt8 tmp = readByte(address, ITE_ADC_CHANNEL_ENABLE);
-    DebugLog("ADC Enable register = %X",tmp);
-    
+    IOLog (LogPrefix "[Debug] ADC Enable register = %X",tmp);
+  
+
     vbat_updates = false;
     if(configuration)
     {

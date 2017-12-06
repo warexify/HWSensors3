@@ -3545,7 +3545,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "org.netkas.${PRODUCT_NAME}";
 				PRODUCT_NAME = FakeSMC;
 				PROVISIONING_PROFILE = "";
-				SDKROOT = macosx;
+				SDKROOT = macosx10.11;
 				WRAPPER_EXTENSION = kext;
 			};
 			name = Debug;
@@ -3565,7 +3565,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "org.netkas.${PRODUCT_NAME}";
 				PRODUCT_NAME = FakeSMC;
 				PROVISIONING_PROFILE = "";
-				SDKROOT = macosx;
+				SDKROOT = macosx10.11;
 				ZERO_LINK = NO;
 			};
 			name = "Release 10.6";
@@ -3652,7 +3652,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "org.netkas.${PRODUCT_NAME}";
 				PRODUCT_NAME = FakeSMC;
 				PROVISIONING_PROFILE = "";
-				SDKROOT = macosx;
+				SDKROOT = macosx10.11;
 				ZERO_LINK = NO;
 			};
 			name = "Release 10.5";
@@ -3738,7 +3738,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "org.netkas.${PRODUCT_NAME}";
 				PRODUCT_NAME = FakeSMC;
 				PROVISIONING_PROFILE = "";
-				SDKROOT = macosx;
+				SDKROOT = macosx10.11;
 				ZERO_LINK = NO;
 			};
 			name = "Release 10.4";
