@@ -48,6 +48,7 @@ enum TempFamilies {
   R9xx,
   RCIx,
   RAIx,
+  RVEx,
 };
 
 class ATICard : public OSObject {
@@ -88,6 +89,7 @@ public:
   IOReturn    TahitiTemperatureSensor(UInt16* data);
   IOReturn    HawaiiTemperatureSensor(UInt16* data);
   IOReturn    ArcticTemperatureSensor(UInt16* data);
+  IOReturn    VegaTemperatureSensor(UInt16* data);
 
 };
 

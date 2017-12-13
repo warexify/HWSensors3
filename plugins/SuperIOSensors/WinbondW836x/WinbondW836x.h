@@ -69,9 +69,11 @@ const UInt8 WINBOND_VENDOR_ID_REGISTER      = 0x4F;
 const UInt8 WINBOND_TEMPERATURE_SOURCE_SELECT_REG	= 0x49;
 
 //private string[] TEMPERATURE_NAME = 
-//new string[] {"CPU", "Ambient", "System"};
+//new string[] {"CPU", "Ambient", "System", "Memory"};
 const UInt16 WINBOND_TEMPERATURE[]           = { 0x150, 0x250, 0x27 };
 const UInt16 NUVOTON_TEMPERATURE[]           = { 0x150, 0x670, 0x27 };
+const UInt16 NUVOTON_NEW_TEMPERATURE1[]       = { 0x75, 0x77, 0x73, 0x79 };
+const UInt16 NUVOTON_NEW_TEMPERATURE2[]       = { 0x402, 0x401, 0x404, 0x405 };
 
 
 // Voltages                                    VCORE RSV0  3VCC  AVCC +12V1 -12V2 -5VIN3  3VSB   VBAT

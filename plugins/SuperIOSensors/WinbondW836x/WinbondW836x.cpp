@@ -53,7 +53,7 @@
 #include "FakeSMC.h"
 #include "../../../utils/utils.h"
 
-#define Debug false
+//#define Debug false
 
 #define LogPrefix "W836x: "
 #define DebugLog(string, args...)	do { if (Debug) { IOLog (LogPrefix "[Debug] " string "\n", ## args); } } while(0)
@@ -149,21 +149,22 @@ UInt64 W836x::setBit(UInt64 target, UInt16 bit, UInt32 value)
 long W836x::readTemperature(unsigned long index)
 {
   UInt32 bank, reg;
-  if (model >= NCT6791D) {
-    bank = NUVOTON_TEMPERATURE[index] >> 8;
-    reg = NUVOTON_TEMPERATURE[index] & 0xFF;
+  UInt32 value;
+  if (model >= NCT6771F) {
+    bank = NUVOTON_NEW_TEMPERATURE1[index] >> 8;
+    reg = NUVOTON_NEW_TEMPERATURE1[index] & 0xFF;
   } else {
     bank = WINBOND_TEMPERATURE[index] >> 8;
     reg = WINBOND_TEMPERATURE[index] & 0xFF;
   }
-	UInt32 value = readByte(bank, reg) << 1;
+	value = readByte(bank, reg) << 1;
 	
 	if (bank > 0)
-		value |= readByte(bank, (UInt8)(reg + 1)) >> 7;
+		value |= (readByte(bank, (UInt8)(reg + 1)) >> 7) & 1;
 	
 	float temperature = (float)value / 2.0f;
 	
-	return temperature <= 125 && temperature >= -55 ? temperature : 0;
+	return (temperature <= 125 && temperature >= -55) ? temperature : 0;
 }
 
 long W836x::readVoltage(unsigned long index)
@@ -546,8 +547,37 @@ bool W836x::probePort()
 	if (!getLogicalDeviceAddress()) {
         DebugLog("can't get monitoring logical device address");
         return false;
-    }
-  
+  }
+
+  //now I want to dump several registers
+  InfoLog("Dump Nuvoton registers:");
+  InfoLog("- 100: %02x", readByte(1, 0));
+  InfoLog("- 200: %02x", readByte(2, 0));
+  InfoLog("- 300: %02x", readByte(3, 0));
+  InfoLog("-  73: %02x", readByte(0, 0x73));
+  InfoLog("-  75: %02x", readByte(0, 0x75));
+  InfoLog("-  77: %02x", readByte(0, 0x77));
+  InfoLog("-  79: %02x", readByte(0, 0x79));
+  for (int i = 0; i<4; i++) {
+    int reg;
+    int bank, index;
+    reg = NUVOTON_TEMPERATURE[i];
+    bank = reg >> 8;
+    index = reg & 0xFF;
+
+    InfoLog("-  %d: %02x", reg, readByte(bank, index));
+  }
+  //
+  for (int i = 0; i<4; i++) {
+    int reg;
+    int bank, index;
+    reg = WINBOND_VOLTAGE_REG[i];
+    bank = reg >> 8;
+    index = reg & 0xFF;
+
+    InfoLog("-  %d: %02x", reg, readByte(bank, index));
+  }
+
   
 	return true;
 }
@@ -739,14 +769,19 @@ bool W836x::start(IOService * provider)
         // Heatsink
         if (!addSensor(KEY_CPU_HEATSINK_TEMPERATURE, TYPE_SP78, 2, kSuperIOTemperatureSensor, 0))
           WarningLog("error adding heatsink temperature sensor");
-        // Ambient
 
+        // Ambient
         if (!addSensor(KEY_AMBIENT_TEMPERATURE, TYPE_SP78, 2, kSuperIOTemperatureSensor, 1))
           WarningLog("error adding ambient temperature sensor");
 
         // Northbridge
         if (!addSensor(KEY_NORTHBRIDGE_TEMPERATURE, TYPE_SP78, 2, kSuperIOTemperatureSensor, 2))
           WarningLog("error adding system temperature sensor");
+
+        if (model >= NCT6771F) {
+          if (!addSensor(KEY_DIMM_TEMPERATURE, TYPE_SP78, 2, kSuperIOTemperatureSensor, 3))
+            WarningLog("error adding system temperature sensor");
+        }
 
         break;
       }
@@ -910,7 +945,7 @@ SuperIOSensor * W836x::addSensor(const char* name, const char* type, unsigned in
 {
 	if (NULL != getSensor(name))
 		return 0;
-    //  DebugLog("mults = %ld", aRi);
+  DebugLog("mults = %ld, %ld", aRi, aRf);
   SuperIOSensor *sensor = W836xSensor::withOwner(this, name, type, size, group, index, aRi, aRf, aVf);
     
 	if (sensor && sensors->setObject(sensor))
@@ -922,21 +957,21 @@ SuperIOSensor * W836x::addSensor(const char* name, const char* type, unsigned in
 
 IOReturn W836x::callPlatformFunction(const OSSymbol *functionName, bool waitForFunction, void *param1, void *param2, void *param3, void *param4 )
 {
-	if (functionName->isEqualTo(kFakeSMCGetValueCallback)) {
-		const char* name = (const char*)param1;
-		void * data = param2;
-		//UInt32 size = (UInt64)param3;		
-        
-		if (name && data) {
-            SuperIOSensor * sensor = getSensor(name);
-			if (sensor) {
-				UInt16 value = sensor->getValue();
-				bcopy(&value, data, 2);
-				return kIOReturnSuccess;
-			}
-        }		
-		return kIOReturnBadArgument;
-	}
+  if (functionName->isEqualTo(kFakeSMCGetValueCallback)) {
+    const char* name = (const char*)param1;
+    void * data = param2;
+    //UInt32 size = (UInt64)param3;
+
+    if (name && data) {
+      SuperIOSensor * sensor = getSensor(name);
+      if (sensor) {
+        UInt16 value = sensor->getValue();
+        bcopy(&value, data, 2);
+        return kIOReturnSuccess;
+      }
+    }
+    return kIOReturnBadArgument;
+  }
 /* no write SMC in Winbond
 	if (functionName->isEqualTo(kFakeSMCSetValueCallback)) {
 		const char* name = (const char*)param1;

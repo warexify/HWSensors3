@@ -173,7 +173,7 @@ bool PC8739x::start(IOService * provider)
 			name = OSDynamicCast(OSString, configuration->getObject(key));
 		}
 		
-		UInt32 nameLength = name ? strlen(name->getCStringNoCopy()) : 0;
+		size_t nameLength = name ? strlen(name->getCStringNoCopy()) : 0;
 		
 		if (readTachometer(i) > 10 || nameLength > 0)
 			if (!addTachometer(i, (nameLength > 0 ? name->getCStringNoCopy() : 0)))

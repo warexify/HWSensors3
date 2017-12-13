@@ -109,6 +109,9 @@ bool ATICard::initialize()
     case   CHIP_FAMILY_POLARIS:
       tempFamily = RAIx;
       break;
+    case   CHIP_FAMILY_VEGA:
+      tempFamily = RVEx;
+      break;
 
     default:
       InfoLog("sorry, but your card %04lx is not supported!\n", (long unsigned int)(rinfo->device_id));
@@ -140,10 +143,21 @@ bool ATICard::getRadeonInfo()
     devices++;
   }
 
-  //Polaris, Vega
-  if (((devID >= 0x67C0) && (devID <= 0x67FF)) ||  //Polaris 10,11
-      ((devID >= 0x6980) && (devID <= 0x699F)) ||  //Polaris 12, RX550
+  //Vega
+  if (
       ((devID >= 0x6860) && (devID <= 0x687F))) {  //Vega
+    rinfo->device_id = devID;
+    rinfo->ChipFamily = CHIP_FAMILY_VEGA;
+    family = CHIP_FAMILY_VEGA;
+    rinfo->igp = 0;
+    rinfo->is_mobility = false;
+    InfoLog(" Common ATI Radeon VEGA DID=%04lx\n", (long unsigned int)devID);
+    return true;
+
+  //Polaris
+  } else if (((devID >= 0x67C0) && (devID <= 0x67FF)) ||  //Polaris 10,11
+             ((devID >= 0x6980) && (devID <= 0x699F))   //Polaris 12, RX550
+             ) {
     rinfo->device_id = devID;
     rinfo->ChipFamily = CHIP_FAMILY_POLARIS;
     family = CHIP_FAMILY_POLARIS;
@@ -460,4 +474,20 @@ IOReturn ATICard::ArcticTemperatureSensor(UInt16* data)
   //data[1] = 0;
   return kIOReturnSuccess;
 }
+
+//#define mmTHM_TCON_CUR_TMP                    0x59800
+//#define THM_TCON_CUR_TMP__CUR_TEMP__SHIFT     24
+
+IOReturn ATICard::VegaTemperatureSensor(UInt16* data)
+{
+  UInt32 temp, actual_temp = 0;
+
+  temp = read32(mmTHM_TCON_CUR_TMP) >> THM_TCON_CUR_TMP__CUR_TEMP__SHIFT;
+  actual_temp = temp & 0x1ff;
+  *data = (UInt16)actual_temp;
+
+  return kIOReturnSuccess;
+}
+
+
 

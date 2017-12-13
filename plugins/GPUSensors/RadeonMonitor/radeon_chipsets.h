@@ -81,7 +81,9 @@
 #define mmPCIE_INDEX                                  (0x000C * 4)
 #define mmPCIE_DATA                                   (0x000D * 4)
 
-
+//VEGA10
+#define mmTHM_TCON_CUR_TMP                    0x59800
+#define THM_TCON_CUR_TMP__CUR_TEMP__SHIFT     24
 
 
 typedef struct {
@@ -156,6 +158,7 @@ enum radeon_family {
   CHIP_FAMILY_HAINAN,
   CHIP_FAMILY_TONGA,
   CHIP_FAMILY_POLARIS,
+  CHIP_FAMILY_VEGA,
   CHIP_FAMILY_LAST,
 };
 

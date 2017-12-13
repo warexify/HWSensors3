@@ -14,7 +14,7 @@
 #include "FakeSMC.h"
 #include "utils.h"
 
-#define Debug FALSE
+//#define Debug FALSE
 
 #define LogPrefix "SuperIOFamily: "
 #define DebugLog(string, args...)	do { if (Debug) { IOLog (LogPrefix "[Debug] " string "\n", ## args); } } while(0)
