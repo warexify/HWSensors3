@@ -198,6 +198,18 @@ long W836x::readVoltage(unsigned long index)
 
 void W836x::updateTachometers()
 {
+  if (model >= NCT6771F) {
+    for (int i = 0; i < fanLimit; i++) {
+      int bank = NUVOTON_TACHOMETER[i] >> 8;
+      int reg  = NUVOTON_TACHOMETER[i] & 0xFF;
+      int16_t msbyte = readByte(bank, reg);
+      int16_t lsbyte = readByte(bank, reg + 1);
+      fanValue[i] = (msbyte << 8) + lsbyte;
+      fanValueObsolete[i] = false;
+    }
+    return;
+  }
+
 	UInt64 bits = 0;
 	
 	for (int i = 0; i < 5; i++)
@@ -565,7 +577,7 @@ bool W836x::probePort()
     bank = reg >> 8;
     index = reg & 0xFF;
 
-    InfoLog("-  %d: %02x", reg, readByte(bank, index));
+    InfoLog("-  %x: %02x", reg, readByte(bank, index));
   }
   //
   for (int i = 0; i<4; i++) {
@@ -575,7 +587,7 @@ bool W836x::probePort()
     bank = reg >> 8;
     index = reg & 0xFF;
 
-    InfoLog("-  %d: %02x", reg, readByte(bank, index));
+    InfoLog("-  %x: %02x", reg, readByte(bank, index));
   }
 
   
@@ -810,7 +822,7 @@ bool W836x::start(IOService * provider)
         }
         else if (name->isEqualTo("+5VC")) {
           if (Ri == 0) {
-            Ri = 20;
+            Ri = 39;
             Rf = 10;
           }
           if (!addSensor(KEY_5VC_VOLTAGE, TYPE_SP4B, 2, kSuperIOVoltageSensor, i, Ri, Rf, Vf)) {
@@ -819,7 +831,7 @@ bool W836x::start(IOService * provider)
         }
         else if (name->isEqualTo("+5VSB")) {
           if (Ri == 0) {
-            Ri = 20;
+            Ri = 39;
             Rf = 10;
           }
           if (!addSensor(KEY_5VSB_VOLTAGE, TYPE_SP4B, 2, kSuperIOVoltageSensor, i, Ri, Rf, Vf)) {
@@ -837,7 +849,7 @@ bool W836x::start(IOService * provider)
         }
         else if (name->isEqualTo("-12VC")) {
           if (Ri == 0) {
-            Ri = 232;
+            Ri = 380;
             Rf = 10;
             Vf = 2048;
           }

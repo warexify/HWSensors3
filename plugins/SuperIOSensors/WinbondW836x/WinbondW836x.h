@@ -76,15 +76,18 @@ const UInt16 NUVOTON_NEW_TEMPERATURE1[]       = { 0x75, 0x77, 0x73, 0x79 };
 const UInt16 NUVOTON_NEW_TEMPERATURE2[]       = { 0x402, 0x401, 0x404, 0x405 };
 
 
-// Voltages                                    VCORE RSV0  3VCC  AVCC +12V1 -12V2 -5VIN3  3VSB   VBAT
-const UInt16 WINBOND_VOLTAGE_REG[]          = { 0x20, 0x21, 0x23, 0x22, 0x24, 0x25, 0x26, 0x550, 0x551 };
-const float  WINBOND_VOLTAGE_SCALE[]        = { 8,    8,    16,   16,   8,    8,    8,    16,    16 };
+// Voltages                                    VCORE   AVSB   3VCC   AVCC  +12V1  -12V2  -5VIN3  3VSB   VBAT
+const UInt16 WINBOND_VOLTAGE_REG[]          = { 0x20,  0x21,  0x23,  0x22,  0x24,  0x25,  0x26,  0x550, 0x551 };
+const float  WINBOND_VOLTAGE_SCALE[]        = { 8,     8,     16,    16,    8,     8,     8,     16,    16 };
 const UInt16 WINBOND_VOLTAGE_VBAT_REG       = 0x0551;
-const UInt16 NUVOTON_VOLTAGE_REG[]          = { 0x480, 0x484, 0x483, 0x482, 0x481, 0x485, 0x486, 0x487, 0x488 };
+const UInt16 NUVOTON_VOLTAGE_REG[]          = { 0x480, 0x482, 0x483, 0x484, 0x485, 0x481, 0x486, 0x487, 0x488 };
 
 
 const UInt8 WINBOND_TACHOMETER[]			= { 0x28, 0x29, 0x2A, 0x3F, 0x53 };
 const UInt8 WINBOND_TACHOMETER_BANK[]		= { 0, 0, 0, 0, 5 };
+
+//                                        SYSFAN, CPUFAN, AUXFAN
+const UInt16 NUVOTON_TACHOMETER[]			= { 0x4C0,  0x4C2,  0x4C4};
 
 const UInt8 WINBOND_TACHOMETER_DIV0[]		= { 0x47, 0x47, 0x4B, 0x59, 0x59 };
 const UInt8 WINBOND_TACHOMETER_DIV0_BIT[]	= { 4,    6,    6,    0,    2 };
@@ -148,21 +151,21 @@ class W836x : public SuperIOMonitor
 public:
 	virtual bool		init(OSDictionary *properties=0);
 	virtual IOService*	probe(IOService *provider, SInt32 *score);
-    virtual bool		start(IOService *provider);
+  virtual bool		start(IOService *provider);
 	virtual void		stop(IOService *provider);
 	virtual void		free(void);
 
 private:
-    char                vendor[40];
-    char                product[40];
+  char            vendor[40];
+  char            product[40];
     
-	UInt8				fanLimit;
-	UInt16				fanValue[5];
-	bool				fanValueObsolete[5];
+	UInt8           fanLimit;
+	UInt16          fanValue[5];
+	bool            fanValueObsolete[5];
 	
-	void				writeByte(UInt8 bank, UInt8 reg, UInt8 value);
-	UInt8				readByte(UInt8 bank, UInt8 reg);
-    UInt64              setBit(UInt64 target, UInt16 bit, UInt32 value);
+	void            writeByte(UInt8 bank, UInt8 reg, UInt8 value);
+	UInt8           readByte(UInt8 bank, UInt8 reg);
+  UInt64          setBit(UInt64 target, UInt16 bit, UInt32 value);
 	
 	virtual bool		probePort();
     //  virtual bool			startPlugin();
@@ -171,7 +174,7 @@ private:
     
 	virtual long		readTemperature(unsigned long index);
 	virtual long		readVoltage(unsigned long index);
-	void                updateTachometers();
+	void            updateTachometers();
 	virtual long		readTachometer(unsigned long index);
 	
 	virtual const char*	getModelName();
