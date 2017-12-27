@@ -156,7 +156,7 @@ NSNumber * percent = CFBridgingRelease(IORegistryEntryCreateCFProperty(service,
   int ret = BAT0_NOT_FOUND;
   if (IOPMPowerSource && [IOPMPowerSource objectForKey:@kIOPMPSVoltageKey]) {
     if ([IOPMPowerSource objectForKey:@kIOPMPSBatteryInstalledKey] != nil &&
-        [[IOPMPowerSource objectForKey:@kIOPMPSBatteryInstalledKey] boolValue]) {
+        [[IOPMPowerSource objectForKey:@kIOPMPSBatteryInstalledKey] boolValue] == YES) {
       ret = [[IOPMPowerSource objectForKey:@kIOPMPSVoltageKey] intValue];
     }
   }
@@ -168,7 +168,7 @@ NSNumber * percent = CFBridgingRelease(IORegistryEntryCreateCFProperty(service,
   int ret = BAT0_NOT_FOUND;
   if (IOPMPowerSource && [IOPMPowerSource objectForKey:@kIOPMPSAmperageKey]) {
     if ([IOPMPowerSource objectForKey:@kIOPMPSBatteryInstalledKey] != nil &&
-        [[IOPMPowerSource objectForKey:@kIOPMPSBatteryInstalledKey] boolValue]) {
+        [[IOPMPowerSource objectForKey:@kIOPMPSBatteryInstalledKey] boolValue] == YES) {
       int mA = [[IOPMPowerSource objectForKey:@kIOPMPSAmperageKey] intValue];
       ret = (mA > 0) ? mA : (0 - mA);
     }

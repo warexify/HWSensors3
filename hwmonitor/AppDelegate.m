@@ -87,6 +87,10 @@
           } else {
             [[(NSMenuItem *)[sensor object] menu] removeItem:(NSMenuItem *)[sensor object]];
           }
+        } else {
+          // workaround for VoodooBatterySMC when no battery is present
+          value = nil;
+          [[(NSMenuItem *)[sensor object] menu] removeItem:(NSMenuItem *)[sensor object]];
         }
       } else {
         value = [sensor formatedValue:
@@ -95,7 +99,7 @@
                  [HWMonitorSensor readValueForKey:[sensor key]]];
       }
       
-      if (value != nil) {
+      if ((value != nil) && ![value isEqualToString:@""]) {
         if (isMenuVisible) {
           // Update menu item title
           NSString * str = [[sensor caption] stringByPaddingToLength:28 withString:@" " startingAtIndex:0];
