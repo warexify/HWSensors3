@@ -30,6 +30,7 @@
 		8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165CFE840E0CC02AAC07 /* InfoPlist.strings */; };
 		8D11072D0486CEB800E47090 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1058C7A1FEA54F0111CA2CBB /* Cocoa.framework */; };
+		955EA9611FF402EE00A24005 /* temperature_small_dark.png in Resources */ = {isa = PBXBuildFile; fileRef = 955EA9601FF402EE00A24005 /* temperature_small_dark.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -70,6 +71,7 @@
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
 		8D1107310486CEB800E47090 /* HWMonitorSMC-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "HWMonitorSMC-Info.plist"; sourceTree = "<group>"; };
 		8D1107320486CEB800E47090 /* HWMonitorSMC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HWMonitorSMC.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		955EA9601FF402EE00A24005 /* temperature_small_dark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = temperature_small_dark.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -168,6 +170,7 @@
 				1252AC881CF5A04600109431 /* ssd_small.png */,
 				1260E4C016C4E7F1006515EB /* temp_alt_small.png */,
 				1260E4C116C4E7F1006515EB /* temperature_small.png */,
+				955EA9601FF402EE00A24005 /* temperature_small_dark.png */,
 				1260E4C216C4E7F1006515EB /* voltage_small.png */,
 				8D1107310486CEB800E47090 /* HWMonitorSMC-Info.plist */,
 				089C165CFE840E0CC02AAC07 /* InfoPlist.strings */,
@@ -252,6 +255,7 @@
 				1260E4C416C4E7F1006515EB /* temperature_small.png in Resources */,
 				1260E4C516C4E7F1006515EB /* voltage_small.png in Resources */,
 				1252AC891CF5A04700109431 /* ssd_small.png in Resources */,
+				955EA9611FF402EE00A24005 /* temperature_small_dark.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -8,41 +8,27 @@
 
 #import <IOKit/pwr_mgt/IOPM.h>
 #import "IOBatteryStatus.h"
+#include "../utils/definitions.h"
 
 @implementation IOBatteryStatus
 
-
 + (BOOL)keyboardAvailable {
   io_service_t service = IOServiceGetMatchingService(0, IOServiceNameMatching("AppleBluetoothHIDKeyboard"));
-  BOOL value=YES;
-  
-  if (!service ) {
-    value =  NO;
-  }
+  BOOL value = service ? YES : NO;
   IOObjectRelease(service);
   return value;
 }
 
-
-
 + (BOOL)trackpadAvailable {
   io_service_t service = IOServiceGetMatchingService(0, IOServiceNameMatching("BNBTrackpadDevice"));
-  BOOL value=YES;
-  
-  if (!service ) {
-    value =  NO;
-  }
+  BOOL value = service ? YES : NO;
   IOObjectRelease(service);
   return value;
 }
 
 + (BOOL)mouseAvailable {
   io_service_t service = IOServiceGetMatchingService(0, IOServiceNameMatching("BNBMouseDevice"));
-  BOOL value=YES;
-  
-  if (!service ) {
-    value =  NO;
-  }
+  BOOL value = service ? YES : NO;
   IOObjectRelease(service);
   return value;
 }
@@ -68,7 +54,7 @@
     return nil;
   }
     
-  value = CFBridgingRelease(IORegistryEntryCreateCFProperty(service, CFSTR("Product"), kCFAllocatorDefault, 0));
+    value = CFBridgingRelease(IORegistryEntryCreateCFProperty(service, CFSTR("Product"), kCFAllocatorDefault, 0));
   
   IOObjectRelease(service);
   return value;
@@ -96,9 +82,9 @@
     return 0; //nil;
   }
 
-  NSNumber * percent = CFBridgingRelease(IORegistryEntryCreateCFProperty(service,
-                                                                         CFSTR("BatteryPercent, "),
-                                                                         kCFAllocatorDefault, 0));
+NSNumber * percent = CFBridgingRelease(IORegistryEntryCreateCFProperty(service,
+                                                                       CFSTR("BatteryPercent, "),
+                                                                       kCFAllocatorDefault, 0));
   
   IOObjectRelease(service);
   return [percent integerValue];
@@ -111,9 +97,9 @@
   if (!service ) {
     return 0; //nil;
   }
-  NSNumber * percent = CFBridgingRelease(IORegistryEntryCreateCFProperty(service,
-                                                                         CFSTR("BatteryPercent"),
-                                                                         kCFAllocatorDefault, 0));
+    NSNumber * percent = CFBridgingRelease(IORegistryEntryCreateCFProperty(service,
+                                                                           CFSTR("BatteryPercent"),
+                                                                           kCFAllocatorDefault, 0));
   
   IOObjectRelease(service);
   return [percent integerValue];
@@ -167,19 +153,27 @@
 
 // Voltage measured in mV
 + (int)getBatteryVoltageFrom:(NSDictionary *)IOPMPowerSource {
+  int ret = BAT0_NOT_FOUND;
   if (IOPMPowerSource && [IOPMPowerSource objectForKey:@kIOPMPSVoltageKey]) {
-    return [[IOPMPowerSource objectForKey:@kIOPMPSVoltageKey] intValue];
+    if ([IOPMPowerSource objectForKey:@kIOPMPSBatteryInstalledKey] != nil &&
+        [[IOPMPowerSource objectForKey:@kIOPMPSBatteryInstalledKey] boolValue]) {
+      ret = [[IOPMPowerSource objectForKey:@kIOPMPSVoltageKey] intValue];
+    }
   }
-  return 0;
+  return ret;
 }
 
 // Capacity measured in mA
-+ (int)getBatteryAmperageFrom:(NSDictionary *)IOPMPowerSource {
++ (int) getBatteryAmperageFrom:(NSDictionary *)IOPMPowerSource {
+  int ret = BAT0_NOT_FOUND;
   if (IOPMPowerSource && [IOPMPowerSource objectForKey:@kIOPMPSAmperageKey]) {
-    int mA = [[IOPMPowerSource objectForKey:@kIOPMPSAmperageKey] intValue];
-    return (mA > 0) ? mA : (0 - mA);
+    if ([IOPMPowerSource objectForKey:@kIOPMPSBatteryInstalledKey] != nil &&
+        [[IOPMPowerSource objectForKey:@kIOPMPSBatteryInstalledKey] boolValue]) {
+      int mA = [[IOPMPowerSource objectForKey:@kIOPMPSAmperageKey] intValue];
+      ret = (mA > 0) ? mA : (0 - mA);
+    }
   }
-  return 0;
+  return ret;
 }
 
 @end
