@@ -76,8 +76,7 @@ float _strtof(char *str, int size, int e) {
 
 
 
-kern_return_t SMCOpen(io_connect_t *conn)
-{
+kern_return_t SMCOpen(io_connect_t *conn) {
   kern_return_t result;
   mach_port_t   masterPort;
   io_iterator_t iterator;

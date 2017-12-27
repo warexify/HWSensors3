@@ -9,8 +9,6 @@
 #import <IOKit/pwr_mgt/IOPM.h>
 #import "IOBatteryStatus.h"
 
-//#define __bridge_transfer
-
 @implementation IOBatteryStatus
 
 
@@ -56,10 +54,7 @@
   if (!service ) {
     return nil;
   }
-  //  CFStringRef idc = IORegistryEntryCreateCFProperty(service, CFSTR("Product"), kCFAllocatorDefault, 0);
-  value = (__bridge_transfer  NSString *)IORegistryEntryCreateCFProperty(service, CFSTR("Product"), kCFAllocatorDefault, 0);
-  //  value = [NSString stringWithFormat:@"%@", (NSString*)idc];
-  // if(idc) CFRelease(idc);
+  value = CFBridgingRelease(IORegistryEntryCreateCFProperty(service, CFSTR("Product"), kCFAllocatorDefault, 0));
   
   IOObjectRelease(service);
   return value;
@@ -72,10 +67,8 @@
   if (!service ) {
     return nil;
   }
-  // CFStringRef idc = IORegistryEntryCreateCFProperty(service, CFSTR("Product"), kCFAllocatorDefault, 0);
-  value = (__bridge_transfer  NSString *)IORegistryEntryCreateCFProperty(service, CFSTR("Product"), kCFAllocatorDefault, 0);
-  //  value = [NSString stringWithFormat:@"%@", (NSString*)idc];
-  //  if(idc) CFRelease(idc);
+    
+  value = CFBridgingRelease(IORegistryEntryCreateCFProperty(service, CFSTR("Product"), kCFAllocatorDefault, 0));
   
   IOObjectRelease(service);
   return value;
@@ -88,10 +81,8 @@
   if (!service ) {
     return nil;
   }
-  //  CFStringRef idc = IORegistryEntryCreateCFProperty(service, CFSTR("Product"), kCFAllocatorDefault, 0);
-  value = (__bridge_transfer  NSString *)IORegistryEntryCreateCFProperty(service, CFSTR("Product"), kCFAllocatorDefault, 0);
-  //  value = [NSString stringWithFormat:@"%@", (NSString*)idc];
-  //  if(idc) CFRelease(idc);
+    
+  value = CFBridgingRelease(IORegistryEntryCreateCFProperty(service, CFSTR("Product"), kCFAllocatorDefault, 0));
   
   IOObjectRelease(service);
   return value;
@@ -104,15 +95,10 @@
   if (!service ) {
     return 0; //nil;
   }
-  // __bridge_transfer NSNumber
-  NSNumber * percent = (__bridge_transfer  NSNumber *)IORegistryEntryCreateCFProperty(service,
-                                                                                      CFSTR("BatteryPercent, "),
-                                                                                      kCFAllocatorDefault, 0);
-  
-  /*  CFStringRef idc = IORegistryEntryCreateCFProperty(service, CFSTR("Product"), kCFAllocatorDefault, 0);
-   //   value = (__bridge_transfer  NSString *)IORegistryEntryCreateCFProperty(service, CFSTR("Product"), kCFAllocatorDefault, 0);
-   value = [NSString stringWithFormat:@"%@", (NSString*)idc];
-   if(idc) CFRelease(idc); */
+
+  NSNumber * percent = CFBridgingRelease(IORegistryEntryCreateCFProperty(service,
+                                                                         CFSTR("BatteryPercent, "),
+                                                                         kCFAllocatorDefault, 0));
   
   IOObjectRelease(service);
   return [percent integerValue];
@@ -125,9 +111,9 @@
   if (!service ) {
     return 0; //nil;
   }
-  NSNumber * percent = (__bridge_transfer  NSNumber *)IORegistryEntryCreateCFProperty(service,
-                                                                                      CFSTR("BatteryPercent"),
-                                                                                      kCFAllocatorDefault, 0);
+  NSNumber * percent = CFBridgingRelease(IORegistryEntryCreateCFProperty(service,
+                                                                         CFSTR("BatteryPercent"),
+                                                                         kCFAllocatorDefault, 0));
   
   IOObjectRelease(service);
   return [percent integerValue];
@@ -140,9 +126,9 @@
   if (!service ) {
     return 0; //nil;
   }
-  NSNumber * percent = (__bridge_transfer  NSNumber *)IORegistryEntryCreateCFProperty(service,
-                                                                                      CFSTR("BatteryPercent"),
-                                                                                      kCFAllocatorDefault, 0);
+  NSNumber * percent = CFBridgingRelease(IORegistryEntryCreateCFProperty(service,
+                                                                         CFSTR("BatteryPercent"),
+                                                                         kCFAllocatorDefault, 0));
   
   IOObjectRelease(service);
   return [percent integerValue];
@@ -188,7 +174,7 @@
 }
 
 // Capacity measured in mA
-+ (int) getBatteryAmperageFrom:(NSDictionary *)IOPMPowerSource {
++ (int)getBatteryAmperageFrom:(NSDictionary *)IOPMPowerSource {
   if (IOPMPowerSource && [IOPMPowerSource objectForKey:@kIOPMPSAmperageKey]) {
     int mA = [[IOPMPowerSource objectForKey:@kIOPMPSAmperageKey] intValue];
     return (mA > 0) ? mA : (0 - mA);
