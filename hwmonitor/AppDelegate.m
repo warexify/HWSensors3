@@ -217,8 +217,22 @@
   statusItem = [[NSStatusBar systemStatusBar] statusItemWithLength:NSVariableStatusItemLength];
   [statusItem setMenu:statusMenu];
   [statusItem setHighlightMode:YES];
-  [statusItem setImage:[NSImage imageNamed:@"temperature_small"]];
-  [statusItem setAlternateImage:[NSImage imageNamed:@"temperature_small"]];
+  
+  NSString *statusImage;
+  NSString *statusImageAlternate;
+  NSString *macOSppearance = [[NSUserDefaults standardUserDefaults] stringForKey:@"AppleInterfaceStyle"];
+  
+  // Check if the status icon must be normal or dark
+  if ([macOSppearance isEqualToString:@"Dark"]) {
+    statusImage = @"temperature_small_dark";
+    statusImageAlternate = @"temperature_small_dark";
+  } else {
+    statusImage = @"temperature_small";
+    statusImageAlternate = @"temperature_small_dark";
+  }
+  
+  [statusItem setImage:[NSImage imageNamed:statusImage]];
+  [statusItem setAlternateImage:[NSImage imageNamed:statusImageAlternate]];
   
   statusItemFont = [NSFont fontWithName:@"Lucida Grande Bold" size:9.0];
   
