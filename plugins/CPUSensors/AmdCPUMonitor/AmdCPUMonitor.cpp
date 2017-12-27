@@ -42,7 +42,8 @@ IOService* AmdCPUMonitor::probe(IOService *provider, SInt32 *score)
 				if (data)
 					class_id = *(UInt32*)data->getBytesNoCopy();
 				
-				if ((vendor_id==0x1022) && ((device_id & 0xF0FF)== 0x1003)){
+				if (((vendor_id==0x1022) && ((device_id & 0xF0FF)== 0x1003)) ||
+            ((vendor_id==0x1022) && (device_id== 0x1463))){ //Risen
 					InfoLog("found AMD Miscellaneous Control id=%x class_id=%x", (UInt16)device_id, class_id);
 					VCard = device;
 				}

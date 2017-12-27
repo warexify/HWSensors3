@@ -2269,7 +2269,7 @@
 				INFOPLIST_FILE = "plugins/CPUSensors/AmdCPUMonitor/AmdCPUMonitor-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				MODULE_NAME = org.slice.sensor.AmdCPUMonitor;
-				MODULE_VERSION = 1.0.1;
+				MODULE_VERSION = 1.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.slice.sensor.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = AmdCPUMonitor;
 				SDKROOT = macosx;
@@ -2289,7 +2289,7 @@
 				INFOPLIST_PREPROCESS = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				MODULE_NAME = org.slice.sensor.AmdCPUMonitor;
-				MODULE_VERSION = 1.0.1;
+				MODULE_VERSION = 1.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.slice.sensor.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = AmdCPUMonitor;
 				SDKROOT = macosx;
