@@ -89,6 +89,7 @@
 #define KEY_VBAT_VOLTAGE                        "VBAT"
 
 //laptop battery
+#define BAT0_NOT_FOUND                          -1
 #define KEY_BAT0_VOLTAGE                        "B0AV"
 #define KEY_BAT1_VOLTAGE                        "B1AV"
 #define KEY_BAT2_VOLTAGE                        "B2AV"
