@@ -89,6 +89,7 @@ hwmonitor/smc.h -text
 hwmonitor/ssd_small.png -text
 hwmonitor/temp_alt_small.png -text
 hwmonitor/temperature_small.png -text
+hwmonitor/temperature_small_dark.png -text
 hwmonitor/temperature_small_grey.png -text
 hwmonitor/voltage_small.png -text
 plugins/ACPIMonitor/ACPIMonitor-Info.plist -text
