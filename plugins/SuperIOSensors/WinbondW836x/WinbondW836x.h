@@ -127,6 +127,7 @@ enum W836xModel {
   NCT6791D   = 0xC803,
   NCT6792D   = 0xC911,
   NCT6793D   = 0xD121,
+  NCT6795D   = 0xD352,
   NCT6796D   = 0xD423,
 };
 

@@ -499,28 +499,28 @@ IOReturn GeforceSensors::callPlatformFunction(const OSSymbol *functionName, bool
                                 
 								
                             case 'C':
-                                value=swap_value((UInt16)(card.clocks_get(&card, nouveau_clock_core) / 100.0f));
+                                value=swap_value((UInt16)(card.clocks_get(&card, nouveau_clock_core) / 1000.0f));
                                 
                                 //bcopy(&value, data, 2);
                                 memcpy(data, &value, 4);
                                 
                                 break;
                             case 'S':
-                                value=swap_value((UInt16)(card.clocks_get(&card, nouveau_clock_shader) / 100.0f));
+                                value=swap_value((UInt16)(card.clocks_get(&card, nouveau_clock_shader) / 1000.0f));
                                 
                                 //bcopy(&value, data, 2);
                                 memcpy(data, &value, 4);
                                 
                                 break;
                             case 'M':
-                                value=swap_value((UInt16)(card.clocks_get(&card, nouveau_clock_memory) / 100.0f));
+                                value=swap_value((UInt16)(card.clocks_get(&card, nouveau_clock_memory) / 1000.0f));
                                 
                                 //bcopy(&value, data, 2);
                                 memcpy(data, &value, 4);
                                 
                                 break;
                             case 'R':
-                                value=swap_value((UInt16)(card.clocks_get(&card, nouveau_clock_rop) / 100.0f));
+                                value=swap_value((UInt16)(card.clocks_get(&card, nouveau_clock_rop) / 1000.0f));
                                 
                                 //bcopy(&value, data, 2);
                                 memcpy(data, &value, 4);
