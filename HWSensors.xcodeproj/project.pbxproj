@@ -2832,7 +2832,7 @@
 				INFOPLIST_FILE = plugins/VoodooBattery/Info.plist;
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				MODULE_NAME = org.slice.VoodooBatterySMC;
-				MODULE_VERSION = 1.4.3;
+				MODULE_VERSION = 1.5.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				OTHER_CFLAGS = (
 					"-DINFO",
@@ -2884,7 +2884,7 @@
 				INFOPLIST_FILE = plugins/VoodooBattery/Info.plist;
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				MODULE_NAME = org.slice.VoodooBatterySMC;
-				MODULE_VERSION = 1.4.3;
+				MODULE_VERSION = 1.5.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_CFLAGS = (
 					"-DINFO",
@@ -2937,7 +2937,7 @@
 				INFOPLIST_FILE = VoodooBattery/Info.plist;
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				MODULE_NAME = org.slice.VoodooBatterySMC;
-				MODULE_VERSION = 1.4.3;
+				MODULE_VERSION = 1.5.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.superhai.driver.${PRODUCT_NAME:identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2983,7 +2983,7 @@
 				INFOPLIST_FILE = VoodooBattery/Info.plist;
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				MODULE_NAME = org.slice.VoodooBatterySMC;
-				MODULE_VERSION = 1.4.3;
+				MODULE_VERSION = 1.5.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.superhai.driver.${PRODUCT_NAME:identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";

@@ -313,65 +313,132 @@ VoodooBattery::CheckDevices(void) {
 }
 
 void
+VoodooBattery::GetBatteryInfoEx(UInt8 battery, OSObject * acpi)
+{
+  OSArray * info = OSDynamicCast(OSArray, acpi);
+  if (GetValueFromArray(info, 1) == 0x00000000) PowerUnitIsWatt = true;
+  Battery[battery].DesignCapacity = GetValueFromArray(info, 2);
+  Battery[battery].LastFullChargeCapacity = GetValueFromArray(info, 3);
+  Battery[battery].Technology = GetValueFromArray(info, 4);
+  Battery[battery].DesignVoltage = GetValueFromArray(info, 5);
+  Battery[battery].DesignCapacityWarning = GetValueFromArray(info, 6);
+  Battery[battery].DesignCapacityLow = GetValueFromArray(info, 7);
+  if (!Battery[battery].DesignVoltage) Battery[battery].DesignVoltage = DummyVoltage;
+  if (PowerUnitIsWatt) {
+    UInt32 volt = Battery[battery].DesignVoltage / 1000;
+    InfoLog("Battery voltage %d,%03d", volt, Battery[battery].DesignVoltage % 1000);
+    if ((Battery[battery].DesignCapacity / volt) < 900) {
+						WarningLog("Battery reports mWh but uses mAh (%u)",
+                       Battery[battery].DesignCapacity);
+						PowerUnitIsWatt = false;
+    } else {
+						Battery[battery].DesignCapacity /= volt;
+						Battery[battery].LastFullChargeCapacity /= volt;
+						Battery[battery].DesignCapacityWarning /= volt;
+						Battery[battery].DesignCapacityLow /= volt;
+    }
+  }
+  if (Battery[battery].DesignCapacity < Battery[battery].LastFullChargeCapacity) {
+    WarningLog("Battery reports lower design capacity than maximum charged (%u/%u)",
+               Battery[battery].DesignCapacity, Battery[battery].LastFullChargeCapacity);
+    if (Battery[battery].LastFullChargeCapacity < AcpiMax) {
+						UInt32 temp = Battery[battery].DesignCapacity;
+						Battery[battery].DesignCapacity = Battery[battery].LastFullChargeCapacity;
+						Battery[battery].LastFullChargeCapacity = temp;
+    }
+  }
+  Battery[battery].Cycle	= GetValueFromArray(info, 8);
+}
+
+void
+VoodooBattery::GetBatteryInfo(UInt8 battery, OSObject * acpi)
+{
+  OSArray * info = OSDynamicCast(OSArray, acpi);
+  if (GetValueFromArray(info, 0) == 0x00000000) PowerUnitIsWatt = true;
+  Battery[battery].DesignCapacity = GetValueFromArray(info, 1);
+  Battery[battery].LastFullChargeCapacity = GetValueFromArray(info, 2);
+  Battery[battery].Technology = GetValueFromArray(info, 3);
+  Battery[battery].DesignVoltage = GetValueFromArray(info, 4);
+  Battery[battery].DesignCapacityWarning = GetValueFromArray(info, 5);
+  Battery[battery].DesignCapacityLow = GetValueFromArray(info, 6);
+  if (!Battery[battery].DesignVoltage) Battery[battery].DesignVoltage = DummyVoltage;
+  if (PowerUnitIsWatt) {
+    UInt32 volt = Battery[battery].DesignVoltage / 1000;
+    InfoLog("Battery voltage %d,%03d", volt, Battery[battery].DesignVoltage % 1000);
+    if ((Battery[battery].DesignCapacity / volt) < 900) {
+						WarningLog("Battery reports mWh but uses mAh (%u)",
+                       Battery[battery].DesignCapacity);
+						PowerUnitIsWatt = false;
+    } else {
+						Battery[battery].DesignCapacity /= volt;
+						Battery[battery].LastFullChargeCapacity /= volt;
+						Battery[battery].DesignCapacityWarning /= volt;
+						Battery[battery].DesignCapacityLow /= volt;
+    }
+  }
+
+  if (Battery[battery].DesignCapacity < Battery[battery].LastFullChargeCapacity) {
+    WarningLog("Battery reports lower design capacity than maximum charged (%u/%u)",
+               Battery[battery].DesignCapacity, Battery[battery].LastFullChargeCapacity);
+    if (Battery[battery].LastFullChargeCapacity < AcpiMax) {
+						UInt32 temp = Battery[battery].DesignCapacity;
+						Battery[battery].DesignCapacity = Battery[battery].LastFullChargeCapacity;
+						Battery[battery].LastFullChargeCapacity = temp;
+    }
+  }
+
+  if (Battery[battery].LastFullChargeCapacity && Battery[battery].DesignCapacity) {
+    UInt32 last		= Battery[battery].LastFullChargeCapacity;
+    UInt32 design	= Battery[battery].DesignCapacity;
+    //UInt32 cycle	= 2 * (10 - (last * 10 / design)) / 3;
+    Battery[battery].Cycle	= (design - last) * 1000 / design; //assume battery designed for 1000 cycles
+  }
+}
+
+void
+VoodooBattery::PublishBatteryInfo(UInt8 battery, OSObject * acpi, int Ext)
+{
+  OSArray * info = OSDynamicCast(OSArray, acpi);
+  // Publish to our IOKit powersource
+  BatteryPowerSource[battery]->setMaxCapacity(Battery[battery].LastFullChargeCapacity);
+  BatteryPowerSource[battery]->setDesignCapacity(Battery[battery].DesignCapacity);
+  BatteryPowerSource[battery]->setExternalChargeCapable(true);
+  BatteryPowerSource[battery]->setBatteryInstalled(true);
+  BatteryPowerSource[battery]->setLocation(StartLocation + battery);
+  BatteryPowerSource[battery]->setAdapterInfo(0);
+  BatteryPowerSource[battery]->setDeviceName(GetSymbolFromArray(info, 9 + Ext));
+  BatteryPowerSource[battery]->setSerial(GetSymbolFromArray(info, 10 + Ext));
+  BatteryPowerSource[battery]->setBatteryType(GetSymbolFromArray(info, 11 + Ext));
+  BatteryPowerSource[battery]->setSerialString(GetSymbolFromArray(info, 10 + Ext));
+  BatteryPowerSource[battery]->setManufacturer(GetSymbolFromArray(info, 12 + Ext));
+  BatteryPowerSource[battery]->setCycleCount(Battery[battery].Cycle);
+}
+
+
+void
 VoodooBattery::BatteryInformation(UInt8 battery) {
 	PowerUnitIsWatt = false;
 	if (BatteryConnected[battery]) {
 		DebugLog("Battery %u Connected", battery);
 		OSObject * acpi = NULL;
+    if (kIOReturnSuccess == BatteryDevice[battery]->evaluateObject(AcpiBatteryInformationEx, &acpi)) { //_BIX
+      if (acpi && (OSTypeIDInst(acpi) == OSTypeID(OSArray))) {
+        GetBatteryInfoEx(battery, acpi);
+        PublishBatteryInfo(battery, acpi, 7);
+
+        BatteryPowerSource[battery]->updateStatus();
+        acpi->release();
+        return;
+      } else {
+        WarningLog("Error in ACPI data");
+        //BatteryConnected[battery] = false;
+        //try to get _BIF
+      }
+    }
 		if (kIOReturnSuccess == BatteryDevice[battery]->evaluateObject(AcpiBatteryInformation, &acpi)) { //_BIF
 			if (acpi && (OSTypeIDInst(acpi) == OSTypeID(OSArray))) {
-				OSArray * info = OSDynamicCast(OSArray, acpi);
-				if (GetValueFromArray(info, 0) == 0x00000000) PowerUnitIsWatt = true;
-				Battery[battery].DesignCapacity = GetValueFromArray(info, 1);
-				Battery[battery].LastFullChargeCapacity = GetValueFromArray(info, 2);
-				Battery[battery].Technology = GetValueFromArray(info, 3);
-				Battery[battery].DesignVoltage = GetValueFromArray(info, 4);
-				Battery[battery].DesignCapacityWarning = GetValueFromArray(info, 5);
-				Battery[battery].DesignCapacityLow = GetValueFromArray(info, 6);
-				if (!Battery[battery].DesignVoltage) Battery[battery].DesignVoltage = DummyVoltage;
-				if (PowerUnitIsWatt) {
-					UInt32 volt = Battery[battery].DesignVoltage / 1000;
-          InfoLog("Battery voltage %d,%03d", volt, Battery[battery].DesignVoltage % 1000);
-					if ((Battery[battery].DesignCapacity / volt) < 900) {
-						WarningLog("Battery reports mWh but uses mAh (%u)",
-								   Battery[battery].DesignCapacity);
-						PowerUnitIsWatt = false;
-					} else {
-						Battery[battery].DesignCapacity /= volt;
-						Battery[battery].LastFullChargeCapacity /= volt;
-						Battery[battery].DesignCapacityWarning /= volt;
-						Battery[battery].DesignCapacityLow /= volt;
-					}					
-				}
-				if (Battery[battery].DesignCapacity < Battery[battery].LastFullChargeCapacity) {
-					WarningLog("Battery reports lower design capacity than maximum charged (%u/%u)",
-							   Battery[battery].DesignCapacity, Battery[battery].LastFullChargeCapacity);
-					if (Battery[battery].LastFullChargeCapacity < AcpiMax) {
-						UInt32 temp = Battery[battery].DesignCapacity;
-						Battery[battery].DesignCapacity = Battery[battery].LastFullChargeCapacity;
-						Battery[battery].LastFullChargeCapacity = temp;
-					}
-				}
-				// Publish to our IOKit powersource
-				BatteryPowerSource[battery]->setMaxCapacity(Battery[battery].LastFullChargeCapacity);
-				BatteryPowerSource[battery]->setDesignCapacity(Battery[battery].DesignCapacity);
-				BatteryPowerSource[battery]->setExternalChargeCapable(true);
-				BatteryPowerSource[battery]->setBatteryInstalled(true);
-				BatteryPowerSource[battery]->setLocation(StartLocation + battery);
-				BatteryPowerSource[battery]->setAdapterInfo(0);
-				BatteryPowerSource[battery]->setDeviceName(GetSymbolFromArray(info, 9));
-				BatteryPowerSource[battery]->setSerial(GetSymbolFromArray(info, 10));
-        BatteryPowerSource[battery]->setBatteryType(GetSymbolFromArray(info, 11));
-				BatteryPowerSource[battery]->setSerialString(GetSymbolFromArray(info, 10));
-				BatteryPowerSource[battery]->setManufacturer(GetSymbolFromArray(info, 12));
-
-				if (Battery[battery].LastFullChargeCapacity && Battery[battery].DesignCapacity) {
-					UInt32 last		= Battery[battery].LastFullChargeCapacity;
-					UInt32 design	= Battery[battery].DesignCapacity;
-					//UInt32 cycle	= 2 * (10 - (last * 10 / design)) / 3;
-					UInt32 cycle	= (design - last) * 1000 / design; //assume battery designed for 1000 cycles
-					BatteryPowerSource[battery]->setCycleCount(cycle);
-				}
+        GetBatteryInfo(battery, acpi);
+        PublishBatteryInfo(battery, acpi, 0);
 				acpi->release();
 			} else {
 				WarningLog("Error in ACPI data");

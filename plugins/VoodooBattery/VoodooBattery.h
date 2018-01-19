@@ -39,8 +39,51 @@ const char *	PnpDeviceIdAcAdapter	= "ACPI0003";
 const char *	AcpiStatus				= "_STA";
 const char *	AcpiPowerSource			= "_PSR";
 const char *	AcpiBatteryInformation	= "_BIF";
+const char *	AcpiBatteryInformationEx	= "_BIX";
 const char *	AcpiBatteryStatus		= "_BST";
+/*
+// _BIF
+Package {
+  Power Unit                      // Integer (DWORD)
+  Design Capacity                 // Integer (DWORD)
+  Last Full Charge Capacity       // Integer (DWORD)
+  Battery Technology              // Integer (DWORD)
+  Design Voltage                  // Integer (DWORD)
+  Design Capacity of Warning      // Integer (DWORD)
+  Design Capacity of Low          // Integer (DWORD)
+  Battery Capacity Granularity 1  // Integer (DWORD)
+  Battery Capacity Granularity 2  // Integer (DWORD)
+  Model Number                    // String (ASCIIZ)
+  Serial Number                   // String (ASCIIZ)
+  Battery Type                    // String (ASCIIZ)
+  OEM Information                 // String (ASCIIZ)
+}
 
+// _BIX
+Package {
+  // ASCIIZ is ASCII character string terminated with a 0x00.
+  Revision      //Integer
+  Power Unit
+  Design Capacity
+  Last Full Charge Capacity     //Integer (DWORD)
+  Battery Technology
+  Design Voltage
+  Design Capacity of Warning
+  Design Capacity of Low
+  Cycle Count                   //Integer (DWORD)
+  Measurement Accuracy          //Integer (DWORD)
+  Max Sampling Time             //Integer (DWORD)
+  Min Sampling Time             //Integer (DWORD)
+  Max Averaging Interval        //Integer (DWORD)
+  Min Averaging Interval        //Integer (DWORD)
+  Battery Capacity Granularity 1
+  Battery Capacity Granularity 2
+  Model Number
+  Serial Number
+  Battery Type
+  OEM Information
+}
+*/
 
 static const OSSymbol * unknownObjectKey		= OSSymbol::withCString("");
 static const OSSymbol * designCapacityKey		= OSSymbol::withCString(kIOPMPSDesignCapacityKey);
@@ -84,6 +127,7 @@ struct BatteryClass {
 	UInt32	AverageRate;
 	UInt32	RemainingCapacity;
 	UInt32	LastRemainingCapacity;
+  UInt32	Cycle;
 };
 
 class AppleSmartBattery : public IOPMPowerSource {
@@ -165,6 +209,9 @@ private:
 	// *** Methods ***
 	void	Update(void);
 	void	CheckDevices(void);
+  void  GetBatteryInfoEx(UInt8 battery, OSObject * acpi);
+  void  GetBatteryInfo(UInt8 battery, OSObject * acpi);
+  void  PublishBatteryInfo(UInt8 battery, OSObject * acpi, int Ext);
 	void	BatteryInformation(UInt8 battery);
 	void	BatteryStatus(UInt8 battery);
 	void	ExternalPower(bool status);
