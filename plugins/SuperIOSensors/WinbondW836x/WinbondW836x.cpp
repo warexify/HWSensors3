@@ -825,7 +825,7 @@ bool W836x::start(IOService * provider)
         }
         else if (name->isEqualTo("+5VC")) {
           if (Ri == 0) {
-            Ri = 39;
+            Ri = 20; //Rodion
             Rf = 10;
           }
           if (!addSensor(KEY_5VC_VOLTAGE, TYPE_SP4B, 2, kSuperIOVoltageSensor, i, Ri, Rf, Vf)) {
@@ -834,7 +834,7 @@ bool W836x::start(IOService * provider)
         }
         else if (name->isEqualTo("+5VSB")) {
           if (Ri == 0) {
-            Ri = 39;
+            Ri = 20; //Rodion
             Rf = 10;
           }
           if (!addSensor(KEY_5VSB_VOLTAGE, TYPE_SP4B, 2, kSuperIOVoltageSensor, i, Ri, Rf, Vf)) {
@@ -843,7 +843,7 @@ bool W836x::start(IOService * provider)
         }
         else if (name->isEqualTo("+12VC")) {
           if (Ri == 0) {
-            Ri = 56;
+            Ri = 60;  //Rodion - 60, Datasheet 56 (?)
             Rf = 10;
           }
           if (!addSensor(KEY_12V_VOLTAGE, TYPE_SP4B, 2, kSuperIOVoltageSensor, i, Ri, Rf, Vf)) {
@@ -852,7 +852,7 @@ bool W836x::start(IOService * provider)
         }
         else if (name->isEqualTo("-12VC")) {
           if (Ri == 0) {
-            Ri = 380;
+            Ri = 232; // Rodion - у меня нет такого. в datasheet 232 (?)
             Rf = 10;
             Vf = 2048;
           }
@@ -862,8 +862,8 @@ bool W836x::start(IOService * provider)
         }
         else if (name->isEqualTo("3VCC")) {
           if (Ri == 0) {
-            Ri = 34;
-            Rf = 34;
+//            Ri = 34; Rodion
+//            Rf = 34;  оно уже посчитано здесь { 8,     8,     16,    16,    8,     8,     8,     16,    16 };
           }
           if (!addSensor(KEY_3VCC_VOLTAGE, TYPE_FP2E, 2, kSuperIOVoltageSensor, i, Ri, Rf, Vf)) {
             WarningLog("ERROR Adding 3VCC Voltage Sensor!");
@@ -872,8 +872,8 @@ bool W836x::start(IOService * provider)
 
         else if (name->isEqualTo("3VSB")) {
           if (Ri == 0) {
-            Ri = 34;
-            Rf = 34;
+//            Ri = 34;
+//            Rf = 34;
           }
           if (!addSensor(KEY_3VSB_VOLTAGE, TYPE_FP2E, 2, kSuperIOVoltageSensor, i, Ri, Rf, Vf)) {
             WarningLog("ERROR Adding 3VSB Voltage Sensor!");
@@ -881,8 +881,8 @@ bool W836x::start(IOService * provider)
         }
         else if (name->isEqualTo("VBAT")) {
           if (Ri == 0) {
-            Ri = 34;
-            Rf = 34;
+//            Ri = 34; Rodion - проверить не могу...но, по аналогии ))
+//            Rf = 34;
           }
           if (!addSensor(KEY_VBAT_VOLTAGE, TYPE_FP2E, 2, kSuperIOVoltageSensor, i, Ri, Rf, Vf)) {
             WarningLog("ERROR Adding VBAT Voltage Sensor!");
@@ -890,8 +890,8 @@ bool W836x::start(IOService * provider)
         }
         else if (name->isEqualTo("AVCC")) {
           if (Ri == 0) {
-            Ri = 34;
-            Rf = 34;
+//            Ri = 34;
+//            Rf = 34;
           }
           if (!addSensor(KEY_AVCC_VOLTAGE, TYPE_FP2E, 2, kSuperIOVoltageSensor, i, Ri, Rf, Vf)) {
             WarningLog("ERROR Adding AVCC Voltage Sensor!");

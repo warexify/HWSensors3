@@ -19,7 +19,7 @@ bool ATICard::initialize()
 	VCard->setMemoryEnable(true);
   IOMemoryDescriptor *    theDescriptor;
   IOPhysicalAddress bar = (IOPhysicalAddress)((VCard->configRead32(kIOPCIConfigBaseAddress5)) & ~0x3f);
-  InfoLog("RadeonMonitor: register space5=%08lx\n", (long unsigned int)bar);
+  InfoLog("register space5=%08lx\n", (long unsigned int)bar);
   theDescriptor = IOMemoryDescriptor::withPhysicalAddress (bar, 0x80000, kIODirectionOutIn); // | kIOMapInhibitCache);
   if(theDescriptor != NULL)
   {

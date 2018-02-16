@@ -97,8 +97,14 @@ void IntelThermal(__unused void * magic)
 	UInt32 i = cpu_number();
 	if(i < MaxCpuCount) {
 		UInt64 msr = rdmsr64(MSR_IA32_THERM_STATUS);
+ //   UInt64 E2 = rdmsr64(0xE2);  //Check for E2 lock
 		if (msr & 0x80000000) {
 			GlobalThermalValue[i] = (msr >> 16) & 0x7F;
+      /*
+      if (E2 & 0x8000) {
+        GlobalThermalValue[i] -= 50;
+      }
+       */
 			GlobalThermalValueIsObsolete[i]=false;
 		}
 	}
@@ -157,6 +163,7 @@ IOService* IntelCPUMonitor::probe(IOService *provider, SInt32 *score)
 	if (super::probe(provider, score) != this) return 0;
   
 	InfoLog("Based on code by mercurysquad, superhai (C)2008. Turbostates measurement added by Navi");
+  InfoLog("at probe 0xE2 = 0x%llx\n",  rdmsr64(0xE2));
   
 	cpuid_update_generic_info();
   
@@ -434,6 +441,7 @@ bool IntelCPUMonitor::start(IOService * provider)
 	}
   
 	InfoLog("CPU family 0x%x, model 0x%x, stepping 0x%x, cores %d, threads %d", cpuid_info()->cpuid_family, cpuid_info()->cpuid_model, cpuid_info()->cpuid_stepping, count, cpuid_info()->thread_count);
+  InfoLog("at start 0xE2 = 0x%llx\n",  rdmsr64(0xE2));
   rootNode = fromPath("/efi/platform", gIODTPlane);
   if (rootNode) {
     OSData *tmpNumber = OSDynamicCast(OSData, rootNode->getProperty("FSBFrequency"));

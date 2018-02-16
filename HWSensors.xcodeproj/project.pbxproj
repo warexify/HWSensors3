@@ -1830,7 +1830,7 @@
 				OTHER_CFLAGS = "-DNV_DEBUG_ENABLED=1";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.kozlek.${PRODUCT_NAME}";
 				PRODUCT_NAME = GeforceSensor;
-				SDKROOT = macosx;
+				SDKROOT = macosx10.11;
 				WRAPPER_EXTENSION = kext;
 			};
 			name = Debug;
@@ -1851,7 +1851,7 @@
 				OTHER_CFLAGS = "-DNV_DEBUG_ENABLED=0";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.kozlek.${PRODUCT_NAME}";
 				PRODUCT_NAME = GeforceSensor;
-				SDKROOT = macosx;
+				SDKROOT = macosx10.11;
 				WRAPPER_EXTENSION = kext;
 			};
 			name = "Release 10.6";
@@ -1871,7 +1871,7 @@
 				MODULE_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.kozlek.${PRODUCT_NAME}";
 				PRODUCT_NAME = GeforceSensor;
-				SDKROOT = macosx;
+				SDKROOT = macosx10.11;
 				WRAPPER_EXTENSION = kext;
 			};
 			name = "Release 10.5";
@@ -1891,7 +1891,7 @@
 				MODULE_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.kozlek.${PRODUCT_NAME}";
 				PRODUCT_NAME = GeforceSensor;
-				SDKROOT = macosx;
+				SDKROOT = macosx10.11;
 				WRAPPER_EXTENSION = kext;
 			};
 			name = "Release 10.4";
@@ -1929,7 +1929,7 @@
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.slice.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
+				SDKROOT = macosx10.11;
 				WRAPPER_EXTENSION = kext;
 			};
 			name = Debug;
@@ -1960,7 +1960,7 @@
 				MODULE_VERSION = 1.0.0d2;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.slice.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
+				SDKROOT = macosx10.11;
 				WRAPPER_EXTENSION = kext;
 			};
 			name = "Release 10.6";
@@ -1991,7 +1991,7 @@
 				MODULE_VERSION = 1.0.0d2;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.slice.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
+				SDKROOT = macosx10.11;
 				WRAPPER_EXTENSION = kext;
 			};
 			name = "Release 10.5";
@@ -2022,7 +2022,7 @@
 				MODULE_VERSION = 1.0.0d2;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.slice.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
+				SDKROOT = macosx10.11;
 				WRAPPER_EXTENSION = kext;
 			};
 			name = "Release 10.4";
@@ -2064,7 +2064,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.slice.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
+				SDKROOT = macosx10.11;
 				WRAPPER_EXTENSION = kext;
 			};
 			name = Debug;
@@ -2100,7 +2100,7 @@
 				MODULE_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.slice.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
+				SDKROOT = macosx10.11;
 				WRAPPER_EXTENSION = kext;
 			};
 			name = "Release 10.6";
@@ -2136,7 +2136,7 @@
 				MODULE_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.slice.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
+				SDKROOT = macosx10.11;
 				WRAPPER_EXTENSION = kext;
 			};
 			name = "Release 10.5";
@@ -2172,7 +2172,7 @@
 				MODULE_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.slice.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
+				SDKROOT = macosx10.11;
 				WRAPPER_EXTENSION = kext;
 			};
 			name = "Release 10.4";
@@ -2193,7 +2193,7 @@
 				MODULE_VERSION = 1.0.0d1;
 				PRODUCT_BUNDLE_IDENTIFIER = cc.dukzcry.Andigilog;
 				PRODUCT_NAME = Andigilog;
-				SDKROOT = macosx;
+				SDKROOT = macosx10.11;
 				WRAPPER_EXTENSION = kext;
 			};
 			name = Debug;
@@ -2213,7 +2213,7 @@
 				MODULE_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = cc.dukzcry.Andigilog;
 				PRODUCT_NAME = Andigilog;
-				SDKROOT = macosx;
+				SDKROOT = macosx10.11;
 				WRAPPER_EXTENSION = kext;
 			};
 			name = "Release 10.6";
@@ -2231,7 +2231,7 @@
 				MODULE_VERSION = 1.0.0d1;
 				PRODUCT_BUNDLE_IDENTIFIER = cc.dukzcry.Andigilog;
 				PRODUCT_NAME = Andigilog;
-				SDKROOT = macosx;
+				SDKROOT = macosx10.11;
 				WRAPPER_EXTENSION = kext;
 			};
 			name = "Release 10.5";
@@ -2250,7 +2250,7 @@
 				MODULE_VERSION = 1.0.0d1;
 				PRODUCT_BUNDLE_IDENTIFIER = cc.dukzcry.Andigilog;
 				PRODUCT_NAME = Andigilog;
-				SDKROOT = macosx;
+				SDKROOT = macosx10.11;
 				WRAPPER_EXTENSION = kext;
 			};
 			name = "Release 10.4";
@@ -2272,7 +2272,7 @@
 				MODULE_VERSION = 1.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.slice.sensor.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = AmdCPUMonitor;
-				SDKROOT = macosx;
+				SDKROOT = macosx10.11;
 				WRAPPER_EXTENSION = kext;
 			};
 			name = Debug;
@@ -2292,7 +2292,7 @@
 				MODULE_VERSION = 1.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.slice.sensor.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = AmdCPUMonitor;
-				SDKROOT = macosx;
+				SDKROOT = macosx10.11;
 				WRAPPER_EXTENSION = kext;
 			};
 			name = "Release 10.6";
@@ -2311,7 +2311,7 @@
 				MODULE_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.slice.sensor.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = AmdCPUMonitor;
-				SDKROOT = macosx;
+				SDKROOT = macosx10.11;
 				WRAPPER_EXTENSION = kext;
 			};
 			name = "Release 10.5";
@@ -2330,7 +2330,7 @@
 				MODULE_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.slice.sensor.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = AmdCPUMonitor;
-				SDKROOT = macosx;
+				SDKROOT = macosx10.11;
 				WRAPPER_EXTENSION = kext;
 			};
 			name = "Release 10.4";
@@ -2352,7 +2352,7 @@
 				MODULE_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = org.dukzcry.ADT7470;
 				PRODUCT_NAME = ADT7470;
-				SDKROOT = macosx;
+				SDKROOT = macosx10.11;
 				WRAPPER_EXTENSION = kext;
 			};
 			name = Debug;
@@ -2371,7 +2371,7 @@
 				MODULE_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = org.dukzcry.ADT7470;
 				PRODUCT_NAME = ADT7470;
-				SDKROOT = macosx;
+				SDKROOT = macosx10.11;
 				WRAPPER_EXTENSION = kext;
 			};
 			name = "Release 10.6";
@@ -2390,7 +2390,7 @@
 				MODULE_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = org.dukzcry.ADT7470;
 				PRODUCT_NAME = ADT7470;
-				SDKROOT = macosx;
+				SDKROOT = macosx10.11;
 				WRAPPER_EXTENSION = kext;
 			};
 			name = "Release 10.5";
@@ -2409,7 +2409,7 @@
 				MODULE_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = org.dukzcry.ADT7470;
 				PRODUCT_NAME = ADT7470;
-				SDKROOT = macosx;
+				SDKROOT = macosx10.11;
 				WRAPPER_EXTENSION = kext;
 			};
 			name = "Release 10.4";
@@ -2448,7 +2448,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "org.slice.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				SDKROOT = macosx;
+				SDKROOT = macosx10.11;
 				WRAPPER_EXTENSION = kext;
 			};
 			name = Debug;
@@ -2481,7 +2481,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "org.slice.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				SDKROOT = macosx;
+				SDKROOT = macosx10.11;
 				WRAPPER_EXTENSION = kext;
 			};
 			name = "Release 10.6";
@@ -2514,7 +2514,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "org.slice.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				SDKROOT = macosx;
+				SDKROOT = macosx10.11;
 				WRAPPER_EXTENSION = kext;
 			};
 			name = "Release 10.5";
@@ -2547,7 +2547,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "org.slice.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				SDKROOT = macosx;
+				SDKROOT = macosx10.11;
 				WRAPPER_EXTENSION = kext;
 			};
 			name = "Release 10.4";
@@ -2556,6 +2556,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CODE_SIGN_IDENTITY = "";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -2566,11 +2567,11 @@
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "plugins/CPUSensors/IntelCPUMonitor/IntelCPUMonitor-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
-				MODULE_NAME = com.yourcompany.driver.IntelCPUMonitor;
+				MODULE_NAME = org.slice.IntelCPUMonitor;
 				MODULE_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.slice.${PRODUCT_NAME}";
 				PRODUCT_NAME = IntelCPUMonitor;
-				SDKROOT = macosx;
+				SDKROOT = macosx10.11;
 				WRAPPER_EXTENSION = kext;
 			};
 			name = Debug;
@@ -2579,6 +2580,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CODE_SIGN_IDENTITY = "";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = "";
@@ -2590,7 +2592,7 @@
 				MODULE_VERSION = 1.2.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.slice.${PRODUCT_NAME}";
 				PRODUCT_NAME = IntelCPUMonitor;
-				SDKROOT = macosx;
+				SDKROOT = macosx10.11;
 				WRAPPER_EXTENSION = kext;
 			};
 			name = "Release 10.6";
@@ -2599,6 +2601,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CODE_SIGN_IDENTITY = "";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = "";
@@ -2612,7 +2615,7 @@
 				MODULE_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.slice.${PRODUCT_NAME}";
 				PRODUCT_NAME = IntelCPUMonitor;
-				SDKROOT = macosx;
+				SDKROOT = macosx10.11;
 				WRAPPER_EXTENSION = kext;
 			};
 			name = "Release 10.5";
@@ -2621,6 +2624,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CODE_SIGN_IDENTITY = "";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = "";
@@ -2632,7 +2636,7 @@
 				MODULE_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.slice.${PRODUCT_NAME}";
 				PRODUCT_NAME = IntelCPUMonitor;
-				SDKROOT = macosx;
+				SDKROOT = macosx10.11;
 				WRAPPER_EXTENSION = kext;
 			};
 			name = "Release 10.4";
@@ -2654,7 +2658,7 @@
 				MODULE_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.slice.sensor.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = X3100;
-				SDKROOT = macosx;
+				SDKROOT = macosx10.11;
 				WRAPPER_EXTENSION = kext;
 			};
 			name = Debug;
@@ -2672,7 +2676,7 @@
 				MODULE_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.slice.sensor.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = X3100;
-				SDKROOT = macosx;
+				SDKROOT = macosx10.11;
 				WRAPPER_EXTENSION = kext;
 			};
 			name = "Release 10.6";
@@ -2693,7 +2697,7 @@
 				MODULE_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.slice.sensor.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = X3100;
-				SDKROOT = macosx;
+				SDKROOT = macosx10.11;
 				WRAPPER_EXTENSION = kext;
 			};
 			name = "Release 10.5";
@@ -2712,7 +2716,7 @@
 				MODULE_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.slice.sensor.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = X3100;
-				SDKROOT = macosx;
+				SDKROOT = macosx10.11;
 				WRAPPER_EXTENSION = kext;
 			};
 			name = "Release 10.4";
@@ -2735,7 +2739,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.slice.RadeonMonitor;
 				PRODUCT_NAME = RadeonMonitor;
 				PROVISIONING_PROFILE = "";
-				SDKROOT = macosx;
+				SDKROOT = macosx10.11;
 				WRAPPER_EXTENSION = kext;
 				ZERO_LINK = YES;
 			};
@@ -2755,7 +2759,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.slice.RadeonMonitor;
 				PRODUCT_NAME = RadeonMonitor;
 				PROVISIONING_PROFILE = "";
-				SDKROOT = macosx;
+				SDKROOT = macosx10.11;
 				WRAPPER_EXTENSION = kext;
 				ZERO_LINK = NO;
 			};
@@ -2777,7 +2781,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.slice.RadeonMonitor;
 				PRODUCT_NAME = RadeonMonitor;
 				PROVISIONING_PROFILE = "";
-				SDKROOT = macosx;
+				SDKROOT = macosx10.11;
 				WRAPPER_EXTENSION = kext;
 				ZERO_LINK = YES;
 			};
@@ -2796,7 +2800,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = org.slice.RadeonMonitor;
 				PRODUCT_NAME = RadeonMonitor;
 				PROVISIONING_PROFILE = "";
-				SDKROOT = macosx;
+				SDKROOT = macosx10.11;
 				WRAPPER_EXTENSION = kext;
 				ZERO_LINK = YES;
 			};
@@ -2895,7 +2899,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.superhai.driver.${PRODUCT_NAME:identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
+				SDKROOT = macosx10.11;
 				WRAPPER_EXTENSION = kext;
 			};
 			name = "Release 10.6";
@@ -3008,7 +3012,7 @@
 				MODULE_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.mozodojo.${PRODUCT_NAME}";
 				PRODUCT_NAME = F718x;
-				SDKROOT = macosx;
+				SDKROOT = macosx10.11;
 				WRAPPER_EXTENSION = kext;
 			};
 			name = Debug;
@@ -3026,7 +3030,7 @@
 				MODULE_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.mozodojo.${PRODUCT_NAME}";
 				PRODUCT_NAME = F718x;
-				SDKROOT = macosx;
+				SDKROOT = macosx10.11;
 				WRAPPER_EXTENSION = kext;
 			};
 			name = "Release 10.6";
@@ -3045,7 +3049,7 @@
 				MODULE_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.mozodojo.${PRODUCT_NAME}";
 				PRODUCT_NAME = F718x;
-				SDKROOT = macosx;
+				SDKROOT = macosx10.11;
 				WRAPPER_EXTENSION = kext;
 			};
 			name = "Release 10.5";
@@ -3063,7 +3067,7 @@
 				MODULE_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.mozodojo.${PRODUCT_NAME}";
 				PRODUCT_NAME = F718x;
-				SDKROOT = macosx;
+				SDKROOT = macosx10.11;
 				WRAPPER_EXTENSION = kext;
 			};
 			name = "Release 10.4";
@@ -3084,7 +3088,7 @@
 				MODULE_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.slice.${PRODUCT_NAME}";
 				PRODUCT_NAME = PC8739x;
-				SDKROOT = macosx;
+				SDKROOT = macosx10.11;
 				WRAPPER_EXTENSION = kext;
 			};
 			name = Debug;
@@ -3102,7 +3106,7 @@
 				MODULE_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.slice.${PRODUCT_NAME}";
 				PRODUCT_NAME = PC8739x;
-				SDKROOT = macosx;
+				SDKROOT = macosx10.11;
 				WRAPPER_EXTENSION = kext;
 			};
 			name = "Release 10.6";
@@ -3119,7 +3123,7 @@
 				MODULE_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.slice.${PRODUCT_NAME}";
 				PRODUCT_NAME = PC8739x;
-				SDKROOT = macosx;
+				SDKROOT = macosx10.11;
 				WRAPPER_EXTENSION = kext;
 			};
 			name = "Release 10.5";
@@ -3137,7 +3141,7 @@
 				MODULE_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.slice.${PRODUCT_NAME}";
 				PRODUCT_NAME = PC8739x;
-				SDKROOT = macosx;
+				SDKROOT = macosx10.11;
 				WRAPPER_EXTENSION = kext;
 			};
 			name = "Release 10.4";
@@ -3161,7 +3165,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "org.mozodojo.${PRODUCT_NAME}";
 				PRODUCT_NAME = W836x;
 				PROVISIONING_PROFILE = "";
-				SDKROOT = macosx;
+				SDKROOT = macosx10.11;
 				WRAPPER_EXTENSION = kext;
 			};
 			name = Debug;
@@ -3182,7 +3186,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "org.mozodojo.${PRODUCT_NAME}";
 				PRODUCT_NAME = W836x;
 				PROVISIONING_PROFILE = "";
-				SDKROOT = macosx;
+				SDKROOT = macosx10.11;
 				WRAPPER_EXTENSION = kext;
 			};
 			name = "Release 10.6";
@@ -3203,7 +3207,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "org.mozodojo.${PRODUCT_NAME}";
 				PRODUCT_NAME = W836x;
 				PROVISIONING_PROFILE = "";
-				SDKROOT = macosx;
+				SDKROOT = macosx10.11;
 				WRAPPER_EXTENSION = kext;
 			};
 			name = "Release 10.5";
@@ -3223,7 +3227,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "org.mozodojo.${PRODUCT_NAME}";
 				PRODUCT_NAME = W836x;
 				PROVISIONING_PROFILE = "";
-				SDKROOT = macosx;
+				SDKROOT = macosx10.11;
 				WRAPPER_EXTENSION = kext;
 			};
 			name = "Release 10.4";
@@ -3245,7 +3249,7 @@
 				MODULE_VERSION = 1.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.usrsse2.${PRODUCT_NAME}";
 				PRODUCT_NAME = NVClockX;
-				SDKROOT = macosx;
+				SDKROOT = macosx10.11;
 				WRAPPER_EXTENSION = kext;
 			};
 			name = Debug;
@@ -3263,7 +3267,7 @@
 				MODULE_VERSION = 1.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.usrsse2.${PRODUCT_NAME}";
 				PRODUCT_NAME = NVClockX;
-				SDKROOT = macosx;
+				SDKROOT = macosx10.11;
 				WRAPPER_EXTENSION = kext;
 			};
 			name = "Release 10.6";
@@ -3283,7 +3287,7 @@
 				MODULE_VERSION = 1.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.usrsse2.${PRODUCT_NAME}";
 				PRODUCT_NAME = NVClockX;
-				SDKROOT = macosx;
+				SDKROOT = macosx10.11;
 				WRAPPER_EXTENSION = kext;
 			};
 			name = "Release 10.5";
@@ -3302,7 +3306,7 @@
 				MODULE_VERSION = 1.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.usrsse2.${PRODUCT_NAME}";
 				PRODUCT_NAME = NVClockX;
-				SDKROOT = macosx;
+				SDKROOT = macosx10.11;
 				WRAPPER_EXTENSION = kext;
 			};
 			name = "Release 10.4";
@@ -3325,7 +3329,7 @@
 				MODULE_VERSION = 1.0.3;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.slice.${PRODUCT_NAME}";
 				PRODUCT_NAME = ACPIMonitor;
-				SDKROOT = macosx;
+				SDKROOT = macosx10.11;
 				WRAPPER_EXTENSION = kext;
 			};
 			name = Debug;
@@ -3345,7 +3349,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.slice.${PRODUCT_NAME}";
 				PRODUCT_NAME = ACPIMonitor;
-				SDKROOT = macosx;
+				SDKROOT = macosx10.11;
 				WRAPPER_EXTENSION = kext;
 			};
 			name = "Release 10.6";
@@ -3367,7 +3371,7 @@
 				MODULE_VERSION = 1.0.3;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.slice.${PRODUCT_NAME}";
 				PRODUCT_NAME = ACPIMonitor;
-				SDKROOT = macosx;
+				SDKROOT = macosx10.11;
 				WRAPPER_EXTENSION = kext;
 			};
 			name = "Release 10.5";
@@ -3387,7 +3391,7 @@
 				MODULE_VERSION = 1.0.3;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.slice.${PRODUCT_NAME}";
 				PRODUCT_NAME = ACPIMonitor;
-				SDKROOT = macosx;
+				SDKROOT = macosx10.11;
 				WRAPPER_EXTENSION = kext;
 			};
 			name = "Release 10.4";
@@ -3432,7 +3436,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PROVISIONING_PROFILE = "";
 				RUN_CLANG_STATIC_ANALYZER = YES;
-				SDKROOT = macosx;
+				SDKROOT = macosx10.11;
 				VALID_ARCHS = "i386 x86_64";
 			};
 			name = Debug;
@@ -3485,7 +3489,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				PROVISIONING_PROFILE = "";
 				RUN_CLANG_STATIC_ANALYZER = YES;
-				SDKROOT = macosx;
+				SDKROOT = macosx10.11;
 				VALID_ARCHS = "i386 x86_64";
 			};
 			name = "Release 10.6";
@@ -3506,7 +3510,7 @@
 				MODULE_VERSION = 1.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = org.mozodojo.ITEIT87x;
 				PRODUCT_NAME = ITEIT87x;
-				SDKROOT = macosx;
+				SDKROOT = macosx10.11;
 				WRAPPER_EXTENSION = kext;
 			};
 			name = Debug;
@@ -3525,7 +3529,7 @@
 				MODULE_VERSION = 1.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = org.mozodojo.ITEIT87x;
 				PRODUCT_NAME = ITEIT87x;
-				SDKROOT = macosx;
+				SDKROOT = macosx10.11;
 				WRAPPER_EXTENSION = kext;
 				ZERO_LINK = NO;
 			};
@@ -3553,7 +3557,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "org.netkas.${PRODUCT_NAME}";
 				PRODUCT_NAME = FakeSMC;
 				PROVISIONING_PROFILE = "";
-				SDKROOT = macosx;
+				SDKROOT = macosx10.11;
 				WRAPPER_EXTENSION = kext;
 			};
 			name = Debug;
@@ -3575,7 +3579,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "org.netkas.${PRODUCT_NAME}";
 				PRODUCT_NAME = FakeSMC;
 				PROVISIONING_PROFILE = "";
-				SDKROOT = macosx;
+				SDKROOT = macosx10.11;
 				ZERO_LINK = NO;
 			};
 			name = "Release 10.6";
@@ -3621,7 +3625,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				PROVISIONING_PROFILE = "";
 				RUN_CLANG_STATIC_ANALYZER = YES;
-				SDKROOT = macosx;
+				SDKROOT = macosx10.11;
 				VALID_ARCHS = i386;
 			};
 			name = "Release 10.5";
@@ -3641,7 +3645,7 @@
 				MODULE_VERSION = 1.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = org.mozodojo.ITEIT87x;
 				PRODUCT_NAME = ITEIT87x;
-				SDKROOT = macosx;
+				SDKROOT = macosx10.11;
 				WRAPPER_EXTENSION = kext;
 				ZERO_LINK = NO;
 			};
@@ -3665,7 +3669,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "org.netkas.${PRODUCT_NAME}";
 				PRODUCT_NAME = FakeSMC;
 				PROVISIONING_PROFILE = "";
-				SDKROOT = macosx;
+				SDKROOT = macosx10.11;
 				ZERO_LINK = NO;
 			};
 			name = "Release 10.5";
@@ -3713,7 +3717,7 @@
 				OTHER_CFLAGS = "-DTIGER";
 				PROVISIONING_PROFILE = "";
 				RUN_CLANG_STATIC_ANALYZER = YES;
-				SDKROOT = macosx;
+				SDKROOT = macosx10.11;
 				VALID_ARCHS = i386;
 			};
 			name = "Release 10.4";
@@ -3732,7 +3736,7 @@
 				MODULE_VERSION = 1.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = org.mozodojo.ITEIT87x;
 				PRODUCT_NAME = IT87x;
-				SDKROOT = macosx;
+				SDKROOT = macosx10.11;
 				WRAPPER_EXTENSION = kext;
 				ZERO_LINK = NO;
 			};
@@ -3754,7 +3758,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "org.netkas.${PRODUCT_NAME}";
 				PRODUCT_NAME = FakeSMC;
 				PROVISIONING_PROFILE = "";
-				SDKROOT = macosx;
+				SDKROOT = macosx10.11;
 				ZERO_LINK = NO;
 			};
 			name = "Release 10.4";
