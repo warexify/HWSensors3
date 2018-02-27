@@ -2,6 +2,9 @@
 /* Class = "NSButtonCell"; title = "expand all groups"; ObjectID = "1ou-TV-z1H"; */
 "1ou-TV-z1H.title" = "expand all groups";
 
+/* Class = "NSTextFieldCell"; title = "HWSensorSMC"; ObjectID = "5gF-Ik-at1"; */
+"5gF-Ik-at1.title" = "HWSensorSMC";
+
 /* Class = "NSWindow"; title = "Preferences"; ObjectID = "7b5-Rl-qab"; */
 "7b5-Rl-qab.title" = "Preferences";
 
@@ -16,3 +19,13 @@
 
 /* Class = "NSButtonCell"; title = "expand Voltages group"; ObjectID = "f3S-tq-sNl"; */
 "f3S-tq-sNl.title" = "expand Voltages group";
+
+/* Class = "NSButtonCell"; title = "force to use dark appearance"; ObjectID = "fYJ-2d-nMJ"; */
+"fYJ-2d-nMJ.title" = "force to use dark appearance";
+
+/* Class = "NSTextFieldCell"; title = "(applied to the next execution)"; ObjectID = "h2D-rP-QYL"; */
+"h2D-rP-QYL.title" = "(applied to the next execution)";
+
+/* Class = "NSTextFieldCell"; title = "Sensors update interval in seconds:"; ObjectID = "i4D-QB-sGd"; */
+"i4D-QB-sGd.title" = "Sensors update interval in seconds:";
+
