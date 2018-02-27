@@ -1,0 +1,50 @@
+/* 
+  Localizable.strings
+  HWMonitorSMC
+
+  Created by vector sigma on 25/02/18.
+  Copyright © 2018 vector sigma. All rights reserved.
+*/
+
+"CPU Frequencies" = "ЧАСТОТЫ ЦПУ";
+"CPU Temperatures" = "ТЕМПЕРАТУРЫ ЦПУ";
+"Temperatures" = "ТЕМПЕРАТУРЫ";
+"Frequencies" = "ЧАСТОТЫ";
+"Multiplers" = "МНОЖИТЕЛИ";
+"Voltages" = "НАПРЯЖЕНИЯ";
+"Fans or Pumps" = "Вентиляторы или насосы";
+"Batteries" = "батареи";
+"Media healt" = "Целостность дисков";
+"life" = "жизнь"; // hdd/ssd life
+
+"CPU Proximity" = "Датчик ЦПУ";
+"CPU Heatsink" = "Радиатор ЦПУ";
+"Motherboard" = "Чипсет";
+"DIMM 0" = "DIMM 0";
+"DIMM 1" = "DIMM 1";
+"Ambient" = "Корпус";
+"GPU %X Core" = "GPU %X, ядро";
+"GPU %X Board" = "GPU %X, радиатор";
+"GPU %X Proximity" = "GPU %X Proximity";
+"CPU %d Core" = "Ядро ЦПУ %d";
+"CPU %d Diode" = "ЦПУ %d";
+"CPU %d" = "CPU %d";
+"GPU %d Core" = "GPU %d, ядро";
+"GPU %d Shaders" = "GPU %d, шейдеры";
+"GPU %d Memory" = "GPU %d, память";
+"CPU %d Multiplier" = "Множитель ЦПУ %d";
+"CPU Package Multiplier" = "Множитель пакетов ЦПУ";
+"CPU Voltage" = "Вольтаж ЦПУ";
+"CPU VRM Voltage" = "Шина ЦПУ";
+"DIMM Voltage" = "Шина модулей DIMM";
+"+12V Bus Voltage" = "Шина +12В";
+"+5V Bus Voltage" = "Шина +5В";
+"-12V Bus Voltage" = "Шина -12В";
+"-5V Bus Voltage" = "Шина -5В";
+"3.3 VCC Voltage" = "Шина 3.3В VCC";
+"3.3 VSB Voltage" = "Шина 3.3В VSB";
+"3.3 AVCC Voltage" = "3.3 AVCC Voltage";
+"GPU %d Voltage" = "GPU %d, Шина";
+"Fan %d" = "Поклонник %d";
+"Battery Voltage, mV" = "Шина батареи, mV";
+"Battery Amperage, mA" = "Аккумуляторная батарея, mA";

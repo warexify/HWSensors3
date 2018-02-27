@@ -1,0 +1,50 @@
+/* 
+  Localizable.strings
+  HWMonitorSMC
+
+  Created by vector sigma on 25/02/18.
+  Copyright © 2018 vector sigma. All rights reserved.
+*/
+
+"CPU Frequencies" = "Frequenze della CPU";
+"CPU Temperatures" = "Temperature della CPU";
+"Temperatures" = "Temperature";
+"Frequencies" = "Frequenze";
+"Multiplers" = "Moltiplicatori";
+"Voltages" = "Voltaggi";
+"Fans or Pumps" = "Ventole o Pompe";
+"Batteries" = "Batterie";
+"Media healt" = "Integrità dei Media";
+"life" = "vita"; // hdd/ssd life
+
+"CPU Proximity" = "Prossimità CPU";
+"CPU Heatsink" = "Dissipatore CPU";
+"Motherboard" = "Scheda Madre";
+"DIMM 0" = "DIMM 0";
+"DIMM 1" = "DIMM 1";
+"Ambient" = "Ambiente";
+"GPU %X Core" = "Core GPU %X";
+"GPU %X Board" = "Scheda GPU %X";
+"GPU %X Proximity" = "Prossimità GPU %X";
+"CPU %d Core" = "Core CPU %d";
+"CPU %d Diode" = "Diodo CPU %d";
+"CPU %d" = "CPU %d";
+"GPU %d Core" = "Core GPU %d";
+"GPU %d Shaders" = "Shaders GPU %d";
+"GPU %d Memory" = "Memoria GPU %d";
+"CPU %d Multiplier" = "Moltiplicatore CPU %d";
+"CPU Package Multiplier" = "Moltiplicatore CPU Package";
+"CPU Voltage" = "Voltaggio CPU";
+"CPU VRM Voltage" = "Voltaggio VRM CPU";
+"DIMM Voltage" = "Voltaggio DIMM";
+"+12V Bus Voltage" = "Voltaggio Bus +12V";
+"+5V Bus Voltage" = "Voltaggio Bus +5V";
+"-12V Bus Voltage" = "Voltaggio Bus -12V";
+"-5V Bus Voltage" = "Voltaggio Bus -5V";
+"3.3 VCC Voltage" = "Voltaggio VCC 3.3";
+"3.3 VSB Voltage" = "Voltaggio VSB 3.3";
+"3.3 AVCC Voltage" = "Voltaggio AVCC 3.3";
+"GPU %d Voltage" = "Voltaggio GPU %d";
+"Fan %d" = "Ventola %d";
+"Battery Voltage, mV" = "Voltaggio Batteria, mV";
+"Battery Amperage, mA" = "Amperaggio Batteria, mA";
