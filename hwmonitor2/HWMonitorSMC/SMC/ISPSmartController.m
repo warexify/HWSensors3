@@ -433,8 +433,8 @@ void SwapASCIIString(UInt16 *buffer, UInt16 length) {
         
         NSString *name;
         if([diskInfo objectForKey:@"partitions"]){
-          name = [NSString stringWithFormat:@"%@", [[diskInfo objectForKey:@"partitions"] componentsJoinedByString:@" "]];
-          name = [NSString stringWithFormat:@"%@", [[name componentsSeparatedByString:@" "] componentsJoinedByString:@", "]];
+          name = [NSString stringWithFormat:@"%@", [[diskInfo objectForKey:@"partitions"] componentsJoinedByString:kMediaSeparator]];
+          name = [NSString stringWithFormat:@"%@", [[name componentsSeparatedByString:kMediaSeparator] componentsJoinedByString:@", "]];
         } else {
           name = [NSString stringWithFormat:@"%@ s/n %@", [[diskInfo objectForKey:@"model"] stringByTrimmingLeadingWhitespace],[[diskInfo objectForKey:@"serial"] stringByTrimmingLeadingWhitespace] ];
         }
@@ -459,8 +459,8 @@ void SwapASCIIString(UInt16 *buffer, UInt16 length) {
         unsigned long value = [lifeInfo intValue];
         NSString *name;
         if([diskInfo objectForKey:@"partitions"]) {
-          name = [NSString stringWithFormat:@"%@", [[diskInfo objectForKey:@"partitions"] componentsJoinedByString:@" "]];
-          name = [NSString stringWithFormat:@"%@", [[name componentsSeparatedByString:@" "] componentsJoinedByString:@", "]];
+          name = [NSString stringWithFormat:@"%@", [[diskInfo objectForKey:@"partitions"] componentsJoinedByString:kMediaSeparator]];
+          name = [NSString stringWithFormat:@"%@", [[name componentsSeparatedByString:kMediaSeparator] componentsJoinedByString:@", "]];
         } else {
           name = [NSString stringWithFormat:@"%@ s/n:%@", [[diskInfo objectForKey:@"model"] stringByTrimmingLeadingWhitespace],[[diskInfo objectForKey:@"serial"] stringByTrimmingLeadingWhitespace] ];
         }

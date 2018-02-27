@@ -16,6 +16,7 @@
 #define kWindowSMARTsDriveTempAttribute2    190
 #define kSMARTsDriveWearLevelingCount       177
 #define kSMARTAttributeCount 30
+#define kMediaSeparator @"&$"
 
 @interface ISPSmartController : NSObject {
   NSMutableArray *diskData;
