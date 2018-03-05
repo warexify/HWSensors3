@@ -3,6 +3,7 @@
 //  HWMonitorSMC
 //
 //  Created by vectorsigma on 02/01/18.
+//  Copyright © 2018 HWSensor. All rights reserved.
 //
 
 #import <Cocoa/Cocoa.h>

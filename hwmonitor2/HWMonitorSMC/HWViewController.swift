@@ -2,8 +2,10 @@
 //  PopoverViewController.swift
 //  HWMonitorSMC
 //
-//  Created by Micky1979 on 20/02/18.
-//  Copyright © 2018 HWMonitor. All rights reserved.
+//  Created by Micky1979 on 26/07/17.
+//  Copyright © 2017 Micky1979. All rights reserved.
+//
+// https://gist.github.com/Micky1979/4743842c4ec7cb95ea5cbbdd36beedf7
 //
 
 import Cocoa
