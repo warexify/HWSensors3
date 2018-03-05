@@ -1,0 +1,58 @@
+/* 
+  Localizable.strings
+  HWMonitorSMC
+
+  Created by vector sigma on 25/02/18.
+  Copyright © 2018 HWSensor. All rights reserved.
+*/
+
+"CPU Frequencies" = "CPU Frequencies";
+"CPU Temperatures" = "CPU Temperatures";
+"Temperatures" = "Temperatures";
+"Frequencies" = "Frequencies";
+"Multiplers" = "Multiplers";
+"Voltages" = "Voltages";
+"Fans or Pumps" = "Fans or Pumps";
+"Batteries" = "Batteries";
+"Media health" = "Media health";
+"life" = "life"; // hdd/ssd life
+
+"Total" = "Total"; // RAM
+"Active" = "Active"; // RAM
+"Inactive" = "Inactive"; // RAM
+"Free" = "Free"; // RAM
+"Used" = "Used"; // RAM
+"Purgeable" = "Purgeable"; // RAM
+"Wired" = "Wired"; // RAM
+
+"CPU Proximity" = "CPU Proximity";
+"CPU Heatsink" = "CPU Heatsink";
+"Motherboard" = "Motherboard";
+"DIMM 0" = "DIMM 0";
+"DIMM 1" = "DIMM 1";
+"Ambient" = "Ambient";
+"GPU %X Core" = "GPU %X Core";
+"GPU %X Board" = "GPU %X Board";
+"GPU %X Proximity" = "GPU %X Proximity";
+"CPU %d Core" = "CPU %d Core";
+"CPU %d Diode" = "CPU %d Diode";
+"CPU %d" = "CPU %d";
+"GPU %d Core" = "GPU %d Core";
+"GPU %d Shaders" = "GPU %d Shaders";
+"GPU %d Memory" = "GPU %d Memory";
+"CPU %d Multiplier" = "CPU %d Multiplier";
+"CPU Package Multiplier" = "CPU Package Multiplier";
+"CPU Voltage" = "CPU Voltage";
+"CPU VRM Voltage" = "CPU VRM Voltage";
+"DIMM Voltage" = "DIMM Voltage";
+"+12V Bus Voltage" = "+12V Bus Voltage";
+"+5V Bus Voltage" = "+5V Bus Voltage";
+"-12V Bus Voltage" = "-12V Bus Voltage";
+"-5V Bus Voltage" = "-5V Bus Voltage";
+"3.3 VCC Voltage" = "3.3 VCC Voltage";
+"3.3 VSB Voltage" = "3.3 VSB Voltage";
+"3.3 AVCC Voltage" = "3.3 AVCC Voltage";
+"GPU %d Voltage" = "GPU %d Voltage";
+"Fan %d" = "Fan %d";
+"Battery Voltage" = "Battery Voltage";
+"Battery Amperage" = "Battery Amperage";
