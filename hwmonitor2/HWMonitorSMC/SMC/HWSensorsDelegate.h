@@ -24,6 +24,9 @@
 }
 
 @property (readwrite, assign) BOOL smartSupported;
+
+- (NSArray *)getMemory;
+  
 - (NSArray *)getAllOtherTemperatures;
 
 - (NSArray *)getCPUTemperatures;

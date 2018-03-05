@@ -6,3 +6,4 @@
 #import "HWMonitorSensor.h"
 #import "HWTextField.h"
 #import "HWImageView.h"
+#import "SSMemoryInfo.h"

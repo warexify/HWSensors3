@@ -9,10 +9,10 @@
 import Cocoa
 
 class HWViewController: NSViewController, NSPopoverDelegate {
-  var popover : NSPopover?
-  var popoverVC : PopoverViewController?
-  var popoverWC : PopoverWindowController?
-  var detachableWindow: HWWindow?
+  var popover           : NSPopover?
+  var popoverVC         : PopoverViewController?
+  var popoverWC         : PopoverWindowController?
+  var detachableWindow  : HWWindow?
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -24,12 +24,12 @@ class HWViewController: NSViewController, NSPopoverDelegate {
     var height : Float = Float((self.popoverVC?.view.bounds.origin.y)!)
     var width  : Float = Float((self.popoverVC?.view.bounds.origin.x)!)
 
-    if (UserDefaults.standard.object(forKey: "popoverHeight") != nil) {
-      height = UserDefaults.standard.float(forKey: "popoverHeight")
+    if (UserDefaults.standard.object(forKey: kPopoverHeight) != nil) {
+      height = UserDefaults.standard.float(forKey: kPopoverHeight)
     }
     
-    if (UserDefaults.standard.object(forKey: "popoverWidth") != nil) {
-      width = UserDefaults.standard.float(forKey: "popoverWidth")
+    if (UserDefaults.standard.object(forKey: kPopoverWidth) != nil) {
+      width = UserDefaults.standard.float(forKey: kPopoverWidth)
     }
     if width < 310 {
       width = 310
@@ -63,8 +63,6 @@ class HWViewController: NSViewController, NSPopoverDelegate {
     
     self.detachableWindow?.appearance = NSAppearance(named: gAppearance)
     
-    
-    
     let shared = NSApplication.shared.delegate as! AppDelegate
     if let button = shared.statusItem.button {
       button.target = self
@@ -85,8 +83,6 @@ class HWViewController: NSViewController, NSPopoverDelegate {
       self.popover?.contentViewController = self.popoverVC
       self.popover?.behavior = .transient
       self.popover?.delegate = self
-      
-      // determine the appearance automatically
     }
   }
   
@@ -111,6 +107,7 @@ class HWViewController: NSViewController, NSPopoverDelegate {
       self.detachableWindow?.orderOut(self)
     }
   }
+    
   func popoverDidClose(_ notification: Notification) {
     if (notification.userInfo![NSPopover.closeReasonUserInfoKey] != nil) {
       self.popover = nil

@@ -10,7 +10,13 @@
 #include <sys/sysctl.h>
 #import "NSString+TruncateToWidth.h"
 #import "IOBatteryStatus.h"
+#import "SSMemoryInfo.h"
 #include "../../../utils/definitions.h"
+
+#import <mach/host_info.h>
+#import <mach/mach_host.h>
+#import <mach/task_info.h>
+#import <mach/task.h>
 
 #define LOG_NULL_VALUES 0
 
@@ -45,6 +51,85 @@ int countPhisycalCores() {
     DisksList = [smartController getDataSet /*:1*/];
     SSDList = [smartController getSSDLife];
   }
+}
+  
+- (NSArray *)getMemory {
+  NSMutableArray *arr = [NSMutableArray array];
+  HWMonitorSensor *sensor;
+  BOOL showPercentage = [[NSUserDefaults standardUserDefaults] boolForKey:@"useMemoryPercentage"];
+  NSString *format;
+  if (showPercentage) {
+    format = @"%3.1f%%";
+  } else {
+    format = @"%3.1f%MB";
+  }
+
+  sensor = [[HWMonitorSensor alloc] initWithKey:@"RAM TOTAL"
+                                        andType:@"RAM"
+                                       andGroup:MemorySensorGroup
+                                    withCaption:NSLocalizedString(@"Total", nil)];
+  
+  sensor.stringValue = [NSString stringWithFormat:@"%3.0fMB", [SSMemoryInfo totalMemory]];
+  [arr addObject:sensor];
+  [sensor setFavorite:[[NSUserDefaults standardUserDefaults] boolForKey:sensor.key]];
+  
+  sensor = [[HWMonitorSensor alloc] initWithKey:@"RAM ACTIVE"
+                                        andType:@"RAM"
+                                       andGroup:MemorySensorGroup
+                                    withCaption:NSLocalizedString(@"Active", nil)];
+  
+  sensor.stringValue = [NSString stringWithFormat:format, [SSMemoryInfo activeMemory:showPercentage]];
+  [arr addObject:sensor];
+  [sensor setFavorite:[[NSUserDefaults standardUserDefaults] boolForKey:sensor.key]];
+  
+  sensor = [[HWMonitorSensor alloc] initWithKey:@"RAM INACTIVE"
+                                        andType:@"RAM"
+                                       andGroup:MemorySensorGroup
+                                    withCaption:NSLocalizedString(@"Inactive", nil)];
+  
+  sensor.stringValue = [NSString stringWithFormat:format, [SSMemoryInfo inactiveMemory:showPercentage]];
+  [arr addObject:sensor];
+  [sensor setFavorite:[[NSUserDefaults standardUserDefaults] boolForKey:sensor.key]];
+  
+  sensor = [[HWMonitorSensor alloc] initWithKey:@"RAM FREE"
+                                        andType:@"RAM"
+                                       andGroup:MemorySensorGroup
+                                    withCaption:NSLocalizedString(@"Free", nil)];
+  
+  sensor.stringValue = [NSString stringWithFormat:format, [SSMemoryInfo freeMemory:showPercentage]];
+  [arr addObject:sensor];
+  [sensor setFavorite:[[NSUserDefaults standardUserDefaults] boolForKey:sensor.key]];
+  
+  sensor = [[HWMonitorSensor alloc] initWithKey:@"RAM USED"
+                                        andType:@"RAM"
+                                       andGroup:MemorySensorGroup
+                                    withCaption:NSLocalizedString(@"Used", nil)];
+  
+  sensor.stringValue = [NSString stringWithFormat:format, [SSMemoryInfo usedMemory:showPercentage]];
+  [arr addObject:sensor];
+  [sensor setFavorite:[[NSUserDefaults standardUserDefaults] boolForKey:sensor.key]];
+  
+  sensor = [[HWMonitorSensor alloc] initWithKey:@"RAM PURGEABLE"
+                                        andType:@"RAM"
+                                       andGroup:MemorySensorGroup
+                                    withCaption:NSLocalizedString(@"Purgeable", nil)];
+  
+  sensor.stringValue = [NSString stringWithFormat:format, [SSMemoryInfo purgableMemory:showPercentage]];
+  [arr addObject:sensor];
+  [sensor setFavorite:[[NSUserDefaults standardUserDefaults] boolForKey:sensor.key]];
+  
+  sensor = [[HWMonitorSensor alloc] initWithKey:@"RAM WIRED"
+                                        andType:@"RAM"
+                                       andGroup:MemorySensorGroup
+                                    withCaption:NSLocalizedString(@"Wired", nil)];
+  
+  sensor.stringValue = [NSString stringWithFormat:format, [SSMemoryInfo wiredMemory:showPercentage]];
+  [arr addObject:sensor];
+  [sensor setFavorite:[[NSUserDefaults standardUserDefaults] boolForKey:sensor.key]];
+  
+  [[NSUserDefaults standardUserDefaults] synchronize];
+  
+  return arr;
 }
 
 - (NSArray *)getAllOtherTemperatures {
@@ -303,9 +388,14 @@ int countPhisycalCores() {
                                                            withCaption:nextDisk];
         
         sensor.stringValue = [NSString stringWithFormat:@"%@", [sensor formatedValue: [DisksList objectForKey:nextDisk]]];
-        [arr addObject:sensor];
-        [sensor setFavorite:[[NSUserDefaults standardUserDefaults] boolForKey:sensor.key]];
-        [[NSUserDefaults standardUserDefaults] synchronize];
+        if ((sensor.stringValue != nil) &&
+            ![sensor.stringValue isEqualToString:@""] &&
+            ![sensor.stringValue isEqualToString:@"-"]) {
+          
+          [arr addObject:sensor];
+          [sensor setFavorite:[[NSUserDefaults standardUserDefaults] boolForKey:sensor.key]];
+          [[NSUserDefaults standardUserDefaults] synchronize];
+        }
       }
     }
     if (SSDList != nil && SSDList.allKeys.count > 0) {
@@ -318,9 +408,14 @@ int countPhisycalCores() {
                                                            withCaption:nextSSD];
 
         sensor.stringValue = [NSString stringWithFormat:@"%@", [sensor formatedValue: [SSDList objectForKey:nextSSD]]];
-        [arr addObject:sensor];
-        [sensor setFavorite:[[NSUserDefaults standardUserDefaults] boolForKey:sensor.key]];
-        [[NSUserDefaults standardUserDefaults] synchronize];
+        if ((sensor.stringValue != nil) &&
+            ![sensor.stringValue isEqualToString:@""] &&
+            ![sensor.stringValue isEqualToString:@"-"]) {
+          
+          [arr addObject:sensor];
+          [sensor setFavorite:[[NSUserDefaults standardUserDefaults] boolForKey:sensor.key]];
+          [[NSUserDefaults standardUserDefaults] synchronize];
+        }
       }
     }
   }
@@ -340,7 +435,7 @@ int countPhisycalCores() {
       HWMonitorSensor *sensor = [[HWMonitorSensor alloc] initWithKey:@KEY_BAT0_VOLTAGE
                                                              andType:([HWMonitorSensor getTypeOfKey:@KEY_BAT0_VOLTAGE]) ? : @TYPE_UI16
                                                             andGroup:BatterySensorsGroup
-                                                         withCaption:NSLocalizedString(@"Battery Voltage, mV",nil)];
+                                                         withCaption:NSLocalizedString(@"Battery Voltage",nil)];
       
       sensor.stringValue = [NSString stringWithFormat:@"%d", voltage];
       [arr addObject:sensor];
@@ -350,7 +445,7 @@ int countPhisycalCores() {
       HWMonitorSensor *sensor = [[HWMonitorSensor alloc] initWithKey:@KEY_BAT0_AMPERAGE
                                                              andType:([HWMonitorSensor getTypeOfKey:@KEY_BAT0_AMPERAGE]) ? : @TYPE_UI16
                                                             andGroup:BatterySensorsGroup
-                                                         withCaption:NSLocalizedString(@"Battery Amperage, mA",nil)];
+                                                         withCaption:NSLocalizedString(@"Battery Amperage",nil)];
       sensor.stringValue = [NSString stringWithFormat:@"%d", amperage];
       [arr addObject:sensor];
       [sensor setFavorite:[[NSUserDefaults standardUserDefaults] boolForKey:sensor.key]];
@@ -387,8 +482,9 @@ int countPhisycalCores() {
                                                      withCaption:caption];
   
   NSString *value = [sensor formatedValue:[HWMonitorSensor readValueForKey:sensor.key]];
-  if ((group == HDSmartLifeSensorGroup || group == HDSmartTempSensorGroup) ||
-      ((value != nil) && ![value isEqualToString:@""] && ![value isEqualToString:@"-"])) {
+  /*if ((group == HDSmartLifeSensorGroup || group == HDSmartTempSensorGroup) ||
+      ((value != nil) && ![value isEqualToString:@""] && ![value isEqualToString:@"-"])) {*/
+  if ((value != nil) && ![value isEqualToString:@""] && ![value isEqualToString:@"-"]) {
     sensor.group = group;
     [sensor setFavorite:[[NSUserDefaults standardUserDefaults] boolForKey:key]];
     [list addObject:sensor];

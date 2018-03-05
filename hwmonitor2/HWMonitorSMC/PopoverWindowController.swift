@@ -5,6 +5,8 @@
 //  Created by vector sigma on 26/02/18.
 //  Copyright © 2018 vector sigma. All rights reserved.
 //
+// https://gist.github.com/Micky1979/4743842c4ec7cb95ea5cbbdd36beedf7
+//
 
 import Cocoa
 
@@ -29,8 +31,8 @@ class PopoverWindowController: NSWindowController, NSWindowDelegate {
         height = 270
       }
       
-      UserDefaults.standard.set(frame?.width, forKey: "popoverWidth")
-      UserDefaults.standard.set(frame?.height, forKey: "popoverHeight")
+      UserDefaults.standard.set(frame?.width, forKey: kPopoverWidth)
+      UserDefaults.standard.set(frame?.height, forKey: kPopoverHeight)
       UserDefaults.standard.synchronize()
     }
   }

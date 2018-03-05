@@ -11,6 +11,9 @@
 		9528011920447910008EA219 /* checkbox.png in Resources */ = {isa = PBXBuildFile; fileRef = 9528011720447910008EA219 /* checkbox.png */; };
 		9528011A20447910008EA219 /* pin.png in Resources */ = {isa = PBXBuildFile; fileRef = 9528011820447910008EA219 /* pin.png */; };
 		952E03762044A8EC00EEC6DF /* PopoverWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 952E03752044A8EC00EEC6DF /* PopoverWindowController.swift */; };
+		9538E4A3204DA7D800918032 /* HWScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9538E4A2204DA7D800918032 /* HWScrollView.swift */; };
+		9538E4A5204DAB9900918032 /* globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9538E4A4204DAB9900918032 /* globals.swift */; };
+		953A4EED2048C5CE003DC900 /* ram_small.png in Resources */ = {isa = PBXBuildFile; fileRef = 953A4EEC2048C5CE003DC900 /* ram_small.png */; };
 		958E796E204193EE0007957E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 958E796D204193EE0007957E /* AppDelegate.swift */; };
 		958E7970204193EE0007957E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 958E796F204193EE0007957E /* ViewController.swift */; };
 		958E7972204193EE0007957E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 958E7971204193EE0007957E /* Assets.xcassets */; };
@@ -38,6 +41,10 @@
 		958E79C12042FE070007957E /* HWImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 958E79C02042FE070007957E /* HWImageView.m */; };
 		958E79C5204314A40007957E /* PreferencesWC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 958E79C4204314A40007957E /* PreferencesWC.swift */; };
 		958E79C7204314BF0007957E /* PreferencesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 958E79C6204314BF0007957E /* PreferencesVC.swift */; };
+		9598FC72204AE5F200A6DA72 /* SSMemoryInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 9598FC70204AE5F100A6DA72 /* SSMemoryInfo.m */; };
+		9598FC75204AFC9C00A6DA72 /* cpu_temp_small.png in Resources */ = {isa = PBXBuildFile; fileRef = 9598FC73204AFC9B00A6DA72 /* cpu_temp_small.png */; };
+		9598FC76204AFC9C00A6DA72 /* cpu_freq_small.png in Resources */ = {isa = PBXBuildFile; fileRef = 9598FC74204AFC9B00A6DA72 /* cpu_freq_small.png */; };
+		9598FC78204B0A7500A6DA72 /* HWTableRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9598FC77204B0A7500A6DA72 /* HWTableRowView.swift */; };
 		95CE19C92043486E00E73446 /* Popover.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 95CE19CB2043486E00E73446 /* Popover.storyboard */; };
 		95CE19D3204356DF00E73446 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 95CE19D5204356DF00E73446 /* Main.storyboard */; };
 		95CE19DA2043585A00E73446 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 95CE19DC2043585A00E73446 /* Localizable.strings */; };
@@ -96,6 +103,13 @@
 		9528011720447910008EA219 /* checkbox.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checkbox.png; sourceTree = "<group>"; };
 		9528011820447910008EA219 /* pin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pin.png; sourceTree = "<group>"; };
 		952E03752044A8EC00EEC6DF /* PopoverWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverWindowController.swift; sourceTree = "<group>"; };
+		9538E4A2204DA7D800918032 /* HWScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HWScrollView.swift; sourceTree = "<group>"; };
+		9538E4A4204DAB9900918032 /* globals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = globals.swift; sourceTree = "<group>"; };
+		953A4EC220488D1D003DC900 /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/Main.strings; sourceTree = "<group>"; };
+		953A4EC320488D1D003DC900 /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/Popover.strings; sourceTree = "<group>"; };
+		953A4EC420488D1D003DC900 /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/Preferences.strings; sourceTree = "<group>"; };
+		953A4EC520488D1E003DC900 /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/Localizable.strings; sourceTree = "<group>"; };
+		953A4EEC2048C5CE003DC900 /* ram_small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ram_small.png; sourceTree = "<group>"; };
 		958E796A204193EE0007957E /* HWMonitorSMC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HWMonitorSMC.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		958E796D204193EE0007957E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		958E796F204193EE0007957E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -135,6 +149,11 @@
 		958E79C02042FE070007957E /* HWImageView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HWImageView.m; sourceTree = "<group>"; };
 		958E79C4204314A40007957E /* PreferencesWC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesWC.swift; sourceTree = "<group>"; };
 		958E79C6204314BF0007957E /* PreferencesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesVC.swift; sourceTree = "<group>"; };
+		9598FC70204AE5F100A6DA72 /* SSMemoryInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSMemoryInfo.m; sourceTree = "<group>"; };
+		9598FC71204AE5F200A6DA72 /* SSMemoryInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSMemoryInfo.h; sourceTree = "<group>"; };
+		9598FC73204AFC9B00A6DA72 /* cpu_temp_small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cpu_temp_small.png; sourceTree = "<group>"; };
+		9598FC74204AFC9B00A6DA72 /* cpu_freq_small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cpu_freq_small.png; sourceTree = "<group>"; };
+		9598FC77204B0A7500A6DA72 /* HWTableRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HWTableRowView.swift; sourceTree = "<group>"; };
 		95CE19CA2043486E00E73446 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Popover.storyboard; sourceTree = "<group>"; };
 		95CE19CD2043488200E73446 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Popover.strings; sourceTree = "<group>"; };
 		95CE19CF204349AF00E73446 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Popover.strings; sourceTree = "<group>"; };
@@ -179,6 +198,7 @@
 		958E796C204193EE0007957E /* HWMonitorSMC */ = {
 			isa = PBXGroup;
 			children = (
+				9538E4A4204DAB9900918032 /* globals.swift */,
 				958E796D204193EE0007957E /* AppDelegate.swift */,
 				958E79822041996A0007957E /* HWWindowController.swift */,
 				958E7980204194820007957E /* HWViewController.swift */,
@@ -186,7 +206,9 @@
 				95280102204444BA008EA219 /* PopoverViewController.swift */,
 				958E798C2041AF780007957E /* HWOulineView.swift */,
 				958E79A42042CC770007957E /* HWTreeNode.swift */,
+				9598FC77204B0A7500A6DA72 /* HWTableRowView.swift */,
 				958E79B62042F6F80007957E /* HWWindow.swift */,
+				9538E4A2204DA7D800918032 /* HWScrollView.swift */,
 				958E79C4204314A40007957E /* PreferencesWC.swift */,
 				958E79C6204314BF0007957E /* PreferencesVC.swift */,
 				95CE19D5204356DF00E73446 /* Main.storyboard */,
@@ -207,8 +229,11 @@
 			isa = PBXGroup;
 			children = (
 				9528011720447910008EA219 /* checkbox.png */,
+				9598FC74204AFC9B00A6DA72 /* cpu_freq_small.png */,
+				9598FC73204AFC9B00A6DA72 /* cpu_temp_small.png */,
 				9528011820447910008EA219 /* pin.png */,
 				958E79AB2042EED00007957E /* fan_small.png */,
+				953A4EEC2048C5CE003DC900 /* ram_small.png */,
 				958E79A82042EED00007957E /* freq_small.png */,
 				958E79A62042EED00007957E /* hd_small.png */,
 				958E79AA2042EED00007957E /* modern-battery-icon.png */,
@@ -236,6 +261,8 @@
 				958E799E2041D4900007957E /* NSString+TruncateToWidth.m */,
 				958E79A12041D72F0007957E /* HWSensorsDelegate.h */,
 				958E79A22041D72F0007957E /* HWSensorsDelegate.m */,
+				9598FC71204AE5F200A6DA72 /* SSMemoryInfo.h */,
+				9598FC70204AE5F100A6DA72 /* SSMemoryInfo.m */,
 				958E79BC2042FD110007957E /* HWTextField.h */,
 				958E79BD2042FD110007957E /* HWTextField.m */,
 				958E79BF2042FE070007957E /* HWImageView.h */,
@@ -307,6 +334,7 @@
 				ko,
 				"pt-BR",
 				"pt-PT",
+				pl,
 			);
 			mainGroup = 958E7961204193EE0007957E;
 			productRefGroup = 958E796B204193EE0007957E /* Products */;
@@ -327,12 +355,15 @@
 				9528011A20447910008EA219 /* pin.png in Resources */,
 				95CE19C92043486E00E73446 /* Popover.storyboard in Resources */,
 				958E79B22042EED10007957E /* modern-battery-icon.png in Resources */,
+				9598FC76204AFC9C00A6DA72 /* cpu_freq_small.png in Resources */,
 				958E7972204193EE0007957E /* Assets.xcassets in Resources */,
 				958E79B12042EED10007957E /* multiply_small.png in Resources */,
 				9528011920447910008EA219 /* checkbox.png in Resources */,
 				958E79AF2042EED10007957E /* temp_alt_small.png in Resources */,
+				9598FC75204AFC9C00A6DA72 /* cpu_temp_small.png in Resources */,
 				95CE19D3204356DF00E73446 /* Main.storyboard in Resources */,
 				958E79B42042EED10007957E /* voltage_small.png in Resources */,
+				953A4EED2048C5CE003DC900 /* ram_small.png in Resources */,
 				95CE19DF20435CD200E73446 /* Preferences.storyboard in Resources */,
 				95CE19DA2043585A00E73446 /* Localizable.strings in Resources */,
 				958E79B32042EED10007957E /* fan_small.png in Resources */,
@@ -356,6 +387,7 @@
 				958E7970204193EE0007957E /* ViewController.swift in Sources */,
 				958E7981204194820007957E /* HWViewController.swift in Sources */,
 				958E79972041D4030007957E /* smc.c in Sources */,
+				9598FC72204AE5F200A6DA72 /* SSMemoryInfo.m in Sources */,
 				958E79C12042FE070007957E /* HWImageView.m in Sources */,
 				958E799D2041D42C0007957E /* HWMonitorSensor.m in Sources */,
 				958E79942041D3E90007957E /* IOBatteryStatus.m in Sources */,
@@ -365,9 +397,12 @@
 				958E79C5204314A40007957E /* PreferencesWC.swift in Sources */,
 				958E79A02041D4910007957E /* NSString+TruncateToWidth.m in Sources */,
 				958E79BE2042FD110007957E /* HWTextField.m in Sources */,
+				9538E4A5204DAB9900918032 /* globals.swift in Sources */,
 				958E79A32041D72F0007957E /* HWSensorsDelegate.m in Sources */,
+				9538E4A3204DA7D800918032 /* HWScrollView.swift in Sources */,
 				95280103204444BA008EA219 /* PopoverViewController.swift in Sources */,
 				958E798D2041AF780007957E /* HWOulineView.swift in Sources */,
+				9598FC78204B0A7500A6DA72 /* HWTableRowView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -392,6 +427,7 @@
 				950AAF4D2045F2770004418F /* ko */,
 				950AAF512045F27B0004418F /* pt-BR */,
 				950AAF552045F2800004418F /* pt-PT */,
+				953A4EC320488D1D003DC900 /* pl */,
 			);
 			name = Popover.storyboard;
 			sourceTree = "<group>";
@@ -414,6 +450,7 @@
 				950AAF592045F3E00004418F /* en */,
 				950AAF5B2045F3E70004418F /* it */,
 				950AAF5D2045F3F10004418F /* ru */,
+				953A4EC220488D1D003DC900 /* pl */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -435,6 +472,7 @@
 				950AAF4F2045F2780004418F /* ko */,
 				950AAF532045F27D0004418F /* pt-BR */,
 				950AAF572045F2810004418F /* pt-PT */,
+				953A4EC520488D1E003DC900 /* pl */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -457,6 +495,7 @@
 				950AAF4E2045F2770004418F /* ko */,
 				950AAF522045F27B0004418F /* pt-BR */,
 				950AAF562045F2800004418F /* pt-PT */,
+				953A4EC420488D1D003DC900 /* pl */,
 			);
 			name = Preferences.storyboard;
 			sourceTree = "<group>";

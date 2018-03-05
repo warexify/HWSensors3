@@ -14,8 +14,16 @@
 "Voltages" = "НАПРЯЖЕНИЯ";
 "Fans or Pumps" = "Вентиляторы или насосы";
 "Batteries" = "батареи";
-"Media healt" = "Целостность дисков";
+"Media health" = "Целостность дисков";
 "life" = "жизнь"; // hdd/ssd life
+
+"Total" = "Всего"; // RAM
+"Active" = "Aктивный"; // RAM
+"Inactive" = "Неактивный"; // RAM
+"Free" = "Свободно"; // RAM
+"Used" = "Используемый"; // RAM
+"Purgeable" = "Purgeable"; // RAM
+"Wired" = "Wired"; // RAM
 
 "CPU Proximity" = "Датчик ЦПУ";
 "CPU Heatsink" = "Радиатор ЦПУ";
@@ -43,8 +51,8 @@
 "-5V Bus Voltage" = "Шина -5В";
 "3.3 VCC Voltage" = "Шина 3.3В VCC";
 "3.3 VSB Voltage" = "Шина 3.3В VSB";
-"3.3 AVCC Voltage" = "3.3 AVCC Voltage";
+"3.3 AVCC Voltage" = "Шина 3.3 AVCC";
 "GPU %d Voltage" = "GPU %d, Шина";
 "Fan %d" = "Поклонник %d";
-"Battery Voltage, mV" = "Шина батареи, mV";
-"Battery Amperage, mA" = "Аккумуляторная батарея, mA";
+"Battery Voltage" = "Шина батареи";
+"Battery Amperage" = "Аккумуляторная батарея";

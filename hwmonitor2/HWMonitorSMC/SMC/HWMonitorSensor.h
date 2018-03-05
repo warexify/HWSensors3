@@ -20,7 +20,7 @@ enum {
   BatterySensorsGroup         =   7,
   GenericBatterySensorsGroup  =   8,
   HDSmartLifeSensorGroup      =   9,
-  
+  MemorySensorGroup           =  10
 };
 typedef NSUInteger SensorGroup;
 
@@ -48,10 +48,6 @@ typedef NSUInteger SensorGroup;
 @property (readwrite, retain) id            object;
 @property (readwrite, retain) NSString *    stringValue;
 @property (readwrite, assign) BOOL          favorite;
-
-@property (nonatomic, assign) HWImageView *    stateView;
-@property (nonatomic, assign) HWTextField *    keyField;
-@property (nonatomic, assign) HWTextField *    valueField;
 
 + (unsigned int) swapBytes:(unsigned int) value;
 

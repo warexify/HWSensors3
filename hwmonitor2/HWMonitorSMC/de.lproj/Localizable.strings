@@ -14,8 +14,16 @@
 "Voltages" = "Voltages";
 "Fans or Pumps" = "Fans or Pumps";
 "Batteries" = "Batteries";
-"Media healt" = "Media healt";
+"Media health" = "Media health";
 "life" = "life"; // hdd/ssd life
+
+"Total" = "Total"; // RAM
+"Active" = "Active"; // RAM
+"Inactive" = "Inactive"; // RAM
+"Free" = "Free"; // RAM
+"Used" = "Used"; // RAM
+"Purgeable" = "Purgeable"; // RAM
+"Wired" = "Wired"; // RAM
 
 "CPU Proximity" = "CPU Proximity";
 "CPU Heatsink" = "CPU Heatsink";
@@ -46,5 +54,5 @@
 "3.3 AVCC Voltage" = "3.3 AVCC Voltage";
 "GPU %d Voltage" = "GPU %d Voltage";
 "Fan %d" = "Fan %d";
-"Battery Voltage, mV" = "Battery Voltage, mV";
-"Battery Amperage, mA" = "Battery Amperage, mA";
+"Battery Voltage" = "Battery Voltage";
+"Battery Amperage" = "Battery Amperage";

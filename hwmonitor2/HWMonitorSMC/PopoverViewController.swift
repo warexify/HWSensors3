@@ -29,6 +29,7 @@ class PopoverViewController: NSViewController {
   var dontshowEmpty             : Bool = true
   
   // nodes
+  var RAMNode                   : HWTreeNode?
   var CPUFrequenciesNode        : HWTreeNode?
   var voltagesNode              : HWTreeNode?
   var CPUTemperaturesNode       : HWTreeNode?
@@ -70,39 +71,39 @@ class PopoverViewController: NSViewController {
   
   func loadPreferences() {
     let ud = UserDefaults.standard
-    if (ud.object(forKey: "expandCPUTemperature") != nil) {
-      self.expandCPUTemperature = ud.bool(forKey: "expandCPUTemperature")
+    if (ud.object(forKey: kExpandCPUTemperature) != nil) {
+      self.expandCPUTemperature = ud.bool(forKey: kExpandCPUTemperature)
     } else {
       self.expandCPUTemperature = true
-      ud.set(true, forKey: "expandCPUTemperature")
+      ud.set(true, forKey: kExpandCPUTemperature)
     }
     
-    if (ud.object(forKey: "expandVoltages") != nil) {
-      self.expandVoltages = ud.bool(forKey: "expandVoltages")
+    if (ud.object(forKey: kExpandVoltages) != nil) {
+      self.expandVoltages = ud.bool(forKey: kExpandVoltages)
     } else {
       self.expandVoltages = false
-      ud.set(false, forKey: "expandVoltages")
+      ud.set(false, forKey: kExpandVoltages)
     }
     
-    if (ud.object(forKey: "expandCPUFrequencies") != nil) {
-      self.expandCPUFrequencies = ud.bool(forKey: "expandCPUFrequencies")
+    if (ud.object(forKey: kExpandCPUFrequencies) != nil) {
+      self.expandCPUFrequencies = ud.bool(forKey: kExpandCPUFrequencies)
     } else {
       self.expandCPUFrequencies = true
-      ud.set(true, forKey: "expandCPUFrequencies")
+      ud.set(true, forKey: kExpandCPUFrequencies)
     }
     
-    if (ud.object(forKey: "expandAll") != nil) {
-      self.expandAll = ud.bool(forKey: "expandAll")
+    if (ud.object(forKey: kExpandAll) != nil) {
+      self.expandAll = ud.bool(forKey: kExpandAll)
     } else {
       self.expandAll = false
-      ud.set(false, forKey: "expandAll")
+      ud.set(false, forKey: kExpandAll)
     }
     
-    if (ud.object(forKey: "dontshowEmpty") != nil) {
-      self.dontshowEmpty = ud.bool(forKey: "dontshowEmpty")
+    if (ud.object(forKey: kDontShowEmpty) != nil) {
+      self.dontshowEmpty = ud.bool(forKey: kDontShowEmpty)
     } else {
       self.dontshowEmpty = true
-      ud.set(true, forKey: "dontshowEmpty")
+      ud.set(true, forKey: kDontShowEmpty)
     }
     ud.synchronize()
   }
@@ -127,8 +128,8 @@ class PopoverViewController: NSViewController {
   
   func initialize() {
     var timeInterval : TimeInterval = 3
-    if (UserDefaults.standard.object(forKey: "SensorsTimeInterval") != nil) {
-      timeInterval = UserDefaults.standard.double(forKey: "SensorsTimeInterval")
+    if (UserDefaults.standard.object(forKey: kSensorsTimeInterval) != nil) {
+      timeInterval = UserDefaults.standard.double(forKey: kSensorsTimeInterval)
       if timeInterval < 3 {
         timeInterval = 3
       }
@@ -138,6 +139,7 @@ class PopoverViewController: NSViewController {
     self.sensorList = NSMutableArray()
     self.dataSource = NSMutableArray()
     self.sensorDelegate = HWSensorsDelegate()
+    
     // ------
     
     self.CPUFrequenciesNode = HWTreeNode(representedObject: HWSensorData(group: NSLocalizedString("CPU Frequencies", comment: ""),
@@ -161,26 +163,6 @@ class PopoverViewController: NSViewController {
       }
     }
     // ------
-    self.voltagesNode = HWTreeNode(representedObject: HWSensorData(group: NSLocalizedString("Voltages", comment: ""),
-                                                                   sensor: nil,
-                                                                   isLeaf: false))
-    for s in (self.sensorDelegate?.getVoltages())! {
-      let sensor = HWTreeNode(representedObject: HWSensorData(group: (self.voltagesNode?.sensorData?.group)!,
-                                                              sensor: s as? HWMonitorSensor,
-                                                              isLeaf: true))
-      self.voltagesNode?.mutableChildren.add(sensor)
-    }
-    if (self.voltagesNode?.children?.count)! > 0 {
-      self.sensorList?.addObjects(from: (self.voltagesNode?.children)!)
-      self.dataSource?.add(self.voltagesNode!)
-    } else {
-      if self.dontshowEmpty {
-        self.voltagesNode = nil
-      } else {
-        self.dataSource?.add(self.voltagesNode!)
-      }
-    }
-    // ------
     self.CPUTemperaturesNode = HWTreeNode(representedObject: HWSensorData(group: NSLocalizedString("CPU Temperatures", comment: ""),
                                                                           sensor: nil,
                                                                           isLeaf: false))
@@ -201,6 +183,26 @@ class PopoverViewController: NSViewController {
       }
     }
     // ------
+    self.voltagesNode = HWTreeNode(representedObject: HWSensorData(group: NSLocalizedString("Voltages", comment: ""),
+                                                                   sensor: nil,
+                                                                   isLeaf: false))
+    for s in (self.sensorDelegate?.getVoltages())! {
+      let sensor = HWTreeNode(representedObject: HWSensorData(group: (self.voltagesNode?.sensorData?.group)!,
+                                                              sensor: s as? HWMonitorSensor,
+                                                              isLeaf: true))
+      self.voltagesNode?.mutableChildren.add(sensor)
+    }
+    if (self.voltagesNode?.children?.count)! > 0 {
+      self.sensorList?.addObjects(from: (self.voltagesNode?.children)!)
+      self.dataSource?.add(self.voltagesNode!)
+    } else {
+      if self.dontshowEmpty {
+        self.voltagesNode = nil
+      } else {
+        self.dataSource?.add(self.voltagesNode!)
+      }
+    }
+    // ------
     self.multipliersNode =  HWTreeNode(representedObject: HWSensorData(group: NSLocalizedString("Multiplers", comment: ""),
                                                                        sensor: nil,
                                                                        isLeaf: false))
@@ -218,6 +220,27 @@ class PopoverViewController: NSViewController {
         self.multipliersNode = nil
       } else {
         self.dataSource?.add(self.multipliersNode!)
+      }
+    }
+    // ------
+    self.RAMNode = HWTreeNode(representedObject: HWSensorData(group: NSLocalizedString("RAM", comment: ""),
+                                                              sensor: nil,
+                                                              isLeaf: false))
+    for s in (self.sensorDelegate?.getMemory())! {
+      let sensor = HWTreeNode(representedObject: HWSensorData(group: (self.RAMNode?.sensorData?.group)!,
+                                                              sensor: s as? HWMonitorSensor,
+                                                              isLeaf: true))
+      self.RAMNode?.mutableChildren.add(sensor)
+    }
+    
+    if (self.RAMNode?.children?.count)! > 0 {
+      self.sensorList?.addObjects(from: (self.RAMNode?.children)!)
+      self.dataSource?.add(self.RAMNode!)
+    } else {
+      if self.dontshowEmpty {
+        self.RAMNode = nil
+      } else {
+        self.dataSource?.add(self.RAMNode!)
       }
     }
     // ------
@@ -281,7 +304,7 @@ class PopoverViewController: NSViewController {
       }
     }
     // ------
-    self.mediaNode =  HWTreeNode(representedObject: HWSensorData(group: NSLocalizedString("Media healt", comment: ""),
+    self.mediaNode =  HWTreeNode(representedObject: HWSensorData(group: NSLocalizedString("Media health", comment: ""),
                                                                 sensor: nil,
                                                                 isLeaf: false))
     for s in (self.sensorDelegate?.getDisks())! {
@@ -347,6 +370,9 @@ class PopoverViewController: NSViewController {
     }
     
     if self.expandAll {
+      if (self.RAMNode != nil) {
+        self.outline.expandItem(self.RAMNode)
+      }
       if (self.multipliersNode != nil) {
         self.outline.expandItem(self.multipliersNode)
       }
@@ -366,6 +392,7 @@ class PopoverViewController: NSViewController {
         self.outline.expandItem(self.batteriesNode)
       }
     }
+    self.updateTitles()
     Timer.scheduledTimer(timeInterval: timeInterval,
                          target: self,
                          selector: #selector(self.updateTitles),
@@ -378,111 +405,127 @@ class PopoverViewController: NSViewController {
       var found : Bool = false
       let statusString : NSMutableString = NSMutableString()
       let copy : NSArray = self.sensorList?.copy() as! NSArray
+      
+      
+      let newMemRead : [HWMonitorSensor] = self.sensorDelegate?.getMemory() as! [HWMonitorSensor]
       let newGenericBatteries : [HWMonitorSensor] = self.sensorDelegate?.getGenericBatteries() as! [HWMonitorSensor]
       let newBattery : [HWMonitorSensor] = self.sensorDelegate?.getBattery() as! [HWMonitorSensor]
       let newMedia : [HWMonitorSensor] = self.sensorDelegate?.getDisks() as! [HWMonitorSensor]
+      
       for i in copy {
         let node = i as! HWTreeNode
         let sensor = node.sensorData?.sensor
         let group = node.sensorData?.sensor?.group
-        if ((sensor?.valueField) != nil) {
-          var value : String = "-"
-          // Battery sensor are fake, re read it
-          switch group {
-          case UInt(HDSmartLifeSensorGroup)?:
-            found = true
-            for newSensor in newMedia {
-              if newSensor.caption == node.sensorData?.sensor?.caption {
-                value = "\(NSLocalizedString("life", comment: "")): " + newSensor.stringValue
-                //value = newSensor.stringValue
+        
+        var value : String = "-"
+        // Battery sensor are fake, re read it
+        switch group {
+        case UInt(HDSmartLifeSensorGroup)?:
+          found = true
+          for newSensor in newMedia {
+            if newSensor.group == group && newSensor.caption == sensor?.caption {
+              sensor?.stringValue = newSensor.stringValue
+              value = "\(NSLocalizedString("life", comment: "")): " + newSensor.stringValue
+              break
+            }
+          }
+          break
+        case UInt(HDSmartTempSensorGroup)?:
+          found = true
+          for newSensor in newMedia {
+            if newSensor.group == group && newSensor.caption == sensor?.caption {
+              sensor?.stringValue = newSensor.stringValue
+              value = newSensor.stringValue
+              break
+            }
+          }
+          break
+        case UInt(MemorySensorGroup)?:
+          found = true
+          for newSensor in newMemRead {
+            if newSensor.caption == sensor?.caption {
+              value = newSensor.stringValue
+              sensor?.stringValue = newSensor.stringValue
+              break
+            }
+          }
+          break
+        case UInt(BatterySensorsGroup)?:
+          found = true
+          for newSensor in newBattery {
+            if newSensor.caption == sensor?.caption {
+              sensor?.stringValue = newSensor.stringValue
+              value = newSensor.stringValue + (newSensor.key == "B0AV" ? "mV" : "mA")
+              break
+            }
+          }
+          break
+        case UInt(GenericBatterySensorsGroup)?:
+          var new : [HWTreeNode] = [HWTreeNode]()
+          found = false
+          for newSensor in newGenericBatteries {
+            if newSensor.caption == sensor?.caption {
+              if let data = HWMonitorSensor.readValue(forKey: sensor?.key) {
+                value = newSensor.formatedValue(data)
               }
-            }
-            break
-          case UInt(HDSmartTempSensorGroup)?:
-            found = true
-            for newSensor in newMedia {
-              if newSensor.caption == node.sensorData?.sensor?.caption {
-                value = newSensor.stringValue
+              found = true
+            } else {
+              // this is a new battery
+              if (self.batteriesNode != nil) {
+                self.batteriesNode =  HWTreeNode(representedObject: HWSensorData(group: NSLocalizedString("Batteries", comment: ""),
+                                                                                 sensor: nil,
+                                                                                 isLeaf: false))
               }
+              
+              let newNode = HWTreeNode(representedObject: HWSensorData(group: (self.batteriesNode?.sensorData?.group)!,
+                                                                       sensor: newSensor,
+                                                                       isLeaf: true))
+              new.append(newNode)
             }
-            break
-          case UInt(BatterySensorsGroup)?:
-            found = true
-            for newSensor in newBattery {
-              if newSensor.caption == node.sensorData?.sensor?.caption {
-                value = newSensor.stringValue
-              }
-            }
-            break
-          case UInt(GenericBatterySensorsGroup)?:
-            var new : [HWTreeNode] = [HWTreeNode]()
-            found = false
-            for newSensor in newGenericBatteries {
-              if newSensor.caption == node.sensorData?.sensor?.caption {
-                if let data = HWMonitorSensor.readValue(forKey: node.sensorData?.sensor?.key) {
-                  value = newSensor.formatedValue(data)
-                }
-                found = true
-              } else {
-                // this is a new battery
-                if (self.batteriesNode != nil) {
-                  self.batteriesNode =  HWTreeNode(representedObject: HWSensorData(group: NSLocalizedString("Batteries", comment: ""),
-                                                                                   sensor: nil,
-                                                                                   isLeaf: false))
-                }
-                
-                let newNode = HWTreeNode(representedObject: HWSensorData(group: (self.batteriesNode?.sensorData?.group)!,
-                                                                         sensor: newSensor,
-                                                                         isLeaf: true))
-                new.append(newNode)
-              }
-            }
-            
-            // deleting old battery sensor no longer available
-            if !found {
-              if (self.sensorList?.contains(node))! {
-                self.sensorList?.remove(node)
-                if (self.batteriesNode?.mutableChildren.contains(node))! {
-                  let index : Int = (self.batteriesNode?.mutableChildren.index(of: node))!
-                  self.batteriesNode?.mutableChildren.remove(node)
-                  self.outline.removeItems(at: IndexSet(integer:index), inParent: self.batteriesNode, withAnimation: .effectFade)
-                }
-              }
-            }
-            // we have a new sensors..adding them
-            if new.count > 0 {
-              for newSensor in new {
-                self.batteriesNode?.mutableChildren.add(newSensor)
-                self.sensorList?.add(newSensor)
-              }
-              self.outline.reloadItem(self.batteriesNode, reloadChildren: true)
-            }
-            break
-            case UInt(HDSmartLifeSensorGroup)?:
-            break
-            case UInt(HDSmartTempSensorGroup)?:
-            break
-          default:
-            found = true
-            if let data = HWMonitorSensor.readValue(forKey: node.sensorData?.sensor?.key) {
-              value = (sensor?.formatedValue(data)!)!
-            }
-            break
           }
           
-          if found {
-            node.sensorData?.sensor?.valueField.stringValue = value
-            if (sensor?.favorite)! {
-              statusString.append(" ")
-              statusString.append(value)
+          // deleting old battery sensor no longer available
+          if !found {
+            if (self.sensorList?.contains(node))! {
+              self.sensorList?.remove(node)
+              if (self.batteriesNode?.mutableChildren.contains(node))! {
+                let index : Int = (self.batteriesNode?.mutableChildren.index(of: node))!
+                self.batteriesNode?.mutableChildren.remove(node)
+                self.outline.removeItems(at: IndexSet(integer:index), inParent: self.batteriesNode, withAnimation: .effectFade)
+              }
             }
           }
+          // we have a new sensors..adding them
+          if new.count > 0 {
+            for newSensor in new {
+              self.batteriesNode?.mutableChildren.add(newSensor)
+              self.sensorList?.add(newSensor)
+              break
+            }
+            self.outline.reloadItem(self.batteriesNode, reloadChildren: true)
+          }
+          break
+        default:
+          found = true
+          if let data = HWMonitorSensor.readValue(forKey: sensor?.key) {
+            value = (sensor?.formatedValue(data)!)!
+          }
+          break
         }
-        if self.outline.isItemExpanded(node.parent) {
-          self.outline.reloadItem(node, reloadChildren: false)
+        
+        if found {
+          if (sensor?.favorite)! {
+            statusString.append(" ")
+            statusString.append(value)
+          }
+          //ensure the node is visible before reload its view (no sense otherwise)
+          let nodeIndex = self.outline.row(forItem: node)
+          if self.outline.isItemExpanded(node.parent) && (nodeIndex >= 0) {
+            self.outline.reloadData(forRowIndexes: IndexSet(integer: nodeIndex), columnIndexes: IndexSet(integer: 2))
+          }
         }
       }
-      
+   
       let style = NSMutableParagraphStyle()
       style.lineSpacing = 0
       let title = NSMutableAttributedString(string: statusString as String, attributes: [NSAttributedStringKey.paragraphStyle : style])
@@ -494,7 +537,6 @@ class PopoverViewController: NSViewController {
       
     }
   }
-  
 }
 
 extension PopoverViewController: NSOutlineViewDelegate {
@@ -502,21 +544,27 @@ extension PopoverViewController: NSOutlineViewDelegate {
     
   }
   
+  func outlineView(_ outlineView: NSOutlineView, rowViewForItem item: Any) -> NSTableRowView? {
+    return HWTableRowView()
+  }
   
   @objc func clicked() {
     let selected = self.outline.clickedRow
     if selected >= 0 {
       if let node : HWTreeNode = self.outline.item(atRow: selected) as? HWTreeNode {
         if (node.sensorData?.isLeaf)! {
+          let view : NSTableCellView = self.outline.view(atColumn: 0,
+                                                         row: selected,
+                                                         makeIfNecessary: false /* mind that is already visible */) as! NSTableCellView
           let sensor = node.sensorData?.sensor
           if (sensor?.favorite)! {
             sensor?.favorite = false
-            sensor?.stateView.image = nil
+            view.imageView?.image = nil
           } else {
             sensor?.favorite = true
             let image = NSImage(named: NSImage.Name(rawValue: "checkbox"))
             image?.isTemplate = true
-            sensor?.stateView.image = image
+            view.imageView?.image = image
           }
           UserDefaults.standard.set(sensor?.favorite, forKey: (sensor?.key)!)
           UserDefaults.standard.synchronize()
@@ -588,44 +636,40 @@ extension PopoverViewController: NSOutlineViewDataSource {
         switch tableColumn!.identifier.rawValue {
         case "column0":
           view?.imageView?.image = getImageFor(node: node)
-          (view?.imageView as! HWImageView).representedObject = node.sensorData?.sensor
-          node.sensorData?.sensor?.stateView = view?.imageView as! HWImageView!
-          node.sensorData?.sensor?.object = view
           break
         case "column1":
           if isGroup {
             view?.textField?.stringValue = (node.sensorData?.group)!
-            view?.textField?.textColor = (gAppearance == NSAppearance.Name.vibrantDark) ? NSColor.green : NSColor.blue
+            view?.textField?.textColor = (gAppearance == NSAppearance.Name.vibrantDark) ? NSColor.green : NSColor.controlTextColor
           } else {
             view?.textField?.stringValue = (node.sensorData?.sensor?.caption)!
-            (view?.textField as! HWTextField).representedObject = node.sensorData?.sensor
-            node.sensorData?.sensor?.keyField = (view?.textField)! as! HWTextField
           }
-          node.sensorData?.sensor?.object = view
-          
           break
         case "column2":
           if isGroup {
             view?.textField?.stringValue = ""
           } else {
+            let group : SensorGroup = (node.sensorData?.sensor?.group)!
             var value : String = "-"
-            
-            if node.sensorData?.sensor?.group == UInt(HDSmartLifeSensorGroup) {
-              value = "\(NSLocalizedString("life", comment: "")): " + (node.sensorData?.sensor?.stringValue)!
-            } else
-            if node.sensorData?.sensor?.group == UInt(BatterySensorsGroup) ||
-              node.sensorData?.sensor?.group == UInt(HDSmartTempSensorGroup) {
+            switch group {
+            case UInt(MemorySensorGroup):
               value = (node.sensorData?.sensor?.stringValue)!
-            } else {
+              break
+            case UInt(HDSmartLifeSensorGroup):
+              value = "\(NSLocalizedString("life", comment: "")): " + (node.sensorData?.sensor?.stringValue)!
+              break
+            case UInt(HDSmartTempSensorGroup):
+              value = (node.sensorData?.sensor?.stringValue)!
+              break
+            case UInt(BatterySensorsGroup):
+              value = (node.sensorData?.sensor?.stringValue)! + ((node.sensorData?.sensor?.key)! == "B0AV" ? "mV" : "mA")
+              break
+            default:
               if let data = HWMonitorSensor.readValue(forKey: node.sensorData?.sensor?.key) {
                 value = (node.sensorData?.sensor?.formatedValue(data))!
               }
             }
-            
             view?.textField?.stringValue = value
-            (view?.textField as! HWTextField).representedObject = node.sensorData?.sensor
-            node.sensorData?.sensor?.object = view
-            node.sensorData?.sensor?.valueField = (view?.textField)! as! HWTextField
           }
           break
         default:
@@ -649,11 +693,14 @@ extension PopoverViewController: NSOutlineViewDataSource {
       }
     } else {
       switch group {
+      case NSLocalizedString("RAM", comment: ""):
+        image = NSImage(named: NSImage.Name(rawValue: "ram_small"))
+        break
       case NSLocalizedString("CPU Temperatures", comment: ""):
-        image = NSImage(named: NSImage.Name(rawValue: "temperature_small"))
+        image = NSImage(named: NSImage.Name(rawValue: "cpu_temp_small"))
         break
       case NSLocalizedString("CPU Frequencies", comment: ""):
-        image = NSImage(named: NSImage.Name(rawValue: "freq_small"))
+        image = NSImage(named: NSImage.Name(rawValue: "cpu_freq_small"))
         break
       case NSLocalizedString("Temperatures", comment: ""):
         image = NSImage(named: NSImage.Name(rawValue: "temp_alt_small"))
@@ -673,7 +720,7 @@ extension PopoverViewController: NSOutlineViewDataSource {
       case NSLocalizedString("Batteries", comment: ""):
         image = NSImage(named: NSImage.Name(rawValue: "modern-battery-icon"))
         break
-      case NSLocalizedString("Media healt", comment: ""):
+      case NSLocalizedString("Media health", comment: ""):
         image = NSImage(named: NSImage.Name(rawValue: "hd_small.png"))
         break
       default:
@@ -703,8 +750,8 @@ extension PopoverViewController {
         newLocation.y = 270
       }
       popover.contentSize = NSSize(width: newLocation.x, height: newLocation.y)
-      UserDefaults.standard.set(newLocation.x, forKey: "popoverWidth")
-      UserDefaults.standard.set(newLocation.y, forKey: "popoverHeight")
+      UserDefaults.standard.set(newLocation.x, forKey: kPopoverWidth)
+      UserDefaults.standard.set(newLocation.y, forKey: kPopoverHeight)
       UserDefaults.standard.synchronize()
     }
   }

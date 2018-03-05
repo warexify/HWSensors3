@@ -1,4 +1,7 @@
 
+/* Class = "NSButtonCell"; title = "use percentage to display memory usage"; ObjectID = "1ou-TV-z1H"; */
+"F5h-4I-FHU.title" = "usa percentuali per l'uso della memoria";
+
 /* Class = "NSButtonCell"; title = "expand all groups"; ObjectID = "1ou-TV-z1H"; */
 "1ou-TV-z1H.title" = "espandi tutti i gruppi";
 
@@ -11,8 +14,8 @@
 /* Class = "NSButtonCell"; title = "expand CPU Temperatures group"; ObjectID = "Uuk-nv-v6V"; */
 "Uuk-nv-v6V.title" = "espandi il gruppo delle temperature CPU";
 
-/* Class = "NSButtonCell"; title = "Don't show empty groups"; ObjectID = "VSp-PT-02b"; */
-"VSp-PT-02b.title" = "Non mostrare gruppi vuoti";
+/* Class = "NSButtonCell"; title = "don't show empty groups"; ObjectID = "VSp-PT-02b"; */
+"VSp-PT-02b.title" = "non mostrare gruppi vuoti";
 
 /* Class = "NSButtonCell"; title = "expand Voltages group"; ObjectID = "f3S-tq-sNl"; */
 "f3S-tq-sNl.title" = "espandi il gruppo dei voltaggi";
@@ -20,8 +23,11 @@
 /* Class = "NSButtonCell"; title = "force to use dark appearance"; ObjectID = "fYJ-2d-nMJ"; */
 "fYJ-2d-nMJ.title" = "forza la visualizzazione Dark";
 
+/* Class = "NSButtonCell"; title = "always hide the vertical scroller"; ObjectID = "vMW-P5-ltW"; */
+"vMW-P5-ltW.title" = "nascondi sempre la scroll-bar verticale";
+
 /* Class = "NSTexfieldCell"; title = "Sensor update interval in seconds:"; ObjectID = "i4D-QB-sGd"; */
-"i4D-QB-sGd.title" = "Intervallo di aggiornamento dei sensori:";
+"i4D-QB-sGd.title" = "Intervallo di aggiornamento dei sensori in secondi:";
 
 /* Class = "NSTexfieldCell"; title = "(applied to the next execution)"; ObjectID = "i4D-QB-sGd"; */
 "h2D-rP-QYL.title" = "(applicato alla prossima esecuzione)";

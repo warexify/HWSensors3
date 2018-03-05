@@ -1,4 +1,7 @@
 
+/* Class = "NSButtonCell"; title = "Use percentage to display memory usage"; ObjectID = "1ou-TV-z1H"; */
+"F5h-4I-FHU.title" = "Использовать процент для отображения использования памяти";
+
 /* Class = "NSButtonCell"; title = "expand all groups"; ObjectID = "1ou-TV-z1H"; */
 "1ou-TV-z1H.title" = "расширить все группы";
 
@@ -19,6 +22,9 @@
 
 /* Class = "NSButtonCell"; title = "force to use dark appearance"; ObjectID = "fYJ-2d-nMJ"; */
 "fYJ-2d-nMJ.title" = "заставить использовать тёмный вид";
+
+/* Class = "NSButtonCell"; title = "always hide the vertical scroller"; ObjectID = "vMW-P5-ltW"; */
+"vMW-P5-ltW.title" = "всегда спрятать вертикальный скроллер";
 
 /* Class = "NSTexfieldCell"; title = "Sensors update interval in seconds:"; ObjectID = "i4D-QB-sGd"; */
 "i4D-QB-sGd.title" = "Интервал обновления датчиков в секундах:";

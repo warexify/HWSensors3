@@ -13,10 +13,10 @@
                     <window key="window" identifier="Preferences" title="Preferences" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="7b5-Rl-qab" customClass="HWWindow" customModule="HWMonitorSMC" customModuleProvider="target">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" resizable="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-                        <rect key="contentRect" x="229" y="240" width="480" height="400"/>
+                        <rect key="contentRect" x="229" y="240" width="480" height="450"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1600" height="877"/>
-                        <value key="minSize" type="size" width="480" height="400"/>
-                        <value key="maxSize" type="size" width="480" height="400"/>
+                        <value key="minSize" type="size" width="480" height="450"/>
+                        <value key="maxSize" type="size" width="480" height="450"/>
                         <connections>
                             <outlet property="delegate" destination="S4N-DL-gIq" id="Vgb-Q3-0N6"/>
                         </connections>
@@ -34,15 +34,15 @@
             <objects>
                 <viewController id="xPF-f4-5kE" userLabel="PreferencesVC" customClass="PreferencesVC" customModule="HWMonitorSMC" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" misplaced="YES" id="Sgk-vG-m6s">
-                        <rect key="frame" x="0.0" y="0.0" width="480" height="400"/>
+                        <rect key="frame" x="0.0" y="0.0" width="480" height="450"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <visualEffectView wantsLayer="YES" appearanceType="vibrantLight" misplaced="YES" blendingMode="behindWindow" material="appearanceBased" state="followsWindowActiveState" id="rVh-nU-KcG">
-                                <rect key="frame" x="0.0" y="0.0" width="480" height="400"/>
+                                <rect key="frame" x="0.0" y="0.0" width="480" height="450"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <subviews>
                                     <button verticalHuggingPriority="750" misplaced="YES" id="mqc-iN-VaE">
-                                        <rect key="frame" x="33" y="324" width="423" height="18"/>
+                                        <rect key="frame" x="33" y="347" width="423" height="18"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="check" title="expand CPU Frequencies group" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="IiS-qj-XaA">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -53,7 +53,7 @@
                                         </connections>
                                     </button>
                                     <button verticalHuggingPriority="750" misplaced="YES" id="PM7-Vd-Tfs">
-                                        <rect key="frame" x="33" y="298" width="423" height="18"/>
+                                        <rect key="frame" x="33" y="321" width="423" height="18"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="check" title="expand Voltages group" bezelStyle="regularSquare" imagePosition="left" inset="2" id="f3S-tq-sNl">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -64,7 +64,7 @@
                                         </connections>
                                     </button>
                                     <button verticalHuggingPriority="750" misplaced="YES" id="OzO-ID-osB">
-                                        <rect key="frame" x="33" y="236" width="423" height="18"/>
+                                        <rect key="frame" x="33" y="268" width="423" height="18"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="check" title="expand all groups" bezelStyle="regularSquare" imagePosition="left" inset="2" id="1ou-TV-z1H">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -75,7 +75,7 @@
                                         </connections>
                                     </button>
                                     <button verticalHuggingPriority="750" misplaced="YES" id="YTv-4X-456">
-                                        <rect key="frame" x="33" y="272" width="423" height="18"/>
+                                        <rect key="frame" x="33" y="295" width="423" height="18"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="check" title="expand CPU Temperatures group" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="Uuk-nv-v6V">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -86,9 +86,9 @@
                                         </connections>
                                     </button>
                                     <button verticalHuggingPriority="750" misplaced="YES" id="WeH-bd-fQA">
-                                        <rect key="frame" x="33" y="210" width="423" height="18"/>
+                                        <rect key="frame" x="33" y="228" width="423" height="18"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <buttonCell key="cell" type="check" title="Don't show empty groups" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="VSp-PT-02b">
+                                        <buttonCell key="cell" type="check" title="don't show empty groups" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="VSp-PT-02b">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
@@ -97,7 +97,7 @@
                                         </connections>
                                     </button>
                                     <button verticalHuggingPriority="750" misplaced="YES" id="p4c-KX-rtb">
-                                        <rect key="frame" x="33" y="56" width="423" height="18"/>
+                                        <rect key="frame" x="33" y="92" width="423" height="18"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="check" title="force to use dark appearance" bezelStyle="regularSquare" imagePosition="left" inset="2" id="fYJ-2d-nMJ">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -108,7 +108,7 @@
                                         </connections>
                                     </button>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" id="UwX-gx-Asa">
-                                        <rect key="frame" x="33" y="163" width="423" height="17"/>
+                                        <rect key="frame" x="33" y="191" width="423" height="17"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Sensors update interval in seconds:" id="i4D-QB-sGd">
                                             <font key="font" metaFont="system"/>
@@ -117,7 +117,7 @@
                                         </textFieldCell>
                                     </textField>
                                     <slider verticalHuggingPriority="750" misplaced="YES" id="Ya9-5g-pGn">
-                                        <rect key="frame" x="35" y="136" width="419" height="18"/>
+                                        <rect key="frame" x="35" y="164" width="419" height="18"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <sliderCell key="cell" controlSize="small" state="on" alignment="left" minValue="3" maxValue="10" doubleValue="3" tickMarkPosition="above" numberOfTickMarks="8" allowsTickMarkValuesOnly="YES" sliderType="linear" id="7Pa-AZ-KZo"/>
                                         <connections>
@@ -125,7 +125,7 @@
                                         </connections>
                                     </slider>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" id="Fh3-7I-7E3">
-                                        <rect key="frame" x="33" y="115" width="57" height="14"/>
+                                        <rect key="frame" x="33" y="143" width="57" height="14"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="3" id="sIn-60-xeQ">
                                             <font key="font" metaFont="smallSystem"/>
@@ -134,7 +134,7 @@
                                         </textFieldCell>
                                     </textField>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" id="Bcs-rZ-HhR">
-                                        <rect key="frame" x="394" y="115" width="62" height="14"/>
+                                        <rect key="frame" x="394" y="143" width="62" height="14"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="10" id="LU8-lc-5MO">
                                             <font key="font" metaFont="smallSystem"/>
@@ -142,24 +142,62 @@
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                     </textField>
-                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" id="eB4-pk-qSH">
-                                        <rect key="frame" x="33" y="11" width="423" height="17"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="(applied to the next execution)" id="h2D-rP-QYL">
-                                            <font key="font" metaFont="system"/>
-                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                        </textFieldCell>
-                                    </textField>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" id="PZk-C4-bs9">
-                                        <rect key="frame" x="33" y="372" width="423" height="17"/>
+                                        <rect key="frame" x="33" y="422" width="423" height="17"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="HWSensorSMC" id="5gF-Ik-at1">
+                                        <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="HWMonitorSMC" id="5gF-Ik-at1">
                                             <font key="font" metaFont="system"/>
                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                     </textField>
+                                    <button verticalHuggingPriority="750" misplaced="YES" id="ocn-rq-OF2">
+                                        <rect key="frame" x="33" y="385" width="423" height="18"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <buttonCell key="cell" type="check" title="use percentage to display memory usage" bezelStyle="regularSquare" imagePosition="left" inset="2" id="F5h-4I-FHU">
+                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="useMemoryPercentage:" target="xPF-f4-5kE" id="xdQ-VO-HdM"/>
+                                        </connections>
+                                    </button>
+                                    <box verticalHuggingPriority="750" misplaced="YES" boxType="separator" id="F9v-g6-vxS">
+                                        <rect key="frame" x="35" y="369" width="96" height="5"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    </box>
+                                    <box verticalHuggingPriority="750" misplaced="YES" boxType="separator" id="sIO-nT-nvp">
+                                        <rect key="frame" x="35" y="250" width="96" height="5"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    </box>
+                                    <box verticalHuggingPriority="750" misplaced="YES" boxType="separator" id="MQU-D2-YMb">
+                                        <rect key="frame" x="35" y="214" width="96" height="5"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    </box>
+                                    <box verticalHuggingPriority="750" misplaced="YES" boxType="separator" id="Jij-IY-bWm">
+                                        <rect key="frame" x="35" y="132" width="96" height="5"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                    </box>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" id="eB4-pk-qSH">
+                                        <rect key="frame" x="18" y="20" width="444" height="11"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <textFieldCell key="cell" controlSize="mini" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="(applied to the next execution)" id="h2D-rP-QYL">
+                                            <font key="font" metaFont="miniSystem"/>
+                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
+                                    <button verticalHuggingPriority="750" misplaced="YES" id="dlz-ZL-1ph">
+                                        <rect key="frame" x="33" y="57" width="423" height="18"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <buttonCell key="cell" type="check" title="always hide the vertical scroller" bezelStyle="regularSquare" imagePosition="left" inset="2" id="vMW-P5-ltW">
+                                            <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                            <font key="font" metaFont="system"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="hideScroller:" target="xPF-f4-5kE" id="DJK-au-hHV"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                             </visualEffectView>
                         </subviews>
@@ -172,6 +210,8 @@
                         <outlet property="expandCPUFrequenciesBtn" destination="mqc-iN-VaE" id="k9r-fa-0z7"/>
                         <outlet property="expandCPUTemperatureBtn" destination="YTv-4X-456" id="rrH-E6-S7M"/>
                         <outlet property="expandVoltagesBtn" destination="PM7-Vd-Tfs" id="N8W-8p-IZ6"/>
+                        <outlet property="hideScrollerBtn" destination="dlz-ZL-1ph" id="W6o-gD-QlY"/>
+                        <outlet property="ramPercentageBtn" destination="ocn-rq-OF2" id="d4d-Ce-2rd"/>
                         <outlet property="slider" destination="Ya9-5g-pGn" id="SMe-rZ-Vdq"/>
                     </connections>
                 </viewController>

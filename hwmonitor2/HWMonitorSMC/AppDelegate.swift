@@ -7,10 +7,6 @@
 //
 
 import Cocoa
-let gAppearance = (UserDefaults.standard.string(forKey: "AppleInterfaceStyle") == "Dark" ||
-  UserDefaults.standard.bool(forKey: "Dark")) ?
-  NSAppearance.Name.vibrantDark :
-  NSAppearance.Name.vibrantLight
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
