@@ -177,6 +177,13 @@
 			remoteGlobalIDString = AED9E18D125FBEF400736A5A;
 			remoteInfo = IT87x;
 		};
+		953D9A9D2058753300C570B9 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AEABE453125F8E7400F08235 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A55E16861F7041A50049A107;
+			remoteInfo = VoodooBatterySMC;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -1330,6 +1337,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				953D9A9E2058753300C570B9 /* PBXTargetDependency */,
 				1D1CAABA13657034003878D0 /* PBXTargetDependency */,
 				1D1CAABC1365703A003878D0 /* PBXTargetDependency */,
 				1D1CAABE1365703C003878D0 /* PBXTargetDependency */,
@@ -1741,6 +1749,11 @@
 			isa = PBXTargetDependency;
 			target = AED9E18D125FBEF400736A5A /* IT87x */;
 			targetProxy = 1D1CAAC913657046003878D0 /* PBXContainerItemProxy */;
+		};
+		953D9A9E2058753300C570B9 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A55E16861F7041A50049A107 /* VoodooBatterySMC */;
+			targetProxy = 953D9A9D2058753300C570B9 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
