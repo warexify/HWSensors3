@@ -14,7 +14,9 @@
 #include <IOKit/IORegistryEntry.h>
 
 
+#ifndef Debug
 #define Debug FALSE
+#endif
 
 #define LogPrefix "FakeSMCDevice: "
 #define DebugLog(string, args...)	do { if (Debug) { IOLog (LogPrefix "[Debug] " string "\n", ## args); } } while(0)

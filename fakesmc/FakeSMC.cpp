@@ -1,6 +1,8 @@
 #include "FakeSMC.h"
 
+#ifndef Debug
 #define Debug FALSE
+#endif
 
 #define LogPrefix "FakeSMC: "
 #define DebugLog(string, args...)	do { if (Debug) { IOLog (LogPrefix "[Debug] " string "\n", ## args); } } while(0)
