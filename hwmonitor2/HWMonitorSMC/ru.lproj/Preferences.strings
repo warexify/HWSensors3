@@ -3,28 +3,28 @@
 "F5h-4I-FHU.title" = "Использовать процент для отображения использования памяти";
 
 /* Class = "NSButtonCell"; title = "expand all groups"; ObjectID = "1ou-TV-z1H"; */
-"1ou-TV-z1H.title" = "расширить все группы";
+"1ou-TV-z1H.title" = "развернуть все группы";
 
 /* Class = "NSWindow"; title = "Preferences"; ObjectID = "7b5-Rl-qab"; */
 "7b5-Rl-qab.title" = "Настройки";
 
 /* Class = "NSButtonCell"; title = "expand CPU Frequencies group"; ObjectID = "IiS-qj-XaA"; */
-"IiS-qj-XaA.title" = "расширить группу частот ЦПУ";
+"IiS-qj-XaA.title" = "развернуть группу частот ЦПУ";
 
 /* Class = "NSButtonCell"; title = "expand CPU Temperatures group"; ObjectID = "Uuk-nv-v6V"; */
-"Uuk-nv-v6V.title" = "расширить группу температур ЦПУ";
+"Uuk-nv-v6V.title" = "развернуть группу температур ЦПУ";
 
 /* Class = "NSButtonCell"; title = "Don't show empty groups"; ObjectID = "VSp-PT-02b"; */
 "VSp-PT-02b.title" = "Не показывать пустые группы";
 
 /* Class = "NSButtonCell"; title = "expand Voltages group"; ObjectID = "f3S-tq-sNl"; */
-"f3S-tq-sNl.title" = "расширить группу Шина";
+"f3S-tq-sNl.title" = "развернуть группу Напряжения";
 
 /* Class = "NSButtonCell"; title = "force to use dark appearance"; ObjectID = "fYJ-2d-nMJ"; */
-"fYJ-2d-nMJ.title" = "заставить использовать тёмный вид";
+"fYJ-2d-nMJ.title" = "использовать тёмную тему";
 
 /* Class = "NSButtonCell"; title = "always hide the vertical scroller"; ObjectID = "vMW-P5-ltW"; */
-"vMW-P5-ltW.title" = "всегда спрятать вертикальный скроллер";
+"vMW-P5-ltW.title" = "всегда прятать вертикальный скроллер";
 
 /* Class = "NSTexfieldCell"; title = "Sensors update interval in seconds:"; ObjectID = "i4D-QB-sGd"; */
 "i4D-QB-sGd.title" = "Интервал обновления датчиков в секундах:";
