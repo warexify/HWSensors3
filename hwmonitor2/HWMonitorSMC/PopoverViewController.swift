@@ -643,6 +643,7 @@ extension PopoverViewController: NSOutlineViewDataSource {
             view?.textField?.textColor = (gAppearance == NSAppearance.Name.vibrantDark) ? NSColor.green : NSColor.controlTextColor
           } else {
             view?.textField?.stringValue = (node.sensorData?.sensor?.caption)!
+            view?.textField?.textColor = NSColor.controlTextColor
           }
           break
         case "column2":
