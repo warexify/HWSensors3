@@ -16,8 +16,11 @@ class HWTableRowView: NSTableRowView {
         NSColor.gray.setStroke()
         NSColor.gray.setFill()
       } else {
-        NSColor.controlTextColor.setStroke()
-        NSColor.controlTextColor.setFill()
+        if !self.isEmphasized {
+          self.isEmphasized = true
+        }
+        NSColor.alternateSelectedControlColor.setStroke()
+        NSColor.alternateSelectedControlColor.setFill()
       }
       let bpath = NSBezierPath.init(roundedRect: rect, xRadius: 1, yRadius: 1)
       bpath.fill()
