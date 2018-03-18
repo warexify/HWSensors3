@@ -35,6 +35,8 @@
   NSDictionary*           statusMenuAttributes;
 }
 
+@property (assign) IBOutlet NSMenuItem *startAtLoginItem;
+
 - (void)updateTitles;
 - (HWMonitorSensor *)addSensorWithKey:(NSString *)key
                               andType:(NSString *)aType
