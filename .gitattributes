@@ -21,6 +21,7 @@ ForXCode6/HWSensors.xcodeproj/xcshareddata/xcschemes/W836x.xcscheme -text
 ForXCode6/HWSensors.xcodeproj/xcshareddata/xcschemes/X3100.xcscheme -text
 ForXCode6/HWSensors.xcodeproj/xcshareddata/xcschemes/xcschememanagement.plist -text
 HWSensors.xcodeproj/project.pbxproj -text
+HWSensors.xcodeproj/project.xcworkspace svn_global_002dignores=xcuserdata%0A
 HWSensors.xcodeproj/project.xcworkspace/contents.xcworkspacedata -text
 HWSensors.xcodeproj/project.xcworkspace/xcuserdata/slice.xcuserdatad/UserInterfaceState.xcuserstate -text
 HWSensors.xcodeproj/xcshareddata/xcschemes/ACPIMonitor.xcscheme -text
@@ -60,6 +61,7 @@ hwmonitor/English.lproj/MainMenu.xib -text
 hwmonitor/English.lproj/default.icns -text
 hwmonitor/HWMonitorSMC-Info.plist -text
 hwmonitor/HWMonitorSMC.xcodeproj/project.pbxproj -text
+hwmonitor/HWMonitorSMC.xcodeproj/project.xcworkspace svn_global_002dignores=xcuserdata%0A
 hwmonitor/HWMonitorSMC.xcodeproj/project.xcworkspace/contents.xcworkspacedata -text
 hwmonitor/HWMonitorSMC.xcodeproj/project.xcworkspace/xcuserdata/slice.xcuserdatad/UserInterfaceState.xcuserstate -text
 hwmonitor/HWMonitorSMC.xcodeproj/xcshareddata/xcschemes/HWMonitorSMC.xcscheme -text
@@ -92,11 +94,10 @@ hwmonitor/temperature_small.png -text
 hwmonitor/temperature_small_dark.png -text
 hwmonitor/temperature_small_grey.png -text
 hwmonitor/voltage_small.png -text
+hwmonitor2/HWMonitorSMC.xcodeproj svn_global_002dignores=xcuserdata%0A
 hwmonitor2/HWMonitorSMC.xcodeproj/project.pbxproj -text
 hwmonitor2/HWMonitorSMC.xcodeproj/project.xcworkspace/contents.xcworkspacedata -text
 hwmonitor2/HWMonitorSMC.xcodeproj/project.xcworkspace/xcuserdata/vectorsigma.xcuserdatad/UserInterfaceState.xcuserstate -text
-hwmonitor2/HWMonitorSMC.xcodeproj/xcuserdata/vectorsigma.xcuserdatad/xcdebugger/Breakpoints_v2.xcbkptlist -text
-hwmonitor2/HWMonitorSMC.xcodeproj/xcuserdata/vectorsigma.xcuserdatad/xcschemes/HWMonitorSMC.xcscheme -text
 hwmonitor2/HWMonitorSMC.xcodeproj/xcuserdata/vectorsigma.xcuserdatad/xcschemes/xcschememanagement.plist -text
 hwmonitor2/HWMonitorSMC/AppDelegate.swift -text
 hwmonitor2/HWMonitorSMC/Assets.xcassets/AppIcon.appiconset/Contents.json -text
