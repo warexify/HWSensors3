@@ -545,7 +545,9 @@ extension PopoverViewController: NSOutlineViewDelegate {
   }
   
   func outlineView(_ outlineView: NSOutlineView, rowViewForItem item: Any) -> NSTableRowView? {
-    return HWTableRowView()
+    let rowView = HWTableRowView()
+    rowView.isEmphasized = true
+    return rowView
   }
   
   @objc func clicked() {
