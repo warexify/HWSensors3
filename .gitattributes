@@ -130,6 +130,7 @@ hwmonitor2/HWMonitorSMC/PopoverViewController.swift -text
 hwmonitor2/HWMonitorSMC/PopoverWindowController.swift -text
 hwmonitor2/HWMonitorSMC/PreferencesVC.swift -text
 hwmonitor2/HWMonitorSMC/PreferencesWC.swift -text
+hwmonitor2/HWMonitorSMC/RunAtLogin.swift -text
 hwmonitor2/HWMonitorSMC/SMC/HWImageView.h -text
 hwmonitor2/HWMonitorSMC/SMC/HWImageView.m -text
 hwmonitor2/HWMonitorSMC/SMC/HWMonitorSMC-Bridging-Header.h -text

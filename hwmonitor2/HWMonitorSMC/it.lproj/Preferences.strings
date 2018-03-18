@@ -31,3 +31,6 @@
 
 /* Class = "NSTexfieldCell"; title = "(applied to the next execution)"; ObjectID = "i4D-QB-sGd"; */
 "h2D-rP-QYL.title" = "(applicato alla prossima esecuzione)";
+
+/* Class = "NSButtonCell"; title = "run HWMonitorSMC.app at login"; ObjectID = "Dyg-rv-2Gg"; */
+"Dyg-rv-2Gg.title" = "esegui HWMonitorSMC.app al login";

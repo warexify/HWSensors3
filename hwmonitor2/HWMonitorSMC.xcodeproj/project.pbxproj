@@ -49,6 +49,7 @@
 		95CE19D3204356DF00E73446 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 95CE19D5204356DF00E73446 /* Main.storyboard */; };
 		95CE19DA2043585A00E73446 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 95CE19DC2043585A00E73446 /* Localizable.strings */; };
 		95CE19DF20435CD200E73446 /* Preferences.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 95CE19E120435CD200E73446 /* Preferences.storyboard */; };
+		95DE45CF205E7F3800E4582D /* RunAtLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95DE45CE205E7F3800E4582D /* RunAtLogin.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -166,6 +167,7 @@
 		95CE19E320435CE800E73446 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Preferences.strings; sourceTree = "<group>"; };
 		95CE19E520435CEC00E73446 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Preferences.strings; sourceTree = "<group>"; };
 		95CE19E720435CEE00E73446 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/Preferences.strings; sourceTree = "<group>"; };
+		95DE45CE205E7F3800E4582D /* RunAtLogin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunAtLogin.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -199,6 +201,7 @@
 			isa = PBXGroup;
 			children = (
 				9538E4A4204DAB9900918032 /* globals.swift */,
+				95DE45CE205E7F3800E4582D /* RunAtLogin.swift */,
 				958E796D204193EE0007957E /* AppDelegate.swift */,
 				958E79822041996A0007957E /* HWWindowController.swift */,
 				958E7980204194820007957E /* HWViewController.swift */,
@@ -394,6 +397,7 @@
 				958E796E204193EE0007957E /* AppDelegate.swift in Sources */,
 				958E799C2041D42C0007957E /* ISPSmartController.m in Sources */,
 				958E79832041996A0007957E /* HWWindowController.swift in Sources */,
+				95DE45CF205E7F3800E4582D /* RunAtLogin.swift in Sources */,
 				958E79C5204314A40007957E /* PreferencesWC.swift in Sources */,
 				958E79A02041D4910007957E /* NSString+TruncateToWidth.m in Sources */,
 				958E79BE2042FD110007957E /* HWTextField.m in Sources */,

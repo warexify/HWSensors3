@@ -3,11 +3,12 @@
 //  HWMonitorSMC
 //
 //  Created by vector sigma on 05/03/18.
-//  Copyright © 2018 vector sigma. All rights reserved.
+//  Copyright © 2018 HWSensor. All rights reserved.
 //
 
 import Cocoa
 
+let kRunAtLoginWasSet       = "runAtLoginWasSet"
 let kHideVerticalScroller   = "hideVerticalScroller"
 let kAppleInterfaceStyle    = "AppleInterfaceStyle"
 let kDark                   = "Dark"

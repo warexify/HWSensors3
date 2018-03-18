@@ -18,6 +18,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     self.statusItem.image = icon
     
     self.hwWC = HWWindowController.loadFromNib()
+    
+    if !UserDefaults.standard.bool(forKey: kRunAtLoginWasSet) {
+      self.addLaunchAtStartup()
+    }
   }
   
   func applicationWillTerminate(_ aNotification: Notification) {

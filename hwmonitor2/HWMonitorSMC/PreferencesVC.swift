@@ -17,6 +17,7 @@ class PreferencesVC: NSViewController {
   @IBOutlet var dontShowEmptyBtn        : NSButton!
   @IBOutlet var darkBtn                 : NSButton!
   @IBOutlet var hideScrollerBtn         : NSButton!
+  @IBOutlet var runAtLoginBtn           : NSButton!
   @IBOutlet var slider                  : NSSlider!
   @IBOutlet var effectView              : NSVisualEffectView!
   
@@ -41,6 +42,10 @@ class PreferencesVC: NSViewController {
         timeInterval = 3
       }
     }
+    let shared = NSApplication.shared.delegate as! AppDelegate
+    let state : Bool = shared.applicationIsInStartUpItems()
+    self.runAtLoginBtn.state = state ? .on : .off
+    
     self.slider.doubleValue = timeInterval
     
     self.ramPercentageBtn.state = ud.bool(forKey: kUseMemoryPercentage) ? .on : .off
@@ -51,7 +56,7 @@ class PreferencesVC: NSViewController {
     self.dontShowEmptyBtn.state = ud.bool(forKey: kDontShowEmpty) ? .on : .off
     self.darkBtn.state = ud.bool(forKey: kDark) ? .on : .off
     self.hideScrollerBtn.state = ud.bool(forKey: kHideVerticalScroller) ? .on : .off
-    self.syncronize()
+    self.synchronize()
   }
   
   @IBAction func hideScroller(_ sender: NSButton) {
@@ -60,7 +65,7 @@ class PreferencesVC: NSViewController {
     } else {
       UserDefaults.standard.set(false, forKey: kHideVerticalScroller)
     }
-    self.syncronize()
+    self.synchronize()
   }
     
   @IBAction func useMemoryPercentage(_ sender: NSButton) {
@@ -69,12 +74,12 @@ class PreferencesVC: NSViewController {
     } else {
       UserDefaults.standard.set(false, forKey: kUseMemoryPercentage)
     }
-    self.syncronize()
+    self.synchronize()
   }
   
   @IBAction func sliderMoved(_ sender: NSSlider) {
     UserDefaults.standard.set(sender.doubleValue, forKey: kSensorsTimeInterval)
-    self.syncronize()
+    self.synchronize()
   }
   
   @IBAction func expandCPUTemperature(_ sender: NSButton) {
@@ -83,7 +88,7 @@ class PreferencesVC: NSViewController {
     } else {
       UserDefaults.standard.set(false, forKey: kExpandCPUTemperature)
     }
-    self.syncronize()
+    self.synchronize()
   }
   
   @IBAction func expandVoltages(_ sender: NSButton) {
@@ -92,7 +97,7 @@ class PreferencesVC: NSViewController {
     } else {
       UserDefaults.standard.set(false, forKey: kExpandVoltages)
     }
-    self.syncronize()
+    self.synchronize()
   }
   
   @IBAction func expandCPUFrequencies(_ sender: NSButton) {
@@ -101,7 +106,7 @@ class PreferencesVC: NSViewController {
     } else {
       UserDefaults.standard.set(false, forKey: kExpandCPUFrequencies)
     }
-    self.syncronize()
+    self.synchronize()
   }
   
   @IBAction func expandAll(_ sender: NSButton) {
@@ -110,7 +115,7 @@ class PreferencesVC: NSViewController {
     } else {
       UserDefaults.standard.set(false, forKey: kExpandAll)
     }
-    self.syncronize()
+    self.synchronize()
   }
   
   @IBAction func dontshowEmpty(_ sender: NSButton) {
@@ -119,7 +124,7 @@ class PreferencesVC: NSViewController {
     } else {
       UserDefaults.standard.set(false, forKey: kDontShowEmpty)
     }
-    self.syncronize()
+    self.synchronize()
   }
   
   @IBAction func startDark(_ sender: NSButton) {
@@ -128,10 +133,25 @@ class PreferencesVC: NSViewController {
     } else {
       UserDefaults.standard.set(false, forKey: kDark)
     }
-    self.syncronize()
+    self.synchronize()
   }
   
-  func syncronize() {
+  @IBAction func setAsLoginItem(_ sender: NSButton) {
+    let shared = NSApplication.shared.delegate as! AppDelegate
+    
+    if shared.applicationIsInStartUpItems() {
+      shared.removeLaunchAtStartup()
+    } else {
+      shared.addLaunchAtStartup()
+    }
+    let state : Bool = shared.applicationIsInStartUpItems()
+    self.runAtLoginBtn.state = state ? .on : .off
+    
+    UserDefaults.standard.set(true, forKey: kRunAtLoginWasSet)
+    self.synchronize()
+  }
+  
+  func synchronize() {
     UserDefaults.standard.synchronize()
   }
 }
