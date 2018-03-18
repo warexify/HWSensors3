@@ -101,6 +101,16 @@ hwmonitor2/HWMonitorSMC.xcodeproj/project.xcworkspace/xcuserdata/vectorsigma.xcu
 hwmonitor2/HWMonitorSMC.xcodeproj/xcuserdata/vectorsigma.xcuserdatad/xcschemes/xcschememanagement.plist -text
 hwmonitor2/HWMonitorSMC/AppDelegate.swift -text
 hwmonitor2/HWMonitorSMC/Assets.xcassets/AppIcon.appiconset/Contents.json -text
+hwmonitor2/HWMonitorSMC/Assets.xcassets/AppIcon.appiconset/icon_128x128.png -text
+hwmonitor2/HWMonitorSMC/Assets.xcassets/AppIcon.appiconset/icon_128x128@2x.png -text
+hwmonitor2/HWMonitorSMC/Assets.xcassets/AppIcon.appiconset/icon_16x16.png -text
+hwmonitor2/HWMonitorSMC/Assets.xcassets/AppIcon.appiconset/icon_16x16@2x.png -text
+hwmonitor2/HWMonitorSMC/Assets.xcassets/AppIcon.appiconset/icon_256x256.png -text
+hwmonitor2/HWMonitorSMC/Assets.xcassets/AppIcon.appiconset/icon_256x256@2x.png -text
+hwmonitor2/HWMonitorSMC/Assets.xcassets/AppIcon.appiconset/icon_32x32.png -text
+hwmonitor2/HWMonitorSMC/Assets.xcassets/AppIcon.appiconset/icon_32x32@2x.png -text
+hwmonitor2/HWMonitorSMC/Assets.xcassets/AppIcon.appiconset/icon_512x512.png -text
+hwmonitor2/HWMonitorSMC/Assets.xcassets/AppIcon.appiconset/icon_512x512@2x.png -text
 hwmonitor2/HWMonitorSMC/Base.lproj/Main.storyboard -text
 hwmonitor2/HWMonitorSMC/Base.lproj/Popover.storyboard -text
 hwmonitor2/HWMonitorSMC/Base.lproj/Preferences.storyboard -text
