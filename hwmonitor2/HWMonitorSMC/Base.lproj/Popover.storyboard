@@ -9,8 +9,8 @@
         <!--HWWindowController-->
         <scene sceneID="ib8-YQ-XrY">
             <objects>
-                <windowController storyboardIdentifier="Popover" id="yBe-Le-RmF" userLabel="HWWindowController" customClass="HWWindowController" customModule="HWMonitorSMC" customModuleProvider="target" sceneMemberID="viewController">
-                    <window key="window" title="HWMonitorSMC" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" titlebarAppearsTransparent="YES" id="ZhW-fR-thW" customClass="HWWindow" customModule="HWMonitorSMC" customModuleProvider="target">
+                <windowController storyboardIdentifier="Popover" id="yBe-Le-RmF" userLabel="HWWindowController" customClass="HWWindowController" customModule="HWMonitorSMC2" customModuleProvider="target" sceneMemberID="viewController">
+                    <window key="window" title="HWMonitorSMC" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="ZhW-fR-thW" customClass="HWWindow" customModule="HWMonitorSMC2" customModuleProvider="target">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" resizable="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
                         <rect key="contentRect" x="229" y="240" width="310" height="270"/>
@@ -31,7 +31,7 @@
         <!--HWViewController-->
         <scene sceneID="gpp-yC-5h9">
             <objects>
-                <viewController id="Inv-Z6-uvw" userLabel="HWViewController" customClass="HWViewController" customModule="HWMonitorSMC" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="Inv-Z6-uvw" userLabel="HWViewController" customClass="HWViewController" customModule="HWMonitorSMC2" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="3sR-t5-Jdh">
                         <rect key="frame" x="0.0" y="0.0" width="310" height="270"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -50,7 +50,7 @@
         <!--PopoverViewController-->
         <scene sceneID="gSt-Wt-IYJ">
             <objects>
-                <viewController storyboardIdentifier="PopoverViewController" id="D3w-Vf-IMK" userLabel="PopoverViewController" customClass="PopoverViewController" customModule="HWMonitorSMC" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PopoverViewController" id="D3w-Vf-IMK" userLabel="PopoverViewController" customClass="PopoverViewController" customModule="HWMonitorSMC2" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="t9p-yZ-glJ">
                         <rect key="frame" x="0.0" y="0.0" width="310" height="270"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -58,13 +58,13 @@
                             <visualEffectView wantsLayer="YES" appearanceType="vibrantDark" blendingMode="withinWindow" material="appearanceBased" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="RPx-WM-PNq">
                                 <rect key="frame" x="0.0" y="0.0" width="310" height="270"/>
                                 <subviews>
-                                    <scrollView appearanceType="aqua" autohidesScrollers="YES" horizontalLineScroll="24" horizontalPageScroll="10" verticalLineScroll="24" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OGf-vp-wlg" customClass="HWScrollView" customModule="HWMonitorSMC" customModuleProvider="target">
+                                    <scrollView appearanceType="aqua" autohidesScrollers="YES" horizontalLineScroll="24" horizontalPageScroll="10" verticalLineScroll="24" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OGf-vp-wlg" customClass="HWScrollView" customModule="HWMonitorSMC2" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="310" height="222"/>
                                         <clipView key="contentView" id="zy5-5L-wc9">
                                             <rect key="frame" x="1" y="1" width="308" height="220"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
-                                                <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="22" rowSizeStyle="small" viewBased="YES" indentationPerLevel="7" autosaveExpandedItems="YES" autoresizesOutlineColumn="YES" outlineTableColumn="V2W-Qb-HLa" id="N63-Ub-LYL" customClass="HWOulineView" customModule="HWMonitorSMC" customModuleProvider="target">
+                                                <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="22" rowSizeStyle="small" viewBased="YES" indentationPerLevel="7" autosaveExpandedItems="YES" autoresizesOutlineColumn="YES" outlineTableColumn="V2W-Qb-HLa" id="N63-Ub-LYL" customClass="HWOulineView" customModule="HWMonitorSMC2" customModuleProvider="target">
                                                     <rect key="frame" x="0.0" y="0.0" width="308" height="220"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <size key="intercellSpacing" width="3" height="2"/>

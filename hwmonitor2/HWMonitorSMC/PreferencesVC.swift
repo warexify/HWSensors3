@@ -60,20 +60,22 @@ class PreferencesVC: NSViewController {
   }
   
   @IBAction func hideScroller(_ sender: NSButton) {
-    if sender.state == NSControl.StateValue.on {
+/*    if sender.state == NSControl.StateValue.on {
       UserDefaults.standard.set(true, forKey: kHideVerticalScroller)
     } else {
       UserDefaults.standard.set(false, forKey: kHideVerticalScroller)
-    }
+    } */
+    UserDefaults.standard.set(sender.state == NSControl.StateValue.on, forKey: kHideVerticalScroller)
     self.synchronize()
   }
     
   @IBAction func useMemoryPercentage(_ sender: NSButton) {
-    if sender.state == NSControl.StateValue.on {
+/*    if sender.state == NSControl.StateValue.on {
       UserDefaults.standard.set(true, forKey: kUseMemoryPercentage)
     } else {
       UserDefaults.standard.set(false, forKey: kUseMemoryPercentage)
-    }
+    } */
+    UserDefaults.standard.set(sender.state == NSControl.StateValue.on, forKey: kUseMemoryPercentage)
     self.synchronize()
   }
   
@@ -83,56 +85,62 @@ class PreferencesVC: NSViewController {
   }
   
   @IBAction func expandCPUTemperature(_ sender: NSButton) {
-    if sender.state == NSControl.StateValue.on {
+/*    if sender.state == NSControl.StateValue.on {
       UserDefaults.standard.set(true, forKey: kExpandCPUTemperature)
     } else {
       UserDefaults.standard.set(false, forKey: kExpandCPUTemperature)
-    }
+    } */
+    UserDefaults.standard.set(sender.state == NSControl.StateValue.on, forKey: kExpandCPUTemperature)
     self.synchronize()
   }
   
   @IBAction func expandVoltages(_ sender: NSButton) {
-    if sender.state == NSControl.StateValue.on {
+/*    if sender.state == NSControl.StateValue.on {
       UserDefaults.standard.set(true, forKey: kExpandVoltages)
     } else {
       UserDefaults.standard.set(false, forKey: kExpandVoltages)
-    }
+    } */
+    UserDefaults.standard.set(sender.state == NSControl.StateValue.on, forKey: kExpandVoltages)
     self.synchronize()
   }
   
   @IBAction func expandCPUFrequencies(_ sender: NSButton) {
-    if sender.state == NSControl.StateValue.on {
+/*    if sender.state == NSControl.StateValue.on {
       UserDefaults.standard.set(true, forKey: kExpandCPUFrequencies)
     } else {
       UserDefaults.standard.set(false, forKey: kExpandCPUFrequencies)
-    }
+    }  */
+    UserDefaults.standard.set(sender.state == NSControl.StateValue.on, forKey: kExpandCPUFrequencies)
     self.synchronize()
   }
   
   @IBAction func expandAll(_ sender: NSButton) {
-    if sender.state == NSControl.StateValue.on {
+/*    if sender.state == NSControl.StateValue.on {
       UserDefaults.standard.set(true, forKey: kExpandAll)
     } else {
       UserDefaults.standard.set(false, forKey: kExpandAll)
-    }
+    } */
+    UserDefaults.standard.set(sender.state == NSControl.StateValue.on, forKey: kExpandAll)
     self.synchronize()
   }
   
   @IBAction func dontshowEmpty(_ sender: NSButton) {
-    if sender.state == NSControl.StateValue.on {
+/*    if sender.state == NSControl.StateValue.on {
       UserDefaults.standard.set(true, forKey: kDontShowEmpty)
     } else {
       UserDefaults.standard.set(false, forKey: kDontShowEmpty)
-    }
+    } */
+    UserDefaults.standard.set(sender.state == NSControl.StateValue.on, forKey: kDontShowEmpty)
     self.synchronize()
   }
   
   @IBAction func startDark(_ sender: NSButton) {
-    if sender.state == NSControl.StateValue.on {
+/*    if sender.state == NSControl.StateValue.on {
       UserDefaults.standard.set(true, forKey: kDark)
     } else {
       UserDefaults.standard.set(false, forKey: kDark)
-    }
+    } */
+    UserDefaults.standard.set(sender.state == NSControl.StateValue.on, forKey: kDark)
     self.synchronize()
   }
   

@@ -101,12 +101,12 @@ void SwapASCIIString(UInt16 *buffer, UInt16 length) {
 }
 
 - (NSMutableDictionary *)getDiskInfo: ( IOATASMARTInterface **) smartInterface {
-  IOReturn  error        = kIOReturnSuccess;
-  UInt8 *    buffer        = NULL;
-  UInt32    length        = kATADefaultSectorSize;
-  UInt16 *  words        = NULL;
-  int      checksum      = 0;
-  BOOL    isSMARTSupported  = NO;
+  IOReturn  error             = kIOReturnSuccess;
+  UInt8 *   buffer            = NULL;
+  UInt32    length            = kATADefaultSectorSize;
+  UInt16 *  words             = NULL;
+  int       checksum          = 0;
+  BOOL      isSMARTSupported  = NO;
   
   buffer = (UInt8 *) malloc(kATADefaultSectorSize);
   if(buffer == NULL) {
@@ -256,7 +256,8 @@ void SwapASCIIString(UInt16 *buffer, UInt16 length) {
   bzero(&smartThresholdVendorSpecifics, sizeof(smartThresholdVendorSpecifics));
   bzero(&smartLogDirectory, sizeof(smartLogDirectory));
   
-  BOOL foundTemperature = NO;
+  Boolean foundTemperature = NO;
+  Boolean foundLife = NO;
   //  NSNumber *temperature = nil;
   
   //  [smartResultsDict setObject:[NSNumber numberWithBool:NO] forKey:kWindowSMARTsDeviceOkKeyString];
@@ -293,18 +294,18 @@ void SwapASCIIString(UInt16 *buffer, UInt16 length) {
       int currentAttributeIndex = 0;
       for (currentAttributeIndex = 0; currentAttributeIndex < kSMARTAttributeCount; currentAttributeIndex++) {
         IOATASmartAttribute currentAttribute = smartDataVendorSpecifics.vendorAttributes[currentAttributeIndex];
-        if (currentAttribute.attributeId == kWindowSMARTsDriveTempAttribute ||
-            currentAttribute.attributeId == kWindowSMARTsDriveTempAttribute2) {
+        if ( !foundTemperature &&
+            (currentAttribute.attributeId == kWindowSMARTsDriveTempAttribute ||
+            currentAttribute.attributeId == kWindowSMARTsDriveTempAttribute2)) {
           UInt8 raw = currentAttribute.rawvalue[0];
           temp = [NSNumber numberWithUnsignedInt:raw];
           foundTemperature = YES;
-          break;
         }
-        if (currentAttribute.attributeId == kSMARTsDriveWearLevelingCount) {
+        if (!foundLife && (currentAttribute.attributeId == kSMARTsDriveWearLevelingCount)) {
           UInt8 raw = currentAttribute.current;
           life = [NSNumber numberWithUnsignedInt:raw];
-          //          foundLife = YES;
-          break;
+          foundLife = YES;
+//          break;
         }
         
       }
