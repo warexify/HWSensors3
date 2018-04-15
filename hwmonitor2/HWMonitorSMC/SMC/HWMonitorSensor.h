@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "ISPSmartController.h"
 #import "HWImageView.h"
 #import "HWTextField.h"
 enum {
@@ -20,7 +19,8 @@ enum {
   BatterySensorsGroup         =   7,
   GenericBatterySensorsGroup  =   8,
   HDSmartLifeSensorGroup      =   9,
-  MemorySensorGroup           =  10
+  MemorySensorGroup           =  10,
+  MediaSMARTContenitorGroup   =  11 /* contains HDSmartTempSensorGroup and HDSmartLifeSensorGroup sensors */
 };
 typedef NSUInteger SensorGroup;
 
@@ -48,6 +48,8 @@ typedef NSUInteger SensorGroup;
 @property (readwrite, retain) id            object;
 @property (readwrite, retain) NSString *    stringValue;
 @property (readwrite, assign) BOOL          favorite;
+@property (readwrite, retain) NSString *    characteristics;
+@property (readwrite, assign) BOOL          warn;
 
 + (unsigned int) swapBytes:(unsigned int) value;
 

@@ -7,20 +7,10 @@
 //
 
 #import <Cocoa/Cocoa.h>
-#import "ISPSmartController.h"
 #include "HWMonitorSensor.h"
 
 @interface HWSensorsDelegate : NSObject {
-  NSDictionary *          DisksList;
-  NSDictionary *          SSDList;
   NSDictionary *          BatteriesList;
-  
-  ISPSmartController *    smartController;
-  BOOL                    smart;
-  
-  NSDate *                lastcall;
-  
-  NSStatusBar *           statusItem;
 }
 
 @property (readwrite, assign) BOOL smartSupported;
@@ -35,13 +25,11 @@
 
 - (NSArray *)getOtherFrequencies;
 
-- (NSArray *)getMultiplers;
+- (NSArray *)getMultipliers;
 
 - (NSArray *)getVoltages;
 
 - (NSArray *)getFans;
-
-- (NSArray *)getDisks;
 
 - (NSArray *)getBattery;
 

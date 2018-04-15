@@ -119,6 +119,8 @@ float decodeNumericValue(NSData* _data, NSString*_type)
 @synthesize object;
 @synthesize stringValue;
 @synthesize favorite;
+@synthesize characteristics;
+@synthesize warn;
 
 + (unsigned int)swapBytes:(unsigned int)value {
   return ((value & 0xff00) >> 8) | ((value & 0xff) << 8);

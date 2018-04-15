@@ -42,15 +42,6 @@ int countPhisycalCores() {
 }
 
 - (void)awake {
-  lastcall = [NSDate date];
-  smartController = [[ISPSmartController alloc] init];
-  if (smartController) {
-    smartSupported = YES;
-    [smartController getPartitions];
-    [smartController update];
-    DisksList = [smartController getDataSet /*:1*/];
-    SSDList = [smartController getSSDLife];
-  }
 }
   
 - (NSArray *)getMemory {
@@ -252,7 +243,7 @@ int countPhisycalCores() {
   return arr;
 }
 
-- (NSArray *)getMultiplers {
+- (NSArray *)getMultipliers {
   NSMutableArray *arr = [NSMutableArray array];
   for (int i=0; i<0x2C; i++) {
     [self validateSensorWithKey:[NSString stringWithFormat:@KEY_FORMAT_NON_APPLE_CPU_MULTIPLIER,i]
@@ -365,61 +356,6 @@ int countPhisycalCores() {
                      andCaption:caption
                        intoList:arr];
   }
-  return arr;
-}
-
-- (NSArray *)getDisks {
-  NSMutableArray *arr = [NSMutableArray array];
-  if (self.smartSupported) {
-      if (fabs([lastcall timeIntervalSinceNow]) > SMART_UPDATE_INTERVAL) {
-        lastcall = [NSDate date];
-        [smartController update];
-        DisksList = [smartController getDataSet /*:1*/];
-        SSDList = [smartController getSSDLife];
-      }
-    
-    if (DisksList != nil && DisksList.allKeys.count > 0) {
-      NSEnumerator * DisksEnumerator = [DisksList keyEnumerator];
-      id nextDisk;
-      while (nextDisk = [DisksEnumerator nextObject]) {
-        HWMonitorSensor *sensor = [[HWMonitorSensor alloc] initWithKey:nextDisk
-                                                               andType:@TYPE_FPE2
-                                                              andGroup:HDSmartTempSensorGroup
-                                                           withCaption:nextDisk];
-        
-        sensor.stringValue = [NSString stringWithFormat:@"%@", [sensor formatedValue: [DisksList objectForKey:nextDisk]]];
-        if ((sensor.stringValue != nil) &&
-            ![sensor.stringValue isEqualToString:@""] &&
-            ![sensor.stringValue isEqualToString:@"-"]) {
-          
-          [arr addObject:sensor];
-          [sensor setFavorite:[[NSUserDefaults standardUserDefaults] boolForKey:sensor.key]];
-          [[NSUserDefaults standardUserDefaults] synchronize];
-        }
-      }
-    }
-    if (SSDList != nil && SSDList.allKeys.count > 0) {
-      NSEnumerator * SSDEnumerator = [SSDList keyEnumerator];
-      id nextSSD;
-      while (nextSSD = [SSDEnumerator nextObject]) {
-        HWMonitorSensor *sensor = [[HWMonitorSensor alloc] initWithKey:nextSSD
-                                                               andType:@TYPE_FPE2
-                                                              andGroup:HDSmartLifeSensorGroup
-                                                           withCaption:nextSSD];
-
-        sensor.stringValue = [NSString stringWithFormat:@"%@", [sensor formatedValue: [SSDList objectForKey:nextSSD]]];
-        if ((sensor.stringValue != nil) &&
-            ![sensor.stringValue isEqualToString:@""] &&
-            ![sensor.stringValue isEqualToString:@"-"]) {
-          
-          [arr addObject:sensor];
-          [sensor setFavorite:[[NSUserDefaults standardUserDefaults] boolForKey:sensor.key]];
-          [[NSUserDefaults standardUserDefaults] synchronize];
-        }
-      }
-    }
-  }
-  
   return arr;
 }
 

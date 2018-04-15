@@ -40,6 +40,9 @@ class PopoverViewController: NSViewController {
   var mediaNode                 : HWTreeNode?
   var batteriesNode             : HWTreeNode?
   
+  var smartBeginDate            : Date?
+  var forceSmarScan             : Bool = false
+  
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -48,7 +51,7 @@ class PopoverViewController: NSViewController {
     self.attachButton.image = pin
     self.effectView.appearance = NSAppearance(named: gAppearance)
     if let version = Bundle.main.infoDictionary?["CFBundleVersion"]  as? String {
-      self.versionLabel.stringValue = "HWMonitorSMC v" + version + " Beta"
+      self.versionLabel.stringValue = "HWMonitorSMC v" + version + " rc1"
     }
     
     self.lock.state = NSControl.StateValue.off
@@ -203,10 +206,10 @@ class PopoverViewController: NSViewController {
       }
     }
     // ------
-    self.multipliersNode =  HWTreeNode(representedObject: HWSensorData(group: NSLocalizedString("Multiplers", comment: ""),
+    self.multipliersNode =  HWTreeNode(representedObject: HWSensorData(group: NSLocalizedString("Multipliers", comment: ""),
                                                                        sensor: nil,
                                                                        isLeaf: false))
-    for s in (self.sensorDelegate?.getMultiplers())! {
+    for s in (self.sensorDelegate?.getMultipliers())! {
       let sensor = HWTreeNode(representedObject: HWSensorData(group: (self.multipliersNode?.sensorData?.group)!,
                                                               sensor: s as? HWMonitorSensor,
                                                               isLeaf: true))
@@ -307,12 +310,35 @@ class PopoverViewController: NSViewController {
     self.mediaNode =  HWTreeNode(representedObject: HWSensorData(group: NSLocalizedString("Media health", comment: ""),
                                                                 sensor: nil,
                                                                 isLeaf: false))
-    for s in (self.sensorDelegate?.getDisks())! {
-      let sensor = HWTreeNode(representedObject: HWSensorData(group: (self.mediaNode?.sensorData?.group)!,
-                                                              sensor: s as? HWMonitorSensor,
+
+    self.smartBeginDate = Date()
+    let smartscanner = HWSmartDataScanner()
+    for d in smartscanner.getSmartCapableDisks() {
+      var log : String = ""
+      var productName : String = ""
+      var serial : String = ""
+      
+      let list = smartscanner.getSensors(from: d, characteristics: &log, productName: &productName, serial: &serial)
+      let smartSensorParent = HWMonitorSensor(key: productName,
+                                              andType: "",
+                                              andGroup: UInt(MediaSMARTContenitorGroup),
+                                              withCaption: serial)
+      let smartSensorParentNode = HWTreeNode(representedObject: HWSensorData(group: productName,
+                                                                             sensor: smartSensorParent,
+                                                                             isLeaf: false))
+      for s in list {
+        let snode = HWTreeNode(representedObject: HWSensorData(group: (smartSensorParentNode.sensorData?.group)!,
+                                                              sensor: s,
                                                               isLeaf: true))
-      self.mediaNode?.mutableChildren.add(sensor)
+        s.characteristics = log
+        smartSensorParent?.characteristics = log
+        smartSensorParentNode.mutableChildren.add(snode)
+        self.sensorList?.add(snode)
+      }
+      self.mediaNode?.mutableChildren.add(smartSensorParentNode)
     }
+    addObservers()
+    //----------------------
     if (self.mediaNode?.children?.count)! > 0 {
       self.sensorList?.addObjects(from: (self.mediaNode?.children)!)
       self.dataSource?.add(self.mediaNode!)
@@ -387,6 +413,9 @@ class PopoverViewController: NSViewController {
       }
       if (self.mediaNode != nil) {
         self.outline.expandItem(self.mediaNode)
+        for i in (self.mediaNode?.children)! {
+          self.outline.expandItem(i)
+        }
       }
       if (self.batteriesNode != nil) {
         self.outline.expandItem(self.batteriesNode)
@@ -410,7 +439,46 @@ class PopoverViewController: NSViewController {
       let newMemRead : [HWMonitorSensor] = self.sensorDelegate?.getMemory() as! [HWMonitorSensor]
       let newGenericBatteries : [HWMonitorSensor] = self.sensorDelegate?.getGenericBatteries() as! [HWMonitorSensor]
       let newBattery : [HWMonitorSensor] = self.sensorDelegate?.getBattery() as! [HWMonitorSensor]
-      let newMedia : [HWMonitorSensor] = self.sensorDelegate?.getDisks() as! [HWMonitorSensor]
+      
+      
+      let elapsed = Date().timeIntervalSince(self.smartBeginDate!)
+      var newMediaNode : HWTreeNode
+      let interval : TimeInterval = 30 // scan S.M.A.R.T. each 10 minutes
+      if self.forceSmarScan || elapsed >= interval {
+        self.forceSmarScan = false
+        newMediaNode  = HWTreeNode(representedObject: HWSensorData(group: (self.mediaNode?.sensorData?.group)!,
+                                                                   sensor: nil,
+                                                                   isLeaf: false))
+        
+        let smartscanner = HWSmartDataScanner()
+        for d in smartscanner.getSmartCapableDisks() {
+          var log : String = ""
+          var productName : String = ""
+          var serial : String = ""
+          
+          let list = smartscanner.getSensors(from: d, characteristics: &log, productName: &productName, serial: &serial)
+          let smartSensorParent = HWMonitorSensor(key: productName,
+                                                  andType: "",
+                                                  andGroup: UInt(MediaSMARTContenitorGroup),
+                                                  withCaption: serial)
+          let smartSensorParentNode = HWTreeNode(representedObject: HWSensorData(group: productName,
+                                                                                 sensor: smartSensorParent,
+                                                                                 isLeaf: false))
+          for s in list {
+            let snode = HWTreeNode(representedObject: HWSensorData(group: (smartSensorParentNode.sensorData?.group)!,
+                                                                   sensor: s,
+                                                                   isLeaf: true))
+            s.characteristics = log
+            smartSensorParent?.characteristics = log
+            smartSensorParentNode.mutableChildren.add(snode)
+          }
+          newMediaNode.mutableChildren.add(smartSensorParentNode)
+        }
+        self.smartBeginDate = Date()
+      } else {
+        newMediaNode = self.mediaNode!
+      }
+      
       
       for i in copy {
         let node = i as! HWTreeNode
@@ -421,41 +489,104 @@ class PopoverViewController: NSViewController {
         // Battery sensor are fake, re read it
         switch group {
         case UInt(HDSmartLifeSensorGroup)?:
-          found = true
-          for newSensor in newMedia {
-            if newSensor.group == group && newSensor.caption == sensor?.caption {
-              sensor?.stringValue = newSensor.stringValue
-              value = "\(NSLocalizedString("life", comment: "")): " + newSensor.stringValue
+          found = false
+          for disk in newMediaNode.children! {
+            let productNameNode : HWTreeNode = disk as! HWTreeNode
+            var same = false
+            for n in productNameNode.children! {
+              let ln : HWTreeNode = n as! HWTreeNode
+              if ln.sensorData?.sensor?.group == group && (ln.sensorData?.sensor?.caption)! == sensor?.caption {
+                sensor?.stringValue = ln.sensorData?.sensor?.stringValue
+                value = (ln.sensorData?.sensor?.stringValue)! + "%"
+                same = true
+                break
+              }
+            }
+            if same {
+              found = same
               break
             }
           }
           break
         case UInt(HDSmartTempSensorGroup)?:
-          found = true
-          for newSensor in newMedia {
-            if newSensor.group == group && newSensor.caption == sensor?.caption {
-              sensor?.stringValue = newSensor.stringValue
-              value = newSensor.stringValue
+          found = false
+          for disk in newMediaNode.children! {
+            let productNameNode : HWTreeNode = disk as! HWTreeNode
+            var same = false
+            for n in productNameNode.children! {
+              let tn : HWTreeNode = n as! HWTreeNode
+              if tn.sensorData?.sensor?.group == group && (tn.sensorData?.sensor?.caption)! == sensor?.caption {
+                sensor?.stringValue = tn.sensorData?.sensor?.stringValue
+                value = (tn.sensorData?.sensor?.stringValue)! + "°"
+                same = true
+                break
+              }
+            }
+            if same {
+              found = same
               break
             }
           }
           break
+        case UInt(MediaSMARTContenitorGroup)?:
+          found = false
+          var before : [String] = [String]()
+          var after  : [String] = [String]()
+          for disk in (self.mediaNode?.children)! {
+            let productNameNode : HWTreeNode = disk as! HWTreeNode
+            let modelAndSerial : String = (productNameNode.sensorData?.sensor?.key)! + (productNameNode.sensorData?.sensor?.caption)!
+            before.append(modelAndSerial)
+          }
+          for disk in newMediaNode.children! {
+            let productNameNode : HWTreeNode = disk as! HWTreeNode
+            let modelAndSerial : String = (productNameNode.sensorData?.sensor?.key)! + (productNameNode.sensorData?.sensor?.caption)!
+            after.append(modelAndSerial)
+          }
+          
+          if before != after {
+            // clean old sensors
+            for n in (self.mediaNode?.mutableChildren)! {
+              /* self.mediaNode contains sub groups named with the model of the drive
+               each drive contains life and temperature sensors that must be removed from self.sensorList
+              */
+              let driveNode : HWTreeNode = n as! HWTreeNode
+              for sub in driveNode.children! {
+                self.sensorList?.remove(sub)
+              }
+              self.mediaNode?.mutableChildren.remove(n)
+            }
+            // add new sensors with a new read
+            self.mediaNode?.mutableChildren.addObjects(from: newMediaNode.children!)
+            for n in newMediaNode.children! {
+              /* newMediaNode contains sub groups named with the model of the drive
+               each drive contains life and temperature sensors that must be re added to self.sensorList
+               */
+              let driveNode : HWTreeNode = n as! HWTreeNode
+              for sub in driveNode.children! {
+                self.sensorList?.add(sub)
+              }
+            }
+            self.outline.reloadItem(self.mediaNode, reloadChildren: true)
+          }
+          break
         case UInt(MemorySensorGroup)?:
-          found = true
+          found = false
           for newSensor in newMemRead {
             if newSensor.caption == sensor?.caption {
               value = newSensor.stringValue
               sensor?.stringValue = newSensor.stringValue
+              found = true
               break
             }
           }
           break
         case UInt(BatterySensorsGroup)?:
-          found = true
+          found = false
           for newSensor in newBattery {
             if newSensor.caption == sensor?.caption {
               sensor?.stringValue = newSensor.stringValue
               value = newSensor.stringValue + (newSensor.key == "B0AV" ? "mV" : "mA")
+              found = true
               break
             }
           }
@@ -619,13 +750,6 @@ extension PopoverViewController: NSOutlineViewDataSource {
     }
   }
   
-  /*
-  func outlineView(_ outlineView: NSOutlineView,
-                   objectValueFor tableColumn: NSTableColumn?,
-                   byItem item: Any?) -> Any? {
-    return "e"
-  }*/
-  
   func outlineView(_ outlineView: NSOutlineView,
                    viewFor tableColumn: NSTableColumn?,
                    item: Any) -> NSView? {
@@ -644,7 +768,13 @@ extension PopoverViewController: NSOutlineViewDataSource {
             view?.textField?.stringValue = (node.sensorData?.group)!
             view?.textField?.textColor = (gAppearance == NSAppearance.Name.vibrantDark) ? NSColor.green : NSColor.controlTextColor
           } else {
-            view?.textField?.stringValue = (node.sensorData?.sensor?.caption)!
+            if node.sensorData?.sensor?.group == UInt(HDSmartLifeSensorGroup) {
+              view?.textField?.stringValue = NSLocalizedString("Life", comment: "")
+            } else if node.sensorData?.sensor?.group == UInt(HDSmartTempSensorGroup) {
+              view?.textField?.stringValue = NSLocalizedString("Tеmperature", comment: "")
+            } else {
+              view?.textField?.stringValue = (node.sensorData?.sensor?.caption)!
+            }
             view?.textField?.textColor = NSColor.controlTextColor
           }
           break
@@ -659,10 +789,10 @@ extension PopoverViewController: NSOutlineViewDataSource {
               value = (node.sensorData?.sensor?.stringValue)!
               break
             case UInt(HDSmartLifeSensorGroup):
-              value = "\(NSLocalizedString("life", comment: "")): " + (node.sensorData?.sensor?.stringValue)!
+              value = (node.sensorData?.sensor?.stringValue)! + "%"
               break
             case UInt(HDSmartTempSensorGroup):
-              value = (node.sensorData?.sensor?.stringValue)!
+              value = (node.sensorData?.sensor?.stringValue)! + "°"
               break
             case UInt(BatterySensorsGroup):
               value = (node.sensorData?.sensor?.stringValue)! + ((node.sensorData?.sensor?.key)! == "B0AV" ? "mV" : "mA")
@@ -714,7 +844,7 @@ extension PopoverViewController: NSOutlineViewDataSource {
       case NSLocalizedString("Frequencies", comment: ""):
         image = NSImage(named: NSImage.Name(rawValue: "freq_small"))
         break
-      case NSLocalizedString("Multiplers", comment: ""):
+      case NSLocalizedString("Multipliers", comment: ""):
         image = NSImage(named: NSImage.Name(rawValue: "multiply_small"))
         break
       case NSLocalizedString("Voltages", comment: ""):
@@ -757,5 +887,78 @@ extension PopoverViewController {
       UserDefaults.standard.set(newLocation.y, forKey: kPopoverHeight)
       UserDefaults.standard.synchronize()
     }
+  }
+}
+
+extension PopoverViewController {
+  /*
+   we need to rescan disks when the System awake (because the user can have removed some of it),
+   or just when a disk is ejected or plugged.
+   */
+  func addObservers() {
+    NSWorkspace.shared.notificationCenter.addObserver(self,
+                                                      selector: #selector(self.diskMounted),
+                                                      name: NSWorkspace.didMountNotification,
+                                                      object: nil)
+    
+    NSWorkspace.shared.notificationCenter.addObserver(self,
+                                                      selector: #selector(self.diskUmounted),
+                                                      name: NSWorkspace.didUnmountNotification,
+                                                      object: nil)
+    
+    NSWorkspace.shared.notificationCenter.addObserver(self,
+                                                      selector: #selector(self.wakeListener),
+                                                      name: NSWorkspace.didWakeNotification,
+                                                      object: nil)
+    
+    NSWorkspace.shared.notificationCenter.addObserver(self,
+                                                      selector: #selector(self.powerOffListener),
+                                                      name: NSWorkspace.willPowerOffNotification,
+                                                      object: nil)
+  }
+  
+  func removeObservers() {
+    if #available(OSX 10.12, *) {
+      //print("do need to remove the observer in 10.12 onward!")
+    } else {
+      NSWorkspace.shared.notificationCenter.removeObserver(self,
+                                                           name: NSWorkspace.didMountNotification,
+                                                           object: nil)
+      
+      NSWorkspace.shared.notificationCenter.removeObserver(self,
+                                                           name: NSWorkspace.didUnmountNotification,
+                                                           object: nil)
+      
+      NSWorkspace.shared.notificationCenter.removeObserver(self,
+                                                           name: NSWorkspace.didRenameVolumeNotification,
+                                                           object: nil)
+      
+      NSWorkspace.shared.notificationCenter.removeObserver(self,
+                                                           name: NSWorkspace.didWakeNotification,
+                                                           object: nil)
+      
+      NSWorkspace.shared.notificationCenter.removeObserver(self,
+                                                           name: NSWorkspace.willPowerOffNotification,
+                                                           object: nil)
+    }
+  }
+
+  @objc func diskMounted() {
+    self.forceSmarScan = true
+    self.updateTitles()
+  }
+  
+  @objc func diskUmounted() {
+    self.forceSmarScan = true
+    self.updateTitles()
+  }
+  
+  @objc func powerOffListener() {
+    self.removeObservers()
+  }
+  
+  @objc func wakeListener() {
+    self.forceSmarScan = true
+    self.updateTitles()
   }
 }

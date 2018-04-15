@@ -11,9 +11,12 @@
 		9528011920447910008EA219 /* checkbox.png in Resources */ = {isa = PBXBuildFile; fileRef = 9528011720447910008EA219 /* checkbox.png */; };
 		9528011A20447910008EA219 /* pin.png in Resources */ = {isa = PBXBuildFile; fileRef = 9528011820447910008EA219 /* pin.png */; };
 		952E03762044A8EC00EEC6DF /* PopoverWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 952E03752044A8EC00EEC6DF /* PopoverWindowController.swift */; };
+		9536E3C02082231400186A79 /* HWSMART.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9536E3BF2082231400186A79 /* HWSMART.swift */; };
 		9538E4A3204DA7D800918032 /* HWScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9538E4A2204DA7D800918032 /* HWScrollView.swift */; };
 		9538E4A5204DAB9900918032 /* globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9538E4A4204DAB9900918032 /* globals.swift */; };
 		953A4EED2048C5CE003DC900 /* ram_small.png in Resources */ = {isa = PBXBuildFile; fileRef = 953A4EEC2048C5CE003DC900 /* ram_small.png */; };
+		9570DE2A20837F51003CF4EA /* SystemKit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 9570DE2220837EA7003CF4EA /* SystemKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		9570DE2C20837FA0003CF4EA /* SystemKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9570DE2220837EA7003CF4EA /* SystemKit.framework */; };
 		958E796E204193EE0007957E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 958E796D204193EE0007957E /* AppDelegate.swift */; };
 		958E7970204193EE0007957E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 958E796F204193EE0007957E /* ViewController.swift */; };
 		958E7972204193EE0007957E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 958E7971204193EE0007957E /* Assets.xcassets */; };
@@ -23,7 +26,6 @@
 		958E798D2041AF780007957E /* HWOulineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 958E798C2041AF780007957E /* HWOulineView.swift */; };
 		958E79942041D3E90007957E /* IOBatteryStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = 958E79922041D3E80007957E /* IOBatteryStatus.m */; };
 		958E79972041D4030007957E /* smc.c in Sources */ = {isa = PBXBuildFile; fileRef = 958E79962041D4020007957E /* smc.c */; };
-		958E799C2041D42C0007957E /* ISPSmartController.m in Sources */ = {isa = PBXBuildFile; fileRef = 958E79982041D42B0007957E /* ISPSmartController.m */; };
 		958E799D2041D42C0007957E /* HWMonitorSensor.m in Sources */ = {isa = PBXBuildFile; fileRef = 958E79992041D42B0007957E /* HWMonitorSensor.m */; };
 		958E79A02041D4910007957E /* NSString+TruncateToWidth.m in Sources */ = {isa = PBXBuildFile; fileRef = 958E799E2041D4900007957E /* NSString+TruncateToWidth.m */; };
 		958E79A32041D72F0007957E /* HWSensorsDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 958E79A22041D72F0007957E /* HWSensorsDelegate.m */; };
@@ -51,6 +53,50 @@
 		95CE19DF20435CD200E73446 /* Preferences.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 95CE19E120435CD200E73446 /* Preferences.storyboard */; };
 		95DE45CF205E7F3800E4582D /* RunAtLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95DE45CE205E7F3800E4582D /* RunAtLogin.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		9570DE2120837EA7003CF4EA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9570DE1B20837EA7003CF4EA /* SystemKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 4C543D1C1A08396700C5D9B2;
+			remoteInfo = SystemKit;
+		};
+		9570DE2320837EA7003CF4EA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9570DE1B20837EA7003CF4EA /* SystemKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 4C543D271A08396700C5D9B2;
+			remoteInfo = SystemKitTests;
+		};
+		9570DE2520837EA7003CF4EA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9570DE1B20837EA7003CF4EA /* SystemKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 4C4BE6071A083A690085170A;
+			remoteInfo = Example;
+		};
+		9570DE2720837EBF003CF4EA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9570DE1B20837EA7003CF4EA /* SystemKit.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 4C543D1B1A08396700C5D9B2;
+			remoteInfo = SystemKit;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		9570DE2920837F3C003CF4EA /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				9570DE2A20837F51003CF4EA /* SystemKit.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		950AAF2C2045F22B0004418F /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Main.strings; sourceTree = "<group>"; };
@@ -104,6 +150,8 @@
 		9528011720447910008EA219 /* checkbox.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checkbox.png; sourceTree = "<group>"; };
 		9528011820447910008EA219 /* pin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pin.png; sourceTree = "<group>"; };
 		952E03752044A8EC00EEC6DF /* PopoverWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverWindowController.swift; sourceTree = "<group>"; };
+		9536E3BE2082231400186A79 /* NVMe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NVMe.h; sourceTree = "<group>"; };
+		9536E3BF2082231400186A79 /* HWSMART.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HWSMART.swift; sourceTree = "<group>"; };
 		9538E4A2204DA7D800918032 /* HWScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HWScrollView.swift; sourceTree = "<group>"; };
 		9538E4A4204DAB9900918032 /* globals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = globals.swift; sourceTree = "<group>"; };
 		953A4EC220488D1D003DC900 /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/Main.strings; sourceTree = "<group>"; };
@@ -111,6 +159,7 @@
 		953A4EC420488D1D003DC900 /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/Preferences.strings; sourceTree = "<group>"; };
 		953A4EC520488D1E003DC900 /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/Localizable.strings; sourceTree = "<group>"; };
 		953A4EEC2048C5CE003DC900 /* ram_small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ram_small.png; sourceTree = "<group>"; };
+		9570DE1B20837EA7003CF4EA /* SystemKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SystemKit.xcodeproj; path = "HWMonitorSMC/SystemKit-master/SystemKit.xcodeproj"; sourceTree = "<group>"; };
 		958E796A204193EE0007957E /* HWMonitorSMC2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HWMonitorSMC2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		958E796D204193EE0007957E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		958E796F204193EE0007957E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -126,10 +175,8 @@
 		958E79932041D3E90007957E /* IOBatteryStatus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IOBatteryStatus.h; sourceTree = "<group>"; };
 		958E79952041D4020007957E /* smc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = smc.h; sourceTree = "<group>"; };
 		958E79962041D4020007957E /* smc.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = smc.c; sourceTree = "<group>"; };
-		958E79982041D42B0007957E /* ISPSmartController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ISPSmartController.m; sourceTree = "<group>"; };
 		958E79992041D42B0007957E /* HWMonitorSensor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HWMonitorSensor.m; sourceTree = "<group>"; };
 		958E799A2041D42C0007957E /* HWMonitorSensor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HWMonitorSensor.h; sourceTree = "<group>"; };
-		958E799B2041D42C0007957E /* ISPSmartController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ISPSmartController.h; sourceTree = "<group>"; };
 		958E799E2041D4900007957E /* NSString+TruncateToWidth.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+TruncateToWidth.m"; sourceTree = "<group>"; };
 		958E799F2041D4910007957E /* NSString+TruncateToWidth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+TruncateToWidth.h"; sourceTree = "<group>"; };
 		958E79A12041D72F0007957E /* HWSensorsDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HWSensorsDelegate.h; sourceTree = "<group>"; };
@@ -175,17 +222,46 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9570DE2C20837FA0003CF4EA /* SystemKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9536E3BD208222F000186A79 /* SMART */ = {
+			isa = PBXGroup;
+			children = (
+				9536E3BF2082231400186A79 /* HWSMART.swift */,
+				9536E3BE2082231400186A79 /* NVMe.h */,
+			);
+			path = SMART;
+			sourceTree = "<group>";
+		};
+		9570DE1C20837EA7003CF4EA /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				9570DE2220837EA7003CF4EA /* SystemKit.framework */,
+				9570DE2420837EA7003CF4EA /* SystemKitTests.xctest */,
+				9570DE2620837EA7003CF4EA /* Example */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		9570DE2B20837FA0003CF4EA /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		958E7961204193EE0007957E = {
 			isa = PBXGroup;
 			children = (
+				9570DE1B20837EA7003CF4EA /* SystemKit.xcodeproj */,
 				958E796C204193EE0007957E /* HWMonitorSMC */,
 				958E796B204193EE0007957E /* Products */,
+				9570DE2B20837FA0003CF4EA /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -219,6 +295,7 @@
 				95CE19DC2043585A00E73446 /* Localizable.strings */,
 				95CE19E120435CD200E73446 /* Preferences.storyboard */,
 				958E796F204193EE0007957E /* ViewController.swift */,
+				9536E3BD208222F000186A79 /* SMART */,
 				958E79902041D3A50007957E /* SMC */,
 				958E7971204193EE0007957E /* Assets.xcassets */,
 				958E7976204193EE0007957E /* Info.plist */,
@@ -258,8 +335,6 @@
 				958E79952041D4020007957E /* smc.h */,
 				958E799A2041D42C0007957E /* HWMonitorSensor.h */,
 				958E79992041D42B0007957E /* HWMonitorSensor.m */,
-				958E799B2041D42C0007957E /* ISPSmartController.h */,
-				958E79982041D42B0007957E /* ISPSmartController.m */,
 				958E799F2041D4910007957E /* NSString+TruncateToWidth.h */,
 				958E799E2041D4900007957E /* NSString+TruncateToWidth.m */,
 				958E79A12041D72F0007957E /* HWSensorsDelegate.h */,
@@ -283,12 +358,14 @@
 			buildConfigurationList = 958E797A204193EE0007957E /* Build configuration list for PBXNativeTarget "HWMonitorSMC2" */;
 			buildPhases = (
 				958E7966204193EE0007957E /* Sources */,
+				9570DE2920837F3C003CF4EA /* CopyFiles */,
 				958E7967204193EE0007957E /* Frameworks */,
 				958E7968204193EE0007957E /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				9570DE2820837EBF003CF4EA /* PBXTargetDependency */,
 			);
 			name = HWMonitorSMC2;
 			productName = HWTest;
@@ -342,12 +419,42 @@
 			mainGroup = 958E7961204193EE0007957E;
 			productRefGroup = 958E796B204193EE0007957E /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 9570DE1C20837EA7003CF4EA /* Products */;
+					ProjectRef = 9570DE1B20837EA7003CF4EA /* SystemKit.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				958E7969204193EE0007957E /* HWMonitorSMC2 */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		9570DE2220837EA7003CF4EA /* SystemKit.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = SystemKit.framework;
+			remoteRef = 9570DE2120837EA7003CF4EA /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		9570DE2420837EA7003CF4EA /* SystemKitTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = SystemKitTests.xctest;
+			remoteRef = 9570DE2320837EA7003CF4EA /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		9570DE2620837EA7003CF4EA /* Example */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.executable";
+			path = Example;
+			remoteRef = 9570DE2520837EA7003CF4EA /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		958E7968204193EE0007957E /* Resources */ = {
@@ -385,6 +492,7 @@
 			files = (
 				952E03762044A8EC00EEC6DF /* PopoverWindowController.swift in Sources */,
 				958E79C7204314BF0007957E /* PreferencesVC.swift in Sources */,
+				9536E3C02082231400186A79 /* HWSMART.swift in Sources */,
 				958E79B72042F6F80007957E /* HWWindow.swift in Sources */,
 				958E79A52042CC770007957E /* HWTreeNode.swift in Sources */,
 				958E7970204193EE0007957E /* ViewController.swift in Sources */,
@@ -395,7 +503,6 @@
 				958E799D2041D42C0007957E /* HWMonitorSensor.m in Sources */,
 				958E79942041D3E90007957E /* IOBatteryStatus.m in Sources */,
 				958E796E204193EE0007957E /* AppDelegate.swift in Sources */,
-				958E799C2041D42C0007957E /* ISPSmartController.m in Sources */,
 				958E79832041996A0007957E /* HWWindowController.swift in Sources */,
 				95DE45CF205E7F3800E4582D /* RunAtLogin.swift in Sources */,
 				958E79C5204314A40007957E /* PreferencesWC.swift in Sources */,
@@ -411,6 +518,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		9570DE2820837EBF003CF4EA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = SystemKit;
+			targetProxy = 9570DE2720837EBF003CF4EA /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		95CE19CB2043486E00E73446 /* Popover.storyboard */ = {
@@ -628,9 +743,11 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 2.0.8;
 				INFOPLIST_FILE = HWMonitorSMC/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MODULE_VERSION = 2.0.8;
 				PRODUCT_BUNDLE_IDENTIFIER = org.slice.HWMonitorSMC2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx10.13;
@@ -647,9 +764,11 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 2.0.8;
 				INFOPLIST_FILE = HWMonitorSMC/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
+				MODULE_VERSION = 2.0.8;
 				PRODUCT_BUNDLE_IDENTIFIER = org.slice.HWMonitorSMC2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx10.13;

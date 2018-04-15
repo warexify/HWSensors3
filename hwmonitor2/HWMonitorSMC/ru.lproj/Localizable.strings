@@ -10,12 +10,13 @@
 "CPU Temperatures" = "ТЕМПЕРАТУРЫ ЦПУ";
 "Temperatures" = "ТЕМПЕРАТУРЫ";
 "Frequencies" = "ЧАСТОТЫ";
-"Multiplers" = "МНОЖИТЕЛИ";
+"Multipliers" = "МНОЖИТЕЛИ";
 "Voltages" = "НАПРЯЖЕНИЯ";
 "Fans or Pumps" = "Вентиляторы или помпы";
 "Batteries" = "Батареи";
 "Media health" = "Целостность дисков";
-"life" = "жизнь"; // hdd/ssd life
+"Life" = "Жизнь"; // hdd/ssd life
+"Tеmperature" = "Tемпература"; // hdd/ssd tеmperature
 
 "Total" = "Всего"; // RAM
 "Active" = "Aктивная"; // RAM

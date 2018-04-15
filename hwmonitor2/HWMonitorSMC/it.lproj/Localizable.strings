@@ -10,12 +10,13 @@
 "CPU Temperatures" = "Temperature della CPU";
 "Temperatures" = "Temperature";
 "Frequencies" = "Frequenze";
-"Multiplers" = "Moltiplicatori";
+"Multipliers" = "Moltiplicatori";
 "Voltages" = "Voltaggi";
 "Fans or Pumps" = "Ventole o Pompe";
 "Batteries" = "Batterie";
 "Media health" = "Integrità dei Media";
-"life" = "vita"; // hdd/ssd life
+"Life" = "Vita"; // hdd/ssd life
+"Tеmperature" = "Tеmperatura"; // hdd/ssd tеmperature
 
 "Total" = "Totale"; // RAM
 "Active" = "Attiva"; // RAM
