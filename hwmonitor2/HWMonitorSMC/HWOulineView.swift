@@ -126,9 +126,10 @@ class HWOulineView: NSOutlineView {
     }
     
     let scroller = NSScrollView(frame: rect)
-    scroller.borderType = .noBorder
+    scroller.wantsLayer = true
+    scroller.borderType = .bezelBorder//.noBorder
     scroller.hasHorizontalScroller = false
-    scroller.hasVerticalScroller = true
+    scroller.hasVerticalScroller = false
     scroller.autohidesScrollers = true
     scroller.drawsBackground = false
     
@@ -138,12 +139,14 @@ class HWOulineView: NSOutlineView {
     let textContainer = NSTextContainer(containerSize: rect.size)
     layoutManager.addTextContainer(textContainer)
     let textView = NSTextView(frame: rect, textContainer: textContainer)
+    //textView.wantsLayer = true
     textView.drawsBackground = false
     textView.isEditable = false
     textView.isSelectable = true
     
     textStorage.append(NSAttributedString(string: text))
     scroller.documentView = textView
+    scroller.contentView.copiesOnScroll = true
     textView.scrollToBeginningOfDocument(self)
     return scroller
   }
