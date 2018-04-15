@@ -443,7 +443,7 @@ class PopoverViewController: NSViewController {
       
       let elapsed = Date().timeIntervalSince(self.smartBeginDate!)
       var newMediaNode : HWTreeNode
-      let interval : TimeInterval = 30 // scan S.M.A.R.T. each 10 minutes
+      let interval : TimeInterval = 600 // scan S.M.A.R.T. each 10 minutes
       if self.forceSmarScan || elapsed >= interval {
         self.forceSmarScan = false
         newMediaNode  = HWTreeNode(representedObject: HWSensorData(group: (self.mediaNode?.sensorData?.group)!,
