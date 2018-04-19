@@ -15,8 +15,11 @@
 		9538E4A3204DA7D800918032 /* HWScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9538E4A2204DA7D800918032 /* HWScrollView.swift */; };
 		9538E4A5204DAB9900918032 /* globals.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9538E4A4204DAB9900918032 /* globals.swift */; };
 		953A4EED2048C5CE003DC900 /* ram_small.png in Resources */ = {isa = PBXBuildFile; fileRef = 953A4EEC2048C5CE003DC900 /* ram_small.png */; };
-		9570DE2A20837F51003CF4EA /* SystemKit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 9570DE2220837EA7003CF4EA /* SystemKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		9570DE2C20837FA0003CF4EA /* SystemKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9570DE2220837EA7003CF4EA /* SystemKit.framework */; };
+		95429E9120868D5000DA0660 /* Info.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 95429E9020868D5000DA0660 /* Info.storyboard */; };
+		9550AC882089004A004537F0 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9550AC852089004A004537F0 /* IOKit.framework */; };
+		9550AC8A20890056004537F0 /* DiskArbitration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9550AC8920890056004537F0 /* DiskArbitration.framework */; };
+		9550AC8C2089010B004537F0 /* SystemKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9550AC8B2089010B004537F0 /* SystemKit.framework */; };
+		9550AC8E2089019F004537F0 /* SystemKit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 9550AC8B2089010B004537F0 /* SystemKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		958E796E204193EE0007957E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 958E796D204193EE0007957E /* AppDelegate.swift */; };
 		958E7970204193EE0007957E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 958E796F204193EE0007957E /* ViewController.swift */; };
 		958E7972204193EE0007957E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 958E7971204193EE0007957E /* Assets.xcassets */; };
@@ -54,45 +57,14 @@
 		95DE45CF205E7F3800E4582D /* RunAtLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95DE45CE205E7F3800E4582D /* RunAtLogin.swift */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		9570DE2120837EA7003CF4EA /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 9570DE1B20837EA7003CF4EA /* SystemKit.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 4C543D1C1A08396700C5D9B2;
-			remoteInfo = SystemKit;
-		};
-		9570DE2320837EA7003CF4EA /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 9570DE1B20837EA7003CF4EA /* SystemKit.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 4C543D271A08396700C5D9B2;
-			remoteInfo = SystemKitTests;
-		};
-		9570DE2520837EA7003CF4EA /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 9570DE1B20837EA7003CF4EA /* SystemKit.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 4C4BE6071A083A690085170A;
-			remoteInfo = Example;
-		};
-		9570DE2720837EBF003CF4EA /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 9570DE1B20837EA7003CF4EA /* SystemKit.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 4C543D1B1A08396700C5D9B2;
-			remoteInfo = SystemKit;
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXCopyFilesBuildPhase section */
-		9570DE2920837F3C003CF4EA /* CopyFiles */ = {
+		9550AC8D2089018E004537F0 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				9570DE2A20837F51003CF4EA /* SystemKit.framework in CopyFiles */,
+				9550AC8E2089019F004537F0 /* SystemKit.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -159,7 +131,10 @@
 		953A4EC420488D1D003DC900 /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/Preferences.strings; sourceTree = "<group>"; };
 		953A4EC520488D1E003DC900 /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/Localizable.strings; sourceTree = "<group>"; };
 		953A4EEC2048C5CE003DC900 /* ram_small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ram_small.png; sourceTree = "<group>"; };
-		9570DE1B20837EA7003CF4EA /* SystemKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SystemKit.xcodeproj; path = "HWMonitorSMC/SystemKit-master/SystemKit.xcodeproj"; sourceTree = "<group>"; };
+		95429E9020868D5000DA0660 /* Info.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Info.storyboard; sourceTree = "<group>"; };
+		9550AC852089004A004537F0 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
+		9550AC8920890056004537F0 /* DiskArbitration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DiskArbitration.framework; path = System/Library/Frameworks/DiskArbitration.framework; sourceTree = SDKROOT; };
+		9550AC8B2089010B004537F0 /* SystemKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemKit.framework; path = HWMonitorSMC/Framenworks/SystemKit.framework; sourceTree = "<group>"; };
 		958E796A204193EE0007957E /* HWMonitorSMC2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HWMonitorSMC2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		958E796D204193EE0007957E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		958E796F204193EE0007957E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -222,7 +197,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9570DE2C20837FA0003CF4EA /* SystemKit.framework in Frameworks */,
+				9550AC8A20890056004537F0 /* DiskArbitration.framework in Frameworks */,
+				9550AC8C2089010B004537F0 /* SystemKit.framework in Frameworks */,
+				9550AC882089004A004537F0 /* IOKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -238,19 +215,12 @@
 			path = SMART;
 			sourceTree = "<group>";
 		};
-		9570DE1C20837EA7003CF4EA /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				9570DE2220837EA7003CF4EA /* SystemKit.framework */,
-				9570DE2420837EA7003CF4EA /* SystemKitTests.xctest */,
-				9570DE2620837EA7003CF4EA /* Example */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 		9570DE2B20837FA0003CF4EA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9550AC8B2089010B004537F0 /* SystemKit.framework */,
+				9550AC8920890056004537F0 /* DiskArbitration.framework */,
+				9550AC852089004A004537F0 /* IOKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -258,10 +228,9 @@
 		958E7961204193EE0007957E = {
 			isa = PBXGroup;
 			children = (
-				9570DE1B20837EA7003CF4EA /* SystemKit.xcodeproj */,
 				958E796C204193EE0007957E /* HWMonitorSMC */,
-				958E796B204193EE0007957E /* Products */,
 				9570DE2B20837FA0003CF4EA /* Frameworks */,
+				958E796B204193EE0007957E /* Products */,
 			);
 			sourceTree = "<group>";
 		};
@@ -295,6 +264,7 @@
 				95CE19DC2043585A00E73446 /* Localizable.strings */,
 				95CE19E120435CD200E73446 /* Preferences.storyboard */,
 				958E796F204193EE0007957E /* ViewController.swift */,
+				95429E9020868D5000DA0660 /* Info.storyboard */,
 				9536E3BD208222F000186A79 /* SMART */,
 				958E79902041D3A50007957E /* SMC */,
 				958E7971204193EE0007957E /* Assets.xcassets */,
@@ -358,14 +328,13 @@
 			buildConfigurationList = 958E797A204193EE0007957E /* Build configuration list for PBXNativeTarget "HWMonitorSMC2" */;
 			buildPhases = (
 				958E7966204193EE0007957E /* Sources */,
-				9570DE2920837F3C003CF4EA /* CopyFiles */,
 				958E7967204193EE0007957E /* Frameworks */,
 				958E7968204193EE0007957E /* Resources */,
+				9550AC8D2089018E004537F0 /* CopyFiles */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				9570DE2820837EBF003CF4EA /* PBXTargetDependency */,
 			);
 			name = HWMonitorSMC2;
 			productName = HWTest;
@@ -419,42 +388,12 @@
 			mainGroup = 958E7961204193EE0007957E;
 			productRefGroup = 958E796B204193EE0007957E /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = 9570DE1C20837EA7003CF4EA /* Products */;
-					ProjectRef = 9570DE1B20837EA7003CF4EA /* SystemKit.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				958E7969204193EE0007957E /* HWMonitorSMC2 */,
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		9570DE2220837EA7003CF4EA /* SystemKit.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = SystemKit.framework;
-			remoteRef = 9570DE2120837EA7003CF4EA /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		9570DE2420837EA7003CF4EA /* SystemKitTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = SystemKitTests.xctest;
-			remoteRef = 9570DE2320837EA7003CF4EA /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		9570DE2620837EA7003CF4EA /* Example */ = {
-			isa = PBXReferenceProxy;
-			fileType = "compiled.mach-o.executable";
-			path = Example;
-			remoteRef = 9570DE2520837EA7003CF4EA /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		958E7968204193EE0007957E /* Resources */ = {
@@ -479,6 +418,7 @@
 				958E79B32042EED10007957E /* fan_small.png in Resources */,
 				958E79AE2042EED10007957E /* hd_small.png in Resources */,
 				958E797F204194620007957E /* temperature_small.png in Resources */,
+				95429E9120868D5000DA0660 /* Info.storyboard in Resources */,
 				958E79B02042EED10007957E /* freq_small.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -518,14 +458,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		9570DE2820837EBF003CF4EA /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = SystemKit;
-			targetProxy = 9570DE2720837EBF003CF4EA /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		95CE19CB2043486E00E73446 /* Popover.storyboard */ = {
@@ -743,11 +675,15 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 2.0.8;
+				CURRENT_PROJECT_VERSION = 2.0.9;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/HWMonitorSMC/Framenworks",
+				);
 				INFOPLIST_FILE = HWMonitorSMC/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
-				MODULE_VERSION = 2.0.8;
+				MODULE_VERSION = 2.0.9;
 				PRODUCT_BUNDLE_IDENTIFIER = org.slice.HWMonitorSMC2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx10.13;
@@ -764,11 +700,15 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 2.0.8;
+				CURRENT_PROJECT_VERSION = 2.0.9;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/HWMonitorSMC/Framenworks",
+				);
 				INFOPLIST_FILE = HWMonitorSMC/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
-				MODULE_VERSION = 2.0.8;
+				MODULE_VERSION = 2.0.9;
 				PRODUCT_BUNDLE_IDENTIFIER = org.slice.HWMonitorSMC2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx10.13;

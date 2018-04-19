@@ -249,8 +249,7 @@ struct nvme_smart_log {
 };
 
 
-typedef struct IONVMeSMARTInterface
-{
+typedef struct IONVMeSMARTInterface {
   IUNKNOWN_C_GUTS;
   
   UInt16 version;

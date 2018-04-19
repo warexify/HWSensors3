@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13771"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Right Click View Controller-->
+        <scene sceneID="jb5-k6-aPG">
+            <objects>
+                <viewController storyboardIdentifier="Info" id="oej-gH-Iw1" customClass="RightClickViewController" customModule="HWMonitorSMC2" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" id="e9M-vA-uva">
+                        <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <scrollView autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1km-gQ-OaH">
+                                <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
+                                <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="ecX-Fr-4wC">
+                                    <rect key="frame" x="1" y="1" width="448" height="298"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <textView editable="NO" drawsBackground="NO" importsGraphics="NO" richText="NO" verticallyResizable="YES" findStyle="panel" allowsCharacterPickerTouchBarItem="NO" textCompletion="NO" id="Rr7-6e-MtL">
+                                            <rect key="frame" x="0.0" y="0.0" width="448" height="298"/>
+                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <size key="minSize" width="448" height="298"/>
+                                            <size key="maxSize" width="463" height="10000000"/>
+                                            <color key="insertionPointColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                        </textView>
+                                    </subviews>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </clipView>
+                                <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="YES" id="7tI-nO-aMu">
+                                    <rect key="frame" x="-100" y="-100" width="87" height="18"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </scroller>
+                                <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="azh-lg-GPx">
+                                    <rect key="frame" x="434" y="1" width="15" height="298"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </scroller>
+                            </scrollView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="1km-gQ-OaH" secondAttribute="trailing" id="AXV-X2-kJ2"/>
+                            <constraint firstItem="1km-gQ-OaH" firstAttribute="top" secondItem="e9M-vA-uva" secondAttribute="top" id="Nqt-2g-GJd"/>
+                            <constraint firstAttribute="bottom" secondItem="1km-gQ-OaH" secondAttribute="bottom" id="Vek-NE-ElV"/>
+                            <constraint firstItem="1km-gQ-OaH" firstAttribute="leading" secondItem="e9M-vA-uva" secondAttribute="leading" id="oTe-II-hQK"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="textView" destination="Rr7-6e-MtL" id="nud-2x-dWk"/>
+                    </connections>
+                </viewController>
+                <customObject id="gII-ah-Tqa" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="20" y="190"/>
+        </scene>
+    </scenes>
+</document>

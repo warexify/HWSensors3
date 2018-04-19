@@ -9,7 +9,28 @@
 import Cocoa
 import SystemKit
 
-class HWOulineView: NSOutlineView {
+class RightClickWindowController: NSWindowController, NSWindowDelegate {
+  override func windowDidLoad() {
+    super.windowDidLoad()
+    self.window?.appearance = NSAppearance(named: gAppearance )
+  }
+}
+
+class RightClickViewController: NSViewController {
+  @IBOutlet var textView : NSTextView!
+  override func viewDidLoad() {
+    super.viewDidLoad()
+  }
+  
+  
+  func loadFromNib() -> RightClickViewController {
+    let s = NSStoryboard(name: NSStoryboard.Name(rawValue: "Info"), bundle: nil)
+    let vc = s.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier(rawValue: "Info"))
+    return vc as! RightClickViewController
+  }
+}
+
+class HWOulineView: NSOutlineView, NSPopoverDelegate {
   
   enum InfoViewSize : Int {
     case small  = 1
@@ -18,44 +39,55 @@ class HWOulineView: NSOutlineView {
     case big    = 4
   }
   
+  func popoverDidClose(_ notification: Notification) {
+    let shared = NSApplication.shared.delegate as! AppDelegate
+    if let popover = (shared.hwWC?.contentViewController as! HWViewController).popover {
+      if (self.window != nil) && !(self.window?.isKeyWindow)! {
+        if popover.isShown {
+          popover.close()
+        }
+      }
+    }
+  }
+
   override func menu(for event: NSEvent) -> NSMenu? {
-    
     let point = self.convert(event.locationInWindow, from: nil)
     let row = self.row(at: point)
     if let item : HWTreeNode = self.item(atRow: row) as? HWTreeNode {
       self.selectRowIndexes(IndexSet(integer: row), byExtendingSelection: false)
-      return self.menu(for: item)
+      var rowView : NSView? = nil
+      let pop : NSPopover? = self.getLogPopOverForNode(item, at: row, rowView: &rowView)
+      if (pop != nil && rowView != nil) {
+        pop?.show(relativeTo: (rowView?.bounds)!, of: rowView!, preferredEdge: NSRectEdge.maxX)
+      }
     }
     
     return nil
   }
   
-  private func menu(for node: HWTreeNode) -> NSMenu? {
-    var menu : NSMenu? = nil
-
+  private func getLogPopOverForNode(_ node: HWTreeNode, at row: Int, rowView: inout NSView?) -> NSPopover? {
+    var log : String? = nil
+    var size : InfoViewSize = .normal
     if ((node.sensorData?.sensor?.group) != nil) {
       let g : SensorGroup = (node.sensorData?.sensor?.group)!
       
       switch g {/*
-      case UInt(TemperatureSensorGroup):
-      case UInt(VoltageSensorGroup):
-      case UInt(TachometerSensorGroup):
-      case UInt(FrequencySensorGroup):
-      case UInt(MultiplierSensorGroup):*/
+         case UInt(TemperatureSensorGroup):
+         case UInt(VoltageSensorGroup):
+         case UInt(TachometerSensorGroup):
+         case UInt(FrequencySensorGroup):
+         case UInt(MultiplierSensorGroup):*/
       case UInt(BatterySensorsGroup):
-        menu = self.menuWithItem(with: NSLocalizedString("Batteries", comment: ""),
-                                 text: self.getBatteryInfo(), size: InfoViewSize.normal)
+        size = .normal
+        log = self.getBatteryInfo()
       case UInt(MemorySensorGroup):
-        menu = self.menuWithItem(with: NSLocalizedString("RAM", comment: ""),
-                                 text: self.getMemoryInfo(), size: InfoViewSize.normal)
+        size = .normal
+        log = self.getMemoryInfo()
       case UInt(HDSmartLifeSensorGroup): fallthrough
       case UInt(HDSmartTempSensorGroup): fallthrough
-        case UInt(MediaSMARTContenitorGroup):
-          if let characteristics : String = node.sensorData?.sensor?.characteristics {
-            menu = self.menuWithItem(with: NSLocalizedString("Media health", comment: ""),
-                                     text: characteristics, size: InfoViewSize.normal)
-          }
-      
+      case UInt(MediaSMARTContenitorGroup):
+        size = .normal
+        log = node.sensorData?.sensor?.characteristics
       default:
         break
       }
@@ -65,20 +97,20 @@ class HWOulineView: NSOutlineView {
         switch groupString {
         case NSLocalizedString("CPU Temperatures", comment: ""): fallthrough
         case NSLocalizedString("CPU Frequencies", comment: ""):
-          menu = self.menuWithItem(with: groupString,
-                                   text: self.getCPUInfo(), size: InfoViewSize.normal)
+          size = .normal
+          log = self.getCPUInfo()
         case NSLocalizedString("RAM", comment: ""):
-          menu = self.menuWithItem(with: groupString,
-                                   text: self.getMemoryInfo(), size: InfoViewSize.normal)
+          size = .normal
+          log = self.getMemoryInfo()
         case NSLocalizedString("Batteries", comment: ""):
-          menu = self.menuWithItem(with: groupString,
-                                   text: self.getBatteryInfo(), size: InfoViewSize.normal)
-        case NSLocalizedString("Multipliers", comment: ""): fallthrough
-        case NSLocalizedString("Voltages", comment: ""): fallthrough
+          size = .normal
+          log = self.getBatteryInfo()
+        case NSLocalizedString("Multipliers", comment: ""):   fallthrough
+        case NSLocalizedString("Voltages", comment: ""):      fallthrough
         case NSLocalizedString("Fans or Pumps", comment: ""): fallthrough
         case NSLocalizedString("Temperatures", comment: ""):
-        menu = self.menuWithItem(with: groupString,
-                                 text: self.getSystemStatus(), size: InfoViewSize.big)
+          size = .big
+          log = self.getSystemStatus()
         case NSLocalizedString("Media health", comment: ""):
           var allDrivesInfo : String = ""
           for diskNode in node.children! {
@@ -90,93 +122,69 @@ class HWOulineView: NSOutlineView {
             }
           }
           if allDrivesInfo.count > 0 {
-            menu = self.menuWithItem(with: NSLocalizedString("Media health", comment: ""),
-                                     text: allDrivesInfo, size: InfoViewSize.medium)
+            size = .medium
+            log = allDrivesInfo
           }
         default:
           break
         }
       }
     }
-    if (menu == nil) {
-      NSSound.beep()
+    if (log != nil && log!.count > 0) {
+      let pop = NSPopover()
+      pop.delegate = self
+      if size == .small {
+        pop.contentSize = NSMakeSize(250, 100)
+      } else if size == .normal {
+        pop.contentSize = NSMakeSize(400, 200)
+      } else if size == .big {
+        pop.contentSize = NSMakeSize(500, 600)
+      } else if size == .medium {
+        pop.contentSize = NSMakeSize(400, 450)
+      }
+
+      pop.behavior = .transient
+      pop.animates = true
+      let vc = RightClickViewController().loadFromNib()
+      vc.view.setFrameSize(pop.contentSize)
+      let attrLog = NSMutableAttributedString(string: log!)
+      attrLog.addAttributes([NSAttributedStringKey.font : NSFont(name: "Lucida Grande", size: 10.0)!],
+                          range: NSMakeRange(0, attrLog.length))
+      vc.textView.textStorage?.append(attrLog)
+      pop.contentViewController = vc
+      rowView = self.view(atColumn: 2, row: row, makeIfNecessary: false)
+      return pop
     }
-    return menu
-  }
-  
-  private func menuWithItem(with title: String, text: String, size: InfoViewSize) -> NSMenu {
-    let menu = NSMenu(title: title)
-    let item = NSMenuItem(title: menu.title, action: nil, keyEquivalent: "")
-    item.view = self.textView(with: text, size: size)
-    menu.addItem(item)
-    return menu
-  }
-  
-  private func textView(with text: String, size: InfoViewSize) -> NSView {
-    var rect : NSRect = NSRect(x: 0, y: 0, width: 500, height: 600)
-    
-    if size == .small {
-      rect = NSRect(x: 0, y: 0, width: 250, height: 100)
-    } else if size == .normal {
-      rect = NSRect(x: 0, y: 0, width: 400, height: 200)
-    } else if size == .big {
-      rect = NSRect(x: 0, y: 0, width: 500, height: 600)
-    } else if size == .medium {
-      rect = NSRect(x: 0, y: 0, width: 400, height: 450)
-    }
-    
-    let scroller = NSScrollView(frame: rect)
-    scroller.wantsLayer = true
-    scroller.borderType = .bezelBorder//.noBorder
-    scroller.hasHorizontalScroller = false
-    scroller.hasVerticalScroller = false
-    scroller.autohidesScrollers = true
-    scroller.drawsBackground = false
-    
-    let textStorage = NSTextStorage()
-    let layoutManager = NSLayoutManager()
-    textStorage.addLayoutManager(layoutManager)
-    let textContainer = NSTextContainer(containerSize: rect.size)
-    layoutManager.addTextContainer(textContainer)
-    let textView = NSTextView(frame: rect, textContainer: textContainer)
-    //textView.wantsLayer = true
-    textView.drawsBackground = false
-    textView.isEditable = false
-    textView.isSelectable = true
-    
-    textStorage.append(NSAttributedString(string: text))
-    scroller.documentView = textView
-    scroller.contentView.copiesOnScroll = true
-    textView.scrollToBeginningOfDocument(self)
-    return scroller
+    NSSound.beep()
+    return nil
   }
   
   private func getCPUInfo() -> String {
     var statusString : String = ""
-    statusString += "-- CPU --\n"
+    statusString += "   CPU:\n"
     var size = 0
     sysctlbyname("machdep.cpu.brand_string", nil, &size, nil, 0)
     var machine = [CChar](repeating: 0,  count: Int(size))
     sysctlbyname("machdep.cpu.brand_string", &machine, &size, nil, 0)
-    statusString += "\tNAME:  \(String(cString: machine))\n"
+    statusString += "\tName:  \(String(cString: machine))\n"
     
-    statusString += "\tPHYSICAL CORES:  \(System.physicalCores())\n"
-    statusString += "\tLOGICAL CORES:   \(System.logicalCores())\n"
+    statusString += "\tPhysical cores: \(System.physicalCores())\n"
+    statusString += "\tLogical cores: \(System.logicalCores())\n"
     
     var sys = System()
     let cpuUsage = sys.usageCPU()
-    statusString += "\tSYSTEM: \(Int(cpuUsage.system))%\n"
-    statusString += "\tUSER: \(Int(cpuUsage.user))%\n"
-    statusString += "\tIDLE: \(Int(cpuUsage.idle))%\n"
-    statusString += "\tNICE: \(Int(cpuUsage.nice))%\n"
+    statusString += "\tSystem: \(Int(cpuUsage.system))%\n"
+    statusString += "\tUser: \(Int(cpuUsage.user))%\n"
+    statusString += "\tIdle: \(Int(cpuUsage.idle))%\n"
+    statusString += "\tNice: \(Int(cpuUsage.nice))%\n"
     statusString += "\n"
     return statusString
   }
   
   private func getMemoryInfo() -> String {
     var statusString : String = ""
-    statusString += "-- MEMORY --\n"
-    statusString += "\tPHYSICAL SIZE: \(System.physicalMemory())GB\n"
+    statusString += "   MEMORY:\n"
+    statusString += "\tPhysical size: \(System.physicalMemory())GB\n"
     
     let memoryUsage = System.memoryUsage()
     func memoryUnit(_ value: Double) -> String {
@@ -184,52 +192,52 @@ class HWOulineView: NSOutlineView {
       else           { return NSString(format:"%.2f", value) as String + "GB" }
     }
     
-    statusString += "\tFREE: \(memoryUnit(memoryUsage.free))\n"
-    statusString += "\tWIRED: \(memoryUnit(memoryUsage.wired))\n"
-    statusString += "\tACTIVE: \(memoryUnit(memoryUsage.active))\n"
-    statusString += "\tINACTIVE: \(memoryUnit(memoryUsage.inactive))\n"
-    statusString += "\tCOMPRESSED: \(memoryUnit(memoryUsage.compressed))\n"
+    statusString += "\tFree: \(memoryUnit(memoryUsage.free))\n"
+    statusString += "\tWired: \(memoryUnit(memoryUsage.wired))\n"
+    statusString += "\tActive: \(memoryUnit(memoryUsage.active))\n"
+    statusString += "\tInactive: \(memoryUnit(memoryUsage.inactive))\n"
+    statusString += "\tCompressed: \(memoryUnit(memoryUsage.compressed))\n"
     statusString += "\n"
     return statusString
   }
   
   private func getSystemInfo() -> String {
     var statusString : String = ""
-    statusString += "-- SYSTEM --\n"
-    statusString += "\tMODEL: \(System.modelName())\n"
+    statusString += "   SYSTEM:\n"
+    statusString += "\tModel: \(System.modelName())\n"
     
     /* to be finished
      let names = System.uname()
-     statusString += "\tSYSNAME:         \(names.sysname)\n"
-     statusString += "\tNODENAME:        \(names.nodename)\n"
-     statusString += "\tRELEASE:         \(names.release)\n"
-     statusString += "\tVERSION:         \(names.version)\n"
-     statusString += "\tMACHINE:         \(names.machine)\n"
+     statusString += "\tSYSNAME: \(names.sysname)\n"
+     statusString += "\tNODENAME: \(names.nodename)\n"
+     statusString += "\tRELEASE: \(names.release)\n"
+     statusString += "\tVERSION: \(names.version)\n"
+     statusString += "\tMACHINE: \(names.machine)\n"
      */
     let uptime = System.uptime()
-    statusString += "\tUPTIME: \(uptime.days)d \(uptime.hrs)h \(uptime.mins)m " + "\(uptime.secs)s\n"
+    statusString += "\tUptime: \(uptime.days)d \(uptime.hrs)h \(uptime.mins)m " + "\(uptime.secs)s\n"
     
     let counts = System.processCounts()
-    statusString += "\tPROCESSES: \(counts.processCount)\n"
-    statusString += "\tTHREADS: \(counts.threadCount)\n"
+    statusString += "\tProcesses: \(counts.processCount)\n"
+    statusString += "\tThreads: \(counts.threadCount)\n"
     
     let loadAverage = System.loadAverage().map { NSString(format:"%.2f", $0) }
-    statusString += "\tLOAD AVERAGE: \(loadAverage)\n"
-    statusString += "\tMACH FACTOR: \(System.machFactor())\n"
+    statusString += "\tLoad Average: \(loadAverage)\n"
+    statusString += "\tMach Factor: \(System.machFactor())\n"
     statusString += "\n"
     return statusString
   }
   
   private func getPowerInfo() -> String {
     var statusString : String = ""
-    statusString += "-- POWER --\n"
+    statusString += "   POWER:\n"
     let cpuThermalStatus = System.CPUPowerLimit()
     
-    statusString += "\tCPU SPEED LIMIT: \(cpuThermalStatus.processorSpeed)%\n"
-    statusString += "\tCPUs AVAILABLE: \(cpuThermalStatus.processorCount)\n"
-    statusString += "\tSCHEDULER LIMIT: \(cpuThermalStatus.schedulerTime)%\n"
+    statusString += "\tCPU Speed limit: \(cpuThermalStatus.processorSpeed)%\n"
+    statusString += "\tCPUs available: \(cpuThermalStatus.processorCount)\n"
+    statusString += "\tScheduler limit: \(cpuThermalStatus.schedulerTime)%\n"
     
-    statusString += "\tTHERMAL LEVEL: \(System.thermalLevel().rawValue)\n"
+    statusString += "\tThermal level: \(System.thermalLevel().rawValue)\n"
     statusString += "\n"
     return statusString
   }
@@ -238,18 +246,18 @@ class HWOulineView: NSOutlineView {
     var statusString : String = ""
     var battery = Battery()
     if battery.open() == kIOReturnSuccess {
-      statusString += "-- BATTERY --\n"
-      statusString += "\tAC POWERED: \(battery.isACPowered())\n"
-      statusString += "\tCHARGED: \(battery.isCharged())\n"
-      statusString += "\tCHARGING: \(battery.isCharging())\n"
-      statusString += "\tCHARGE: \(battery.charge())%\n"
-      statusString += "\tCAPACITY: \(battery.currentCapacity()) mAh\n"
-      statusString += "\tMAX CAPACITY: \(battery.maxCapactiy()) mAh\n"
-      statusString += "\tDESGIN CAPACITY: \(battery.designCapacity()) mAh\n"
-      statusString += "\tCYCLES: \(battery.cycleCount())\n"
-      statusString += "\tMAX CYCLES: \(battery.designCycleCount())\n"
-      statusString += "\tTEMPERATURE: \(battery.temperature())°C\n"
-      statusString += "\tTIME REMAINING: \(battery.timeRemainingFormatted())\n"
+      statusString += "   BATTERY:\n"
+      statusString += "\tAC Powered: \(battery.isACPowered())\n"
+      statusString += "\tCharged: \(battery.isCharged())\n"
+      statusString += "\tCharging: \(battery.isCharging())\n"
+      statusString += "\tCharge: \(battery.charge())%\n"
+      statusString += "\tCapacity: \(battery.currentCapacity()) mAh\n"
+      statusString += "\tMax capacity: \(battery.maxCapactiy()) mAh\n"
+      statusString += "\tDesign capacity: \(battery.designCapacity()) mAh\n"
+      statusString += "\tCycles: \(battery.cycleCount())\n"
+      statusString += "\tMax cycles: \(battery.designCycleCount())\n"
+      statusString += "\tTemperature: \(battery.temperature())°C\n"
+      statusString += "\tTime remaining: \(battery.timeRemainingFormatted())\n"
       statusString += "\n"
     }
     _ = battery.close()
@@ -258,7 +266,7 @@ class HWOulineView: NSOutlineView {
   }
   private func getSystemStatus() -> String {
     var statusString : String = ""
-    statusString += "MACHINE STATUS\n"
+    statusString += "MACHINE STATUS:\n\n"
     statusString += self.getCPUInfo()
     statusString += self.getMemoryInfo()
     statusString += self.getSystemInfo()

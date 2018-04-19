@@ -211,7 +211,7 @@ class HWSmartDataScanner: NSObject {
   }
   
   /*
-   valid sensor have Temperature or life, or both
+   valid sensor have Temperature or life, or both (or anyway have s.m.a.r.t. datas)
    */
   func getSensors(from dictionary : NSDictionary,
                   characteristics : inout String,
@@ -223,7 +223,6 @@ class HWSmartDataScanner: NSObject {
       let ud = UserDefaults.standard
       var description : String = ""
       var key : String = ""
-      
       
       let isNVMe = (dictionary.object(forKey: kIsNVMeKey) as! NSNumber).boolValue
       let arbitration : NSDictionary = dictionary.object(forKey: kArbitrationKey) as! NSDictionary
@@ -285,6 +284,10 @@ class HWSmartDataScanner: NSObject {
         let us: NSNumber = attributes.object(forKey: kNVMeSMARTUnsafeShutdownsKey) as! NSNumber
         description += "\(kNVMeSMARTUnsafeShutdownsKey): \(us.intValue)\n"
       } else {
+        if (deviceCharacteristics.object(forKey: kIOPropertyMediumRotationRateKey) != nil) {
+          let rpm : NSNumber = deviceCharacteristics.object(forKey: kIOPropertyMediumRotationRateKey) as! NSNumber
+          description += "\(kIOPropertyMediumRotationRateKey): \(rpm.intValue)rpm\n"
+        }
         let temperature : Int = self.getATATemperatureIn(attributes: attributes)
         
         if temperature != kSMARTTemperatureNotFound {

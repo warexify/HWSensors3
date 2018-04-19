@@ -41,7 +41,7 @@ class PopoverViewController: NSViewController {
   var batteriesNode             : HWTreeNode?
   
   var smartBeginDate            : Date?
-  var forceSmarScan             : Bool = false
+  var forceSmartScan            : Bool = false
   
   
   override func viewDidLoad() {
@@ -51,7 +51,7 @@ class PopoverViewController: NSViewController {
     self.attachButton.image = pin
     self.effectView.appearance = NSAppearance(named: gAppearance)
     if let version = Bundle.main.infoDictionary?["CFBundleVersion"]  as? String {
-      self.versionLabel.stringValue = "HWMonitorSMC v" + version + " rc1"
+      self.versionLabel.stringValue = "HWMonitorSMC2 v" + version + " rc2"
     }
     
     self.lock.state = NSControl.StateValue.off
@@ -323,6 +323,7 @@ class PopoverViewController: NSViewController {
                                               andType: "",
                                               andGroup: UInt(MediaSMARTContenitorGroup),
                                               withCaption: serial)
+      smartSensorParent?.characteristics = log
       let smartSensorParentNode = HWTreeNode(representedObject: HWSensorData(group: productName,
                                                                              sensor: smartSensorParent,
                                                                              isLeaf: false))
@@ -331,7 +332,6 @@ class PopoverViewController: NSViewController {
                                                               sensor: s,
                                                               isLeaf: true))
         s.characteristics = log
-        smartSensorParent?.characteristics = log
         smartSensorParentNode.mutableChildren.add(snode)
         self.sensorList?.add(snode)
       }
@@ -433,9 +433,7 @@ class PopoverViewController: NSViewController {
     if self.initiated {
       var found : Bool = false
       let statusString : NSMutableString = NSMutableString()
-      let copy : NSArray = self.sensorList?.copy() as! NSArray
-      
-      
+
       let newMemRead : [HWMonitorSensor] = self.sensorDelegate?.getMemory() as! [HWMonitorSensor]
       let newGenericBatteries : [HWMonitorSensor] = self.sensorDelegate?.getGenericBatteries() as! [HWMonitorSensor]
       let newBattery : [HWMonitorSensor] = self.sensorDelegate?.getBattery() as! [HWMonitorSensor]
@@ -444,8 +442,8 @@ class PopoverViewController: NSViewController {
       let elapsed = Date().timeIntervalSince(self.smartBeginDate!)
       var newMediaNode : HWTreeNode
       let interval : TimeInterval = 600 // scan S.M.A.R.T. each 10 minutes
-      if self.forceSmarScan || elapsed >= interval {
-        self.forceSmarScan = false
+      if self.forceSmartScan || elapsed >= interval {
+        self.forceSmartScan = false
         newMediaNode  = HWTreeNode(representedObject: HWSensorData(group: (self.mediaNode?.sensorData?.group)!,
                                                                    sensor: nil,
                                                                    isLeaf: false))
@@ -461,6 +459,7 @@ class PopoverViewController: NSViewController {
                                                   andType: "",
                                                   andGroup: UInt(MediaSMARTContenitorGroup),
                                                   withCaption: serial)
+          smartSensorParent?.characteristics = log
           let smartSensorParentNode = HWTreeNode(representedObject: HWSensorData(group: productName,
                                                                                  sensor: smartSensorParent,
                                                                                  isLeaf: false))
@@ -469,17 +468,55 @@ class PopoverViewController: NSViewController {
                                                                    sensor: s,
                                                                    isLeaf: true))
             s.characteristics = log
-            smartSensorParent?.characteristics = log
             smartSensorParentNode.mutableChildren.add(snode)
           }
           newMediaNode.mutableChildren.add(smartSensorParentNode)
+        }
+        
+        var before : [String] = [String]()
+        var after  : [String] = [String]()
+        for disk in (self.mediaNode?.children)! {
+          let productNameNode : HWTreeNode = disk as! HWTreeNode
+          let modelAndSerial : String = (productNameNode.sensorData?.sensor?.key)! + (productNameNode.sensorData?.sensor?.caption)!
+          before.append(modelAndSerial)
+        }
+        for disk in newMediaNode.children! {
+          let productNameNode : HWTreeNode = disk as! HWTreeNode
+          let modelAndSerial : String = (productNameNode.sensorData?.sensor?.key)! + (productNameNode.sensorData?.sensor?.caption)!
+          after.append(modelAndSerial)
+        }
+        
+        if before != after {
+          // clean old sensors
+          for n in (self.mediaNode?.mutableChildren)! {
+            /* self.mediaNode contains sub groups named with the model of the drive
+             each drive contains life and temperature sensors that must be removed from self.sensorList
+             */
+            let driveNode : HWTreeNode = n as! HWTreeNode
+            for sub in driveNode.children! {
+              self.sensorList?.remove(sub)
+            }
+            self.mediaNode?.mutableChildren.remove(n)
+          }
+          // add new sensors with a new read
+          self.mediaNode?.mutableChildren.addObjects(from: newMediaNode.children!)
+          for n in newMediaNode.children! {
+            /* newMediaNode contains sub groups named with the model of the drive
+             each drive contains life and temperature sensors that must be re added to self.sensorList
+             */
+            let driveNode : HWTreeNode = n as! HWTreeNode
+            for sub in driveNode.children! {
+              self.sensorList?.add(sub)
+            }
+          }
+          self.outline.reloadItem(self.mediaNode, reloadChildren: true)
         }
         self.smartBeginDate = Date()
       } else {
         newMediaNode = self.mediaNode!
       }
       
-      
+      let copy : NSArray = self.sensorList?.copy() as! NSArray
       for i in copy {
         let node = i as! HWTreeNode
         let sensor = node.sensorData?.sensor
@@ -497,6 +534,8 @@ class PopoverViewController: NSViewController {
               let ln : HWTreeNode = n as! HWTreeNode
               if ln.sensorData?.sensor?.group == group && (ln.sensorData?.sensor?.caption)! == sensor?.caption {
                 sensor?.stringValue = ln.sensorData?.sensor?.stringValue
+                sensor?.characteristics = ln.sensorData?.sensor?.characteristics
+                (ln.parent as! HWTreeNode).sensorData?.sensor?.characteristics  = ln.sensorData?.sensor?.characteristics
                 value = (ln.sensorData?.sensor?.stringValue)! + "%"
                 same = true
                 break
@@ -517,6 +556,8 @@ class PopoverViewController: NSViewController {
               let tn : HWTreeNode = n as! HWTreeNode
               if tn.sensorData?.sensor?.group == group && (tn.sensorData?.sensor?.caption)! == sensor?.caption {
                 sensor?.stringValue = tn.sensorData?.sensor?.stringValue
+                sensor?.characteristics = tn.sensorData?.sensor?.characteristics
+                (tn.parent as! HWTreeNode).sensorData?.sensor?.characteristics  = tn.sensorData?.sensor?.characteristics
                 value = (tn.sensorData?.sensor?.stringValue)! + "°"
                 same = true
                 break
@@ -526,47 +567,6 @@ class PopoverViewController: NSViewController {
               found = same
               break
             }
-          }
-          break
-        case UInt(MediaSMARTContenitorGroup)?:
-          found = false
-          var before : [String] = [String]()
-          var after  : [String] = [String]()
-          for disk in (self.mediaNode?.children)! {
-            let productNameNode : HWTreeNode = disk as! HWTreeNode
-            let modelAndSerial : String = (productNameNode.sensorData?.sensor?.key)! + (productNameNode.sensorData?.sensor?.caption)!
-            before.append(modelAndSerial)
-          }
-          for disk in newMediaNode.children! {
-            let productNameNode : HWTreeNode = disk as! HWTreeNode
-            let modelAndSerial : String = (productNameNode.sensorData?.sensor?.key)! + (productNameNode.sensorData?.sensor?.caption)!
-            after.append(modelAndSerial)
-          }
-          
-          if before != after {
-            // clean old sensors
-            for n in (self.mediaNode?.mutableChildren)! {
-              /* self.mediaNode contains sub groups named with the model of the drive
-               each drive contains life and temperature sensors that must be removed from self.sensorList
-              */
-              let driveNode : HWTreeNode = n as! HWTreeNode
-              for sub in driveNode.children! {
-                self.sensorList?.remove(sub)
-              }
-              self.mediaNode?.mutableChildren.remove(n)
-            }
-            // add new sensors with a new read
-            self.mediaNode?.mutableChildren.addObjects(from: newMediaNode.children!)
-            for n in newMediaNode.children! {
-              /* newMediaNode contains sub groups named with the model of the drive
-               each drive contains life and temperature sensors that must be re added to self.sensorList
-               */
-              let driveNode : HWTreeNode = n as! HWTreeNode
-              for sub in driveNode.children! {
-                self.sensorList?.add(sub)
-              }
-            }
-            self.outline.reloadItem(self.mediaNode, reloadChildren: true)
           }
           break
         case UInt(MemorySensorGroup)?:
@@ -944,12 +944,12 @@ extension PopoverViewController {
   }
 
   @objc func diskMounted() {
-    self.forceSmarScan = true
+    self.forceSmartScan = true
     self.updateTitles()
   }
   
   @objc func diskUmounted() {
-    self.forceSmarScan = true
+    self.forceSmartScan = true
     self.updateTitles()
   }
   
@@ -958,7 +958,7 @@ extension PopoverViewController {
   }
   
   @objc func wakeListener() {
-    self.forceSmarScan = true
+    self.forceSmartScan = true
     self.updateTitles()
   }
 }

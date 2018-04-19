@@ -167,21 +167,21 @@ int countPhisycalCores() {
                          ofType:([HWMonitorSensor getTypeOfKey:
                                   [NSString stringWithFormat:@KEY_FORMAT_GPU_DIODE_TEMPERATURE, i]]) ? : @TYPE_SP78
                        forGroup:TemperatureSensorGroup
-                     andCaption:[[NSString alloc] initWithFormat:NSLocalizedString(@"GPU %X Core",nil) ,i]
+                     andCaption:[[NSString alloc] initWithFormat:NSLocalizedString(@"GPU %d Core",nil) ,i]
                        intoList:arr];
     
     [self validateSensorWithKey:[NSString stringWithFormat:@KEY_FORMAT_GPU_BOARD_TEMPERATURE, i]
                          ofType:([HWMonitorSensor getTypeOfKey:
                                   [NSString stringWithFormat:@KEY_FORMAT_GPU_BOARD_TEMPERATURE, i]]) ? : @TYPE_SP78
                        forGroup:TemperatureSensorGroup
-                     andCaption:[[NSString alloc] initWithFormat:NSLocalizedString(@"GPU %X Board",nil) ,i]
+                     andCaption:[[NSString alloc] initWithFormat:NSLocalizedString(@"GPU %d Board",nil) ,i]
                        intoList:arr];
     
     [self validateSensorWithKey:[NSString stringWithFormat:@KEY_FORMAT_GPU_PROXIMITY_TEMPERATURE, i]
                          ofType:([HWMonitorSensor getTypeOfKey:
                                   [NSString stringWithFormat:@KEY_FORMAT_GPU_PROXIMITY_TEMPERATURE, i]]) ? : @TYPE_SP78
                        forGroup:TemperatureSensorGroup
-                     andCaption:[[NSString alloc] initWithFormat:NSLocalizedString(@"GPU %X Proximity",nil) ,i]
+                     andCaption:[[NSString alloc] initWithFormat:NSLocalizedString(@"GPU %d Proximity",nil) ,i]
                        intoList:arr];
   }
   return arr;

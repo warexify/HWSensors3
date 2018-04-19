@@ -32,9 +32,9 @@
 "DIMM 0" = "DIMM 0";
 "DIMM 1" = "DIMM 1";
 "Ambient" = "Корпус";
-"GPU %X Core" = "GPU %X, ядро";
-"GPU %X Board" = "GPU %X, плата";
-"GPU %X Proximity" = "GPU %X, оценка";
+"GPU %d Core" = "GPU %d, ядро";
+"GPU %d Board" = "GPU %d, плата";
+"GPU %d Proximity" = "GPU %d, оценка";
 "CPU %d Core" = "Ядро ЦПУ %d";
 "CPU %d Diode" = "ЦПУ %d";
 "CPU %d" = "ЦПУ %d";

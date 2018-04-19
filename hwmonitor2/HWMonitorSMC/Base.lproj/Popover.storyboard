@@ -195,12 +195,12 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
                                     </scrollView>
-                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="NbD-Xu-Gaz">
+                                    <button focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="NbD-Xu-Gaz">
                                         <rect key="frame" x="290" y="250" width="20" height="20"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="20" id="oVO-JV-cu5"/>
                                         </constraints>
-                                        <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="NSStopProgressFreestandingTemplate" imagePosition="overlaps" alignment="center" alternateImage="NSStopProgressFreestandingTemplate" imageScaling="proportionallyDown" inset="2" id="9ie-EO-0bE">
+                                        <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="NSStopProgressFreestandingTemplate" imagePosition="overlaps" alignment="center" alternateImage="NSStopProgressFreestandingTemplate" focusRingType="none" imageScaling="proportionallyDown" inset="2" id="9ie-EO-0bE">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
@@ -221,12 +221,12 @@
                                             <action selector="reattachPopover:" target="D3w-Vf-IMK" id="ohL-g5-GhH"/>
                                         </connections>
                                     </button>
-                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Ltb-EQ-zNd">
+                                    <button focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Ltb-EQ-zNd">
                                         <rect key="frame" x="4" y="4" width="22" height="22"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="22" id="ioj-Xo-mfU"/>
                                         </constraints>
-                                        <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="NSAdvanced" imagePosition="only" alignment="center" alternateImage="NSAdvanced" controlSize="small" imageScaling="proportionallyDown" inset="2" id="nC4-R3-WSY">
+                                        <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="NSAdvanced" imagePosition="only" alignment="center" alternateImage="NSAdvanced" controlSize="small" focusRingType="none" imageScaling="proportionallyDown" inset="2" id="nC4-R3-WSY">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="smallSystem"/>
                                         </buttonCell>
@@ -242,9 +242,9 @@
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                     </textField>
-                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="PoQ-h5-ji8">
+                                    <button focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="PoQ-h5-ji8">
                                         <rect key="frame" x="284" y="4" width="22" height="22"/>
-                                        <buttonCell key="cell" type="bevel" bezelStyle="regularSquare" image="NSLockUnlockedTemplate" imagePosition="overlaps" alternateImage="NSLockLockedTemplate" state="on" inset="2" id="iZe-E7-fwz">
+                                        <buttonCell key="cell" type="bevel" bezelStyle="regularSquare" image="NSLockUnlockedTemplate" imagePosition="overlaps" alternateImage="NSLockLockedTemplate" state="on" focusRingType="none" inset="2" id="iZe-E7-fwz">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
