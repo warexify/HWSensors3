@@ -329,12 +329,15 @@ public struct Battery {
    
    :returns: Battery temperature, by default in Celsius.
    */
+  
   public func temperature(_ unit: TemperatureUnit = .celsius) -> Double {
-    let prop = IORegistryEntryCreateCFProperty(service,
-                                               Key.Temperature.rawValue as CFString!,
-                                               kCFAllocatorDefault, 0)
-    
-    var temperature = prop?.takeUnretainedValue() as! Double / 100.0
+    var temperature: Double = 0
+    if let prop = IORegistryEntryCreateCFProperty(service,
+                                                  Key.Temperature.rawValue as CFString!,
+                                                  kCFAllocatorDefault, 0) {
+      
+      temperature = prop.takeUnretainedValue() as! Double / 100.0
+    }
     
     switch unit {
     case .celsius:
@@ -349,7 +352,6 @@ public struct Battery {
     
     return ceil(temperature)
   }
-  
   
   //--------------------------------------------------------------------------
   // MARK: PRIVATE HELPERS
