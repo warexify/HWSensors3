@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		950618BF208CCC62001C988E /* System.swift in Sources */ = {isa = PBXBuildFile; fileRef = 950618BB208CCC62001C988E /* System.swift */; };
+		950618C0208CCC62001C988E /* Battery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 950618BC208CCC62001C988E /* Battery.swift */; };
+		950618C1208CCC62001C988E /* IOReturn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 950618BD208CCC62001C988E /* IOReturn.swift */; };
+		950618C2208CCC62001C988E /* Process.swift in Sources */ = {isa = PBXBuildFile; fileRef = 950618BE208CCC62001C988E /* Process.swift */; };
 		95280103204444BA008EA219 /* PopoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95280102204444BA008EA219 /* PopoverViewController.swift */; };
 		9528011920447910008EA219 /* checkbox.png in Resources */ = {isa = PBXBuildFile; fileRef = 9528011720447910008EA219 /* checkbox.png */; };
 		9528011A20447910008EA219 /* pin.png in Resources */ = {isa = PBXBuildFile; fileRef = 9528011820447910008EA219 /* pin.png */; };
@@ -18,8 +22,6 @@
 		95429E9120868D5000DA0660 /* Info.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 95429E9020868D5000DA0660 /* Info.storyboard */; };
 		9550AC882089004A004537F0 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9550AC852089004A004537F0 /* IOKit.framework */; };
 		9550AC8A20890056004537F0 /* DiskArbitration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9550AC8920890056004537F0 /* DiskArbitration.framework */; };
-		9550AC8C2089010B004537F0 /* SystemKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9550AC8B2089010B004537F0 /* SystemKit.framework */; };
-		9550AC8E2089019F004537F0 /* SystemKit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 9550AC8B2089010B004537F0 /* SystemKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		958E796E204193EE0007957E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 958E796D204193EE0007957E /* AppDelegate.swift */; };
 		958E7970204193EE0007957E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 958E796F204193EE0007957E /* ViewController.swift */; };
 		958E7972204193EE0007957E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 958E7971204193EE0007957E /* Assets.xcassets */; };
@@ -57,20 +59,11 @@
 		95DE45CF205E7F3800E4582D /* RunAtLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95DE45CE205E7F3800E4582D /* RunAtLogin.swift */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXCopyFilesBuildPhase section */
-		9550AC8D2089018E004537F0 /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				9550AC8E2089019F004537F0 /* SystemKit.framework in CopyFiles */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
-
 /* Begin PBXFileReference section */
+		950618BB208CCC62001C988E /* System.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = System.swift; sourceTree = "<group>"; };
+		950618BC208CCC62001C988E /* Battery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Battery.swift; sourceTree = "<group>"; };
+		950618BD208CCC62001C988E /* IOReturn.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IOReturn.swift; sourceTree = "<group>"; };
+		950618BE208CCC62001C988E /* Process.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Process.swift; sourceTree = "<group>"; };
 		950AAF2C2045F22B0004418F /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Main.strings; sourceTree = "<group>"; };
 		950AAF2D2045F22B0004418F /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Popover.strings; sourceTree = "<group>"; };
 		950AAF2E2045F22B0004418F /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Preferences.strings; sourceTree = "<group>"; };
@@ -134,7 +127,6 @@
 		95429E9020868D5000DA0660 /* Info.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Info.storyboard; sourceTree = "<group>"; };
 		9550AC852089004A004537F0 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
 		9550AC8920890056004537F0 /* DiskArbitration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DiskArbitration.framework; path = System/Library/Frameworks/DiskArbitration.framework; sourceTree = SDKROOT; };
-		9550AC8B2089010B004537F0 /* SystemKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemKit.framework; path = HWMonitorSMC/Framenworks/SystemKit.framework; sourceTree = "<group>"; };
 		958E796A204193EE0007957E /* HWMonitorSMC2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HWMonitorSMC2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		958E796D204193EE0007957E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		958E796F204193EE0007957E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -198,7 +190,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				9550AC8A20890056004537F0 /* DiskArbitration.framework in Frameworks */,
-				9550AC8C2089010B004537F0 /* SystemKit.framework in Frameworks */,
 				9550AC882089004A004537F0 /* IOKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -206,6 +197,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		950618BA208CCC1F001C988E /* SystemKit */ = {
+			isa = PBXGroup;
+			children = (
+				950618BC208CCC62001C988E /* Battery.swift */,
+				950618BD208CCC62001C988E /* IOReturn.swift */,
+				950618BE208CCC62001C988E /* Process.swift */,
+				950618BB208CCC62001C988E /* System.swift */,
+			);
+			path = SystemKit;
+			sourceTree = "<group>";
+		};
 		9536E3BD208222F000186A79 /* SMART */ = {
 			isa = PBXGroup;
 			children = (
@@ -218,7 +220,6 @@
 		9570DE2B20837FA0003CF4EA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				9550AC8B2089010B004537F0 /* SystemKit.framework */,
 				9550AC8920890056004537F0 /* DiskArbitration.framework */,
 				9550AC852089004A004537F0 /* IOKit.framework */,
 			);
@@ -265,6 +266,7 @@
 				95CE19E120435CD200E73446 /* Preferences.storyboard */,
 				958E796F204193EE0007957E /* ViewController.swift */,
 				95429E9020868D5000DA0660 /* Info.storyboard */,
+				950618BA208CCC1F001C988E /* SystemKit */,
 				9536E3BD208222F000186A79 /* SMART */,
 				958E79902041D3A50007957E /* SMC */,
 				958E7971204193EE0007957E /* Assets.xcassets */,
@@ -330,7 +332,6 @@
 				958E7966204193EE0007957E /* Sources */,
 				958E7967204193EE0007957E /* Frameworks */,
 				958E7968204193EE0007957E /* Resources */,
-				9550AC8D2089018E004537F0 /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -348,7 +349,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0920;
-				LastUpgradeCheck = 0920;
+				LastUpgradeCheck = 0930;
 				ORGANIZATIONNAME = "vector sigma";
 				TargetAttributes = {
 					958E7969204193EE0007957E = {
@@ -443,6 +444,7 @@
 				958E799D2041D42C0007957E /* HWMonitorSensor.m in Sources */,
 				958E79942041D3E90007957E /* IOBatteryStatus.m in Sources */,
 				958E796E204193EE0007957E /* AppDelegate.swift in Sources */,
+				950618C0208CCC62001C988E /* Battery.swift in Sources */,
 				958E79832041996A0007957E /* HWWindowController.swift in Sources */,
 				95DE45CF205E7F3800E4582D /* RunAtLogin.swift in Sources */,
 				958E79C5204314A40007957E /* PreferencesWC.swift in Sources */,
@@ -450,10 +452,13 @@
 				958E79BE2042FD110007957E /* HWTextField.m in Sources */,
 				9538E4A5204DAB9900918032 /* globals.swift in Sources */,
 				958E79A32041D72F0007957E /* HWSensorsDelegate.m in Sources */,
+				950618BF208CCC62001C988E /* System.swift in Sources */,
 				9538E4A3204DA7D800918032 /* HWScrollView.swift in Sources */,
 				95280103204444BA008EA219 /* PopoverViewController.swift in Sources */,
+				950618C1208CCC62001C988E /* IOReturn.swift in Sources */,
 				958E798D2041AF780007957E /* HWOulineView.swift in Sources */,
 				9598FC78204B0A7500A6DA72 /* HWTableRowView.swift in Sources */,
+				950618C2208CCC62001C988E /* Process.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -569,6 +574,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -576,6 +582,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -585,7 +592,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_ENTITLEMENTS = "";
-				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_IDENTITY = "-";
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 2.0.7;
 				DEBUG_INFORMATION_FORMAT = dwarf;
@@ -605,8 +612,8 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
-				MODULE_VERSION = 2.0.7;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MODULE_VERSION = 2.0.9;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
@@ -630,6 +637,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -637,6 +645,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -646,7 +655,7 @@
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_ENTITLEMENTS = "";
-				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_IDENTITY = "-";
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 2.0.7;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -660,8 +669,8 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.10;
-				MODULE_VERSION = 2.0.7;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MODULE_VERSION = 2.0.9;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -676,17 +685,14 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 2.0.9;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/HWMonitorSMC/Framenworks",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = HWMonitorSMC/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MODULE_VERSION = 2.0.9;
 				PRODUCT_BUNDLE_IDENTIFIER = org.slice.HWMonitorSMC2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx10.13;
+				SDKROOT = macosx;
 				SWIFT_OBJC_BRIDGING_HEADER = "HWMonitorSMC/SMC/HWMonitorSMC-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
@@ -701,17 +707,14 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 2.0.9;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/HWMonitorSMC/Framenworks",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = HWMonitorSMC/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				MODULE_VERSION = 2.0.9;
 				PRODUCT_BUNDLE_IDENTIFIER = org.slice.HWMonitorSMC2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx10.13;
+				SDKROOT = macosx;
 				SWIFT_OBJC_BRIDGING_HEADER = "HWMonitorSMC/SMC/HWMonitorSMC-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 			};

@@ -7,7 +7,6 @@
 //
 
 import Cocoa
-import SystemKit
 
 class RightClickWindowController: NSWindowController, NSWindowDelegate {
   override func windowDidLoad() {
@@ -97,7 +96,7 @@ class HWOulineView: NSOutlineView, NSPopoverDelegate {
         switch groupString {
         case NSLocalizedString("CPU Temperatures", comment: ""): fallthrough
         case NSLocalizedString("CPU Frequencies", comment: ""):
-          size = .normal
+          size = .medium
           log = self.getCPUInfo()
         case NSLocalizedString("RAM", comment: ""):
           size = .normal
@@ -138,7 +137,7 @@ class HWOulineView: NSOutlineView, NSPopoverDelegate {
       } else if size == .normal {
         pop.contentSize = NSMakeSize(400, 200)
       } else if size == .big {
-        pop.contentSize = NSMakeSize(500, 600)
+        pop.contentSize = NSMakeSize(650, 600)
       } else if size == .medium {
         pop.contentSize = NSMakeSize(400, 450)
       }
@@ -162,18 +161,61 @@ class HWOulineView: NSOutlineView, NSPopoverDelegate {
   private func getCPUInfo() -> String {
     var statusString : String = ""
     statusString += "   CPU:\n"
-    var size = 0
-    sysctlbyname("machdep.cpu.brand_string", nil, &size, nil, 0)
-    var machine = [CChar](repeating: 0,  count: Int(size))
-    sysctlbyname("machdep.cpu.brand_string", &machine, &size, nil, 0)
-    statusString += "\tName:  \(String(cString: machine))\n"
-    
+    statusString += "\tName: \(System.sysctlbynameString("machdep.cpu.brand_string"))\n"
+    statusString += "\tVendor: \(System.sysctlbynameString("machdep.cpu.vendor"))\n"
     statusString += "\tPhysical cores: \(System.physicalCores())\n"
     statusString += "\tLogical cores: \(System.logicalCores())\n"
+    statusString += "\tFamily: \(System.sysctlbynameInt("machdep.cpu.family"))\n"
+    statusString += String(format: "\tModel: 0x%X\n", System.sysctlbynameInt("machdep.cpu.model"))
+    statusString += String(format: "\tExt Model: 0x%X\n", System.sysctlbynameInt("machdep.cpu.extmodel"))
+    statusString += "\tExt Family: \(System.sysctlbynameInt("machdep.cpu.extfamily"))\n"
+    statusString += "\tStepping: \(System.sysctlbynameInt("machdep.cpu.stepping"))\n"
+    statusString += String(format: "\tSignature: 0x%X\n", System.sysctlbynameInt("machdep.cpu.signature"))
+    statusString += "\tBrand: \(System.sysctlbynameInt("machdep.cpu.brand"))\n"
+    
+    statusString += "\tFeatures:"
+    let feature : [String] = System.sysctlbynameString("machdep.cpu.features").components(separatedBy: " ")
+    var gcount : Int = 0
+    var count : Int = 0
+    for f in feature {
+      count += 1
+      gcount += 1
+      if gcount < 8 {
+        if gcount == 1 {
+          statusString += (count == 1) ? " ": "\t               " // "\tFeatures:"
+        }
+        statusString += " \(f)"
+      } else {
+        statusString += " \(f)\n"
+        gcount = 0
+      }
+    }
+    statusString += "\n"
+    statusString += "\tExt Features:"
+    let extfeature : [String] = System.sysctlbynameString("machdep.cpu.extfeatures").components(separatedBy: " ")
+    var egcount : Int = 0
+    var ecount : Int = 0
+    for f in extfeature {
+      ecount += 1
+      egcount += 1
+      if egcount < 8 {
+        if egcount == 1 {
+          statusString += (ecount == 1) ? " ": "\t                     " // "\tExt Features:"
+        }
+        statusString += " \(f)"
+      } else {
+        statusString += " \(f)\n"
+        egcount = 0
+      }
+    }
+    statusString += "\n"
+    statusString += "\tMicrocode version: \(System.sysctlbynameInt("machdep.cpu.microcode_version"))\n"
+    statusString += "\tThermal sensors: \(System.sysctlbynameInt("machdep.cpu.thermal.sensor"))\n"
+    statusString += "\tThermal invariant APIC timer: \(System.sysctlbynameInt("machdep.cpu.thermal.invariant_APIC_timer"))\n"
     
     var sys = System()
     let cpuUsage = sys.usageCPU()
-    statusString += "\tSystem: \(Int(cpuUsage.system))%\n"
+    statusString += "\n\tSystem: \(Int(cpuUsage.system))%\n"
     statusString += "\tUser: \(Int(cpuUsage.user))%\n"
     statusString += "\tIdle: \(Int(cpuUsage.idle))%\n"
     statusString += "\tNice: \(Int(cpuUsage.nice))%\n"
@@ -205,15 +247,13 @@ class HWOulineView: NSOutlineView, NSPopoverDelegate {
     var statusString : String = ""
     statusString += "   SYSTEM:\n"
     statusString += "\tModel: \(System.modelName())\n"
+    let names = System.uname()
+    statusString += "\tSys name: \(names.sysname)\n"
+    statusString += "\tNode name: \(names.nodename)\n"
+    statusString += "\tRelease: \(names.release)\n"
+    statusString += "\tVersion: \(names.version)\n"
+    statusString += "\tMachine: \(names.machine)\n"
     
-    /* to be finished
-     let names = System.uname()
-     statusString += "\tSYSNAME: \(names.sysname)\n"
-     statusString += "\tNODENAME: \(names.nodename)\n"
-     statusString += "\tRELEASE: \(names.release)\n"
-     statusString += "\tVERSION: \(names.version)\n"
-     statusString += "\tMACHINE: \(names.machine)\n"
-     */
     let uptime = System.uptime()
     statusString += "\tUptime: \(uptime.days)d \(uptime.hrs)h \(uptime.mins)m " + "\(uptime.secs)s\n"
     
@@ -264,6 +304,7 @@ class HWOulineView: NSOutlineView, NSPopoverDelegate {
     
     return statusString
   }
+  
   private func getSystemStatus() -> String {
     var statusString : String = ""
     statusString += "MACHINE STATUS:\n\n"

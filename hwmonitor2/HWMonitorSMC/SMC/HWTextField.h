@@ -8,7 +8,12 @@
 
 #import <Cocoa/Cocoa.h>
 
+#ifdef OLD_XCODE
+typedef NSInteger NSControlStateValue;
+#endif
+
 @interface HWTextField : NSTextField 
 @property (nonatomic, assign) id representedObject;
-@property  NSControlStateValue state;
+@property NSInteger state;
+//@property  NSControlStateValue state;
 @end

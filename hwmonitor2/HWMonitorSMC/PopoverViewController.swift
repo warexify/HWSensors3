@@ -59,7 +59,7 @@ class PopoverViewController: NSViewController {
     self.outline.delegate = self
     self.outline.dataSource = self
     self.outline.doubleAction = #selector(self.clicked)
-    
+    self.outline.enclosingScrollView?.verticalScroller?.controlSize = .mini
     self.initialize()
   }
   

@@ -447,7 +447,7 @@ class HWSmartDataScanner: NSObject {
             continue
           }
           
-          let d = serviceDictionary?.takeRetainedValue() as NSDictionary!
+          let d = serviceDictionary?.takeRetainedValue() as NSDictionary?
           
           if (d?.object(forKey: kIOBSDNameKey) != nil) {
             allDisks.setValue(d, forKey: (d?.object(forKey: kIOBSDNameKey ) as! String))

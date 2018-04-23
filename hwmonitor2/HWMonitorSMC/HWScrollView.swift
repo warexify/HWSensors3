@@ -37,4 +37,5 @@ class HWScrollView: NSScrollView {
       self.hasVerticalScroller = true
     }
   }
+
 }

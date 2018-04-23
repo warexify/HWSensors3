@@ -187,8 +187,7 @@ public struct System {
         if result == 0 { name = String(cString: UnsafeRawPointer(ptr).assumingMemoryBound(to: CChar.self)) }
         else           { name = String() }
 
-
-        ptr.deallocate(capacity: 1)
+          ptr.deallocate()
 
         #if DEBUG
             if result != 0 {
@@ -201,63 +200,68 @@ public struct System {
     }
 
 
-    /**
-    sysname       Name of the operating system implementation.
-    nodename      Network name of this machine.
-    release       Release level of the operating system.
-    version       Version level of the operating system.
-    machine       Machine hardware platform.
-
-    Via uname(3) manual page.
-    */
-    // FIXME: Two compiler bugs here. One has a workaround, the other requires
-    //        a C wrapper function. See issue #18
-//    public static func uname() -> (sysname: String, nodename: String,
-//                                                     release: String,
-//                                                     version: String,
-//                                                     machine: String) {
-//        // Takes a generic pointer type because the type were dealing with
-//        // (from the utsname struct) is a huge tuple of Int8s (once bridged to
-//        // Swift), so it would be really messy to go that route (would have to
-//        // type it all out explicitly)
-//        func toString<T>(ptr: UnsafePointer<T>) -> String {
-//            return String.fromCString(UnsafePointer<CChar>(ptr))!
-//        }
-//
-//        let tuple: (String, String, String, String, String)
-//        var names  = utsname()
-//        let result = Foundation.uname(&names)
-//
-//        #if DEBUG
-//            if result != 0 {
-//                print("ERROR - \(__FILE__):\(__FUNCTION__) - errno = "
-//                        + "\(result)")
-//            }
-//        #endif
-//
-//        if result == 0 {
-//            let sysname  = withUnsafePointer(&names.sysname,  toString)
-//            let nodename = withUnsafePointer(&names.nodename, toString)
-//            let release  = withUnsafePointer(&names.release,  toString)
-//            let version  = withUnsafePointer(&names.version,  toString)
-//            let machine  = withUnsafePointer(&names.machine,  toString)
-//
-//            tuple = (sysname, nodename, release, version, machine)
-//        }
-//        else {
-//            tuple = ("", "", "", "", "")
-//        }
-//
-//        return tuple
-//    }
+  /**
+   sysname       Name of the operating system implementation.
+   nodename      Network name of this machine.
+   release       Release level of the operating system.
+   version       Version level of the operating system.
+   machine       Machine hardware platform.
+   
+   Via uname(3) manual page.
+   */
+  public static func uname() -> (sysname: String, nodename: String,
+    release: String,
+    version: String,
+    machine: String) {
+      let tuple: (String, String, String, String, String)
+      var names  = utsname()
+      let result = Foundation.uname(&names)
+      
+      #if DEBUG
+      if result != 0 {
+        print("ERROR - \(#file):\(#function) - errno = "
+          + "\(result)")
+      }
+      #endif
+      
+      if result == 0 {
+        
+        let sysname = withUnsafeBytes(of: &names.sysname) { (rawPtr) -> String in
+          let ptr = rawPtr.baseAddress!.assumingMemoryBound(to: CChar.self)
+          return String(cString: ptr)
+        }
+        let nodename = withUnsafeBytes(of: &names.nodename) { (rawPtr) -> String in
+          let ptr = rawPtr.baseAddress!.assumingMemoryBound(to: CChar.self)
+          return String(cString: ptr)
+        }
+        let release = withUnsafeBytes(of: &names.release) { (rawPtr) -> String in
+          let ptr = rawPtr.baseAddress!.assumingMemoryBound(to: CChar.self)
+          return String(cString: ptr)
+        }
+        let version = withUnsafeBytes(of: &names.version) { (rawPtr) -> String in
+          let ptr = rawPtr.baseAddress!.assumingMemoryBound(to: CChar.self)
+          return String(cString: ptr)
+        }
+        let machine = withUnsafeBytes(of: &names.machine) { (rawPtr) -> String in
+          let ptr = rawPtr.baseAddress!.assumingMemoryBound(to: CChar.self)
+          return String(cString: ptr)
+        }
+        
+        tuple = (sysname, nodename, release, version, machine)
+      }
+      else {
+        tuple = ("", "", "", "", "")
+      }
+      
+      return tuple
+  }
 
 
     /// Number of physical cores on this machine.
     public static func physicalCores() -> Int {
         return Int(System.hostBasicInfo().physical_cpu)
     }
-    
-    
+  
     /**
     Number of logical cores on this machine. Will be equal to physicalCores()
     unless it has hyper-threading, in which case it will be double.
@@ -267,8 +271,29 @@ public struct System {
     public static func logicalCores() -> Int {
         return Int(System.hostBasicInfo().logical_cpu)
     }
-    
-    
+  
+  /**
+   sysctlbyname witch return a String value for the desired argument
+   */
+  public static func sysctlbynameString(_ arg: String) -> String {
+    let key = arg.cString(using: .utf8)
+    var size: Int = 0
+    sysctlbyname(key, nil, &size, nil, 0)
+    var result = [UInt8](repeating: 0, count: Int(size))
+    sysctlbyname(key, &result, &size, nil, 0)
+    return String(cString: result)
+  }
+  
+  /**
+   sysctlbyname witch return an Int value for the desired argument
+   */
+  public static func sysctlbynameInt(_ arg: String) -> Int {
+    let key = arg.cString(using: .utf8)
+    var i : Int = 0
+    var size: Int = MemoryLayout.size(ofValue: i)
+    sysctlbyname(key, &i, &size, nil, 0)
+    return i
+  }
     /**
     System load average at 3 intervals.
     
@@ -460,9 +485,7 @@ public struct System {
                 schedulerTime  = dataMap[kIOPMCPUPowerLimitSchedulerTimeKey]!
                                                                       as! Double
         }
-
-        status.deallocate(capacity: 1)
-
+        status.deallocate()
         return (processorSpeed, processorCount, schedulerTime)
     }
 
@@ -523,7 +546,7 @@ public struct System {
         }
   
         let data = hostInfo.move()
-        hostInfo.deallocate(capacity: 1)
+        hostInfo.deallocate()
         
         #if DEBUG
             if result != KERN_SUCCESS {
@@ -547,7 +570,7 @@ public struct System {
         }
         
         let data = hostInfo.move()
-        hostInfo.deallocate(capacity: 1)
+        hostInfo.deallocate()
         
         #if DEBUG
             if result != KERN_SUCCESS {
@@ -571,7 +594,7 @@ public struct System {
         }
         
         let data = hostInfo.move()
-        hostInfo.deallocate(capacity: 1)
+        hostInfo.deallocate()
         
         #if DEBUG
             if result != KERN_SUCCESS {
@@ -624,7 +647,7 @@ public struct System {
         mach_port_deallocate(mach_task_self_, pset)
 
         let data = info_out.move()
-        info_out.deallocate(capacity: 1)
+        info_out.deallocate()
         
         return data
     }
@@ -649,7 +672,7 @@ public struct System {
         }
 
         let data = hostInfo.move()
-        hostInfo.deallocate(capacity: 1)
+        hostInfo.deallocate()
         
         #if DEBUG
             if result != KERN_SUCCESS {
