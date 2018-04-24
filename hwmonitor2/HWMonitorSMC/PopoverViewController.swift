@@ -51,7 +51,7 @@ class PopoverViewController: NSViewController {
     self.attachButton.image = pin
     self.effectView.appearance = NSAppearance(named: gAppearance)
     if let version = Bundle.main.infoDictionary?["CFBundleVersion"]  as? String {
-      self.versionLabel.stringValue = "HWMonitorSMC2 v" + version + " rc2"
+      self.versionLabel.stringValue = "HWMonitorSMC2 v" + version + " \(kTestVersion)"
     }
     
     self.lock.state = NSControl.StateValue.off
@@ -919,7 +919,7 @@ extension PopoverViewController {
   
   func removeObservers() {
     if #available(OSX 10.12, *) {
-      //print("do need to remove the observer in 10.12 onward!")
+      //print("no need to remove the observer in 10.12 onward!")
     } else {
       NSWorkspace.shared.notificationCenter.removeObserver(self,
                                                            name: NSWorkspace.didMountNotification,

@@ -27,6 +27,23 @@ class RightClickViewController: NSViewController {
     let vc = s.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier(rawValue: "Info"))
     return vc as! RightClickViewController
   }
+  
+  @IBAction func copyToPasteboard(_ sender: Any?) {
+    var log = self.textView.string
+    
+    if log.count > 0 {
+      let pasteboard = NSPasteboard.general
+      pasteboard.declareTypes([NSPasteboard.PasteboardType.string], owner: nil)
+      if let version = Bundle.main.infoDictionary?["CFBundleVersion"]  as? String {
+        log = "   HWMonitorSMC2 v" + version + " \(kTestVersion)\n\n" + log
+      }
+      if !pasteboard.setString(log, forType: NSPasteboard.PasteboardType.string) {
+        NSSound.beep()
+      }
+    } else {
+      NSSound.beep()
+    }
+  }
 }
 
 class HWOulineView: NSOutlineView, NSPopoverDelegate {

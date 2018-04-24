@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13771"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14109"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -14,17 +14,17 @@
                         <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <scrollView autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1km-gQ-OaH">
-                                <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
+                            <scrollView borderType="none" autohidesScrollers="YES" horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1km-gQ-OaH">
+                                <rect key="frame" x="0.0" y="26" width="450" height="274"/>
                                 <clipView key="contentView" drawsBackground="NO" copiesOnScroll="NO" id="ecX-Fr-4wC">
-                                    <rect key="frame" x="1" y="1" width="448" height="298"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="450" height="274"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <textView editable="NO" drawsBackground="NO" importsGraphics="NO" richText="NO" verticallyResizable="YES" findStyle="panel" allowsCharacterPickerTouchBarItem="NO" textCompletion="NO" id="Rr7-6e-MtL">
-                                            <rect key="frame" x="0.0" y="0.0" width="448" height="298"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="450" height="274"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            <size key="minSize" width="448" height="298"/>
+                                            <size key="minSize" width="450" height="274"/>
                                             <size key="maxSize" width="463" height="10000000"/>
                                             <color key="insertionPointColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                         </textView>
@@ -40,12 +40,27 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                             </scrollView>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="wPL-15-BTZ">
+                                <rect key="frame" x="148" y="4" width="155" height="19"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="155" id="7N9-Sa-kED"/>
+                                </constraints>
+                                <buttonCell key="cell" type="roundRect" title="copy to clip board" bezelStyle="roundedRect" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="qRX-F6-ppe">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="cellTitle"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="copyToPasteboard:" target="oej-gH-Iw1" id="1wh-Og-9Rs"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="1km-gQ-OaH" secondAttribute="trailing" id="AXV-X2-kJ2"/>
-                            <constraint firstItem="1km-gQ-OaH" firstAttribute="top" secondItem="e9M-vA-uva" secondAttribute="top" id="Nqt-2g-GJd"/>
-                            <constraint firstAttribute="bottom" secondItem="1km-gQ-OaH" secondAttribute="bottom" id="Vek-NE-ElV"/>
-                            <constraint firstItem="1km-gQ-OaH" firstAttribute="leading" secondItem="e9M-vA-uva" secondAttribute="leading" id="oTe-II-hQK"/>
+                            <constraint firstAttribute="trailing" secondItem="1km-gQ-OaH" secondAttribute="trailing" id="0e3-hF-RM9"/>
+                            <constraint firstItem="1km-gQ-OaH" firstAttribute="top" secondItem="e9M-vA-uva" secondAttribute="top" id="See-VP-h9t"/>
+                            <constraint firstItem="1km-gQ-OaH" firstAttribute="leading" secondItem="e9M-vA-uva" secondAttribute="leading" id="TEl-e0-ybD"/>
+                            <constraint firstItem="wPL-15-BTZ" firstAttribute="top" secondItem="1km-gQ-OaH" secondAttribute="bottom" constant="3" id="ogS-GJ-Zn1"/>
+                            <constraint firstItem="1km-gQ-OaH" firstAttribute="centerX" secondItem="wPL-15-BTZ" secondAttribute="centerX" id="rhD-Wa-wT6"/>
+                            <constraint firstAttribute="bottom" secondItem="wPL-15-BTZ" secondAttribute="bottom" constant="5" id="xiz-tN-85H"/>
                         </constraints>
                     </view>
                     <connections>

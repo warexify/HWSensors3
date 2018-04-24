@@ -8,6 +8,8 @@
 
 import Cocoa
 
+let kTestVersion           = "rc3" // or "" for final release
+
 let kRunAtLoginWasSet       = "runAtLoginWasSet"
 let kHideVerticalScroller   = "hideVerticalScroller"
 let kAppleInterfaceStyle    = "AppleInterfaceStyle"
