@@ -270,7 +270,7 @@ bool GeforceSensors::start(IOService * provider)
     
     if (card.card_index < 0) {
         nv_error(device, "failed to obtain vacant GPU index\n");
-        return false;
+        return true;
     }
     
     // map device memory
@@ -284,17 +284,17 @@ bool GeforceSensors::start(IOService * provider)
         }
         else {
             nv_error(device, "failed to map memory\n");
-            return false;
+            return true;
         }
     }
     else {
         nv_error(device, "failed to assign PCI device\n");
-        return false;
+        return true;
     }
     
     // identify chipset
     if (!nouveau_identify(device))
-        return false;
+        return true;
     
     // shadow and parse bios
     
@@ -304,23 +304,21 @@ bool GeforceSensors::start(IOService * provider)
         device->bios.data = (u8*)IOMalloc(card.bios.size);
         memcpy(device->bios.data, vbios->getBytesNoCopy(), device->bios.size);
     }
-    
-    if (!device->bios.data || !device->bios.size || nouveau_bios_score(device, true) < 1)
+    if (nouveau_bios_score(device, true) < 1) {
         if (!nouveau_bios_shadow(device)) {
             if (device->bios.data && device->bios.size) {
                 IOFree(card.bios.data, card.bios.size);
                 device->bios.data = NULL;
                 device->bios.size = 0;
             }
-            
             nv_error(device, "unable to shadow VBIOS\n");
-            
-            return false;
+            return true;
         }
-    
-    nouveau_vbios_init(device);
-    nouveau_bios_parse(device);
-    
+    }
+  
+  nouveau_vbios_init(device);
+  nouveau_bios_parse(device);
+  
     // initialize funcs and variables
     if (!nouveau_init(device)) {
         nv_error(device, "unable to initialize monitoring driver\n");

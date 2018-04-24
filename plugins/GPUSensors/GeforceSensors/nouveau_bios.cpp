@@ -349,8 +349,9 @@ int nouveau_bit_table(struct nouveau_device *device, u8 id, struct bit_entry *bi
 	struct nvbios *bios = &device->vbios;
 	u8 entries, *entry;
   
-	if (bios->type != NVBIOS_BIT)
+  if (!bios || !(bios->data) || (bios->type != NVBIOS_BIT)) {
 		return -ENODEV;
+  }
   
 	entries = bios->data[bios->offset + 10];
 	entry   = &bios->data[bios->offset + 12];

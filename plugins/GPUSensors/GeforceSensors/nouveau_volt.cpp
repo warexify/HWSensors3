@@ -43,7 +43,9 @@ void nouveau_volt_init(struct nouveau_device *device)
   u8 *volt = NULL, *entry;
   int i, headerlen, recordlen, entries, vidmask, vidshift;
   
-  if (device->vbios.type == NVBIOS_BIT) {
+  if (!(device->vbios.data)) {
+    volt = 0;
+  } else if (device->vbios.type == NVBIOS_BIT) {
     if (nouveau_bit_table(device, 'P', &P))
       return;
     
@@ -55,12 +57,11 @@ void nouveau_volt_init(struct nouveau_device *device)
       else {
         nv_warn(device, "unknown volt for BIT P %d\n", P.version);
       }
-  } else {
+  } else  {
     if (device->vbios.data[device->vbios.offset + 6] < 0x27) {
       nv_debug(device, "BMP version too old for voltage\n");
       return;
     }
-    
     volt = ROMPTR(device, device->vbios.data[device->vbios.offset + 0x98]);
   }
   
