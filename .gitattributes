@@ -163,6 +163,7 @@ hwmonitor2/HWMonitorSMC/SMC/SSMemoryInfo.m -text
 hwmonitor2/HWMonitorSMC/SMC/smc.c -text
 hwmonitor2/HWMonitorSMC/SMC/smc.h -text
 hwmonitor2/HWMonitorSMC/SystemKit/Battery.swift -text
+hwmonitor2/HWMonitorSMC/SystemKit/Display.swift -text
 hwmonitor2/HWMonitorSMC/SystemKit/IOReturn.swift -text
 hwmonitor2/HWMonitorSMC/SystemKit/Process.swift -text
 hwmonitor2/HWMonitorSMC/SystemKit/System.swift -text

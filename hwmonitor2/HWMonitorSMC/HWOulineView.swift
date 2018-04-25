@@ -330,6 +330,7 @@ class HWOulineView: NSOutlineView, NSPopoverDelegate {
     statusString += self.getSystemInfo()
     statusString += self.getPowerInfo()
     statusString += self.getBatteryInfo()
+    statusString += Display.getScreensInfo()
 
     return statusString
   }
