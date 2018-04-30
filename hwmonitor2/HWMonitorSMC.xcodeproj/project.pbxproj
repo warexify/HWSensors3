@@ -21,6 +21,7 @@
 		953A4EED2048C5CE003DC900 /* ram_small.png in Resources */ = {isa = PBXBuildFile; fileRef = 953A4EEC2048C5CE003DC900 /* ram_small.png */; };
 		9544DC47208E395B0023C332 /* Info.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9544DC49208E395B0023C332 /* Info.storyboard */; };
 		9546572B20908A3C0020BA34 /* Display.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9546572A20908A3C0020BA34 /* Display.swift */; };
+		9546572D2091132A0020BA34 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9546572C2091132A0020BA34 /* Extensions.swift */; };
 		9550AC882089004A004537F0 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9550AC852089004A004537F0 /* IOKit.framework */; };
 		9550AC8A20890056004537F0 /* DiskArbitration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9550AC8920890056004537F0 /* DiskArbitration.framework */; };
 		958E796E204193EE0007957E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 958E796D204193EE0007957E /* AppDelegate.swift */; };
@@ -142,6 +143,7 @@
 		9544DC65208E397F0023C332 /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "pt-PT.lproj/Info.strings"; sourceTree = "<group>"; };
 		9544DC67208E39810023C332 /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/Info.strings; sourceTree = "<group>"; };
 		9546572A20908A3C0020BA34 /* Display.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Display.swift; sourceTree = "<group>"; };
+		9546572C2091132A0020BA34 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		9550AC852089004A004537F0 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
 		9550AC8920890056004537F0 /* DiskArbitration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DiskArbitration.framework; path = System/Library/Frameworks/DiskArbitration.framework; sourceTree = SDKROOT; };
 		958E796A204193EE0007957E /* HWMonitorSMC2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HWMonitorSMC2.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -264,6 +266,7 @@
 		958E796C204193EE0007957E /* HWMonitorSMC */ = {
 			isa = PBXGroup;
 			children = (
+				9546572C2091132A0020BA34 /* Extensions.swift */,
 				9538E4A4204DAB9900918032 /* globals.swift */,
 				95DE45CE205E7F3800E4582D /* RunAtLogin.swift */,
 				958E796D204193EE0007957E /* AppDelegate.swift */,
@@ -474,6 +477,7 @@
 				950618BF208CCC62001C988E /* System.swift in Sources */,
 				9538E4A3204DA7D800918032 /* HWScrollView.swift in Sources */,
 				95280103204444BA008EA219 /* PopoverViewController.swift in Sources */,
+				9546572D2091132A0020BA34 /* Extensions.swift in Sources */,
 				950618C1208CCC62001C988E /* IOReturn.swift in Sources */,
 				958E798D2041AF780007957E /* HWOulineView.swift in Sources */,
 				9598FC78204B0A7500A6DA72 /* HWTableRowView.swift in Sources */,
@@ -636,7 +640,7 @@
 				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_IDENTITY = "-";
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 2.0.7;
+				CURRENT_PROJECT_VERSION = 2.1.1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -655,7 +659,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
-				MODULE_VERSION = 2.1.0;
+				MODULE_VERSION = 2.1.1;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
@@ -699,7 +703,7 @@
 				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_IDENTITY = "-";
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 2.0.7;
+				CURRENT_PROJECT_VERSION = 2.1.1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -712,7 +716,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
-				MODULE_VERSION = 2.1.0;
+				MODULE_VERSION = 2.1.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -726,12 +730,12 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 2.1.0;
+				CURRENT_PROJECT_VERSION = 2.1.1;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = HWMonitorSMC/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
-				MODULE_VERSION = 2.1.0;
+				MODULE_VERSION = 2.1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = org.slice.HWMonitorSMC2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
@@ -748,12 +752,12 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 2.1.0;
+				CURRENT_PROJECT_VERSION = 2.1.1;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = HWMonitorSMC/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
-				MODULE_VERSION = 2.1.0;
+				MODULE_VERSION = 2.1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = org.slice.HWMonitorSMC2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;

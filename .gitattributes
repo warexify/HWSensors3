@@ -115,6 +115,7 @@ hwmonitor2/HWMonitorSMC/Base.lproj/Info.storyboard -text
 hwmonitor2/HWMonitorSMC/Base.lproj/Main.storyboard -text
 hwmonitor2/HWMonitorSMC/Base.lproj/Popover.storyboard -text
 hwmonitor2/HWMonitorSMC/Base.lproj/Preferences.storyboard -text
+hwmonitor2/HWMonitorSMC/Extensions.swift -text
 hwmonitor2/HWMonitorSMC/HWMonitorSMC.entitlements -text
 hwmonitor2/HWMonitorSMC/HWOulineView.swift -text
 hwmonitor2/HWMonitorSMC/HWScrollView.swift -text

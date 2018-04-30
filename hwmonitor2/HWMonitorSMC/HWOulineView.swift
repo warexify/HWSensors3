@@ -35,7 +35,7 @@ class RightClickViewController: NSViewController {
       let pasteboard = NSPasteboard.general
       pasteboard.declareTypes([NSPasteboard.PasteboardType.string], owner: nil)
       if let version = Bundle.main.infoDictionary?["CFBundleVersion"]  as? String {
-        log = "   HWMonitorSMC2 v" + version + " \(kTestVersion)\n\n" + log
+        log = "HWMonitorSMC2 v" + version + " \(kTestVersion)\n\n" + log
       }
       if !pasteboard.setString(log, forType: NSPasteboard.PasteboardType.string) {
         NSSound.beep()
@@ -154,7 +154,7 @@ class HWOulineView: NSOutlineView, NSPopoverDelegate {
       } else if size == .normal {
         pop.contentSize = NSMakeSize(400, 200)
       } else if size == .big {
-        pop.contentSize = NSMakeSize(650, 600)
+        pop.contentSize = NSMakeSize(680, 600)
       } else if size == .medium {
         pop.contentSize = NSMakeSize(400, 450)
       }
@@ -178,17 +178,17 @@ class HWOulineView: NSOutlineView, NSPopoverDelegate {
   private func getCPUInfo() -> String {
     var statusString : String = ""
     statusString += "   CPU:\n"
-    statusString += "\tName: \(System.sysctlbynameString("machdep.cpu.brand_string"))\n"
-    statusString += "\tVendor: \(System.sysctlbynameString("machdep.cpu.vendor"))\n"
-    statusString += "\tPhysical cores: \(System.physicalCores())\n"
-    statusString += "\tLogical cores: \(System.logicalCores())\n"
-    statusString += "\tFamily: \(System.sysctlbynameInt("machdep.cpu.family"))\n"
-    statusString += String(format: "\tModel: 0x%X\n", System.sysctlbynameInt("machdep.cpu.model"))
-    statusString += String(format: "\tExt Model: 0x%X\n", System.sysctlbynameInt("machdep.cpu.extmodel"))
-    statusString += "\tExt Family: \(System.sysctlbynameInt("machdep.cpu.extfamily"))\n"
-    statusString += "\tStepping: \(System.sysctlbynameInt("machdep.cpu.stepping"))\n"
-    statusString += String(format: "\tSignature: 0x%X\n", System.sysctlbynameInt("machdep.cpu.signature"))
-    statusString += "\tBrand: \(System.sysctlbynameInt("machdep.cpu.brand"))\n"
+    statusString += "\tName:\t\t\(System.sysctlbynameString("machdep.cpu.brand_string"))\n"
+    statusString += "\tVendor:\t\t\(System.sysctlbynameString("machdep.cpu.vendor"))\n"
+    statusString += "\tPhysical cores:\t\(System.physicalCores())\n"
+    statusString += "\tLogical cores:\t\(System.logicalCores())\n"
+    statusString += "\tFamily:\t\t\(System.sysctlbynameInt("machdep.cpu.family"))\n"
+    statusString += String(format: "\tModel:\t\t0x%X\n", System.sysctlbynameInt("machdep.cpu.model"))
+    statusString += String(format: "\tExt Model:\t\t0x%X\n", System.sysctlbynameInt("machdep.cpu.extmodel"))
+    statusString += "\tExt Family:\t\t\(System.sysctlbynameInt("machdep.cpu.extfamily"))\n"
+    statusString += "\tStepping:\t\t\(System.sysctlbynameInt("machdep.cpu.stepping"))\n"
+    statusString += String(format: "\tSignature:\t\t0x%X\n", System.sysctlbynameInt("machdep.cpu.signature"))
+    statusString += "\tBrand:\t\t\(System.sysctlbynameInt("machdep.cpu.brand"))\n"
     
     statusString += "\tFeatures:"
     let feature : [String] = System.sysctlbynameString("machdep.cpu.features").components(separatedBy: " ")
@@ -226,16 +226,16 @@ class HWOulineView: NSOutlineView, NSPopoverDelegate {
       }
     }
     statusString += "\n"
-    statusString += "\tMicrocode version: \(System.sysctlbynameInt("machdep.cpu.microcode_version"))\n"
-    statusString += "\tThermal sensors: \(System.sysctlbynameInt("machdep.cpu.thermal.sensor"))\n"
-    statusString += "\tThermal invariant APIC timer: \(System.sysctlbynameInt("machdep.cpu.thermal.invariant_APIC_timer"))\n"
+    statusString += "\tMicrocode version:\t\(System.sysctlbynameInt("machdep.cpu.microcode_version"))\n"
+    statusString += "\tThermal sensors:\t\t\(System.sysctlbynameInt("machdep.cpu.thermal.sensor"))\n"
+    statusString += "\tThermal APIC timer:\t\(System.sysctlbynameInt("machdep.cpu.thermal.invariant_APIC_timer"))\n"
     
     var sys = System()
     let cpuUsage = sys.usageCPU()
-    statusString += "\n\tSystem: \(Int(cpuUsage.system))%\n"
-    statusString += "\tUser: \(Int(cpuUsage.user))%\n"
-    statusString += "\tIdle: \(Int(cpuUsage.idle))%\n"
-    statusString += "\tNice: \(Int(cpuUsage.nice))%\n"
+    statusString += "\n\tSystem:\t\(Int(cpuUsage.system))%\n"
+    statusString += "\tUser:\t\t\(Int(cpuUsage.user))%\n"
+    statusString += "\tIdle:\t\t\(Int(cpuUsage.idle))%\n"
+    statusString += "\tNice:\t\t\(Int(cpuUsage.nice))%\n"
     statusString += "\n"
     return statusString
   }
@@ -243,7 +243,7 @@ class HWOulineView: NSOutlineView, NSPopoverDelegate {
   private func getMemoryInfo() -> String {
     var statusString : String = ""
     statusString += "   MEMORY:\n"
-    statusString += "\tPhysical size: \(System.physicalMemory())GB\n"
+    statusString += "\tPhysical size:\t\(System.physicalMemory())GB\n"
     
     let memoryUsage = System.memoryUsage()
     func memoryUnit(_ value: Double) -> String {
@@ -251,11 +251,11 @@ class HWOulineView: NSOutlineView, NSPopoverDelegate {
       else           { return NSString(format:"%.2f", value) as String + "GB" }
     }
     
-    statusString += "\tFree: \(memoryUnit(memoryUsage.free))\n"
-    statusString += "\tWired: \(memoryUnit(memoryUsage.wired))\n"
-    statusString += "\tActive: \(memoryUnit(memoryUsage.active))\n"
-    statusString += "\tInactive: \(memoryUnit(memoryUsage.inactive))\n"
-    statusString += "\tCompressed: \(memoryUnit(memoryUsage.compressed))\n"
+    statusString += "\tFree:\t\t\t\(memoryUnit(memoryUsage.free))\n"
+    statusString += "\tWired:\t\t\(memoryUnit(memoryUsage.wired))\n"
+    statusString += "\tActive:\t\t\(memoryUnit(memoryUsage.active))\n"
+    statusString += "\tInactive:\t\t\(memoryUnit(memoryUsage.inactive))\n"
+    statusString += "\tCompressed:\t\(memoryUnit(memoryUsage.compressed))\n"
     statusString += "\n"
     return statusString
   }
@@ -263,24 +263,24 @@ class HWOulineView: NSOutlineView, NSPopoverDelegate {
   private func getSystemInfo() -> String {
     var statusString : String = ""
     statusString += "   SYSTEM:\n"
-    statusString += "\tModel: \(System.modelName())\n"
+    statusString += "\tModel:\t\t\(System.modelName())\n"
     let names = System.uname()
-    statusString += "\tSys name: \(names.sysname)\n"
-    statusString += "\tNode name: \(names.nodename)\n"
-    statusString += "\tRelease: \(names.release)\n"
-    statusString += "\tVersion: \(names.version)\n"
-    statusString += "\tMachine: \(names.machine)\n"
+    statusString += "\tSys name:\t\t\(names.sysname)\n"
+    statusString += "\tNode name:\t\(names.nodename)\n"
+    statusString += "\tRelease:\t\t\(names.release)\n"
+    statusString += "\tVersion:\t\t\(names.version)\n"
+    statusString += "\tMachine:\t\t\(names.machine)\n"
     
     let uptime = System.uptime()
-    statusString += "\tUptime: \(uptime.days)d \(uptime.hrs)h \(uptime.mins)m " + "\(uptime.secs)s\n"
+    statusString += "\tUptime:\t\t\(uptime.days)d \(uptime.hrs)h \(uptime.mins)m " + "\(uptime.secs)s\n"
     
     let counts = System.processCounts()
-    statusString += "\tProcesses: \(counts.processCount)\n"
-    statusString += "\tThreads: \(counts.threadCount)\n"
+    statusString += "\tProcesses:\t\t\(counts.processCount)\n"
+    statusString += "\tThreads:\t\t\(counts.threadCount)\n"
     
     let loadAverage = System.loadAverage().map { NSString(format:"%.2f", $0) }
-    statusString += "\tLoad Average: \(loadAverage)\n"
-    statusString += "\tMach Factor: \(System.machFactor())\n"
+    statusString += "\tLoad Average:\t\(loadAverage)\n"
+    statusString += "\tMach Factor:\t\(System.machFactor())\n"
     statusString += "\n"
     return statusString
   }
@@ -290,11 +290,11 @@ class HWOulineView: NSOutlineView, NSPopoverDelegate {
     statusString += "   POWER:\n"
     let cpuThermalStatus = System.CPUPowerLimit()
     
-    statusString += "\tCPU Speed limit: \(cpuThermalStatus.processorSpeed)%\n"
-    statusString += "\tCPUs available: \(cpuThermalStatus.processorCount)\n"
-    statusString += "\tScheduler limit: \(cpuThermalStatus.schedulerTime)%\n"
+    statusString += "\tCPU Speed limit:\t\t\(cpuThermalStatus.processorSpeed)%\n"
+    statusString += "\tCPUs available:\t\t\(cpuThermalStatus.processorCount)\n"
+    statusString += "\tScheduler limit:\t\t\(cpuThermalStatus.schedulerTime)%\n"
     
-    statusString += "\tThermal level: \(System.thermalLevel().rawValue)\n"
+    statusString += "\tThermal level:\t\t\(System.thermalLevel().rawValue)\n"
     statusString += "\n"
     return statusString
   }
@@ -304,17 +304,17 @@ class HWOulineView: NSOutlineView, NSPopoverDelegate {
     var battery = Battery()
     if battery.open() == kIOReturnSuccess {
       statusString += "   BATTERY:\n"
-      statusString += "\tAC Powered: \(battery.isACPowered())\n"
-      statusString += "\tCharged: \(battery.isCharged())\n"
-      statusString += "\tCharging: \(battery.isCharging())\n"
-      statusString += "\tCharge: \(battery.charge())%\n"
-      statusString += "\tCapacity: \(battery.currentCapacity()) mAh\n"
-      statusString += "\tMax capacity: \(battery.maxCapactiy()) mAh\n"
-      statusString += "\tDesign capacity: \(battery.designCapacity()) mAh\n"
-      statusString += "\tCycles: \(battery.cycleCount())\n"
-      statusString += "\tMax cycles: \(battery.designCycleCount())\n"
-      statusString += "\tTemperature: \(battery.temperature())°C\n"
-      statusString += "\tTime remaining: \(battery.timeRemainingFormatted())\n"
+      statusString += "\tAC Powered:\t\(battery.isACPowered())\n"
+      statusString += "\tCharged:\t\t\(battery.isCharged())\n"
+      statusString += "\tCharging:\t\t\(battery.isCharging())\n"
+      statusString += "\tCharge:\t\t\(battery.charge())%\n"
+      statusString += "\tCapacity:\t\t\(battery.currentCapacity()) mAh\n"
+      statusString += "\tMax capacity:\t\(battery.maxCapactiy()) mAh\n"
+      statusString += "\tDesign capacity:\t\(battery.designCapacity()) mAh\n"
+      statusString += "\tCycles:\t\t\(battery.cycleCount())\n"
+      statusString += "\tMax cycles:\t\t\(battery.designCycleCount())\n"
+      statusString += "\tTemperature:\t\(battery.temperature())°C\n"
+      statusString += "\tTime remaining:\t\(battery.timeRemainingFormatted())\n"
       statusString += "\n"
     }
     _ = battery.close()
