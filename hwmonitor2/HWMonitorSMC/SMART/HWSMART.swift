@@ -432,9 +432,11 @@ class HWSmartDataScanner: NSObject {
     let match_dictionary: CFMutableDictionary = IOServiceMatching(kIOMediaClass)
     var entry_iterator: io_iterator_t = 0
     let allDisks = NSMutableDictionary()
-    if IOServiceGetMatchingServices(kIOMasterPortDefault,
-                                    match_dictionary,
-                                    &entry_iterator) == kIOReturnSuccess {
+    let err =  IOServiceGetMatchingServices(kIOMasterPortDefault,
+                                            match_dictionary,
+                                            &entry_iterator)
+    
+    if err == KERN_SUCCESS && entry_iterator != 0 {
       var serviceObject : io_registry_entry_t = 0
       
       repeat {
@@ -443,7 +445,8 @@ class HWSmartDataScanner: NSObject {
           var serviceDictionary : Unmanaged<CFMutableDictionary>?
           if (IORegistryEntryCreateCFProperties(serviceObject,
                                                 &serviceDictionary,
-                                                kCFAllocatorDefault, 0) != kIOReturnSuccess){
+                                                kCFAllocatorDefault, 0) != kIOReturnSuccess) {
+            IOObjectRelease(serviceObject)
             continue
           }
           
@@ -452,13 +455,14 @@ class HWSmartDataScanner: NSObject {
           if (d?.object(forKey: kIOBSDNameKey) != nil) {
             allDisks.setValue(d, forKey: (d?.object(forKey: kIOBSDNameKey ) as! String))
           }
+          IOObjectRelease(serviceObject)
         }
       } while serviceObject != 0
+      
+      IOObjectRelease(entry_iterator)
     }
     return allDisks
   }
-  
-  
   
   private func getSMARTAttributesForDisk(bsdUnit : Int,
                                          attributes : inout NSMutableDictionary,
