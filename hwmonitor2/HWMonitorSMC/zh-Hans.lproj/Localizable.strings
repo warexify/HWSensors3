@@ -4,59 +4,61 @@
 
   Created by vector sigma on 25/02/18.
   Copyright © 2018 HWSensor. All rights reserved.
+ 
+  zh-Hans (simplified Chinese) by maoyeye
 */
 
-"CPU Frequencies" = "CPU Frequencies";
-"CPU Temperatures" = "CPU Temperatures";
-"Temperatures" = "Temperatures";
-"Frequencies" = "Frequencies";
-"Multipliers" = "Multipliers";
-"Voltages" = "Voltages";
-"Fans or Pumps" = "Fans or Pumps";
-"Batteries" = "Batteries";
-"Media health" = "Media health";
-"Life" = "Life"; // hdd/ssd life
-"Tеmperature" = "Tеmperature"; // hdd/ssd tеmperature
+"CPU Frequencies" = "CPU频率";
+"CPU Temperatures" = "CPU温度";
+"Temperatures" = "温度";
+"Frequencies" = "频率";
+"Multipliers" = "倍频";
+"Voltages" = "电压";
+"Fans or Pumps" = "风扇 & 泵";
+"Batteries" = "电池";
+"Media health" = "硬盘健康";
+"Life" = "寿命"; // hdd/ssd life
+"Tеmperature" = "温度"; // hdd/ssd tеmperature
 
-"Total" = "Total"; // RAM
-"Active" = "Active"; // RAM
-"Inactive" = "Inactive"; // RAM
-"Free" = "Free"; // RAM
-"Used" = "Used"; // RAM
-"Purgeable" = "Purgeable"; // RAM
-"Wired" = "Wired"; // RAM
+"Total" = "物理总内存"; // RAM
+"Active" = "正或刚使用"; // RAM
+"Inactive" = "最近未使用"; // RAM
+"Free" = "未使用总量"; // RAM
+"Used" = "已使用总量"; // RAM
+"Purgeable" = "可清除空间"; // RAM
+"Wired" = "联动固定占用"; // RAM
 
-"CPU Proximity" = "CPU Proximity";
-"CPU Heatsink" = "CPU Heatsink";
-"Motherboard" = "Motherboard";
-"DIMM 0" = "DIMM 0";
-"DIMM 1" = "DIMM 1";
-"Ambient" = "Ambient";
-"GPU %d Core" = "GPU %d Core";
-"GPU %d Board" = "GPU %d Board";
-"GPU %d Proximity" = "GPU %d Proximity";
-"CPU %d Core" = "CPU %d Core";
-"CPU %d Diode" = "CPU %d Diode";
+"CPU Proximity" = "CPU附近";
+"CPU Heatsink" = "CPU表面";
+"Motherboard" = "主板";
+"DIMM 0" = "内存模块 0";
+"DIMM 1" = "内存模块 1";
+"Ambient" = "环境";
+"GPU %d Core" = "GPU %d 核心";
+"GPU %d Board" = "GPU %d 核心";
+"GPU %d Proximity" = "GPU %d 周边";
+"CPU %d Core" = "CPU %d 核心";
+"CPU %d Diode" = "CPU %d 二极管";
 "CPU %d" = "CPU %d";
-"GPU %d Core" = "GPU %d Core";
-"GPU %d Shaders" = "GPU %d Shaders";
-"GPU %d Memory" = "GPU %d Memory";
-"CPU %d Multiplier" = "CPU %d Multiplier";
-"CPU Package Multiplier" = "CPU Package Multiplier";
-"CPU Voltage" = "CPU Voltage";
-"CPU VRM Voltage" = "CPU VRM Voltage";
-"DIMM Voltage" = "DIMM Voltage";
-"+12V Bus Voltage" = "+12V Bus Voltage";
-"+5V Bus Voltage" = "+5V Bus Voltage";
-"-12V Bus Voltage" = "-12V Bus Voltage";
-"-5V Bus Voltage" = "-5V Bus Voltage";
-"3.3 VCC Voltage" = "3.3 VCC Voltage";
-"3.3 VSB Voltage" = "3.3 VSB Voltage";
-"3.3 AVCC Voltage" = "3.3 AVCC Voltage";
-"GPU %d Voltage" = "GPU %d Voltage";
-"Fan %d" = "Fan %d";
-"Battery Voltage" = "Battery Voltage";
-"Battery Amperage" = "Battery Amperage";
+"GPU %d Core" = "GPU %d 核心";
+"GPU %d Shaders" = "GPU %d 着色器";
+"GPU %d Memory" = "GPU %d 显存";
+"CPU %d Multiplier" = "CPU %d 倍频";
+"CPU Package Multiplier" = "CPU整体倍频";
+"CPU Voltage" = "CPU核心电压";
+"CPU VRM Voltage" = "CPU供电电压";
+"DIMM Voltage" = "内存电压";
+"+12V Bus Voltage" = "+12V Bus 电压";
+"+5V Bus Voltage" = "+5V Bus 电压";
+"-12V Bus Voltage" = "-12V Bus 电压";
+"-5V Bus Voltage" = "-5V Bus 电压";
+"3.3 VCC Voltage" = "3.3 VCC 电压";
+"3.3 VSB Voltage" = "3.3 VSB 电压";
+"3.3 AVCC Voltage" = "3.3 AVCC 电压";
+"GPU %d Voltage" = "GPU %d 电压";
+"Fan %d" = "风扇转速 %d";
+"Battery Voltage" = "电池电压";
+"Battery Amperage" = "电池安培数";
 
-"log copied to clip board!" = "log copied to clip board!";
+"log copied to clip board!" = "日志复制到剪贴板！";
 

@@ -1,36 +1,36 @@
 
 /* Class = "NSButtonCell"; title = "use percentage to display memory usage"; ObjectID = "1ou-TV-z1H"; */
-"F5h-4I-FHU.title" = "use percentage to display memory usage";
+"F5h-4I-FHU.title" = "使用百分比显示内存使用情况";
 
 /* Class = "NSButtonCell"; title = "expand all groups"; ObjectID = "1ou-TV-z1H"; */
-"1ou-TV-z1H.title" = "expand all groups";
+"1ou-TV-z1H.title" = "展开所有组";
 
 /* Class = "NSWindow"; title = "Preferences"; ObjectID = "7b5-Rl-qab"; */
-"7b5-Rl-qab.title" = "Preferences";
+"7b5-Rl-qab.title" = "首选项";
 
 /* Class = "NSButtonCell"; title = "expand CPU Frequencies group"; ObjectID = "IiS-qj-XaA"; */
-"IiS-qj-XaA.title" = "expand CPU Frequencies group";
+"IiS-qj-XaA.title" = "展开CPU频率组";
 
 /* Class = "NSButtonCell"; title = "expand CPU Temperatures group"; ObjectID = "Uuk-nv-v6V"; */
-"Uuk-nv-v6V.title" = "expand CPU Temperatures group";
+"Uuk-nv-v6V.title" = "展开CPU温度组";
 
 /* Class = "NSButtonCell"; title = "don't show empty groups"; ObjectID = "VSp-PT-02b"; */
-"VSp-PT-02b.title" = "don't show empty groups";
+"VSp-PT-02b.title" = "不显示空组";
 
 /* Class = "NSButtonCell"; title = "expand Voltages group"; ObjectID = "f3S-tq-sNl"; */
-"f3S-tq-sNl.title" = "expand Voltages group";
+"f3S-tq-sNl.title" = "展开电压组";
 
 /* Class = "NSButtonCell"; title = "force to use dark appearance"; ObjectID = "fYJ-2d-nMJ"; */
-"fYJ-2d-nMJ.title" = "force to use dark appearance";
+"fYJ-2d-nMJ.title" = "使用黑色外观显示";
 
 /* Class = "NSButtonCell"; title = "always hide the vertical scroller"; ObjectID = "vMW-P5-ltW"; */
-"vMW-P5-ltW.title" = "always hide the vertical scroller";
+"vMW-P5-ltW.title" = "始终隐藏垂直滚动条";
 
 /* Class = "NSTexfieldCell"; title = "Sensor update interval in seconds:"; ObjectID = "i4D-QB-sGd"; */
-"i4D-QB-sGd.title" = "Sensors update interval in seconds:";
+"i4D-QB-sGd.title" = "传感器更新间隔秒数:";
 
 /* Class = "NSTexfieldCell"; title = "(applied to the next execution)"; ObjectID = "i4D-QB-sGd"; */
-"h2D-rP-QYL.title" = "(applied to the next execution)";
+"h2D-rP-QYL.title" = "(应用于下一次启动后执行)";
 
 /* Class = "NSButtonCell"; title = "run HWMonitorSMC.app at login"; ObjectID = "Dyg-rv-2Gg"; */
-"Dyg-rv-2Gg.title" = "run HWMonitorSMC.app at login";
+"Dyg-rv-2Gg.title" = "在登录时运行HWMonitorSMC.app";

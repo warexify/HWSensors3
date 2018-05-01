@@ -29,7 +29,7 @@ public struct Display {
   //--------------------------------------------------------------------------
   
   
-  struct TimingDescription {
+  fileprivate struct TimingDescription {
     var PixelClock                    : [UInt8] = [UInt8](repeating: 0, count: 2)
     var HorizontalActive              : UInt8  = 0
     var HorizontalBlanking            : UInt8  = 0
@@ -48,9 +48,9 @@ public struct Display {
     var VerticalBorder                : UInt8  = 0
     var Flags                         : UInt8  = 0
   }
-  typealias EDID_TD = TimingDescription
+  fileprivate typealias EDID_TD = TimingDescription
   
-  struct EDID_BLOCK {
+  fileprivate struct EDID_BLOCK {
     var Header                        : [UInt8] = [UInt8](repeating: 0, count: 8) //EDID header "00 FF FF FF FF FF FF 00"
     var ManufactureName               : [UInt8] = [UInt8](repeating: 0, count: 2) //EISA 3-character ID
     var ProductCode                   : [UInt8] = [UInt8](repeating: 0, count: 2)//Vendor assigned code
@@ -80,24 +80,6 @@ public struct Display {
     var ExtensionFlag                 : UInt8   = 0                               //Number of (optional) 128-byte EDID extension blocks to follow
     var Checksum                      : UInt8   = 0
     
-    /*
-    0x00, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0x00,      0-7
-    0x06, 0xAF, 0x9E, 0x13, 0x00, 0x00, 0x00, 0x00,      8-15
-    0x01, 0x13, 0x01, 0x03, 0x80, 0x26, 0x15, 0x78,     16-23
-    0x0A, 0xC4, 0x95, 0x9E, 0x57, 0x53, 0x92, 0x26,     23-30
-    0x0F, 0x50, 0x54, 0x00, 0x00, 0x00, 0x01, 0x01,     31-38
-    0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01,     39-47
-    0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x1C, 0x2A,     48-55
-    0x40, 0x6E, 0x61, 0x84, 0x0C, 0x30, 0x30, 0x20,     56-63
-    0x36, 0x00, 0x7E, 0xD6, 0x10, 0x00, 0x00, 0x18,     64-71
-    0x00, 0x00, 0x00, 0x0F, 0x00, 0x00, 0x00, 0x00,     72-79
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,     80-87
-    0x00, 0x20, 0x00, 0x00, 0x00, 0xFE, 0x00, 0x41,     88-95
-    0x55, 0x4F, 0x0A, 0x20, 0x20, 0x20, 0x20, 0x20,     96-103
-    0x20, 0x20, 0x20, 0x20, 0x00, 0x00, 0x00, 0xFE,    104-111
-    0x00, 0x42, 0x31, 0x37, 0x33, 0x52, 0x57, 0x30,    112-119
-    0x31, 0x20, 0x56, 0x33, 0x20, 0x0A, 0x00, 0x24     120-127
-    */
     // designed initializer
     init(from data: Data) {
       if data.count == 128 {
@@ -166,7 +148,7 @@ public struct Display {
       }
     }
   }
-  typealias EDID = EDID_BLOCK
+  fileprivate typealias EDID = EDID_BLOCK
   
   //--------------------------------------------------------------------------
   // MARK: public functions
@@ -177,7 +159,7 @@ public struct Display {
   public static func getMainScreenInfo() -> String {
     var displayLocations : [String] = [String]()
     if let screen = NSScreen.main {
-      return self.getDisplayInfo(screen: screen, displayLocations: &displayLocations)
+      return Display.getDisplayInfo(screen: screen, displayLocations: &displayLocations)
     }
     return ""
   }
@@ -191,8 +173,8 @@ public struct Display {
     let screens = NSScreen.screens
     var count : Int = 0
     for screen in screens {
-      log += "   SCREEN \(count):\n"
-      log += self.getDisplayInfo(screen: screen, displayLocations: &displayLocations)
+      log += "SCREEN \(count):\n"
+      log += Display.getDisplayInfo(screen: screen, displayLocations: &displayLocations)
       log += "\n"
       count += 1
     }
@@ -212,7 +194,7 @@ public struct Display {
    the current location.
    Hoping IOKit and NSScreen returns in the same order..but anyway.. who cares?
    */
-  public static func getDisplayInfo(screen: NSScreen, displayLocations: inout [String]) -> String {
+  fileprivate static func getDisplayInfo(screen: NSScreen, displayLocations: inout [String]) -> String {
     var useAppleStuff : Bool = false
     var statusString : String = ""
     var productName : String = "Unknown"
@@ -222,7 +204,7 @@ public struct Display {
     
     statusString += "\tFramebuffer:\t\(String(format: "0x%X", screenNumber.uint32Value))\n"
     
-    if let info = GetInfoFromCGDisplayID(displayID: screenNumber.uint32Value, displayLocations: &displayLocations) {
+    if let info = Display.GetInfoFromCGDisplayID(displayID: screenNumber.uint32Value, displayLocations: &displayLocations) {
       useAppleStuff = (info.object(forKey: kIODisplayEDIDKey) == nil)
       // useAppleStuff = true // to override
       if useAppleStuff {
@@ -492,7 +474,7 @@ public struct Display {
   // MARK: Info Dictionary from displayID
   //--------------------------------------------------------------------------
   
-  public static func GetInfoFromCGDisplayID(displayID: CGDirectDisplayID,
+  fileprivate static func GetInfoFromCGDisplayID(displayID: CGDirectDisplayID,
                                       displayLocations: inout [String]) -> NSDictionary? {
     var serv : io_object_t
     var iter = io_iterator_t()

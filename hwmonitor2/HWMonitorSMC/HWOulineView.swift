@@ -30,7 +30,7 @@ class RightClickViewController: NSViewController {
   
   @IBAction func copyToPasteboard(_ sender: Any?) {
     var log = self.textView.string
-    
+
     if log.count > 0 {
       let pasteboard = NSPasteboard.general
       pasteboard.declareTypes([NSPasteboard.PasteboardType.string], owner: nil)
@@ -86,13 +86,40 @@ class HWOulineView: NSOutlineView, NSPopoverDelegate {
     var size : InfoViewSize = .normal
     if ((node.sensorData?.sensor?.group) != nil) {
       let g : SensorGroup = (node.sensorData?.sensor?.group)!
-      
-      switch g {/*
-         case UInt(TemperatureSensorGroup):
-         case UInt(VoltageSensorGroup):
+      switch g {
+      case UInt(TemperatureSensorGroup): fallthrough
+      case UInt(FrequencySensorGroup):
+        
+        let parent : HWTreeNode? = node.parent as? HWTreeNode
+        if (parent != nil) {
+          if let groupString = node.sensorData?.group {
+            switch groupString {
+            case NSLocalizedString("CPU Temperatures", comment: ""): fallthrough
+            case NSLocalizedString("CPU Frequencies", comment: ""):
+              
+              size = .medium
+              log = self.getCPUInfo()
+            default:
+              break
+            }
+          }
+        }
+        /*
          case UInt(TachometerSensorGroup):
          case UInt(FrequencySensorGroup):
-         case UInt(MultiplierSensorGroup):*/
+         */
+      case UInt(VoltageSensorGroup):
+        if node.sensorData?.sensor?.caption == NSLocalizedString("CPU Voltage", comment: "") {
+          size = .medium
+          log = self.getCPUInfo()
+        }
+        break
+      case UInt(MultiplierSensorGroup):
+        if node.sensorData?.sensor?.caption == NSLocalizedString("CPU Package Multiplier", comment: "") {
+          size = .medium
+          log = self.getCPUInfo()
+        }
+        break
       case UInt(BatterySensorsGroup):
         size = .normal
         log = self.getBatteryInfo()
@@ -158,15 +185,17 @@ class HWOulineView: NSOutlineView, NSPopoverDelegate {
       } else if size == .medium {
         pop.contentSize = NSMakeSize(400, 450)
       }
-
+      
       pop.behavior = .transient
       pop.animates = true
       let vc = RightClickViewController().loadFromNib()
       vc.view.setFrameSize(pop.contentSize)
       let attrLog = NSMutableAttributedString(string: log!)
-      attrLog.addAttributes([NSAttributedStringKey.font : NSFont(name: "Lucida Grande", size: 10.0)!],
-                          range: NSMakeRange(0, attrLog.length))
+      attrLog.addAttributes([NSAttributedStringKey.font : gLogFont!],
+                            range: NSMakeRange(0, attrLog.length))
       vc.textView.textStorage?.append(attrLog)
+      vc.textView.textContainerInset = NSMakeSize(0, 0)
+      vc.textView.textContainer?.lineFragmentPadding = 0
       pop.contentViewController = vc
       rowView = self.view(atColumn: 2, row: row, makeIfNecessary: false)
       return pop
@@ -177,7 +206,7 @@ class HWOulineView: NSOutlineView, NSPopoverDelegate {
   
   private func getCPUInfo() -> String {
     var statusString : String = ""
-    statusString += "   CPU:\n"
+    statusString += "CPU:\n"
     statusString += "\tName:\t\t\(System.sysctlbynameString("machdep.cpu.brand_string"))\n"
     statusString += "\tVendor:\t\t\(System.sysctlbynameString("machdep.cpu.vendor"))\n"
     statusString += "\tPhysical cores:\t\(System.physicalCores())\n"
@@ -242,7 +271,7 @@ class HWOulineView: NSOutlineView, NSPopoverDelegate {
   
   private func getMemoryInfo() -> String {
     var statusString : String = ""
-    statusString += "   MEMORY:\n"
+    statusString += "MEMORY:\n"
     statusString += "\tPhysical size:\t\(System.physicalMemory())GB\n"
     
     let memoryUsage = System.memoryUsage()
@@ -262,7 +291,7 @@ class HWOulineView: NSOutlineView, NSPopoverDelegate {
   
   private func getSystemInfo() -> String {
     var statusString : String = ""
-    statusString += "   SYSTEM:\n"
+    statusString += "SYSTEM:\n"
     statusString += "\tModel:\t\t\(System.modelName())\n"
     let names = System.uname()
     statusString += "\tSys name:\t\t\(names.sysname)\n"
@@ -287,7 +316,7 @@ class HWOulineView: NSOutlineView, NSPopoverDelegate {
   
   private func getPowerInfo() -> String {
     var statusString : String = ""
-    statusString += "   POWER:\n"
+    statusString += "POWER:\n"
     let cpuThermalStatus = System.CPUPowerLimit()
     
     statusString += "\tCPU Speed limit:\t\t\(cpuThermalStatus.processorSpeed)%\n"
@@ -303,7 +332,7 @@ class HWOulineView: NSOutlineView, NSPopoverDelegate {
     var statusString : String = ""
     var battery = Battery()
     if battery.open() == kIOReturnSuccess {
-      statusString += "   BATTERY:\n"
+      statusString += "BATTERY:\n"
       statusString += "\tAC Powered:\t\(battery.isACPowered())\n"
       statusString += "\tCharged:\t\t\(battery.isCharged())\n"
       statusString += "\tCharging:\t\t\(battery.isCharging())\n"
@@ -330,8 +359,13 @@ class HWOulineView: NSOutlineView, NSPopoverDelegate {
     statusString += self.getSystemInfo()
     statusString += self.getPowerInfo()
     statusString += self.getBatteryInfo()
+    statusString += self.getGPUInfo()
     statusString += Display.getScreensInfo()
 
     return statusString
+  }
+  
+  private func getGPUInfo() -> String {
+    return Graphics.init().getGraphicsInfo() + "\n"
   }
 }

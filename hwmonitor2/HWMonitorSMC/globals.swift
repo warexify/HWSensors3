@@ -8,7 +8,7 @@
 
 import Cocoa
 
-let kTestVersion           = "rc3" // or "" for final release
+let kTestVersion           = "rc4" // or "" for final release
 
 let kRunAtLoginWasSet       = "runAtLoginWasSet"
 let kHideVerticalScroller   = "hideVerticalScroller"
@@ -30,3 +30,6 @@ let gAppearance = (UserDefaults.standard.string(forKey: kAppleInterfaceStyle) ==
     NSAppearance.Name.vibrantLight
 
 let gHideVerticalScroller : Bool = UserDefaults.standard.bool(forKey: kHideVerticalScroller)
+
+let gPopOverFont = NSFont(name: "Lucida Grande Bold", size: 9.0)
+let gLogFont =     NSFont(name: "Lucida Grande", size: 10.0)
