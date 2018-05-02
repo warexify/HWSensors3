@@ -32,7 +32,6 @@
 "DIMM 0" = "DIMM 0";
 "DIMM 1" = "DIMM 1";
 "Ambient" = "Ambient";
-"GPU %d Core" = "GPU %d Core";
 "GPU %d Board" = "GPU %d Board";
 "GPU %d Proximity" = "GPU %d Proximity";
 "CPU %d Core" = "CPU %d Core";

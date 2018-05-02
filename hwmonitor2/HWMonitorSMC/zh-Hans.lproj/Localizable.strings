@@ -34,7 +34,6 @@
 "DIMM 0" = "内存模块 0";
 "DIMM 1" = "内存模块 1";
 "Ambient" = "环境";
-"GPU %d Core" = "GPU %d 核心";
 "GPU %d Board" = "GPU %d 核心";
 "GPU %d Proximity" = "GPU %d 周边";
 "CPU %d Core" = "CPU %d 核心";

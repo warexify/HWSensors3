@@ -20,17 +20,26 @@ public struct Graphics {
       let dict = list[i]
       //print(dict)
       log += "VIDEO CARD \(i + 1):\n"
+      
       // expected value:
-      let model     : Data = dict.object(forKey: "model") as! Data
-      let vendorID  : Data = dict.object(forKey: "vendor-id") as! Data
-      let deviceID  : Data = dict.object(forKey: "device-id") as! Data
-      let classcode : Data = dict.object(forKey: "class-code") as! Data
-      let revisionID : Data = dict.object(forKey: "revision-id") as! Data
-      let subsystemID : Data = dict.object(forKey: "subsystem-id") as! Data
+      var model             : String = "Unknown" // model can be String/Data
+      let modelValue        : Any? = dict.object(forKey: "model")
+      let vendorID          : Data = dict.object(forKey: "vendor-id") as! Data
+      let deviceID          : Data = dict.object(forKey: "device-id") as! Data
+      let classcode         : Data = dict.object(forKey: "class-code") as! Data
+      let revisionID        : Data = dict.object(forKey: "revision-id") as! Data
+      let subsystemID       : Data = dict.object(forKey: "subsystem-id") as! Data
       let subsystemVendorID : Data = dict.object(forKey: "subsystem-vendor-id") as! Data
 
+      if (modelValue != nil) {
+        if modelValue is NSString {
+          model = modelValue as! String
+        } else if modelValue is NSData {
+          model = String(data: modelValue as! Data , encoding: .utf8) ?? model
+        }
+      }
       
-      log += "\tModel:\t\t\t\t\(String(data: model, encoding: .utf8) ?? "Unknown")\n"
+      log += "\tModel:\t\t\t\t\(model)\n"
       log += "\tVendor ID:\t\t\t\t\(vendorID.hexadecimal()) (\(vendorStringFromData(data: vendorID)))\n"
       log += "\tDevice ID:\t\t\t\t\(deviceID.hexadecimal())\n"
       log += "\tRevision ID:\t\t\t\(revisionID.hexadecimal())\n"
