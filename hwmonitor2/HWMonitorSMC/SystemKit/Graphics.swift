@@ -141,50 +141,56 @@ public struct Graphics {
    This ensure that all of it are show in the log without effectively be aware of them.
    */
   fileprivate func getProperties(with prefix: String, in dict : NSDictionary) -> [String: String]? {
+    // black listed keys: they are too long to be showned in the log
+    //TODO: make a new method to format text with long data lenght with the possibility of truncate it or not
+    let blackList : [String] = ["ATY,bin_image", "ATY,PlatformInfo", "AAPL,EMC-Display-List"]
+    
     let fontAttr =  [NSAttributedStringKey.font : gLogFont!] // need to count a size with proportional font
     var properties : [String: String] = [String: String]()
     let allKeys = dict.allKeys // are as [Any]
-    var maxLenght : Int = 0
+    var maxLength : Int = 0
     let sep = ": "
     let ind = "\t\t"
     
-    // get the max lenght of the string and all the valid keys
+    // get the max length of the string and all the valid keys
     for k in allKeys {
       let key : String = (k as! String).trimmingCharacters(in: .whitespacesAndNewlines)
-      if key.hasPrefix(prefix) {
-        let keyL : Int = Int(key.size(withAttributes: fontAttr).width)
-        if keyL > maxLenght {
-          maxLenght = keyL
-        }
-        
-        var value : String? = nil
-        let raw : Any = dict.object(forKey: key)! // unrapped because we know it exist
-        if raw is NSString {
-          value = (raw as! String)
-        } else if raw is NSData {
-          let data : Data = (raw as! Data)
-          value = "\(data.hexadecimal())"
-        } else if raw is NSNumber {
-          value = "\((raw as! NSNumber).intValue)"
-        }
-        if (value != nil) {
-          properties[key] = value
+      if !blackList.contains(key) {
+        if key.hasPrefix(prefix) {
+          let keyL : Int = Int(key.size(withAttributes: fontAttr).width)
+          if keyL > maxLength {
+            maxLength = keyL
+          }
+          
+          var value : String? = nil
+          let raw : Any = dict.object(forKey: key)! // unrapped because we know it exist
+          if raw is NSString {
+            value = (raw as! String)
+          } else if raw is NSData {
+            let data : Data = (raw as! Data)
+            value = "\(data.hexadecimal())"
+          } else if raw is NSNumber {
+            value = "\((raw as! NSNumber).intValue)"
+          }
+          if (value != nil) {
+            properties[key] = value
+          }
         }
       }
     }
     
     if prefix.hasPrefix("@") {
       // don't know why, if string starts with @ needs the follow
-      maxLenght +=  Int("@".size(withAttributes: fontAttr).width)
+      maxLength +=  Int("@".size(withAttributes: fontAttr).width)
     }
     
     // return with formmatted keys already
     if properties.keys.count > 0 {
       var validProperties : [String : String] = [String : String]()
-      maxLenght += Int(sep.size(withAttributes: fontAttr).width)
+      maxLength += Int(sep.size(withAttributes: fontAttr).width)
       for key in properties.keys {
         var keyPadded : String = key + sep
-        while Int(keyPadded.size(withAttributes: fontAttr).width) < maxLenght + 1 {
+        while Int(keyPadded.size(withAttributes: fontAttr).width) < maxLength + 1 {
           keyPadded += " "
         }
         validProperties[ind + keyPadded + "\t"] = properties[key]
