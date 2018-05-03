@@ -289,10 +289,7 @@ public struct Display {
         }
       }
       //EDID
-      let debugDict = NSDictionary(contentsOfFile: NSHomeDirectory() + "/Desktop/EDID.plist")
-      //if let IODisplayEDID : Data = info.object(forKey: kIODisplayEDIDKey) as? Data {
-      if let IODisplayEDID : Data = debugDict?.object(forKey: kIODisplayEDIDKey) as? Data {
-        print(IODisplayEDID.count)
+      if let IODisplayEDID : Data = info.object(forKey: kIODisplayEDIDKey) as? Data {
         let bytes = IODisplayEDID.withUnsafeBytes {
           [UInt8](UnsafeBufferPointer(start: $0, count: IODisplayEDID.count))
         }
