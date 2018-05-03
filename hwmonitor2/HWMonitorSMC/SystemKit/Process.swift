@@ -48,7 +48,7 @@ public let CPU_TYPE_POWERPC64 : cpu_type_t = CPU_TYPE_POWERPC | CPU_ARCH_ABI64
 //------------------------------------------------------------------------------
 
 /// Process information
-public struct ProcessInfo {
+public struct SKProcessInfo { // Previous declaration "ProcessInfo" conflicted with Swift standard library
     let pid     : Int
     let ppid    : Int
     let pgid    : Int
@@ -80,8 +80,8 @@ public struct ProcessAPI {
     //--------------------------------------------------------------------------
     
     /// Return list of currently running processes
-    public static func list() -> [ProcessInfo] {
-        var list                                = [ProcessInfo]()
+    public static func list() -> [SKProcessInfo] {
+        var list                                = [SKProcessInfo]()
         var psets: processor_set_name_array_t?  = processor_set_name_array_t.allocate(capacity: 1)
         var pcnt: mach_msg_type_number_t        = 0
 
@@ -145,7 +145,7 @@ public struct ProcessAPI {
                 }
                 
                 
-                list.append(ProcessInfo(pid    : Int(pid),
+                list.append(SKProcessInfo(pid    : Int(pid),
                                         ppid   : Int(kinfo.kp_eproc.e_ppid),
                                         pgid   : Int(kinfo.kp_eproc.e_pgid),
                                         uid    : Int(kinfo.kp_eproc.e_ucred.cr_uid),

@@ -268,6 +268,8 @@ class HWOulineView: NSOutlineView, NSPopoverDelegate {
     statusString += "\tModel:\t\t\(System.modelName())\n"
     let names = System.uname()
     statusString += "\tSys name:\t\t\(names.sysname)\n"
+    let os  = ProcessInfo.init().operatingSystemVersion
+    statusString += "\tOS Version:\t\(os.majorVersion).\(os.minorVersion).\(os.patchVersion)\n"
     statusString += "\tNode name:\t\(names.nodename)\n"
     statusString += "\tRelease:\t\t\(names.release)\n"
     statusString += "\tVersion:\t\t\(names.version)\n"

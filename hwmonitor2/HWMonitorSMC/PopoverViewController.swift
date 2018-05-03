@@ -145,7 +145,7 @@ class PopoverViewController: NSViewController {
     self.sensorDelegate = HWSensorsDelegate()
     
     // ------
-    self.SystemNode = HWTreeNode(representedObject: HWSensorData(group: NSLocalizedString("System", comment: ""),
+    self.SystemNode = HWTreeNode(representedObject: HWSensorData(group: "System",
                                                                  sensor: nil,
                                                                  isLeaf: false))
     self.dataSource?.add(self.SystemNode!)
@@ -729,7 +729,7 @@ extension PopoverViewController: NSOutlineViewDataSource {
   
   func outlineView(_ outlineView: NSOutlineView, isItemExpandable item: Any) -> Bool {
     if let node = item as? HWTreeNode {
-      if !(node.sensorData?.isLeaf)! && node.sensorData?.group != NSLocalizedString("System", comment: "") {
+      if !(node.sensorData?.isLeaf)! && node.sensorData?.group != "System" {
         return true
       }
     }
@@ -774,7 +774,12 @@ extension PopoverViewController: NSOutlineViewDataSource {
           break
         case "column1":
           if isGroup {
-            view?.textField?.stringValue = (node.sensorData?.group)!
+            let gName = (node.sensorData?.group)!
+            if gName == "System" {
+              view?.textField?.stringValue = ProcessInfo.init().operatingSystemVersionString
+            } else {
+              view?.textField?.stringValue = gName
+            }
             view?.textField?.textColor = (gAppearance == NSAppearance.Name.vibrantDark) ? NSColor.green : NSColor.controlTextColor
           } else {
             if node.sensorData?.sensor?.group == UInt(HDSmartLifeSensorGroup) {
@@ -865,8 +870,11 @@ extension PopoverViewController: NSOutlineViewDataSource {
       case NSLocalizedString("Media health", comment: ""):
         image = NSImage(named: NSImage.Name(rawValue: "hd_small.png"))
         break
-      case NSLocalizedString("System", comment: ""):
-        image = NSImage(named: NSImage.Name(rawValue: "temperature_small"))
+      case "System":
+        image = NSImage(byReferencingFile: "/Applications/Utilities/System Information.app/Contents/Resources/ASP.icns")
+        if (image == nil) {
+          image = NSImage(named: NSImage.Name(rawValue: "temperature_small"))
+        }
         break
       default:
         break
