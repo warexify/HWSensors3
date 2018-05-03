@@ -85,52 +85,28 @@ class HWOulineView: NSOutlineView, NSPopoverDelegate {
     var log : String? = nil
     var size : InfoViewSize = .normal
     if ((node.sensorData?.sensor?.group) != nil) {
-      let g : SensorGroup = (node.sensorData?.sensor?.group)!
-      switch g {
-      case UInt(TemperatureSensorGroup): fallthrough
-      case UInt(FrequencySensorGroup):
-        
-        let parent : HWTreeNode? = node.parent as? HWTreeNode
-        if (parent != nil) {
-          if let groupString = node.sensorData?.group {
-            switch groupString {
-            case NSLocalizedString("CPU Temperatures", comment: ""): fallthrough
-            case NSLocalizedString("CPU Frequencies", comment: ""):
-              
-              size = .medium
-              log = self.getCPUInfo()
-            default:
-              break
-            }
-          }
-        }
-        /*
-         case UInt(TachometerSensorGroup):
-         case UInt(FrequencySensorGroup):
-         */
-      case UInt(VoltageSensorGroup):
-        if node.sensorData?.sensor?.caption == NSLocalizedString("CPU Voltage", comment: "") {
-          size = .medium
-          log = self.getCPUInfo()
-        }
-        break
-      case UInt(MultiplierSensorGroup):
-        if node.sensorData?.sensor?.caption == NSLocalizedString("CPU Package Multiplier", comment: "") {
-          size = .medium
-          log = self.getCPUInfo()
-        }
-        break
-      case UInt(BatterySensorsGroup):
-        size = .normal
-        log = self.getBatteryInfo()
-      case UInt(MemorySensorGroup):
-        size = .normal
-        log = self.getMemoryInfo()
-      case UInt(HDSmartLifeSensorGroup): fallthrough
-      case UInt(HDSmartTempSensorGroup): fallthrough
-      case UInt(MediaSMARTContenitorGroup):
+      let logType : LogType = (node.sensorData?.sensor?.logType)!
+      
+      switch logType {
+      case NoLog: break
+      case SystemLog:
+        size = .big
+        log = self.getSystemInfo()
+      case CPULog:
+        size = .medium
+        log = self.getCPUInfo()
+      case GPULog:
+        size = .big
+        log = self.getGPUInfo()
+      case MediaLog:
         size = .normal
         log = node.sensorData?.sensor?.characteristics
+      case MemoryLog:
+        size = .normal
+        log = self.getMemoryInfo()
+      case BatteryLog:
+        size = .normal
+        log = self.getBatteryInfo()
       default:
         break
       }
@@ -148,10 +124,7 @@ class HWOulineView: NSOutlineView, NSPopoverDelegate {
         case NSLocalizedString("Batteries", comment: ""):
           size = .normal
           log = self.getBatteryInfo()
-        case NSLocalizedString("Multipliers", comment: ""):   fallthrough
-        case NSLocalizedString("Voltages", comment: ""):      fallthrough
-        case NSLocalizedString("Fans or Pumps", comment: ""): fallthrough
-        case NSLocalizedString("Temperatures", comment: ""):
+        case NSLocalizedString("System", comment: ""):
           size = .big
           log = self.getSystemStatus()
         case NSLocalizedString("Media health", comment: ""):
@@ -361,11 +334,37 @@ class HWOulineView: NSOutlineView, NSPopoverDelegate {
     statusString += self.getBatteryInfo()
     statusString += self.getGPUInfo()
     statusString += Display.getScreensInfo()
-
+    statusString += self.getMediaInfo()
     return statusString
   }
   
   private func getGPUInfo() -> String {
     return Graphics.init().getGraphicsInfo() + "\n"
+  }
+  
+  private func getMediaInfo() -> String {
+    var statusString : String = ""
+    // try to see if "Media health" contains some info..
+    if let mediaNode : HWTreeNode = (self.delegate as! PopoverViewController).mediaNode {
+      var allDrivesInfo : String = ""
+      for diskNode in mediaNode.children! {
+        if let disk : HWTreeNode = diskNode as? HWTreeNode {
+          if let characteristics : String = disk.sensorData?.sensor?.characteristics {
+            allDrivesInfo += characteristics
+            allDrivesInfo += "\n"
+          }
+        }
+      }
+      if allDrivesInfo.count > 0 {
+        statusString += "\nMEDIA:\n"
+        // doing a dirty job: add a tab for each line of this log
+        let lines = allDrivesInfo.components(separatedBy: "\n")
+        for line in lines {
+          statusString += "\t\(line)\n"
+        }
+      }
+    }
+
+    return statusString
   }
 }

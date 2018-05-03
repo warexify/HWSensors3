@@ -29,6 +29,7 @@ class PopoverViewController: NSViewController {
   var dontshowEmpty             : Bool = true
   
   // nodes
+  var SystemNode                : HWTreeNode?
   var RAMNode                   : HWTreeNode?
   var CPUFrequenciesNode        : HWTreeNode?
   var voltagesNode              : HWTreeNode?
@@ -142,6 +143,12 @@ class PopoverViewController: NSViewController {
     self.sensorList = NSMutableArray()
     self.dataSource = NSMutableArray()
     self.sensorDelegate = HWSensorsDelegate()
+    
+    // ------
+    self.SystemNode = HWTreeNode(representedObject: HWSensorData(group: NSLocalizedString("System", comment: ""),
+                                                                 sensor: nil,
+                                                                 isLeaf: false))
+    self.dataSource?.add(self.SystemNode!)
     
     // ------
     
@@ -323,6 +330,7 @@ class PopoverViewController: NSViewController {
                                               andType: "",
                                               andGroup: UInt(MediaSMARTContenitorGroup),
                                               withCaption: serial)
+      smartSensorParent?.logType = MediaLog
       smartSensorParent?.characteristics = log
       let smartSensorParentNode = HWTreeNode(representedObject: HWSensorData(group: productName,
                                                                              sensor: smartSensorParent,
@@ -459,6 +467,7 @@ class PopoverViewController: NSViewController {
                                                   andType: "",
                                                   andGroup: UInt(MediaSMARTContenitorGroup),
                                                   withCaption: serial)
+          smartSensorParent?.logType = MediaLog
           smartSensorParent?.characteristics = log
           let smartSensorParentNode = HWTreeNode(representedObject: HWSensorData(group: productName,
                                                                                  sensor: smartSensorParent,
@@ -720,7 +729,7 @@ extension PopoverViewController: NSOutlineViewDataSource {
   
   func outlineView(_ outlineView: NSOutlineView, isItemExpandable item: Any) -> Bool {
     if let node = item as? HWTreeNode {
-      if !(node.sensorData?.isLeaf)! {
+      if !(node.sensorData?.isLeaf)! && node.sensorData?.group != NSLocalizedString("System", comment: "") {
         return true
       }
     }
@@ -855,6 +864,9 @@ extension PopoverViewController: NSOutlineViewDataSource {
         break
       case NSLocalizedString("Media health", comment: ""):
         image = NSImage(named: NSImage.Name(rawValue: "hd_small.png"))
+        break
+      case NSLocalizedString("System", comment: ""):
+        image = NSImage(named: NSImage.Name(rawValue: "temperature_small"))
         break
       default:
         break

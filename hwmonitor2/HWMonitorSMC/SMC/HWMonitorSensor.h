@@ -9,6 +9,18 @@
 #import <Foundation/Foundation.h>
 #import "HWImageView.h"
 #import "HWTextField.h"
+
+enum {
+  NoLog       =   0,
+  SystemLog   =   1,
+  CPULog      =   2,
+  GPULog      =   3,
+  MemoryLog   =   4,
+  MediaLog    =   5,
+  BatteryLog  =   6
+};
+typedef NSInteger LogType; // right log for any sensor
+
 enum {
   TemperatureSensorGroup      =   1,
   VoltageSensorGroup          =   2,
@@ -49,7 +61,7 @@ typedef NSUInteger SensorGroup;
 @property (readwrite, retain) NSString *    stringValue;
 @property (readwrite, assign) BOOL          favorite;
 @property (readwrite, retain) NSString *    characteristics;
-@property (readwrite, assign) BOOL          warn;
+@property (readwrite, assign) LogType       logType;
 
 + (unsigned int) swapBytes:(unsigned int) value;
 

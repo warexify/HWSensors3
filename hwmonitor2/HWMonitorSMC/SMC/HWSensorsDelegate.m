@@ -59,7 +59,7 @@ int countPhisycalCores() {
                                         andType:@"RAM"
                                        andGroup:MemorySensorGroup
                                     withCaption:NSLocalizedString(@"Total", nil)];
-  
+  sensor.logType = MemoryLog;
   sensor.stringValue = [NSString stringWithFormat:@"%3.0fMB", [SSMemoryInfo totalMemory]];
   [arr addObject:sensor];
   [sensor setFavorite:[[NSUserDefaults standardUserDefaults] boolForKey:sensor.key]];
@@ -68,7 +68,7 @@ int countPhisycalCores() {
                                         andType:@"RAM"
                                        andGroup:MemorySensorGroup
                                     withCaption:NSLocalizedString(@"Active", nil)];
-  
+  sensor.logType = MemoryLog;
   sensor.stringValue = [NSString stringWithFormat:format, [SSMemoryInfo activeMemory:showPercentage]];
   [arr addObject:sensor];
   [sensor setFavorite:[[NSUserDefaults standardUserDefaults] boolForKey:sensor.key]];
@@ -77,7 +77,7 @@ int countPhisycalCores() {
                                         andType:@"RAM"
                                        andGroup:MemorySensorGroup
                                     withCaption:NSLocalizedString(@"Inactive", nil)];
-  
+  sensor.logType = MemoryLog;
   sensor.stringValue = [NSString stringWithFormat:format, [SSMemoryInfo inactiveMemory:showPercentage]];
   [arr addObject:sensor];
   [sensor setFavorite:[[NSUserDefaults standardUserDefaults] boolForKey:sensor.key]];
@@ -86,7 +86,7 @@ int countPhisycalCores() {
                                         andType:@"RAM"
                                        andGroup:MemorySensorGroup
                                     withCaption:NSLocalizedString(@"Free", nil)];
-  
+  sensor.logType = MemoryLog;
   sensor.stringValue = [NSString stringWithFormat:format, [SSMemoryInfo freeMemory:showPercentage]];
   [arr addObject:sensor];
   [sensor setFavorite:[[NSUserDefaults standardUserDefaults] boolForKey:sensor.key]];
@@ -96,6 +96,7 @@ int countPhisycalCores() {
                                        andGroup:MemorySensorGroup
                                     withCaption:NSLocalizedString(@"Used", nil)];
   
+  sensor.logType = MemoryLog;
   sensor.stringValue = [NSString stringWithFormat:format, [SSMemoryInfo usedMemory:showPercentage]];
   [arr addObject:sensor];
   [sensor setFavorite:[[NSUserDefaults standardUserDefaults] boolForKey:sensor.key]];
@@ -105,6 +106,7 @@ int countPhisycalCores() {
                                        andGroup:MemorySensorGroup
                                     withCaption:NSLocalizedString(@"Purgeable", nil)];
   
+  sensor.logType = MemoryLog;
   sensor.stringValue = [NSString stringWithFormat:format, [SSMemoryInfo purgableMemory:showPercentage]];
   [arr addObject:sensor];
   [sensor setFavorite:[[NSUserDefaults standardUserDefaults] boolForKey:sensor.key]];
@@ -114,6 +116,7 @@ int countPhisycalCores() {
                                        andGroup:MemorySensorGroup
                                     withCaption:NSLocalizedString(@"Wired", nil)];
   
+  sensor.logType = MemoryLog;
   sensor.stringValue = [NSString stringWithFormat:format, [SSMemoryInfo wiredMemory:showPercentage]];
   [arr addObject:sensor];
   [sensor setFavorite:[[NSUserDefaults standardUserDefaults] boolForKey:sensor.key]];
@@ -129,36 +132,42 @@ int countPhisycalCores() {
                        ofType:([HWMonitorSensor getTypeOfKey:@KEY_CPU_PROXIMITY_TEMPERATURE]) ? : @TYPE_SP78
                      forGroup:TemperatureSensorGroup
                    andCaption:NSLocalizedString(@"CPU Proximity", nil)
+                      logType:CPULog
                      intoList:arr];
   
   [self validateSensorWithKey:@KEY_CPU_HEATSINK_TEMPERATURE
                        ofType:([HWMonitorSensor getTypeOfKey:@KEY_CPU_HEATSINK_TEMPERATURE]) ? : @TYPE_SP78
                      forGroup:TemperatureSensorGroup
                    andCaption:NSLocalizedString(@"CPU Heatsink", nil)
+                      logType:CPULog
                      intoList:arr];
   
   [self validateSensorWithKey:@KEY_NORTHBRIDGE_TEMPERATURE
                        ofType:([HWMonitorSensor getTypeOfKey:@KEY_NORTHBRIDGE_TEMPERATURE]) ? : @TYPE_SP78
                      forGroup:TemperatureSensorGroup
                    andCaption:NSLocalizedString(@"Motherboard", nil)
+                      logType:NoLog
                      intoList:arr];
   
   [self validateSensorWithKey:@KEY_DIMM_TEMPERATURE
                        ofType:([HWMonitorSensor getTypeOfKey:@KEY_DIMM_TEMPERATURE]) ? : @TYPE_SP78
                      forGroup:TemperatureSensorGroup
                    andCaption:NSLocalizedString(@"DIMM 0", nil)
+                      logType:NoLog
                      intoList:arr];
   
   [self validateSensorWithKey:@KEY_DIMM2_TEMPERATURE
                        ofType:([HWMonitorSensor getTypeOfKey:@KEY_DIMM2_TEMPERATURE]) ? : @TYPE_SP78
                      forGroup:TemperatureSensorGroup
                    andCaption:NSLocalizedString(@"DIMM 1", nil)
+                      logType:NoLog
                      intoList:arr];
   
   [self validateSensorWithKey:@KEY_AMBIENT_TEMPERATURE
                        ofType:([HWMonitorSensor getTypeOfKey:@KEY_AMBIENT_TEMPERATURE]) ? : @TYPE_SP78
                      forGroup:TemperatureSensorGroup
                    andCaption:NSLocalizedString(@"Ambient", nil)
+                      logType:NoLog
                      intoList:arr];
   
   
@@ -168,6 +177,7 @@ int countPhisycalCores() {
                                   [NSString stringWithFormat:@KEY_FORMAT_GPU_DIODE_TEMPERATURE, i]]) ? : @TYPE_SP78
                        forGroup:TemperatureSensorGroup
                      andCaption:[[NSString alloc] initWithFormat:NSLocalizedString(@"GPU %d Core",nil) ,i]
+                        logType:GPULog
                        intoList:arr];
     
     [self validateSensorWithKey:[NSString stringWithFormat:@KEY_FORMAT_GPU_BOARD_TEMPERATURE, i]
@@ -175,6 +185,7 @@ int countPhisycalCores() {
                                   [NSString stringWithFormat:@KEY_FORMAT_GPU_BOARD_TEMPERATURE, i]]) ? : @TYPE_SP78
                        forGroup:TemperatureSensorGroup
                      andCaption:[[NSString alloc] initWithFormat:NSLocalizedString(@"GPU %d Board",nil) ,i]
+                        logType:GPULog
                        intoList:arr];
     
     [self validateSensorWithKey:[NSString stringWithFormat:@KEY_FORMAT_GPU_PROXIMITY_TEMPERATURE, i]
@@ -182,6 +193,7 @@ int countPhisycalCores() {
                                   [NSString stringWithFormat:@KEY_FORMAT_GPU_PROXIMITY_TEMPERATURE, i]]) ? : @TYPE_SP78
                        forGroup:TemperatureSensorGroup
                      andCaption:[[NSString alloc] initWithFormat:NSLocalizedString(@"GPU %d Proximity",nil) ,i]
+                        logType:GPULog
                        intoList:arr];
   }
   return arr;
@@ -195,6 +207,7 @@ int countPhisycalCores() {
                                   [NSString stringWithFormat:@KEY_FORMAT_CPU_DIE_CORE_TEMPERATURE, i]]) ? : @TYPE_SP78
                        forGroup:TemperatureSensorGroup
                      andCaption:[[NSString alloc] initWithFormat:NSLocalizedString(@"CPU %d Core", nil), i]
+                        logType:CPULog
                        intoList:arr];
     
     [self validateSensorWithKey:[NSString stringWithFormat:@KEY_FORMAT_CPU_DIODE_TEMPERATURE, i]
@@ -202,6 +215,7 @@ int countPhisycalCores() {
                                   [NSString stringWithFormat:@KEY_FORMAT_CPU_DIODE_TEMPERATURE, i]]) ? : @TYPE_SP78
                        forGroup:TemperatureSensorGroup
                      andCaption:[[NSString alloc] initWithFormat:NSLocalizedString(@"CPU %d Diode", nil), i]
+                        logType:CPULog
                        intoList:arr];
   }
   return arr;
@@ -214,6 +228,7 @@ int countPhisycalCores() {
                          ofType:@TYPE_FREQ
                        forGroup:FrequencySensorGroup
                      andCaption:[[NSString alloc] initWithFormat:NSLocalizedString(@"CPU %d",nil),i]
+                        logType:CPULog
                        intoList:arr];
   }
   return arr;
@@ -226,18 +241,21 @@ int countPhisycalCores() {
                          ofType:@TYPE_FREQ
                        forGroup:FrequencySensorGroup
                      andCaption:[[NSString alloc] initWithFormat:NSLocalizedString(@"GPU %d Core",nil)]
+                        logType:NoLog
                        intoList:arr];
     
     [self validateSensorWithKey:[NSString stringWithFormat:@KEY_FAKESMC_FORMAT_GPU_SHADER_FREQUENCY,i]
                          ofType:@TYPE_FREQ
                        forGroup:FrequencySensorGroup
                      andCaption:[[NSString alloc] initWithFormat:NSLocalizedString(@"GPU %d Shaders",nil), i]
+                        logType:GPULog
                        intoList:arr];
     
     [self validateSensorWithKey:[NSString stringWithFormat:@KEY_FAKESMC_FORMAT_GPU_MEMORY_FREQUENCY,i]
                          ofType:@TYPE_FREQ
                        forGroup:FrequencySensorGroup
                      andCaption:[[NSString alloc] initWithFormat:NSLocalizedString(@"GPU %d Memory",nil), i]
+                        logType:GPULog
                        intoList:arr];
   }
   return arr;
@@ -250,6 +268,7 @@ int countPhisycalCores() {
                          ofType:@TYPE_FP4C
                        forGroup:MultiplierSensorGroup
                      andCaption:[[NSString alloc] initWithFormat:NSLocalizedString(@"CPU %d Multiplier", nil),i]
+                        logType:CPULog
                        intoList:arr];
   }
   
@@ -257,6 +276,7 @@ int countPhisycalCores() {
                        ofType:@TYPE_FP4C
                      forGroup:MultiplierSensorGroup
                    andCaption:NSLocalizedString(@"CPU Package Multiplier",nil)
+                      logType:CPULog
                      intoList:arr];
   return arr;
 }
@@ -268,42 +288,49 @@ int countPhisycalCores() {
                        ofType:([HWMonitorSensor getTypeOfKey:@KEY_CPU_VOLTAGE]) ? : @TYPE_FP2E
                      forGroup:VoltageSensorGroup
                    andCaption:NSLocalizedString(@"CPU Voltage",nil)
+                      logType:CPULog
                      intoList:arr];
   
   [self validateSensorWithKey:@KEY_CPU_VRM_SUPPLY0
                        ofType:([HWMonitorSensor getTypeOfKey:@KEY_CPU_VRM_SUPPLY0]) ? : @TYPE_FP2E
                      forGroup:VoltageSensorGroup
                    andCaption:NSLocalizedString(@"CPU VRM Voltage",nil)
+                      logType:CPULog
                      intoList:arr];
   
   [self validateSensorWithKey:@KEY_MEMORY_VOLTAGE
                        ofType:([HWMonitorSensor getTypeOfKey:@KEY_MEMORY_VOLTAGE]) ? : @TYPE_FP2E
                      forGroup:VoltageSensorGroup
                    andCaption:NSLocalizedString(@"DIMM Voltage",nil)
+                      logType:NoLog
                      intoList:arr];
   
   [self validateSensorWithKey:@KEY_12V_VOLTAGE
                        ofType:([HWMonitorSensor getTypeOfKey:@KEY_12V_VOLTAGE]) ? : @TYPE_SP4B
                      forGroup:VoltageSensorGroup
                    andCaption:NSLocalizedString(@"+12V Bus Voltage",nil)
+                      logType:NoLog
                      intoList:arr];
   
   [self validateSensorWithKey:@KEY_5VC_VOLTAGE
                        ofType:([HWMonitorSensor getTypeOfKey:@KEY_5VC_VOLTAGE]) ? : @TYPE_SP4B
                      forGroup:VoltageSensorGroup
                    andCaption:NSLocalizedString(@"+5V Bus Voltage",nil)
+                      logType:NoLog
                      intoList:arr];
   
   [self validateSensorWithKey:@KEY_N12VC_VOLTAGE
                        ofType:([HWMonitorSensor getTypeOfKey:@KEY_N12VC_VOLTAGE]) ? : @TYPE_SP4B
                      forGroup:VoltageSensorGroup
                    andCaption:NSLocalizedString(@"-12V Bus Voltage",nil)
+                      logType:NoLog
                      intoList:arr];
   
   [self validateSensorWithKey:@KEY_5VSB_VOLTAGE
                        ofType:([HWMonitorSensor getTypeOfKey:@KEY_5VSB_VOLTAGE]) ? : @TYPE_SP4B
                      forGroup:VoltageSensorGroup
                    andCaption:NSLocalizedString(@"-5V Bus Voltage",nil)
+                      logType:NoLog
                      intoList:arr];
   
   
@@ -311,18 +338,21 @@ int countPhisycalCores() {
                        ofType:([HWMonitorSensor getTypeOfKey:@KEY_3VCC_VOLTAGE]) ? : @TYPE_FP2E
                      forGroup:VoltageSensorGroup
                    andCaption:NSLocalizedString(@"3.3 VCC Voltage",nil)
+                      logType:NoLog
                      intoList:arr];
   
   [self validateSensorWithKey:@KEY_3VSB_VOLTAGE
                        ofType:([HWMonitorSensor getTypeOfKey:@KEY_3VSB_VOLTAGE]) ? : @TYPE_FP2E
                      forGroup:VoltageSensorGroup
                    andCaption:NSLocalizedString(@"3.3 VSB Voltage",nil)
+                      logType:NoLog
                      intoList:arr];
   
   [self validateSensorWithKey:@KEY_AVCC_VOLTAGE
                        ofType:([HWMonitorSensor getTypeOfKey:@KEY_AVCC_VOLTAGE]) ? : @TYPE_FP2E
                      forGroup:VoltageSensorGroup
                    andCaption:NSLocalizedString(@"3.3 AVCC Voltage",nil)
+                      logType:NoLog
                      intoList:arr];
   
   for (int i=0; i<0xA; i++) {
@@ -330,6 +360,7 @@ int countPhisycalCores() {
                          ofType:([HWMonitorSensor getTypeOfKey:[NSString stringWithFormat:@KEY_FORMAT_GPU_VOLTAGE,i]]) ? : @TYPE_FP2E
                        forGroup:VoltageSensorGroup
                      andCaption:[[NSString alloc] initWithFormat:NSLocalizedString(@"GPU %d Voltage",nil),i]
+                        logType:GPULog
                        intoList:arr];
   }
   return arr;
@@ -354,6 +385,7 @@ int countPhisycalCores() {
                          ofType:([HWMonitorSensor getTypeOfKey:[NSString stringWithFormat:@KEY_FORMAT_FAN_SPEED,i]]) ? : @TYPE_FPE2
                        forGroup:TachometerSensorGroup
                      andCaption:caption
+                        logType:NoLog
                        intoList:arr];
   }
   return arr;
@@ -373,6 +405,7 @@ int countPhisycalCores() {
                                                             andGroup:BatterySensorsGroup
                                                          withCaption:NSLocalizedString(@"Battery Voltage",nil)];
       
+      sensor.logType = BatteryLog;
       sensor.stringValue = [NSString stringWithFormat:@"%d", voltage];
       [arr addObject:sensor];
       [sensor setFavorite:[[NSUserDefaults standardUserDefaults] boolForKey:sensor.key]];
@@ -382,6 +415,8 @@ int countPhisycalCores() {
                                                              andType:([HWMonitorSensor getTypeOfKey:@KEY_BAT0_AMPERAGE]) ? : @TYPE_UI16
                                                             andGroup:BatterySensorsGroup
                                                          withCaption:NSLocalizedString(@"Battery Amperage",nil)];
+      
+      sensor.logType = BatteryLog;
       sensor.stringValue = [NSString stringWithFormat:@"%d", amperage];
       [arr addObject:sensor];
       [sensor setFavorite:[[NSUserDefaults standardUserDefaults] boolForKey:sensor.key]];
@@ -400,6 +435,7 @@ int countPhisycalCores() {
                          ofType:@TYPE_FPE2
                        forGroup:GenericBatterySensorsGroup
                      andCaption:nextBattery
+                        logType:NoLog
                        intoList:arr];
   }
   [[NSUserDefaults standardUserDefaults] synchronize];
@@ -410,6 +446,7 @@ int countPhisycalCores() {
                        ofType:(NSString *)type
                      forGroup:(SensorGroup)group
                    andCaption:(NSString *)caption
+                      logType:(LogType)logType
                      intoList:(NSMutableArray *)list {
   
   HWMonitorSensor *sensor = [[HWMonitorSensor alloc] initWithKey:key
@@ -422,6 +459,7 @@ int countPhisycalCores() {
       ((value != nil) && ![value isEqualToString:@""] && ![value isEqualToString:@"-"])) {*/
   if ((value != nil) && ![value isEqualToString:@""] && ![value isEqualToString:@"-"]) {
     sensor.group = group;
+    sensor.logType = logType;
     [sensor setFavorite:[[NSUserDefaults standardUserDefaults] boolForKey:key]];
     [list addObject:sensor];
   }

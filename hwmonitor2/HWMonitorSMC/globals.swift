@@ -8,7 +8,7 @@
 
 import Cocoa
 
-let kTestVersion           = "rc4" // or "" for final release
+let kTestVersion           = "rc5" // or "" for final release
 
 let kRunAtLoginWasSet       = "runAtLoginWasSet"
 let kHideVerticalScroller   = "hideVerticalScroller"
