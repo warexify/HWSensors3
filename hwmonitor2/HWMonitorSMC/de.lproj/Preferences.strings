@@ -1,36 +1,36 @@
 
 /* Class = "NSButtonCell"; title = "use percentage to display memory usage"; ObjectID = "1ou-TV-z1H"; */
-"F5h-4I-FHU.title" = "use percentage to display memory usage";
+"F5h-4I-FHU.title" = "RAM-Angaben in Prozent (%)";
 
 /* Class = "NSButtonCell"; title = "expand all groups"; ObjectID = "1ou-TV-z1H"; */
-"1ou-TV-z1H.title" = "expand all groups";
+"1ou-TV-z1H.title" = "Alle Gruppen erweitern";
 
 /* Class = "NSWindow"; title = "Preferences"; ObjectID = "7b5-Rl-qab"; */
-"7b5-Rl-qab.title" = "Preferences";
+"7b5-Rl-qab.title" = "Voreinstellungen";
 
 /* Class = "NSButtonCell"; title = "expand CPU Frequencies group"; ObjectID = "IiS-qj-XaA"; */
-"IiS-qj-XaA.title" = "expand CPU Frequencies group";
+"IiS-qj-XaA.title" = "Die Gruppe CPU FREQUENZEN erweitern";
 
 /* Class = "NSButtonCell"; title = "expand CPU Temperatures group"; ObjectID = "Uuk-nv-v6V"; */
-"Uuk-nv-v6V.title" = "expand CPU Temperatures group";
+"Uuk-nv-v6V.title" = "Die Gruppe CPU TEMPERATUREN erweitern";
 
 /* Class = "NSButtonCell"; title = "don't show empty groups"; ObjectID = "VSp-PT-02b"; */
-"VSp-PT-02b.title" = "don't show empty groups";
+"VSp-PT-02b.title" = "Keine leeren Gruppen anzeigen";
 
 /* Class = "NSButtonCell"; title = "expand Voltages group"; ObjectID = "f3S-tq-sNl"; */
-"f3S-tq-sNl.title" = "expand Voltages group";
+"f3S-tq-sNl.title" = "Die Gruppe SPANNUNGEN erweitern";
 
 /* Class = "NSButtonCell"; title = "force to use dark appearance"; ObjectID = "fYJ-2d-nMJ"; */
-"fYJ-2d-nMJ.title" = "force to use dark appearance";
+"fYJ-2d-nMJ.title" = "Dunkle Ansicht benutzen";
 
 /* Class = "NSButtonCell"; title = "always hide the vertical scroller"; ObjectID = "vMW-P5-ltW"; */
-"vMW-P5-ltW.title" = "always hide the vertical scroller";
+"vMW-P5-ltW.title" = "Vertikalen Rollbalken ausblenden";
 
 /* Class = "NSTexfieldCell"; title = "Sensor update interval in seconds:"; ObjectID = "i4D-QB-sGd"; */
-"i4D-QB-sGd.title" = "Sensors update interval in seconds:";
+"i4D-QB-sGd.title" = "Updateinterval für Sensoren in Sekunden:";
 
 /* Class = "NSTexfieldCell"; title = "(applied to the next execution)"; ObjectID = "i4D-QB-sGd"; */
-"h2D-rP-QYL.title" = "(applied to the next execution)";
+"h2D-rP-QYL.title" = "(Änderungen der Einstellungen werden nach App-Neustart übernommen)";
 
 /* Class = "NSButtonCell"; title = "run HWMonitorSMC.app at login"; ObjectID = "Dyg-rv-2Gg"; */
-"Dyg-rv-2Gg.title" = "run HWMonitorSMC.app at login";
+"Dyg-rv-2Gg.title" = "HWMonitorSMC.app beim Anmelden starten";

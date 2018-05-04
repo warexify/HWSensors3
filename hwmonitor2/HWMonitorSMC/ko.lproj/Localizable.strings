@@ -1,60 +1,63 @@
-/* 
-  Localizable.strings
-  HWMonitorSMC
+/*
+ Localizable.strings
+ HWMonitorSMC
+ 
+ Created by vector sigma on 25/02/18.
+ Copyright © 2018 HWSensor. All rights reserved.
+ 
+ Korean
+ translated by Sherlocks. 04/05/18.
+ */
 
-  Created by vector sigma on 25/02/18.
-  Copyright © 2018 HWSensor. All rights reserved.
-*/
+"CPU Frequencies" = "CPU 주파수";
+"CPU Temperatures" = "CPU 온도";
+"Temperatures" = "온도";
+"Frequencies" = "주파수";
+"Multipliers" = "배수";
+"Voltages" = "전압";
+"Fans or Pumps" = "팬 또는 펌프";
+"Batteries" = "배터리";
+"Media health" = "미디어 수명";
+"Life" = "수명"; // hdd/ssd life
+"Tеmperature" = "온도"; // hdd/ssd tеmperature
 
-"CPU Frequencies" = "CPU Frequencies";
-"CPU Temperatures" = "CPU Temperatures";
-"Temperatures" = "Temperatures";
-"Frequencies" = "Frequencies";
-"Multipliers" = "Multipliers";
-"Voltages" = "Voltages";
-"Fans or Pumps" = "Fans or Pumps";
-"Batteries" = "Batteries";
-"Media health" = "Media health";
-"Life" = "Life"; // hdd/ssd life
-"Tеmperature" = "Tеmperature"; // hdd/ssd tеmperature
+"Total" = "전체"; // RAM
+"Active" = "활성화"; // RAM
+"Inactive" = "비활성화"; // RAM
+"Free" = "여유"; // RAM
+"Used" = "사용됨"; // RAM
+"Purgeable" = "제거가능"; // RAM
+"Wired" = "와이어드"; // RAM
 
-"Total" = "Total"; // RAM
-"Active" = "Active"; // RAM
-"Inactive" = "Inactive"; // RAM
-"Free" = "Free"; // RAM
-"Used" = "Used"; // RAM
-"Purgeable" = "Purgeable"; // RAM
-"Wired" = "Wired"; // RAM
-
-"CPU Proximity" = "CPU Proximity";
-"CPU Heatsink" = "CPU Heatsink";
-"Motherboard" = "Motherboard";
+"CPU Proximity" = "CPU 근접온도";
+"CPU Heatsink" = "CPU 히트싱크";
+"Motherboard" = "마더보드";
 "DIMM 0" = "DIMM 0";
 "DIMM 1" = "DIMM 1";
-"Ambient" = "Ambient";
-"GPU %d Board" = "GPU %d Board";
-"GPU %d Proximity" = "GPU %d Proximity";
-"CPU %d Core" = "CPU %d Core";
-"CPU %d Diode" = "CPU %d Diode";
+"Ambient" = "주변온도";
+"GPU %d Board" = "GPU %d 보드";
+"GPU %d Proximity" = "GPU %d 근접온도";
+"CPU %d Core" = "CPU %d 코어";
+"CPU %d Diode" = "CPU %d 다이오드";
 "CPU %d" = "CPU %d";
-"GPU %d Core" = "GPU %d Core";
-"GPU %d Shaders" = "GPU %d Shaders";
-"GPU %d Memory" = "GPU %d Memory";
-"CPU %d Multiplier" = "CPU %d Multiplier";
-"CPU Package Multiplier" = "CPU Package Multiplier";
-"CPU Voltage" = "CPU Voltage";
-"CPU VRM Voltage" = "CPU VRM Voltage";
-"DIMM Voltage" = "DIMM Voltage";
-"+12V Bus Voltage" = "+12V Bus Voltage";
-"+5V Bus Voltage" = "+5V Bus Voltage";
-"-12V Bus Voltage" = "-12V Bus Voltage";
-"-5V Bus Voltage" = "-5V Bus Voltage";
-"3.3 VCC Voltage" = "3.3 VCC Voltage";
-"3.3 VSB Voltage" = "3.3 VSB Voltage";
-"3.3 AVCC Voltage" = "3.3 AVCC Voltage";
-"GPU %d Voltage" = "GPU %d Voltage";
-"Fan %d" = "Fan %d";
-"Battery Voltage" = "Battery Voltage";
-"Battery Amperage" = "Battery Amperage";
+"GPU %d Core" = "GPU %d 코어";
+"GPU %d Shaders" = "GPU %d 쉐이더";
+"GPU %d Memory" = "GPU %d 메모리";
+"CPU %d Multiplier" = "CPU %d 배수";
+"CPU Package Multiplier" = "CPU 패키지 배수";
+"CPU Voltage" = "CPU 전압";
+"CPU VRM Voltage" = "CPU VRM 전압";
+"DIMM Voltage" = "DIMM 전압";
+"+12V Bus Voltage" = "+12V 버스 전압";
+"+5V Bus Voltage" = "+5V 버스 전압";
+"-12V Bus Voltage" = "-12V 버스 전압";
+"-5V Bus Voltage" = "-5V Bus 전압";
+"3.3 VCC Voltage" = "3.3 VCC 전압";
+"3.3 VSB Voltage" = "3.3 VSB 전압";
+"3.3 AVCC Voltage" = "3.3 AVCC 전압";
+"GPU %d Voltage" = "GPU %d 전압";
+"Fan %d" = "팬 %d";
+"Battery Voltage" = "배터리 전압";
+"Battery Amperage" = "배터리 암페어";
 
-"log copied to clip board!" = "log copied to clip board!";
+"log copied to clip board!" = "클립보드에 복사된 로그!";

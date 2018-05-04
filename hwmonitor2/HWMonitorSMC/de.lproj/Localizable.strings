@@ -1,60 +1,63 @@
-/* 
-  Localizable.strings
-  HWMonitorSMC
+/*
+ Localizable.strings
+ HWMonitorSMC
+ 
+ Created by vector sigma on 25/02/18.
+ Copyright © 2018 HWSensor. All rights reserved.
+ 
+ German
+ translated by Mork vom Ork. 04/05/18.
+ */
 
-  Created by vector sigma on 25/02/18.
-  Copyright © 2018 HWSensor. All rights reserved.
-*/
-
-"CPU Frequencies" = "CPU Frequencies";
-"CPU Temperatures" = "CPU Temperatures";
-"Temperatures" = "Temperatures";
-"Frequencies" = "Frequencies";
-"Multipliers" = "Multipliers";
-"Voltages" = "Voltages";
-"Fans or Pumps" = "Fans or Pumps";
-"Batteries" = "Batteries";
-"Media health" = "Media health";
-"Life" = "Life"; // hdd/ssd life
-"Tеmperature" = "Tеmperature"; // hdd/ssd tеmperature
+"CPU Frequencies" = "CPU Frequenzen";
+"CPU Temperatures" = "CPU Temperaturen";
+"Temperatures" = "Temperaturen";
+"Frequencies" = "Frequenzen";
+"Multipliers" = "Multiplikatoren";
+"Voltages" = "Spannungen";
+"Fans or Pumps" = "Lüfter oder Pumpen";
+"Batteries" = "Batterien";
+"Media health" = "Angeschlossene Laufwerke";
+"Life" = "Lebensdauer"; // hdd/ssd life
+"Tеmperature" = "Tеmperatur"; // hdd/ssd tеmperature
 
 "Total" = "Total"; // RAM
-"Active" = "Active"; // RAM
-"Inactive" = "Inactive"; // RAM
-"Free" = "Free"; // RAM
-"Used" = "Used"; // RAM
-"Purgeable" = "Purgeable"; // RAM
-"Wired" = "Wired"; // RAM
+"Active" = "Aktiv"; // RAM
+"Inactive" = "Inaktiv"; // RAM
+"Free" = "Frei"; // RAM
+"Used" = "Benutzt"; // RAM
+"Purgeable" = "Ersetzbar"; // RAM
+"Wired" = "Verkabelt"; // RAM
 
-"CPU Proximity" = "CPU Proximity";
-"CPU Heatsink" = "CPU Heatsink";
-"Motherboard" = "Motherboard";
+"CPU Proximity" = "CPU Umgebung";
+"CPU Heatsink" = "CPU Kühlkörper";
+"Motherboard" = "Hauptplatine";
 "DIMM 0" = "DIMM 0";
 "DIMM 1" = "DIMM 1";
-"Ambient" = "Ambient";
-"GPU %d Board" = "GPU %d Board";
-"GPU %d Proximity" = "GPU %d Proximity";
-"CPU %d Core" = "CPU %d Core";
+"Ambient" = "Umgebung";
+"GPU %d Board" = "GPU %d Platine";
+"GPU %d Proximity" = "GPU %d Umgebung";
+"CPU %d Core" = "CPU %d Kern";
 "CPU %d Diode" = "CPU %d Diode";
 "CPU %d" = "CPU %d";
-"GPU %d Core" = "GPU %d Core";
+"GPU %d Core" = "GPU %d Kern";
 "GPU %d Shaders" = "GPU %d Shaders";
-"GPU %d Memory" = "GPU %d Memory";
-"CPU %d Multiplier" = "CPU %d Multiplier";
-"CPU Package Multiplier" = "CPU Package Multiplier";
-"CPU Voltage" = "CPU Voltage";
-"CPU VRM Voltage" = "CPU VRM Voltage";
-"DIMM Voltage" = "DIMM Voltage";
-"+12V Bus Voltage" = "+12V Bus Voltage";
-"+5V Bus Voltage" = "+5V Bus Voltage";
-"-12V Bus Voltage" = "-12V Bus Voltage";
-"-5V Bus Voltage" = "-5V Bus Voltage";
-"3.3 VCC Voltage" = "3.3 VCC Voltage";
-"3.3 VSB Voltage" = "3.3 VSB Voltage";
-"3.3 AVCC Voltage" = "3.3 AVCC Voltage";
-"GPU %d Voltage" = "GPU %d Voltage";
-"Fan %d" = "Fan %d";
-"Battery Voltage" = "Battery Voltage";
-"Battery Amperage" = "Battery Amperage";
+"GPU %d Memory" = "GPU %d Speicher";
+"CPU %d Multiplier" = "CPU %d Multiplikator";
+"CPU Package Multiplier" = "CPU Paket Multiplikator";
+"CPU Voltage" = "CPU Spannung";
+"CPU VRM Voltage" = "CPU VRM Spannung";
+"DIMM Voltage" = "DIMM Spannung";
+"+12V Bus Voltage" = "+12V Bus Spannung";
+"+5V Bus Voltage" = "+5V Bus Spannung";
+"-12V Bus Voltage" = "-12V Bus Spannung";
+"-5V Bus Voltage" = "-5V Bus Spannung";
+"3.3 VCC Voltage" = "3.3 VCC Spannung";
+"3.3 VSB Voltage" = "3.3 VSB Spannung";
+"3.3 AVCC Voltage" = "3.3 AVCC Spannung";
+"GPU %d Voltage" = "GPU %d Spannung";
+"Fan %d" = "Lüfter %d";
+"Battery Voltage" = "Batterie Spannung";
+"Battery Amperage" = "Batterie Stromstärke";
 
-"log copied to clip board!" = "log copied to clip board!";
+"log copied to clip board!" = "Log wurde in die Zwischenablage kopiert!";
