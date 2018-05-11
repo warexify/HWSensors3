@@ -1838,8 +1838,8 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_VERSION = "";
 				INFOPLIST_FILE = "plugins/GPUSensors/GeForceSensors/GeforceSensors-Info.plist";
-				MODULE_NAME = org.kozlek.driver.GeforceSensor;
-				MODULE_VERSION = 1.2.2;
+				MODULE_NAME = org.kozlek.GeforceSensor;
+				MODULE_VERSION = 1.2.3;
 				OTHER_CFLAGS = "-DNV_DEBUG_ENABLED=1";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.kozlek.${PRODUCT_NAME}";
 				PRODUCT_NAME = GeforceSensor;
@@ -1859,8 +1859,8 @@
 				GCC_VERSION = "";
 				INFOPLIST_FILE = "plugins/GPUSensors/GeForceSensors/GeforceSensors-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
-				MODULE_NAME = org.kozlek.driver.GeforceSensor;
-				MODULE_VERSION = 1.2.2;
+				MODULE_NAME = org.kozlek.GeforceSensor;
+				MODULE_VERSION = 1.2.3;
 				OTHER_CFLAGS = "-DNV_DEBUG_ENABLED=0";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.kozlek.${PRODUCT_NAME}";
 				PRODUCT_NAME = GeforceSensor;
@@ -1879,8 +1879,7 @@
 				GCC_MODEL_TUNING = G5;
 				GCC_VERSION = "";
 				INFOPLIST_FILE = "GeforceSensor-Info.plist";
-				MACOSX_DEPLOYMENT_TARGET = 10.6;
-				MODULE_NAME = org.kozlek.driver.GeforceSensor;
+				MODULE_NAME = org.kozlek.GeforceSensor;
 				MODULE_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.kozlek.${PRODUCT_NAME}";
 				PRODUCT_NAME = GeforceSensor;
@@ -1899,8 +1898,7 @@
 				GCC_MODEL_TUNING = G5;
 				GCC_VERSION = "";
 				INFOPLIST_FILE = "GeforceSensor-Info.plist";
-				MACOSX_DEPLOYMENT_TARGET = 10.6;
-				MODULE_NAME = org.kozlek.driver.GeforceSensor;
+				MODULE_NAME = org.kozlek.GeforceSensor;
 				MODULE_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.kozlek.${PRODUCT_NAME}";
 				PRODUCT_NAME = GeforceSensor;
@@ -3588,7 +3586,6 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				MODULE_NAME = org.netkas.FakeSMC;
 				MODULE_VERSION = 3.5.1;
-				OTHER_CFLAGS = "-DDebug=0";
 				OTHER_CFLAGS = "-DDebug=0";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.netkas.${PRODUCT_NAME}";
 				PRODUCT_NAME = FakeSMC;

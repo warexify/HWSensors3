@@ -150,7 +150,7 @@ long W836x::readTemperature(unsigned long index)
 {
   UInt32 bank, reg;
   UInt32 value;
-  if (model >= NCT6771F) {
+  if (model >= NCT6681) {
     bank = NUVOTON_NEW_TEMPERATURE1[index] >> 8;
     reg = NUVOTON_NEW_TEMPERATURE1[index] & 0xFF;
   } else {
@@ -198,7 +198,7 @@ long W836x::readVoltage(unsigned long index)
 
 void W836x::updateTachometers()
 {
-  if (model >= NCT6771F) {
+  if (model >= NCT6681) {
     for (int i = 0; i < fanLimit; i++) {
       int bank = NUVOTON_TACHOMETER[i] >> 8;
       int reg  = NUVOTON_TACHOMETER[i] & 0xFF;
@@ -497,6 +497,10 @@ bool W836x::probePort()
       }
       break;
     }
+    case 0xC2:
+      model = NCT6681;
+      break;
+
 
     case 0xB4:
       switch (revision & 0xF0) {
@@ -519,6 +523,10 @@ bool W836x::probePort()
           //          minFanRPM = (int)(1.35e6 / 0x1FFF);
           break;
       } break;
+    case 0xC7:
+      model = NCT6683;
+      break;
+
     case 0xC8:
       model = NCT6791D;
       //      minFanRPM = (int)(1.35e6 / 0x1FFF);
@@ -943,6 +951,8 @@ const char *W836x::getModelName()
     case W83637HF:      return "W83637HF";
     case W83627UHG:     return "W83627UHG";
     case W83697SF:      return "W83697SF";
+    case NCT6681:       return "NCT6681";
+    case NCT6683:       return "NCT6683";
     case NCT6771F:      return "NCT6771F";
     case NCT6776F:      return "NCT6776F";
     case NCT6779D:      return "NCT6779D";
