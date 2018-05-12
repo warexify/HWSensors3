@@ -96,7 +96,7 @@ public struct Graphics {
         log += "\tNVCLASS:\t\t\t\t\(nVClass)\n"
       }
       if let ncCap : Data = dict.object(forKey: "NVCAP") as? Data {
-        log += "\tNVCAP:\t\t\t\(ncCap.hexadecimal())\n"
+        log += "\tNVCAP:\t\t\t\t\(ncCap.hexadecimal())\n"
       }
       if let aspm : NSNumber = dict.object(forKey: "pci-aspm-default") as? NSNumber {
         log += "\tpci-aspm-default:\t\t\t\t\(String(format: "0x%X", aspm.intValue))\n"
