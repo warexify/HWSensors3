@@ -173,7 +173,7 @@ public struct Graphics {
           }
         }
       }
-      
+ 
       if (acceleratorDict == nil) {
         if #available(OSX 10.13, *) {
           log += "\tMetal support: false\n"
@@ -182,6 +182,7 @@ public struct Graphics {
         for card in accelerators {
           if let IOPCIPrimaryMatch : String = card.object(forKey: "IOPCIPrimaryMatch") as? String {
             if (IOPCIPrimaryMatch.range(of: primaryMatch) != nil) {
+              acceleratorDict = card
               break // We have the IOAccelerator info
             }
           }
