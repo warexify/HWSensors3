@@ -530,7 +530,7 @@ class HWSmartDataScanner: NSObject {
       
       let b1 = IORegistryEntryCreateCFProperty(object, kIOPropertySMARTCapableKey as CFString, kCFAllocatorDefault, 0)
       if (b1 != nil) {
-        smartCapable = b1?.takeUnretainedValue() as! Bool
+        smartCapable = b1?.takeRetainedValue() as! Bool
       }
       
       
@@ -538,7 +538,7 @@ class HWSmartDataScanner: NSObject {
         let b2 = IORegistryEntryCreateCFProperty(object, kIOUserClientClassKey as CFString, kCFAllocatorDefault, 0)
         
         if (b2 != nil) {
-          smartCapable = ((b2 as! CFString) as String) == kATASMARTUserClientClassKey
+          smartCapable = ((b2?.takeRetainedValue() as! CFString) as String) == kATASMARTUserClientClassKey
         }
       }
       
@@ -546,7 +546,7 @@ class HWSmartDataScanner: NSObject {
         let b3 = IORegistryEntryCreateCFProperty(object, kIOPropertyNVMeSMARTCapableKey as CFString, kCFAllocatorDefault, 0)
         
         if (b3 != nil) {
-          smartCapableNVME = b3?.takeUnretainedValue() as! Bool
+          smartCapableNVME = b3?.takeRetainedValue() as! Bool
         }
       }
       

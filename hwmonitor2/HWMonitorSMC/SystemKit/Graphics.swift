@@ -156,7 +156,7 @@ public struct Graphics {
       if #available(OSX 10.13, *) {
         let metals = MTLCopyAllDevices()
         for metal in metals {
-          acceleratorDict = Graphics.listAcceleratorsInfo(with: metal.registryID, primaryMatch: primaryMatch)
+          acceleratorDict = Graphics.acceleratorsInfo(with: metal.registryID, primaryMatch: primaryMatch)
           if (acceleratorDict != nil) {
             log += "\tMetal support: true\n"
             log += "\tMetal properties:\n"
@@ -218,7 +218,7 @@ public struct Graphics {
     //TODO: make a new method to format text with long data lenght with the possibility of truncate it or not
     let blackList : [String] = ["ATY,bin_image", "ATY,PlatformInfo", "AAPL,EMC-Display-List"]
     
-    let fontAttr =  [NSAttributedStringKey.font : gLogFont!] // need to count a size with proportional font
+    let fontAttr =  [NSAttributedStringKey.font : gLogFont] // need to count a size with proportional font
     var properties : [String: String] = [String: String]()
     let allKeys = dict.allKeys // are as [Any]
     var maxLength : Int = 0
@@ -236,15 +236,17 @@ public struct Graphics {
           }
           
           var value : String? = nil
-          let raw : Any = dict.object(forKey: key)! // unrapped because we know it exist
-          if raw is NSString {
-            value = (raw as! String)
-          } else if raw is NSData {
-            let data : Data = (raw as! Data)
-            value = "\(data.hexadecimal())"
-          } else if raw is NSNumber {
-            value = "\((raw as! NSNumber).intValue)"
+          if let raw : Any = dict.object(forKey: key) {
+            if raw is NSString {
+              value = (raw as! String)
+            } else if raw is NSData {
+              let data : Data = (raw as! Data)
+              value = "\(data.hexadecimal())"
+            } else if raw is NSNumber {
+              value = "\((raw as! NSNumber).intValue)"
+            }
           }
+          
           if (value != nil) {
             properties[key] = value
           }
@@ -301,7 +303,7 @@ public struct Graphics {
                                            matching,
                                            &iter)
     if err == KERN_SUCCESS && iter != 0 {
-      if KERN_SUCCESS == err  {
+      if KERN_SUCCESS == err {
         repeat {
           serviceObject = IOIteratorNext(iter)
           let opt : IOOptionBits = IOOptionBits(kIORegistryIterateParents | kIORegistryIterateRecursively)
@@ -310,7 +312,7 @@ public struct Graphics {
             IOObjectRelease(serviceObject)
             continue
           }
-          if let info : NSDictionary = serviceDictionary?.takeUnretainedValue() {
+          if let info : NSDictionary = serviceDictionary?.takeRetainedValue() {
             if (info.object(forKey: "model") != nil) && (info.object(forKey: "class-code") != nil) {
               if let classcode : Data = info.object(forKey: "class-code") as? Data {
                 if classcode == Data([0x00, 0x00, 0x03, 0x00]) {
@@ -328,10 +330,10 @@ public struct Graphics {
   }
   
   /*
-   listAcceleratorsInfo(with entryID, primaryMatch) return a dictionary
+   acceleratorsInfo(with entryID, primaryMatch) return a dictionary
    for the IOAccelerator object that match the vendor/device id string
    */
-  fileprivate static func listAcceleratorsInfo(with entryID : UInt64, primaryMatch: String) -> NSDictionary? {
+  fileprivate static func acceleratorsInfo(with entryID : UInt64, primaryMatch: String) -> NSDictionary? {
     var dict : NSDictionary? = nil
     var serviceObject : io_object_t
     var iter : io_iterator_t = 0
@@ -349,7 +351,7 @@ public struct Graphics {
             IOObjectRelease(serviceObject)
             continue
           }
-          if let info : NSDictionary = serviceDictionary?.takeUnretainedValue() {
+          if let info : NSDictionary = serviceDictionary?.takeRetainedValue() {
             if let IOPCIPrimaryMatch : String = info.object(forKey: "IOPCIPrimaryMatch") as? String {
               if (IOPCIPrimaryMatch.lowercased().range(of: primaryMatch) != nil) {
                 dict = info
@@ -390,7 +392,7 @@ public struct Graphics {
             IOObjectRelease(serviceObject)
             continue
           }
-          if let info : NSDictionary = serviceDictionary?.takeUnretainedValue() {
+          if let info : NSDictionary = serviceDictionary?.takeRetainedValue() {
             if let classcode : String = info.object(forKey: "IOPCIClassMatch") as? String{
               if classcode.lowercased() == "0x03000000&0xff000000" && ((info.object(forKey: "IOPCIPrimaryMatch") != nil)) {
                 cards.append(info)
@@ -409,7 +411,7 @@ public struct Graphics {
    getPerformanceStatistics() return a dictionary with object and keys already formatted for our log
    */
   fileprivate func getPerformanceStatistics(in dict : NSDictionary) -> [String: String]? {
-    let fontAttr =  [NSAttributedStringKey.font : gLogFont!] // need to count a size with proportional font
+    let fontAttr =  [NSAttributedStringKey.font : gLogFont] // need to count a size with proportional font
     var properties : [String: String] = [String: String]()
     let allKeys = dict.allKeys // are as [Any]
     var maxLength : Int = 0
@@ -425,19 +427,20 @@ public struct Graphics {
       }
       
       var value : String? = nil
-      let raw : Any = dict.object(forKey: key)! // unrapped because we know it exist
-      if raw is NSString {
-        value = (raw as! String)
-      } else if raw is NSData {
-        let data : Data = (raw as! Data)
-        value = "\(data.hexadecimal())"
-      } else if raw is NSNumber {
-        value = "\((raw as! NSNumber).intValue)"
+      if let raw : Any = dict.object(forKey: key) {
+        if raw is NSString {
+          value = (raw as! String)
+        } else if raw is NSData {
+          let data : Data = (raw as! Data)
+          value = "\(data.hexadecimal())"
+        } else if raw is NSNumber {
+          value = "\((raw as! NSNumber).intValue)"
+        }
       }
+      
       if (value != nil) {
         properties[key] = value
       }
-      
     }
     
     // return with formmatted keys already

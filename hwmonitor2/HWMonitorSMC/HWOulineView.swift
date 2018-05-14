@@ -164,7 +164,7 @@ class HWOulineView: NSOutlineView, NSPopoverDelegate {
       let vc = RightClickViewController().loadFromNib()
       vc.view.setFrameSize(pop.contentSize)
       let attrLog = NSMutableAttributedString(string: log!)
-      attrLog.addAttributes([NSAttributedStringKey.font : gLogFont!],
+      attrLog.addAttributes([NSAttributedStringKey.font : gLogFont],
                             range: NSMakeRange(0, attrLog.length))
       vc.textView.textStorage?.append(attrLog)
       vc.textView.textContainerInset = NSMakeSize(0, 0)

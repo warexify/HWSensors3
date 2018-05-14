@@ -670,7 +670,7 @@ class PopoverViewController: NSViewController {
       style.lineSpacing = 0
       let title = NSMutableAttributedString(string: statusString as String, attributes: [NSAttributedStringKey.paragraphStyle : style])
       
-      title.addAttributes([NSAttributedStringKey.font : gPopOverFont!],
+      title.addAttributes([NSAttributedStringKey.font : gPopOverFont],
                           range: NSMakeRange(0, title.length))
       let shared = NSApplication.shared.delegate as! AppDelegate
       shared.statusItem.attributedTitle = title
