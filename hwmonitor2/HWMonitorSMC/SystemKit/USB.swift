@@ -141,6 +141,7 @@ public struct USBControllers {
   }
 }
 
+// https://stackoverflow.com/a/41279799
 public protocol USBWatcherDelegate: class {
   /// Called on the main thread when a device is connected.
   func usbDeviceAdded(_ device: io_object_t)
