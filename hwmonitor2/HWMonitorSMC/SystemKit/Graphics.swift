@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import IOKit
 import Metal
 
 public struct Graphics {
@@ -27,7 +28,7 @@ public struct Graphics {
       //print(dict)
       log += "VIDEO CARD \(i + 1):\n"
       
-      // expected value:
+      // expected values:
       var model             : String = "Unknown" // model can be String/Data
       let modelValue        : Any? = dict.object(forKey: "model")
       let vendorID          : Data = dict.object(forKey: "vendor-id") as! Data

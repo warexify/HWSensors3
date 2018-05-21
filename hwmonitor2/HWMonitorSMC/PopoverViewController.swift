@@ -6,7 +6,10 @@
 //  Copyright © 2018 HWSensor. All rights reserved.
 //
 
-class PopoverViewController: NSViewController {
+import IOKit.usb.USBSpec
+
+class PopoverViewController: NSViewController, USBWatcherDelegate {
+  var usbWatcher : USBWatcher? = nil
   @IBOutlet var outline         : HWOulineView!
   @IBOutlet var lock            : NSButton!
   @IBOutlet var attachButton    : NSButton!
@@ -40,10 +43,97 @@ class PopoverViewController: NSViewController {
   var fansNode                  : HWTreeNode?
   var mediaNode                 : HWTreeNode?
   var batteriesNode             : HWTreeNode?
+  var usbNode                   : HWTreeNode?
   
   var smartBeginDate            : Date?
   var forceSmartScan            : Bool = false
   
+  var isSafeToUpdate            : Bool = true
+  
+  func usbDeviceAdded(_ device: io_object_t) {
+    self.isSafeToUpdate = false
+    if (self.usbNode != nil) {
+      if let info : NSDictionary = device.info() {
+        let name : String? = info.object(forKey: kUSBProductString) as? String
+        let USBProductID : NSNumber? = info.object(forKey: kUSBProductID) as? NSNumber
+        let USBVendorID : NSNumber? = info.object(forKey: kUSBVendorID) as? NSNumber
+        if (name != nil && USBProductID != nil && USBVendorID != nil) {
+          let usbVidPid : String = "0x" + String(format: "%x", USBVendorID!) + String(format: "%x", USBProductID!)
+
+          var found = false
+          for i in (self.usbNode?.mutableChildren)! {
+            let node : HWTreeNode = i as! HWTreeNode
+            let n = (node.sensorData?.sensor)!
+            if n.stringValue == usbVidPid && name == n.key {
+              found = true
+              break
+            }
+          }
+          if !found {
+            let s = HWMonitorSensor(key: name, andType: "usb", andGroup: UInt(USBSensorGroup), withCaption: name)
+            s?.stringValue = usbVidPid
+            s?.logType = USBLog
+            s?.characteristics = device.log()
+            let sensor = HWTreeNode(representedObject: HWSensorData(group: (self.usbNode?.sensorData?.group)!,
+                                                                    sensor: s,
+                                                                    isLeaf: true))
+            self.usbNode?.mutableChildren.add(sensor)
+            self.sensorList?.add(sensor)
+          }
+    
+          if self.initiated {
+            let count : Int = (self.usbNode?.children?.count)!
+            let lastIndex = (count > 0) ? (count - 1) : 0
+            self.outline.insertItems(at: IndexSet(integer: lastIndex), inParent: self.usbNode, withAnimation: NSTableView.AnimationOptions.effectGap)
+          }
+        }
+      }
+    }
+    self.isSafeToUpdate = true
+  }
+  
+  func usbDeviceRemoved(_ device: io_object_t) {
+    self.isSafeToUpdate = false
+    if (self.usbNode != nil) {
+      if let info : NSDictionary = device.info() {
+        let name : String? = info.object(forKey: kUSBProductString) as? String
+        let USBProductID : NSNumber? = info.object(forKey: kUSBProductID) as? NSNumber
+        let USBVendorID : NSNumber? = info.object(forKey: kUSBVendorID) as? NSNumber
+        if (name != nil && USBProductID != nil && USBVendorID != nil) {
+          let usbVidPid : String = "0x" + String(format: "%x", USBVendorID!) + String(format: "%x", USBProductID!)
+          var toRemove : HWTreeNode? = nil
+          for s in (self.usbNode?.mutableChildren)! {
+            let sensor : HWTreeNode = s as! HWTreeNode
+            if sensor.sensorData?.sensor?.stringValue == usbVidPid && name == sensor.sensorData?.sensor?.key {
+              toRemove = sensor
+              break
+            }
+          }
+          
+          if (toRemove != nil) {
+            if self.outline.isItemExpanded(self.usbNode) {
+              let row : Int = self.outline.row(forItem: toRemove)
+              if row >= 0 {
+                let index : Int = (self.usbNode?.mutableChildren.index(of: toRemove!))!
+                self.outline.removeItems(at: IndexSet(integer: index), inParent: self.usbNode, withAnimation: .slideUp)
+              }
+            }
+     
+            self.usbNode?.mutableChildren.remove(toRemove!)
+            self.sensorList?.remove(toRemove!)
+            
+            for i in (self.usbNode?.mutableChildren)! {
+              let row : Int = self.outline.row(forItem: i)
+              if row >= 0 {
+                self.outline.reloadData(forRowIndexes: IndexSet(integer: row), columnIndexes: IndexSet([0,1,2]))
+              }
+            }
+          }
+        }
+      }
+    }
+    self.isSafeToUpdate = true
+  }
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -143,7 +233,7 @@ class PopoverViewController: NSViewController {
     self.sensorList = NSMutableArray()
     self.dataSource = NSMutableArray()
     self.sensorDelegate = HWSensorsDelegate()
-    
+
     // ------
     self.SystemNode = HWTreeNode(representedObject: HWSensorData(group: "System",
                                                                  sensor: nil,
@@ -151,7 +241,6 @@ class PopoverViewController: NSViewController {
     self.dataSource?.add(self.SystemNode!)
     
     // ------
-    
     self.CPUFrequenciesNode = HWTreeNode(representedObject: HWSensorData(group: NSLocalizedString("CPU Frequencies", comment: ""),
                                                                          sensor: nil,
                                                                          isLeaf: false))
@@ -358,6 +447,14 @@ class PopoverViewController: NSViewController {
       }
     }
     // ------
+    self.usbNode = HWTreeNode(representedObject: HWSensorData(group: NSLocalizedString("USB", comment: ""),
+                                                              sensor: nil,
+                                                              isLeaf: false))
+    // keep this always visible since actually a System w/o USB does not exist
+    self.dataSource?.add(self.usbNode!)
+    // populate it by adding the watcher
+    self.usbWatcher = USBWatcher.init(delegate: self)
+    // ------
     self.batteriesNode =  HWTreeNode(representedObject: HWSensorData(group: NSLocalizedString("Batteries", comment: ""),
                                                                      sensor: nil,
                                                                      isLeaf: false))
@@ -439,6 +536,9 @@ class PopoverViewController: NSViewController {
   
   @objc func updateTitles() {
     if self.initiated {
+      if !self.isSafeToUpdate {
+        return
+      }
       var found : Bool = false
       let statusString : NSMutableString = NSMutableString()
 
@@ -645,6 +745,8 @@ class PopoverViewController: NSViewController {
             self.outline.reloadItem(self.batteriesNode, reloadChildren: true)
           }
           break
+          case UInt(USBSensorGroup)?:
+          break
         default:
           found = true
           if let data = HWMonitorSensor.readValue(forKey: sensor?.key) {
@@ -684,6 +786,14 @@ extension PopoverViewController: NSOutlineViewDelegate {
     
   }
   
+  func outlineView(_ outlineView: NSOutlineView, didAdd rowView: NSTableRowView, forRow row: Int) {
+    
+  }
+  
+  func outlineView(_ outlineView: NSOutlineView, didRemove rowView: NSTableRowView, forRow row: Int) {
+  
+  }
+  
   func outlineView(_ outlineView: NSOutlineView, rowViewForItem item: Any) -> NSTableRowView? {
     let rowView = HWTableRowView()
     rowView.isEmphasized = true
@@ -694,7 +804,7 @@ extension PopoverViewController: NSOutlineViewDelegate {
     let selected = self.outline.clickedRow
     if selected >= 0 {
       if let node : HWTreeNode = self.outline.item(atRow: selected) as? HWTreeNode {
-        if (node.sensorData?.isLeaf)! {
+        if (node.sensorData?.isLeaf)! && node.sensorData?.sensor?.group != UInt(USBSensorGroup) {
           let view : NSTableCellView = self.outline.view(atColumn: 0,
                                                          row: selected,
                                                          makeIfNecessary: false /* mind that is already visible */) as! NSTableCellView
@@ -763,7 +873,7 @@ extension PopoverViewController: NSOutlineViewDataSource {
                    viewFor tableColumn: NSTableColumn?,
                    item: Any) -> NSView? {
     var view : NSTableCellView? = nil
-    
+
     if let node : HWTreeNode = item as? HWTreeNode {
       let isGroup : Bool = !(node.sensorData?.isLeaf)!
       if (tableColumn != nil) {
@@ -799,6 +909,9 @@ extension PopoverViewController: NSOutlineViewDataSource {
             let group : SensorGroup = (node.sensorData?.sensor?.group)!
             var value : String = "-"
             switch group {
+            case UInt(USBSensorGroup):
+              value = (node.sensorData?.sensor?.stringValue)!
+              break
             case UInt(MemorySensorGroup):
               value = (node.sensorData?.sensor?.stringValue)!
               break
@@ -875,6 +988,9 @@ extension PopoverViewController: NSOutlineViewDataSource {
         if (image == nil) {
           image = NSImage(named: NSImage.Name(rawValue: "temperature_small"))
         }
+        break
+      case NSLocalizedString("USB", comment: ""):
+        image = NSImage(named: NSImage.Name(rawValue: "USB"))
         break
       default:
         break

@@ -25,6 +25,13 @@
 		9546572D2091132A0020BA34 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9546572C2091132A0020BA34 /* Extensions.swift */; };
 		9550AC882089004A004537F0 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9550AC852089004A004537F0 /* IOKit.framework */; };
 		9550AC8A20890056004537F0 /* DiskArbitration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9550AC8920890056004537F0 /* DiskArbitration.framework */; };
+		9551F18F20B355AC00A69C50 /* LPCB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9551F18E20B355AB00A69C50 /* LPCB.swift */; };
+		9551F19120B355B000A69C50 /* NET.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9551F19020B355B000A69C50 /* NET.swift */; };
+		9551F19320B355B500A69C50 /* NVMEController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9551F19220B355B500A69C50 /* NVMEController.swift */; };
+		9551F19520B355BA00A69C50 /* PCI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9551F19420B355BA00A69C50 /* PCI.swift */; };
+		9551F19720B355C000A69C50 /* SATAController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9551F19620B355BF00A69C50 /* SATAController.swift */; };
+		9551F19920B355C400A69C50 /* USB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9551F19820B355C400A69C50 /* USB.swift */; };
+		9551F19B20B357BE00A69C50 /* USB.png in Resources */ = {isa = PBXBuildFile; fileRef = 9551F19A20B357BE00A69C50 /* USB.png */; };
 		9554C08820A76A1C00D9A91F /* Metal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9554C08720A76A1C00D9A91F /* Metal.framework */; };
 		958E796E204193EE0007957E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 958E796D204193EE0007957E /* AppDelegate.swift */; };
 		958E7970204193EE0007957E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 958E796F204193EE0007957E /* ViewController.swift */; };
@@ -149,6 +156,13 @@
 		9546572C2091132A0020BA34 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		9550AC852089004A004537F0 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
 		9550AC8920890056004537F0 /* DiskArbitration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DiskArbitration.framework; path = System/Library/Frameworks/DiskArbitration.framework; sourceTree = SDKROOT; };
+		9551F18E20B355AB00A69C50 /* LPCB.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LPCB.swift; sourceTree = "<group>"; };
+		9551F19020B355B000A69C50 /* NET.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NET.swift; sourceTree = "<group>"; };
+		9551F19220B355B500A69C50 /* NVMEController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NVMEController.swift; sourceTree = "<group>"; };
+		9551F19420B355BA00A69C50 /* PCI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PCI.swift; sourceTree = "<group>"; };
+		9551F19620B355BF00A69C50 /* SATAController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SATAController.swift; sourceTree = "<group>"; };
+		9551F19820B355C400A69C50 /* USB.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = USB.swift; sourceTree = "<group>"; };
+		9551F19A20B357BE00A69C50 /* USB.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = USB.png; sourceTree = "<group>"; };
 		9554C08720A76A1C00D9A91F /* Metal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Metal.framework; path = System/Library/Frameworks/Metal.framework; sourceTree = SDKROOT; };
 		958E796A204193EE0007957E /* HWMonitorSMC2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HWMonitorSMC2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		958E796D204193EE0007957E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -225,11 +239,17 @@
 			isa = PBXGroup;
 			children = (
 				950618BC208CCC62001C988E /* Battery.swift */,
-				950618BD208CCC62001C988E /* IOReturn.swift */,
 				950618BE208CCC62001C988E /* Process.swift */,
-				950618BB208CCC62001C988E /* System.swift */,
 				9546572A20908A3C0020BA34 /* Display.swift */,
 				9543AD8E2097AF44009B752B /* Graphics.swift */,
+				950618BD208CCC62001C988E /* IOReturn.swift */,
+				9551F18E20B355AB00A69C50 /* LPCB.swift */,
+				9551F19020B355B000A69C50 /* NET.swift */,
+				9551F19420B355BA00A69C50 /* PCI.swift */,
+				9551F19220B355B500A69C50 /* NVMEController.swift */,
+				9551F19620B355BF00A69C50 /* SATAController.swift */,
+				950618BB208CCC62001C988E /* System.swift */,
+				9551F19820B355C400A69C50 /* USB.swift */,
 			);
 			path = SystemKit;
 			sourceTree = "<group>";
@@ -322,6 +342,7 @@
 				958E79A72042EED00007957E /* temp_alt_small.png */,
 				958E79AC2042EED00007957E /* voltage_small.png */,
 				958E797E204194620007957E /* temperature_small.png */,
+				9551F19A20B357BE00A69C50 /* USB.png */,
 			);
 			path = Images;
 			sourceTree = "<group>";
@@ -435,6 +456,7 @@
 				958E79B22042EED10007957E /* modern-battery-icon.png in Resources */,
 				9598FC76204AFC9C00A6DA72 /* cpu_freq_small.png in Resources */,
 				958E7972204193EE0007957E /* Assets.xcassets in Resources */,
+				9551F19B20B357BE00A69C50 /* USB.png in Resources */,
 				958E79B12042EED10007957E /* multiply_small.png in Resources */,
 				9528011920447910008EA219 /* checkbox.png in Resources */,
 				958E79AF2042EED10007957E /* temp_alt_small.png in Resources */,
@@ -460,11 +482,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				952E03762044A8EC00EEC6DF /* PopoverWindowController.swift in Sources */,
+				9551F19520B355BA00A69C50 /* PCI.swift in Sources */,
 				958E79C7204314BF0007957E /* PreferencesVC.swift in Sources */,
+				9551F19920B355C400A69C50 /* USB.swift in Sources */,
 				9536E3C02082231400186A79 /* HWSMART.swift in Sources */,
 				958E79B72042F6F80007957E /* HWWindow.swift in Sources */,
 				958E79A52042CC770007957E /* HWTreeNode.swift in Sources */,
 				958E7970204193EE0007957E /* ViewController.swift in Sources */,
+				9551F18F20B355AC00A69C50 /* LPCB.swift in Sources */,
 				958E7981204194820007957E /* HWViewController.swift in Sources */,
 				958E79972041D4030007957E /* smc.c in Sources */,
 				9598FC72204AE5F200A6DA72 /* SSMemoryInfo.m in Sources */,
@@ -475,6 +500,9 @@
 				958E796E204193EE0007957E /* AppDelegate.swift in Sources */,
 				950618C0208CCC62001C988E /* Battery.swift in Sources */,
 				958E79832041996A0007957E /* HWWindowController.swift in Sources */,
+				9551F19320B355B500A69C50 /* NVMEController.swift in Sources */,
+				9551F19120B355B000A69C50 /* NET.swift in Sources */,
+				9551F19720B355C000A69C50 /* SATAController.swift in Sources */,
 				95DE45CF205E7F3800E4582D /* RunAtLogin.swift in Sources */,
 				958E79C5204314A40007957E /* PreferencesWC.swift in Sources */,
 				958E79A02041D4910007957E /* NSString+TruncateToWidth.m in Sources */,

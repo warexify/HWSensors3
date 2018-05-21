@@ -89,6 +89,9 @@ class HWOulineView: NSOutlineView, NSPopoverDelegate {
       
       switch logType {
       case NoLog: break
+      case USBLog:
+        size = .normal
+        log = node.sensorData?.sensor?.characteristics
       case SystemLog:
         size = .big
         log = self.getSystemInfo()
@@ -141,6 +144,9 @@ class HWOulineView: NSOutlineView, NSPopoverDelegate {
             size = .medium
             log = allDrivesInfo
           }
+        case "USB":
+          size = .medium
+          log = getUSBInfo()
         default:
           break
         }
@@ -326,22 +332,38 @@ class HWOulineView: NSOutlineView, NSPopoverDelegate {
     return statusString
   }
   
-  private func getSystemStatus() -> String {
-    var statusString : String = ""
-    statusString += "MACHINE STATUS:\n\n"
-    statusString += self.getCPUInfo()
-    statusString += self.getMemoryInfo()
-    statusString += self.getSystemInfo()
-    statusString += self.getPowerInfo()
-    statusString += self.getBatteryInfo()
-    statusString += self.getGPUInfo()
-    statusString += Display.getScreensInfo()
-    statusString += self.getMediaInfo()
+  private func getGPUInfo() -> String {
+    return Graphics.init().getGraphicsInfo() + "\n"
+  }
+  
+  private func getLPCBInfo() -> String {
+    var statusString : String = "LPCB:\n"
+    statusString += "\(LPCB.init().getLPCBInfo())\n"
     return statusString
   }
   
-  private func getGPUInfo() -> String {
-    return Graphics.init().getGraphicsInfo() + "\n"
+  private func getSATAInfo() -> String {
+    var statusString : String = ""
+    /*
+     I'm not aware of a system w/o SATA controllers,
+     but NVMe is taking over
+     */
+    let sata = SATAControllers.getSATAControllersInfo()
+    if sata.count > 0 {
+      statusString += "\n"
+      statusString += sata
+    }
+    return statusString
+  }
+  
+  private func getNVMEInfo() -> String {
+    var statusString : String = ""
+    let nvme = NVMeControllers.getNVMeControllersInfo()
+    if nvme.count > 0 {
+      statusString += "\n"
+      statusString += nvme
+    }
+    return statusString
   }
   
   private func getMediaInfo() -> String {
@@ -367,6 +389,62 @@ class HWOulineView: NSOutlineView, NSPopoverDelegate {
       }
     }
 
+    return statusString
+  }
+  
+  private func getUSBInfo() -> String {
+    var statusString : String = ""
+    // try to see if "USB" contains some info..
+    if let usbNode : HWTreeNode = (self.delegate as! PopoverViewController).usbNode {
+      var allUSBsInfo : String = ""
+      for node in usbNode.children! {
+        if let usb : HWTreeNode = node as? HWTreeNode {
+          if let characteristics : String = usb.sensorData?.sensor?.characteristics {
+            allUSBsInfo += characteristics
+            allUSBsInfo += "\n"
+          }
+        }
+      }
+      if allUSBsInfo.count > 0 {
+        statusString += "USB devices:\n"
+        // doing a dirty job: add a tab for each line of this log
+        let lines = allUSBsInfo.components(separatedBy: "\n")
+        for line in lines {
+          statusString += "\t\(line)\n"
+        }
+      }
+    }
+    
+    return statusString
+  }
+  
+  private func getNETInfo() -> String {
+    var statusString : String = ""
+    let net = NETControllers.getNETControllersInfo()
+    if net.count > 0 {
+      statusString += "\n"
+      statusString += net
+    }
+    return statusString
+  }
+  
+  private func getSystemStatus() -> String {
+    var statusString : String = ""
+    statusString += "MACHINE STATUS:\n\n"
+    statusString += self.getCPUInfo()
+    statusString += self.getLPCBInfo()
+    statusString += self.getMemoryInfo()
+    statusString += self.getSystemInfo()
+    statusString += self.getPowerInfo()
+    statusString += self.getBatteryInfo()
+    statusString += self.getGPUInfo()
+    statusString += Display.getScreensInfo()
+    statusString += self.getSATAInfo()
+    statusString += self.getNVMEInfo()
+    statusString += self.getMediaInfo()
+    statusString += USBControllers.getUSBControllersInfo()
+    statusString += self.getUSBInfo()
+    statusString += self.getNETInfo()
     return statusString
   }
 }

@@ -17,7 +17,8 @@ enum {
   GPULog      =   3,
   MemoryLog   =   4,
   MediaLog    =   5,
-  BatteryLog  =   6
+  BatteryLog  =   6,
+  USBLog      =   7
 };
 typedef NSInteger LogType; // right log for any sensor
 
@@ -31,8 +32,9 @@ enum {
   BatterySensorsGroup         =   7,
   GenericBatterySensorsGroup  =   8,
   HDSmartLifeSensorGroup      =   9,
-  MemorySensorGroup           =  10,
-  MediaSMARTContenitorGroup   =  11 /* contains HDSmartTempSensorGroup and HDSmartLifeSensorGroup sensors */
+  USBSensorGroup      =  10,
+  MemorySensorGroup           =  11,
+  MediaSMARTContenitorGroup   =  12 /* contains HDSmartTempSensorGroup and HDSmartLifeSensorGroup sensors */
 };
 typedef NSUInteger SensorGroup;
 
