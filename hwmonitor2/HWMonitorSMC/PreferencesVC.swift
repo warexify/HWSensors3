@@ -42,9 +42,7 @@ class PreferencesVC: NSViewController {
         timeInterval = 3
       }
     }
-    let shared = NSApplication.shared.delegate as! AppDelegate
-    let state : Bool = shared.applicationIsInStartUpItems()
-    self.runAtLoginBtn.state = state ? .on : .off
+    self.runAtLoginBtn.state = ud.bool(forKey: kRunAtLogin) ? .on : .off
     
     self.slider.doubleValue = timeInterval
     
@@ -106,17 +104,13 @@ class PreferencesVC: NSViewController {
   
   @IBAction func setAsLoginItem(_ sender: NSButton) {
     let shared = NSApplication.shared.delegate as! AppDelegate
-    
-    if shared.applicationIsInStartUpItems() {
-      shared.removeLaunchAtStartup()
+    if sender.state == .on {
+      shared.setLaunchAtStartup()
     } else {
-      shared.addLaunchAtStartup()
+      shared.removeLaunchAtStartup()
     }
-    let state : Bool = shared.applicationIsInStartUpItems()
-    self.runAtLoginBtn.state = state ? .on : .off
-    
-    UserDefaults.standard.set(true, forKey: kRunAtLoginWasSet)
-    self.synchronize()
+    print(UserDefaults.standard.bool(forKey: kRunAtLogin))
+    self.runAtLoginBtn.state = UserDefaults.standard.bool(forKey: kRunAtLogin) ? .on : .off
   }
   
   func synchronize() {

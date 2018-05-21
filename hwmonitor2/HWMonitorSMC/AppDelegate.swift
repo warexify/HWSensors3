@@ -19,8 +19,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     self.hwWC = HWWindowController.loadFromNib()
     
-    if !UserDefaults.standard.bool(forKey: kRunAtLoginWasSet) {
-      self.addLaunchAtStartup()
+    if (UserDefaults.standard.object(forKey: kRunAtLogin) == nil) {
+      self.setLaunchAtStartup()
     }
   }
   

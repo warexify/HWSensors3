@@ -8,9 +8,9 @@
 
 import Cocoa
 
-let kTestVersion           = "GM" // or "" for final release
+let kTestVersion            = ""
 
-let kRunAtLoginWasSet       = "runAtLoginWasSet"
+let kRunAtLogin             = "runAtLogin"
 let kHideVerticalScroller   = "hideVerticalScroller"
 let kAppleInterfaceStyle    = "AppleInterfaceStyle"
 let kDark                   = "Dark"
@@ -33,3 +33,5 @@ let gHideVerticalScroller : Bool = UserDefaults.standard.bool(forKey: kHideVerti
 
 let gPopOverFont : NSFont = NSFont(name: "Lucida Grande Bold", size: 9.0) ?? NSFont.systemFont(ofSize:  9.0)
 let gLogFont     : NSFont = NSFont(name: "Lucida Grande", size: 10.0)     ?? NSFont.systemFont(ofSize: 10.0)
+
+let gHelperID : CFString = "org.slice.HWMonitorSMC2-Helper" as CFString
