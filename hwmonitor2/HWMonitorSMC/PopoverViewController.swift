@@ -525,6 +525,9 @@ class PopoverViewController: NSViewController, USBWatcherDelegate {
       if (self.batteriesNode != nil) {
         self.outline.expandItem(self.batteriesNode)
       }
+      if (self.usbNode != nil) {
+        self.outline.expandItem(self.usbNode)
+      }
     }
     self.updateTitles()
     Timer.scheduledTimer(timeInterval: timeInterval,
