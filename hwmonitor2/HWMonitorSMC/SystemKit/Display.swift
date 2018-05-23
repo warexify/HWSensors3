@@ -91,7 +91,12 @@ public struct Display {
         self.ManufactureName[1] = data[9]
         self.ProductCode[0]     = data[10]
         self.ProductCode[1]     = data[11]
-        self.SerialNumber = UInt32(data[12] + data[13] + data[14] + data[15])
+        self.SerialNumber = UInt32(littleEndian:
+          Data(bytes: [data[12],
+                       data[13],
+                       data[14],
+                       data[15]]
+            ).withUnsafeBytes { $0.pointee })
         self.WeekOfManufacture = data[16]
         self.YearOfManufacture = data[17]
         self.EdidVersion = data[18]
