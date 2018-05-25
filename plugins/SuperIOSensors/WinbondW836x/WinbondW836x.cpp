@@ -300,7 +300,7 @@ bool W836x::probePort()
 	if (id == 0 || id == 0xff || revision == 0 || revision == 0xff)
 		return false;
 	
-	fanLimit = 3;
+	fanLimit = 6;
 	
   switch (id)
   {
@@ -313,6 +313,7 @@ bool W836x::probePort()
         case 0x40:
         case 0x41:
           model = W83627HF;
+          fanLimit = 3;
           break;
           /*case 0x70:
            model = W83977CTF;
@@ -329,6 +330,7 @@ bool W836x::probePort()
       {
         case 0x50:
           model = W83627SF;
+          fanLimit = 3;
           break;
       }
       break;
@@ -388,6 +390,7 @@ bool W836x::probePort()
       {
         case 0x80:
           model = W83627THF;
+          fanLimit = 3;
           break;
       }
       break;
@@ -399,6 +402,7 @@ bool W836x::probePort()
       {
         case 0x41:
           model = W83687THF;
+          fanLimit = 3;
           // No datasheet
           break;
       }
@@ -499,6 +503,7 @@ bool W836x::probePort()
     }
     case 0xC2:
       model = NCT6681;
+      fanLimit = 5;
       break;
 
 

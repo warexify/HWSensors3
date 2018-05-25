@@ -87,7 +87,7 @@ const UInt8 WINBOND_TACHOMETER[]			= { 0x28, 0x29, 0x2A, 0x3F, 0x53 };
 const UInt8 WINBOND_TACHOMETER_BANK[]		= { 0, 0, 0, 0, 5 };
 
 //                                        SYSFAN, CPUFAN, AUXFAN
-const UInt16 NUVOTON_TACHOMETER[]			= { 0x4C0,  0x4C2,  0x4C4};
+const UInt16 NUVOTON_TACHOMETER[]			= { 0x4C0,  0x4C2,  0x4C4,  0x4C6, 0x4C8, 0x4CA};
 
 const UInt8 WINBOND_TACHOMETER_DIV0[]		= { 0x47, 0x47, 0x4B, 0x59, 0x59 };
 const UInt8 WINBOND_TACHOMETER_DIV0_BIT[]	= { 4,    6,    6,    0,    2 };
