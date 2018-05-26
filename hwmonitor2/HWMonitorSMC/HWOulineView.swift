@@ -89,9 +89,6 @@ class HWOulineView: NSOutlineView, NSPopoverDelegate {
       
       switch logType {
       case NoLog: break
-      case USBLog:
-        size = .normal
-        log = node.sensorData?.sensor?.characteristics
       case SystemLog:
         size = .big
         log = self.getSystemInfo()
@@ -144,9 +141,6 @@ class HWOulineView: NSOutlineView, NSPopoverDelegate {
             size = .medium
             log = allDrivesInfo
           }
-        case "USB":
-          size = .medium
-          log = getUSBInfo()
         default:
           break
         }
