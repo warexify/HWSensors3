@@ -8,7 +8,7 @@
 
 import Cocoa
 
-let kTestVersion            = ""
+let kTestVersion            = "test"
 
 let kRunAtLogin             = "runAtLogin"
 let kHideVerticalScroller   = "hideVerticalScroller"

@@ -359,6 +359,12 @@ public struct Graphics {
                 IOObjectRelease(serviceObject)
                 break
               }
+            } else if let IOPCIMatch : String = info.object(forKey: "IOPCIMatch") as? String {
+              if (IOPCIMatch.lowercased().range(of: primaryMatch) != nil) {
+                dict = info
+                IOObjectRelease(serviceObject)
+                break
+              }
             }
           }
           IOObjectRelease(serviceObject)
@@ -394,11 +400,7 @@ public struct Graphics {
             continue
           }
           if let info : NSDictionary = serviceDictionary?.takeRetainedValue() {
-            if let classcode : String = info.object(forKey: "IOPCIClassMatch") as? String{
-              if classcode.lowercased() == "0x03000000&0xff000000" && ((info.object(forKey: "IOPCIPrimaryMatch") != nil)) {
-                cards.append(info)
-              }
-            }
+            cards.append(info)
           }
           IOObjectRelease(serviceObject)
         } while serviceObject != 0

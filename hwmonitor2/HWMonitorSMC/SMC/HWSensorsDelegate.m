@@ -263,7 +263,7 @@ int countPhisycalCores() {
 
 - (NSArray *)getMultipliers {
   NSMutableArray *arr = [NSMutableArray array];
-  for (int i=0; i<0x2C; i++) {
+  for (int i=0; i < countPhisycalCores(); i++) {
     [self validateSensorWithKey:[NSString stringWithFormat:@KEY_FORMAT_NON_APPLE_CPU_MULTIPLIER,i]
                          ofType:@TYPE_FP4C
                        forGroup:MultiplierSensorGroup
