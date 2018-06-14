@@ -18,6 +18,7 @@ class PreferencesVC: NSViewController {
   @IBOutlet var darkBtn                 : NSButton!
   @IBOutlet var hideScrollerBtn         : NSButton!
   @IBOutlet var runAtLoginBtn           : NSButton!
+  @IBOutlet var useGPUAccelerator       : NSButton!
   @IBOutlet var slider                  : NSSlider!
   @IBOutlet var effectView              : NSVisualEffectView!
   
@@ -43,9 +44,8 @@ class PreferencesVC: NSViewController {
       }
     }
     self.runAtLoginBtn.state = ud.bool(forKey: kRunAtLogin) ? .on : .off
-    
     self.slider.doubleValue = timeInterval
-    
+    self.useGPUAccelerator.state = ud.bool(forKey: kUseGPUIOAccelerator) ? .on : .off
     self.ramPercentageBtn.state = ud.bool(forKey: kUseMemoryPercentage) ? .on : .off
     self.expandCPUTemperatureBtn.state = ud.bool(forKey: kExpandCPUTemperature) ? .on : .off
     self.expandVoltagesBtn.state = ud.bool(forKey: kExpandVoltages) ? .on : .off
@@ -84,6 +84,11 @@ class PreferencesVC: NSViewController {
   
   @IBAction func expandCPUFrequencies(_ sender: NSButton) {
     UserDefaults.standard.set(sender.state == NSControl.StateValue.on, forKey: kExpandCPUFrequencies)
+    self.synchronize()
+  }
+
+  @IBAction func useGPUIOAccelerator(_ sender: NSButton) {
+    UserDefaults.standard.set(sender.state == NSControl.StateValue.on, forKey: kUseGPUIOAccelerator)
     self.synchronize()
   }
   

@@ -126,7 +126,7 @@ int countPhisycalCores() {
   return arr;
 }
 
-- (NSArray *)getAllOtherTemperatures {
+  - (NSArray *)getAllOtherTemperatures:(BOOL)includeGPU {
   NSMutableArray *arr = [NSMutableArray array];
   [self validateSensorWithKey:@KEY_CPU_PROXIMITY_TEMPERATURE
                        ofType:([HWMonitorSensor getTypeOfKey:@KEY_CPU_PROXIMITY_TEMPERATURE]) ? : @TYPE_SP78
@@ -170,32 +170,34 @@ int countPhisycalCores() {
                       logType:NoLog
                      intoList:arr];
   
+    if (includeGPU) {
+      for (int i=0; i<0xA; i++) {
+        [self validateSensorWithKey:[NSString stringWithFormat:@KEY_FORMAT_GPU_DIODE_TEMPERATURE, i]
+                             ofType:([HWMonitorSensor getTypeOfKey:
+                                      [NSString stringWithFormat:@KEY_FORMAT_GPU_DIODE_TEMPERATURE, i]]) ? : @TYPE_SP78
+                           forGroup:TemperatureSensorGroup
+                         andCaption:[[NSString alloc] initWithFormat:NSLocalizedString(@"GPU %d Core",nil) ,i]
+                            logType:GPULog
+                           intoList:arr];
+        
+        [self validateSensorWithKey:[NSString stringWithFormat:@KEY_FORMAT_GPU_BOARD_TEMPERATURE, i]
+                             ofType:([HWMonitorSensor getTypeOfKey:
+                                      [NSString stringWithFormat:@KEY_FORMAT_GPU_BOARD_TEMPERATURE, i]]) ? : @TYPE_SP78
+                           forGroup:TemperatureSensorGroup
+                         andCaption:[[NSString alloc] initWithFormat:NSLocalizedString(@"GPU %d Board",nil) ,i]
+                            logType:GPULog
+                           intoList:arr];
+        
+        [self validateSensorWithKey:[NSString stringWithFormat:@KEY_FORMAT_GPU_PROXIMITY_TEMPERATURE, i]
+                             ofType:([HWMonitorSensor getTypeOfKey:
+                                      [NSString stringWithFormat:@KEY_FORMAT_GPU_PROXIMITY_TEMPERATURE, i]]) ? : @TYPE_SP78
+                           forGroup:TemperatureSensorGroup
+                         andCaption:[[NSString alloc] initWithFormat:NSLocalizedString(@"GPU %d Proximity",nil) ,i]
+                            logType:GPULog
+                           intoList:arr];
+      }
+    }
   
-  for (int i=0; i<0xA; i++) {
-    [self validateSensorWithKey:[NSString stringWithFormat:@KEY_FORMAT_GPU_DIODE_TEMPERATURE, i]
-                         ofType:([HWMonitorSensor getTypeOfKey:
-                                  [NSString stringWithFormat:@KEY_FORMAT_GPU_DIODE_TEMPERATURE, i]]) ? : @TYPE_SP78
-                       forGroup:TemperatureSensorGroup
-                     andCaption:[[NSString alloc] initWithFormat:NSLocalizedString(@"GPU %d Core",nil) ,i]
-                        logType:GPULog
-                       intoList:arr];
-    
-    [self validateSensorWithKey:[NSString stringWithFormat:@KEY_FORMAT_GPU_BOARD_TEMPERATURE, i]
-                         ofType:([HWMonitorSensor getTypeOfKey:
-                                  [NSString stringWithFormat:@KEY_FORMAT_GPU_BOARD_TEMPERATURE, i]]) ? : @TYPE_SP78
-                       forGroup:TemperatureSensorGroup
-                     andCaption:[[NSString alloc] initWithFormat:NSLocalizedString(@"GPU %d Board",nil) ,i]
-                        logType:GPULog
-                       intoList:arr];
-    
-    [self validateSensorWithKey:[NSString stringWithFormat:@KEY_FORMAT_GPU_PROXIMITY_TEMPERATURE, i]
-                         ofType:([HWMonitorSensor getTypeOfKey:
-                                  [NSString stringWithFormat:@KEY_FORMAT_GPU_PROXIMITY_TEMPERATURE, i]]) ? : @TYPE_SP78
-                       forGroup:TemperatureSensorGroup
-                     andCaption:[[NSString alloc] initWithFormat:NSLocalizedString(@"GPU %d Proximity",nil) ,i]
-                        logType:GPULog
-                       intoList:arr];
-  }
   return arr;
 }
 
@@ -281,7 +283,7 @@ int countPhisycalCores() {
   return arr;
 }
 
-- (NSArray *)getVoltages {
+- (NSArray *)getVoltages:(BOOL)includeGPU {
   NSMutableArray *arr = [NSMutableArray array];
   
   [self validateSensorWithKey:@KEY_CPU_VOLTAGE
@@ -354,14 +356,15 @@ int countPhisycalCores() {
                    andCaption:NSLocalizedString(@"3.3 AVCC Voltage",nil)
                       logType:NoLog
                      intoList:arr];
-  
-  for (int i=0; i<0xA; i++) {
-    [self validateSensorWithKey:[NSString stringWithFormat:@KEY_FORMAT_GPU_VOLTAGE,i]
-                         ofType:([HWMonitorSensor getTypeOfKey:[NSString stringWithFormat:@KEY_FORMAT_GPU_VOLTAGE,i]]) ? : @TYPE_FP2E
-                       forGroup:VoltageSensorGroup
-                     andCaption:[[NSString alloc] initWithFormat:NSLocalizedString(@"GPU %d Voltage",nil),i]
-                        logType:GPULog
-                       intoList:arr];
+  if (includeGPU) {
+    for (int i=0; i<0xA; i++) {
+      [self validateSensorWithKey:[NSString stringWithFormat:@KEY_FORMAT_GPU_VOLTAGE,i]
+                           ofType:([HWMonitorSensor getTypeOfKey:[NSString stringWithFormat:@KEY_FORMAT_GPU_VOLTAGE,i]]) ? : @TYPE_FP2E
+                         forGroup:VoltageSensorGroup
+                       andCaption:[[NSString alloc] initWithFormat:NSLocalizedString(@"GPU %d Voltage",nil),i]
+                          logType:GPULog
+                         intoList:arr];
+    }
   }
   return arr;
 }

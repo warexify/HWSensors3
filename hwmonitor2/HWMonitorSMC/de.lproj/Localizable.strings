@@ -19,7 +19,14 @@
 "Batteries" = "Batterien";
 "Media health" = "Angeschlossene Laufwerke";
 "Life" = "Lebensdauer"; // hdd/ssd life
-"Tеmperature" = "Tеmperatur"; // hdd/ssd tеmperature
+"Tеmperature" = "Tеmperatur"; // hdd/ssd tеmperature //GPU, when taken from PerformanceStatistics
+
+"GPUs" = "GPUs"; // GPU, when taken from PerformanceStatistics
+"Core Clock" = "Kerngeschwindigkeit"; //GPU, when taken from PerformanceStatistics
+"Fan/Pump Speed" = "Lüfter/Pumpen Drehzahl"; //GPU, when taken from PerformanceStatistics
+"Fan/Pump Speed rate" = "Lüfter/Pumpen Drehzahl"; //GPU, when taken from PerformanceStatistics
+"Device Utilization" = "Geräteauslastung"; //GPU, when taken from PerformanceStatistics
+"GPU Activity" = "GPU-Aktivität"; //GPU, when taken from PerformanceStatistics
 
 "Total" = "Total"; // RAM
 "Active" = "Aktiv"; // RAM

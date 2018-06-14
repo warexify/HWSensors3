@@ -124,6 +124,7 @@ hwmonitor2/HWMonitorSMC/HWTreeNode.swift -text
 hwmonitor2/HWMonitorSMC/HWViewController.swift -text
 hwmonitor2/HWMonitorSMC/HWWindow.swift -text
 hwmonitor2/HWMonitorSMC/HWWindowController.swift -text
+hwmonitor2/HWMonitorSMC/Images/GPU.png -text
 hwmonitor2/HWMonitorSMC/Images/USB.png -text
 hwmonitor2/HWMonitorSMC/Images/checkbox.png -text
 hwmonitor2/HWMonitorSMC/Images/cpu_freq_small.png -text

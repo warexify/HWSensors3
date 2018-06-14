@@ -18,7 +18,14 @@
 "Batteries" = "电池";
 "Media health" = "硬盘健康";
 "Life" = "寿命"; // hdd/ssd life
-"Tеmperature" = "温度"; // hdd/ssd tеmperature
+"Tеmperature" = "温度"; // hdd/ssd tеmperature //GPU, when taken from PerformanceStatistics
+
+"GPUs" = "GPUs"; // GPU, when taken from PerformanceStatistics
+"Core Clock" = "Core Clock"; //GPU, when taken from PerformanceStatistics
+"Fan/Pump Speed" = "Fan/Pump Speed"; //GPU, when taken from PerformanceStatistics
+"Fan/Pump Speed rate" = "Fan/Pump Speed rate"; //GPU, when taken from PerformanceStatistics
+"Device Utilization" = "Device Utilization"; //GPU, when taken from PerformanceStatistics
+"GPU Activity" = "Activity"; //GPU, when taken from PerformanceStatistics
 
 "Total" = "物理总内存"; // RAM
 "Active" = "正或刚使用"; // RAM

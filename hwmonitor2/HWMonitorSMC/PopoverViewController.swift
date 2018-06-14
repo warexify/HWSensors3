@@ -30,6 +30,7 @@ class PopoverViewController: NSViewController, USBWatcherDelegate {
   var expandCPUFrequencies      : Bool = false
   var expandAll                 : Bool = false
   var dontshowEmpty             : Bool = true
+  var useIOAcceleratorForGPUs   : Bool = false
   
   // nodes
   var SystemNode                : HWTreeNode?
@@ -37,6 +38,7 @@ class PopoverViewController: NSViewController, USBWatcherDelegate {
   var CPUFrequenciesNode        : HWTreeNode?
   var voltagesNode              : HWTreeNode?
   var CPUTemperaturesNode       : HWTreeNode?
+  var GPUAcceleratorNode        : HWTreeNode?
   var multipliersNode           : HWTreeNode?
   var allOtherTemperaturesNode  : HWTreeNode?
   var allOtherFrequenciesNode   : HWTreeNode?
@@ -131,6 +133,9 @@ class PopoverViewController: NSViewController, USBWatcherDelegate {
   
   func loadPreferences() {
     let ud = UserDefaults.standard
+    
+    self.useIOAcceleratorForGPUs = ud.bool(forKey: kUseGPUIOAccelerator)
+    
     if (ud.object(forKey: kExpandCPUTemperature) != nil) {
       self.expandCPUTemperature = ud.bool(forKey: kExpandCPUTemperature)
     } else {
@@ -201,6 +206,20 @@ class PopoverViewController: NSViewController, USBWatcherDelegate {
     self.sensorDelegate = HWSensorsDelegate()
 
     // ------
+    // GPUAcceleratorNode must be loaded before all others to ensure we are able to get info from the IOAccelerator
+    if self.useIOAcceleratorForGPUs {
+      self.GPUAcceleratorNode = HWTreeNode(representedObject: HWSensorData(group: NSLocalizedString("GPUs", comment: ""),
+                                                                           sensor: nil,
+                                                                           isLeaf: false))
+      // try to populate him..
+      self.GPUAcceleratorNode?.mutableChildren.addObjects(from: Graphics.init().getVideoCardsSensorsFromAccelerator())
+   
+      if (self.GPUAcceleratorNode?.children?.count)! == 0 {
+        self.GPUAcceleratorNode = nil
+        self.useIOAcceleratorForGPUs = false // give a chance to RadeonMonitor, NVClockX, GeforceSensor etc..
+      }
+    }
+    // ------
     self.SystemNode = HWTreeNode(representedObject: HWSensorData(group: "System",
                                                                  sensor: nil,
                                                                  isLeaf: false))
@@ -251,7 +270,7 @@ class PopoverViewController: NSViewController, USBWatcherDelegate {
     self.voltagesNode = HWTreeNode(representedObject: HWSensorData(group: NSLocalizedString("Voltages", comment: ""),
                                                                    sensor: nil,
                                                                    isLeaf: false))
-    for s in (self.sensorDelegate?.getVoltages())! {
+    for s in (self.sensorDelegate?.getVoltages(self.useIOAcceleratorForGPUs))! {
       let sensor = HWTreeNode(representedObject: HWSensorData(group: (self.voltagesNode?.sensorData?.group)!,
                                                               sensor: s as? HWMonitorSensor,
                                                               isLeaf: true))
@@ -288,6 +307,15 @@ class PopoverViewController: NSViewController, USBWatcherDelegate {
       }
     }
     // ------
+    if (self.GPUAcceleratorNode != nil) {
+      for n in (self.GPUAcceleratorNode?.children)! {
+        let c = n as! HWTreeNode
+        self.sensorList?.addObjects(from: c.mutableChildren as! [HWTreeNode])
+      }
+      //self.sensorList?.addObjects(from: (self.GPUAcceleratorNode?.children)!)
+      self.dataSource?.add(self.GPUAcceleratorNode!)
+    }
+    // ------
     self.RAMNode = HWTreeNode(representedObject: HWSensorData(group: NSLocalizedString("RAM", comment: ""),
                                                               sensor: nil,
                                                               isLeaf: false))
@@ -312,7 +340,7 @@ class PopoverViewController: NSViewController, USBWatcherDelegate {
     self.allOtherTemperaturesNode =  HWTreeNode(representedObject: HWSensorData(group: NSLocalizedString("Temperatures", comment: ""),
                                                                                 sensor: nil,
                                                                                 isLeaf: false))
-    for s in (self.sensorDelegate?.getAllOtherTemperatures())! {
+    for s in (self.sensorDelegate?.getAllOtherTemperatures(self.useIOAcceleratorForGPUs))! {
       let sensor = HWTreeNode(representedObject: HWSensorData(group: (self.allOtherTemperaturesNode?.sensorData?.group)!,
                                                               sensor: s as? HWMonitorSensor,
                                                               isLeaf: true))
@@ -468,6 +496,12 @@ class PopoverViewController: NSViewController, USBWatcherDelegate {
       if (self.RAMNode != nil) {
         self.outline.expandItem(self.RAMNode)
       }
+      if (self.GPUAcceleratorNode != nil) {
+        self.outline.expandItem(self.GPUAcceleratorNode)
+        for i in (self.GPUAcceleratorNode?.children)! {
+          self.outline.expandItem(i)
+        }
+      }
       if (self.multipliersNode != nil) {
         self.outline.expandItem(self.multipliersNode)
       }
@@ -507,6 +541,10 @@ class PopoverViewController: NSViewController, USBWatcherDelegate {
       let newGenericBatteries : [HWMonitorSensor] = self.sensorDelegate?.getGenericBatteries() as! [HWMonitorSensor]
       let newBattery : [HWMonitorSensor] = self.sensorDelegate?.getBattery() as! [HWMonitorSensor]
       
+      var newGPUbyAcc : [HWTreeNode]? = nil
+      if self.useIOAcceleratorForGPUs {
+        newGPUbyAcc = Graphics.init().getVideoCardsSensorsFromAccelerator()
+      }
       
       let elapsed = Date().timeIntervalSince(self.smartBeginDate!)
       var newMediaNode : HWTreeNode
@@ -591,10 +629,30 @@ class PopoverViewController: NSViewController, USBWatcherDelegate {
         let node = i as! HWTreeNode
         let sensor = node.sensorData?.sensor
         let group = node.sensorData?.sensor?.group
-        
         var value : String = "-"
-        // Battery sensor are fake, re read it
+        
         switch group {
+        case UInt(GPUAcceleratorSensorGroup)?:
+          found = false
+          if self.useIOAcceleratorForGPUs {
+            for vcard in newGPUbyAcc! /* this contains parents group */ {
+              for n in vcard.children! {
+                let nx : HWTreeNode = n as! HWTreeNode
+                if nx.sensorData?.sensor?.group == group && (nx.sensorData?.sensor?.caption)! == sensor?.caption {
+                  sensor?.stringValue = nx.sensorData?.sensor?.stringValue
+                  sensor?.characteristics = nx.sensorData?.sensor?.characteristics
+                  (nx.parent as! HWTreeNode).sensorData?.sensor?.characteristics = nx.sensorData?.sensor?.characteristics
+                  value = (nx.sensorData?.sensor?.stringValue)!
+                  found = true
+                  break
+                }
+              }
+              if found {
+                break
+              }
+            }
+          }
+        break
         case UInt(HDSmartLifeSensorGroup)?:
           found = false
           for disk in newMediaNode.children! {
@@ -868,6 +926,9 @@ extension PopoverViewController: NSOutlineViewDataSource {
             let group : SensorGroup = (node.sensorData?.sensor?.group)!
             var value : String = "-"
             switch group {
+            case UInt(GPUAcceleratorSensorGroup):
+              value = (node.sensorData?.sensor?.stringValue)!
+              break
             case UInt(MemorySensorGroup):
               value = (node.sensorData?.sensor?.stringValue)!
               break
@@ -920,6 +981,9 @@ extension PopoverViewController: NSOutlineViewDataSource {
         break
       case NSLocalizedString("Temperatures", comment: ""):
         image = NSImage(named: NSImage.Name(rawValue: "temp_alt_small"))
+        break
+      case NSLocalizedString("GPUs", comment: ""):
+        image = NSImage(named: NSImage.Name(rawValue: "GPU"))
         break
       case NSLocalizedString("Fans or Pumps", comment: ""):
         image = NSImage(named: NSImage.Name(rawValue: "fan_small"))

@@ -8,11 +8,11 @@
 
 import Cocoa
 
-class HWSensorData: NSObject {
+public class HWSensorData: NSObject {
   var group   : String
   var sensor  : HWMonitorSensor?
   var isLeaf  : Bool = false
-  required init(group: String, sensor: HWMonitorSensor?, isLeaf: Bool) {
+  required public init(group: String, sensor: HWMonitorSensor?, isLeaf: Bool) {
     self.group    = group
     self.sensor   = sensor
     self.isLeaf   = isLeaf
@@ -20,10 +20,10 @@ class HWSensorData: NSObject {
   }
 }
 
-class HWTreeNode: NSTreeNode {
+public class HWTreeNode: NSTreeNode {
   internal var ro: Any?
   
-  override var representedObject: Any? {
+  override public var representedObject: Any? {
     get {
       return self.ro
     } set {

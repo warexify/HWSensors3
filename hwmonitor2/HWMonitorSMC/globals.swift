@@ -23,6 +23,8 @@ let kExpandVoltages         = "expandVoltages"
 let kExpandCPUFrequencies   = "expandCPUFrequencies"
 let kExpandAll              = "expandAll"
 let kDontShowEmpty          = "dontshowEmpty"
+let kUseGPUIOAccelerator    = "useGPUIOAccelerator"
+
 
 let gAppearance = (UserDefaults.standard.string(forKey: kAppleInterfaceStyle) == kDark ||
     UserDefaults.standard.bool(forKey: kDark)) ?

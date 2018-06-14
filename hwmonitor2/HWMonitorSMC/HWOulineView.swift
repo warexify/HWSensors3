@@ -97,7 +97,18 @@ class HWOulineView: NSOutlineView, NSPopoverDelegate {
         log = self.getCPUInfo()
       case GPULog:
         size = .big
-        log = self.getGPUInfo()
+        let parent : HWTreeNode? = node.parent?.parent as? HWTreeNode
+        if (parent != nil) {
+          if parent?.sensorData?.group == NSLocalizedString("GPUs", comment: "") {
+            let index : Int = (node.parent?.mutableChildren.index(of: node))!
+            log = Graphics.init().getGraphicsInfo(primaryMatch: node.sensorData?.sensor?.characteristics, index: index)
+            break
+          }
+        } else {
+          print("else")
+          log = self.getGPUInfo()
+        }
+        
       case MediaLog:
         size = .normal
         log = node.sensorData?.sensor?.characteristics
@@ -121,6 +132,9 @@ class HWOulineView: NSOutlineView, NSPopoverDelegate {
         case NSLocalizedString("RAM", comment: ""):
           size = .normal
           log = self.getMemoryInfo()
+        case NSLocalizedString("GPUs", comment: ""):
+          size = .medium
+          log = self.getGPUInfo()
         case NSLocalizedString("Batteries", comment: ""):
           size = .normal
           log = self.getBatteryInfo()
@@ -142,6 +156,17 @@ class HWOulineView: NSOutlineView, NSPopoverDelegate {
             log = allDrivesInfo
           }
         default:
+          let parent : HWTreeNode? = node.parent as? HWTreeNode
+          if (parent != nil) {
+            if parent?.sensorData?.group == NSLocalizedString("GPUs", comment: "") {
+              for n in node.mutableChildren {
+                size = .big
+                log = Graphics.init().getGraphicsInfo(primaryMatch: (n as? HWTreeNode)?.sensorData?.sensor?.characteristics, index: 0)
+                break
+              }
+              break
+            }
+          }
           break
         }
       }
@@ -327,7 +352,7 @@ class HWOulineView: NSOutlineView, NSPopoverDelegate {
   }
   
   private func getGPUInfo() -> String {
-    return Graphics.init().getGraphicsInfo() + "\n"
+    return Graphics.init().getGraphicsInfo(primaryMatch: nil, index: 0) + "\n"
   }
   
   private func getLPCBInfo() -> String {

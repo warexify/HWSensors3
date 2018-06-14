@@ -35,3 +35,6 @@
 /* Class = "NSButtonCell"; title = "run HWMonitorSMC.app at login"; ObjectID = "Dyg-rv-2Gg"; */
 "Dyg-rv-2Gg.title" = "로그인시 HWMonitorSMC 실행하기";
 
+/* Class = "NSButtonCell"; title = "use the IOAccelerator's monitoring for GPUs"; ObjectID = "jea-Yr-Q5W"; */
+"jea-Yr-Q5W.title" = "GPUs에 대한 IOAccelerator의 모니터링 사용하기";
+

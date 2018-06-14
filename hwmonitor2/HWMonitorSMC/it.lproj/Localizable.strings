@@ -16,7 +16,14 @@
 "Batteries" = "Batterie";
 "Media health" = "Integrità dei Media";
 "Life" = "Vita"; // hdd/ssd life
-"Tеmperature" = "Tеmperatura"; // hdd/ssd tеmperature
+"Tеmperature" = "Tеmperatura"; // hdd/ssd tеmperature //GPU, when taken from PerformanceStatistics
+
+"GPUs" = "Schede video"; // GPU, when taken from PerformanceStatistics
+"Core Clock" = "Clock del core"; //GPU, when taken from PerformanceStatistics
+"Fan/Pump Speed" = "Rotazione ventola/pompa"; //GPU, when taken from PerformanceStatistics
+"Fan/Pump Speed rate" = "Rotazione ventola/pompa (rate)"; //GPU, when taken from PerformanceStatistics
+"Device Utilization" = "Utilizzazione"; //GPU, when taken from PerformanceStatistics
+"GPU Activity" = "Attività"; //GPU, when taken from PerformanceStatistics
 
 "Total" = "Totale"; // RAM
 "Active" = "Attiva"; // RAM

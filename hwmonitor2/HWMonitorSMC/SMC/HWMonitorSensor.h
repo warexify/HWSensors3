@@ -32,9 +32,10 @@ enum {
   BatterySensorsGroup         =   7,
   GenericBatterySensorsGroup  =   8,
   HDSmartLifeSensorGroup      =   9,
-  USBSensorGroup      =  10,
+  USBSensorGroup              =  10,
   MemorySensorGroup           =  11,
-  MediaSMARTContenitorGroup   =  12 /* contains HDSmartTempSensorGroup and HDSmartLifeSensorGroup sensors */
+  GPUAcceleratorSensorGroup   =  12,
+  MediaSMARTContenitorGroup   =  13 /* contains HDSmartTempSensorGroup and HDSmartLifeSensorGroup sensors */
 };
 typedef NSUInteger SensorGroup;
 

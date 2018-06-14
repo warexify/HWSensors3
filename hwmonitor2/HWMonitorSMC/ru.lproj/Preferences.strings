@@ -34,3 +34,6 @@
 
 /* Class = "NSButtonCell"; title = "run HWMonitorSMC.app at login"; ObjectID = "Dyg-rv-2Gg"; */
 "Dyg-rv-2Gg.title" = "Запустить HWMonitorSMC2.app при входе в систему";
+
+/* Class = "NSButtonCell"; title = "use the IOAccelerator's monitoring for GPUs"; ObjectID = "jea-Yr-Q5W"; */
+"jea-Yr-Q5W.title" = "Использовать данные Акселератора для мониторинга графики";

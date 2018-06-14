@@ -17,7 +17,7 @@
 
 - (NSArray *)getMemory;
   
-- (NSArray *)getAllOtherTemperatures;
+- (NSArray *)getAllOtherTemperatures:(BOOL)includeGPU ;
 
 - (NSArray *)getCPUTemperatures;
 
@@ -27,7 +27,7 @@
 
 - (NSArray *)getMultipliers;
 
-- (NSArray *)getVoltages;
+- (NSArray *)getVoltages:(BOOL)includeGPU ;
 
 - (NSArray *)getFans;
 

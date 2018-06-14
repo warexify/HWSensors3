@@ -16,7 +16,14 @@
 "Batteries" = "Батареи";
 "Media health" = "Целостность дисков";
 "Life" = "Жизнь"; // hdd/ssd life
-"Tеmperature" = "Tемпература"; // hdd/ssd tеmperature
+"Tеmperature" = "Tемпература"; // hdd/ssd tеmperature //GPU, when taken from PerformanceStatistics
+
+"GPUs" = "Графика"; // GPU, when taken from PerformanceStatistics
+"Core Clock" = "Частота ядра"; // GPU, when taken from PerformanceStatistics
+"Fan/Pump Speed" = "Скорость вентилятора"; // GPU, when taken from PerformanceStatistics
+"Fan/Pump Speed rate" = "Использование вентилятора"; // GPU, when taken from PerformanceStatistics
+"Device Utilization" = "Использование"; // GPU, when taken from PerformanceStatistics
+"GPU Activity" = "Нагрузка видеокарты"; // GPU, when taken from PerformanceStatistics
 
 "Total" = "Всего"; // RAM
 "Active" = "Aктивная"; // RAM

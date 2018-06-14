@@ -19,7 +19,14 @@
 "Batteries" = "배터리";
 "Media health" = "미디어 수명";
 "Life" = "수명"; // hdd/ssd life
-"Tеmperature" = "온도"; // hdd/ssd tеmperature
+"Tеmperature" = "온도"; // hdd/ssd tеmperature //GPU, when taken from PerformanceStatistics
+
+"GPUs" = "GPUs"; // GPU, when taken from PerformanceStatistics
+"Core Clock" = "코어 클럭"; //GPU, when taken from PerformanceStatistics
+"Fan/Pump Speed" = "팬/펌프 속도"; //GPU, when taken from PerformanceStatistics
+"Fan/Pump Speed rate" = "팬/펌프 정격 속도"; //GPU, when taken from PerformanceStatistics
+"Device Utilization" = "장치 사용률"; //GPU, when taken from PerformanceStatistics
+"GPU Activity" = "GPU 활동"; //GPU, when taken from PerformanceStatistics
 
 "Total" = "전체"; // RAM
 "Active" = "활성화"; // RAM
