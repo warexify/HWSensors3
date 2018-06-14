@@ -32,8 +32,13 @@
 				<dict>
 					<key>$Num</key>
 					<array>
-						<string>ui8 </string>
+						<string>ui8</string>
 						<data>AQ==</data>
+					</array>
+					<key>MSLD</key>
+					<array>
+						<string>ui8</string>
+						<data>AA==</data>
 					</array>
 					<key>ACID</key>
 					<array>
@@ -145,7 +150,7 @@
 						<string>ch8*</string>
 						<data>ZWFzZWRvbnRzdGVhbChjKUFwcGxlQ29tcHV0ZXJJbmM=</data>
 					</array>
-					<key>REV </key>
+					<key>REV</key>
 					<array>
 						<string>{rev</string>
 						<data>ATAPAAAD</data>
