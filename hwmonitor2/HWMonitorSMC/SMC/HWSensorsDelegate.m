@@ -238,15 +238,15 @@ int countPhisycalCores() {
 
 - (NSArray *)getOtherFrequencies {
   NSMutableArray *arr = [NSMutableArray array];
-  for (int i=0; i < countPhisycalCores(); i++) {
-    [self validateSensorWithKey:[NSString stringWithFormat:@KEY_FAKESMC_FORMAT_GPU_FREQUENCY,i]
+  for (int i = 0; i < 0xA; i++) {
+    [self validateSensorWithKey:[NSString stringWithFormat:@KEY_FAKESMC_FORMAT_GPU_FREQUENCY, i]
                          ofType:@TYPE_FREQ
                        forGroup:FrequencySensorGroup
                      andCaption:[[NSString alloc] initWithFormat:NSLocalizedString(@"GPU %d Core",nil)]
                         logType:NoLog
                        intoList:arr];
     
-    [self validateSensorWithKey:[NSString stringWithFormat:@KEY_FAKESMC_FORMAT_GPU_SHADER_FREQUENCY,i]
+    [self validateSensorWithKey:[NSString stringWithFormat:@KEY_FAKESMC_FORMAT_GPU_SHADER_FREQUENCY, i]
                          ofType:@TYPE_FREQ
                        forGroup:FrequencySensorGroup
                      andCaption:[[NSString alloc] initWithFormat:NSLocalizedString(@"GPU %d Shaders",nil), i]

@@ -354,6 +354,11 @@ public struct Graphics {
             acceleratorDict = card
             break // We have the IOAccelerator info
           }
+        } else if let IOPCIMatch : String = card.object(forKey: "IOPCIMatch") as? String {
+          if (IOPCIMatch.range(of: primaryMatch) != nil) {
+            acceleratorDict = card
+            break // We have the IOAccelerator info
+          }
         }
       }
     }
