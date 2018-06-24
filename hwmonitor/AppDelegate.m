@@ -200,7 +200,7 @@
     [self toggleLaunchAtStartup:nil];
   }
   
-  self.startAtLoginItem.state = [self isLaunchAtStartup] ? NSControlStateValueOn : NSControlStateValueOff;
+  self.startAtLoginItem.state = [self isLaunchAtStartup] ? NSOnState : NSOffState;
   
   NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:
                               [self methodSignatureForSelector:@selector(updateTitles)]];
@@ -429,7 +429,7 @@
   }
   CFRelease(loginItemsRef);
 
-  self.startAtLoginItem.state = [self isLaunchAtStartup] ? NSControlStateValueOn : NSControlStateValueOff;
+  self.startAtLoginItem.state = [self isLaunchAtStartup] ? NSOnState : NSOffState;
   
   [NSUserDefaults.standardUserDefaults setBool:YES forKey:@"runAtLoginWasSet"];
   [NSUserDefaults.standardUserDefaults synchronize];
