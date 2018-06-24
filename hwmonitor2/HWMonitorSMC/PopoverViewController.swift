@@ -115,6 +115,8 @@ class PopoverViewController: NSViewController, USBWatcherDelegate {
     
     self.lock.state = NSControl.StateValue.off
     
+    self.outline.appearance = NSAppearance(named: gAppearance) // bug in mojave Beta 1/2, NSOutlineView does not inherit the appearance
+    
     self.outline.delegate = self
     self.outline.dataSource = self
     self.outline.doubleAction = #selector(self.clicked)
