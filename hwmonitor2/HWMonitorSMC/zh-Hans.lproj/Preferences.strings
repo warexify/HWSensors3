@@ -36,4 +36,4 @@
 "Dyg-rv-2Gg.title" = "在登录时运行HWMonitorSMC.app";
 
 /* Class = "NSButtonCell"; title = "use the IOAccelerator's monitoring for GPUs"; ObjectID = "jea-Yr-Q5W"; */
-"jea-Yr-Q5W.title" = "use the IOAccelerator's monitoring for GPUs";
+"jea-Yr-Q5W.title" = "使用加速器监测GPU";

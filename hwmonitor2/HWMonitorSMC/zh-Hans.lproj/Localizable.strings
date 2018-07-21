@@ -20,12 +20,12 @@
 "Life" = "寿命"; // hdd/ssd life
 "Tеmperature" = "温度"; // hdd/ssd tеmperature //GPU, when taken from PerformanceStatistics
 
-"GPUs" = "GPUs"; // GPU, when taken from PerformanceStatistics
-"Core Clock" = "Core Clock"; //GPU, when taken from PerformanceStatistics
-"Fan/Pump Speed" = "Fan/Pump Speed"; //GPU, when taken from PerformanceStatistics
-"Fan/Pump Speed rate" = "Fan/Pump Speed rate"; //GPU, when taken from PerformanceStatistics
-"Device Utilization" = "Device Utilization"; //GPU, when taken from PerformanceStatistics
-"GPU Activity" = "Activity"; //GPU, when taken from PerformanceStatistics
+"GPUs" = "显卡"; // GPU, when taken from PerformanceStatistics
+"Core Clock" = "核心频率"; //GPU, when taken from PerformanceStatistics
+"Fan/Pump Speed" = "风扇 & 泵 转速"; //GPU, when taken from PerformanceStatistics
+"Fan/Pump Speed rate" = "风机转速百分率"; //GPU, when taken from PerformanceStatistics
+"Device Utilization" = "显存控制器负载率"; //GPU, when taken from PerformanceStatistics
+"GPU Activity" = "GPU负载率"; //GPU, when taken from PerformanceStatistics
 
 "Total" = "物理总内存"; // RAM
 "Active" = "正或刚使用"; // RAM
