@@ -2845,7 +2845,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_FILE = plugins/VoodooBattery/Info.plist;
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				MODULE_NAME = org.slice.VoodooBatterySMC;
 				MODULE_VERSION = 1.5.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
@@ -2897,7 +2897,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_FILE = plugins/VoodooBattery/Info.plist;
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				MODULE_NAME = org.slice.VoodooBatterySMC;
 				MODULE_VERSION = 1.5.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
@@ -2950,13 +2950,13 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_FILE = VoodooBattery/Info.plist;
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				MODULE_NAME = org.slice.VoodooBatterySMC;
 				MODULE_VERSION = 1.5.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.superhai.driver.${PRODUCT_NAME:identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
+				SDKROOT = macosx10.11;
 				WRAPPER_EXTENSION = kext;
 			};
 			name = "Release 10.5";
@@ -2996,7 +2996,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_FILE = VoodooBattery/Info.plist;
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				MODULE_NAME = org.slice.VoodooBatterySMC;
 				MODULE_VERSION = 1.5.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
@@ -3518,7 +3518,7 @@
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "plugins/SuperIOSensors/ITE87x/ITEIT87x-Info.plist";
 				MODULE_NAME = org.mozodojo.IT87x;
-				MODULE_VERSION = 1.0.2;
+				MODULE_VERSION = 1.0.3;
 				PRODUCT_BUNDLE_IDENTIFIER = org.mozodojo.ITEIT87x;
 				PRODUCT_NAME = ITEIT87x;
 				SDKROOT = macosx10.11;
@@ -3537,7 +3537,7 @@
 				INFOPLIST_FILE = "plugins/SuperIOSensors/ITE87x/ITEIT87x-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				MODULE_NAME = org.mozodojo.IT87x;
-				MODULE_VERSION = 1.0.2;
+				MODULE_VERSION = 1.0.3;
 				PRODUCT_BUNDLE_IDENTIFIER = org.mozodojo.ITEIT87x;
 				PRODUCT_NAME = ITEIT87x;
 				SDKROOT = macosx10.11;
@@ -3653,7 +3653,7 @@
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				INFOPLIST_FILE = "IT87x-pre106-Info.plist";
 				MODULE_NAME = org.mozodojo.IT87x;
-				MODULE_VERSION = 1.0.2;
+				MODULE_VERSION = 1.0.3;
 				PRODUCT_BUNDLE_IDENTIFIER = org.mozodojo.ITEIT87x;
 				PRODUCT_NAME = ITEIT87x;
 				SDKROOT = macosx10.11;
@@ -3744,7 +3744,7 @@
 				INFOPLIST_FILE = "IT87x-pre106-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				MODULE_NAME = org.mozodojo.IT87x;
-				MODULE_VERSION = 1.0.2;
+				MODULE_VERSION = 1.0.3;
 				PRODUCT_BUNDLE_IDENTIFIER = org.mozodojo.ITEIT87x;
 				PRODUCT_NAME = IT87x;
 				SDKROOT = macosx10.11;
