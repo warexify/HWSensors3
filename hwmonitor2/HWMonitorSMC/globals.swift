@@ -8,7 +8,7 @@
 
 import Cocoa
 
-let kTestVersion            = ""
+let kTestVersion            = "NVIDIA Test 3"
 
 let kRunAtLogin             = "runAtLogin"
 let kHideVerticalScroller   = "hideVerticalScroller"
@@ -25,11 +25,11 @@ let kExpandAll              = "expandAll"
 let kDontShowEmpty          = "dontshowEmpty"
 let kUseGPUIOAccelerator    = "useGPUIOAccelerator"
 
-
+/*
 let gAppearance = (UserDefaults.standard.string(forKey: kAppleInterfaceStyle) == kDark ||
     UserDefaults.standard.bool(forKey: kDark)) ?
         NSAppearance.Name.vibrantDark :
-    NSAppearance.Name.vibrantLight
+    NSAppearance.Name.vibrantLight*/
 
 let gHideVerticalScroller : Bool = UserDefaults.standard.bool(forKey: kHideVerticalScroller)
 
@@ -37,3 +37,16 @@ let gPopOverFont : NSFont = NSFont(name: "Lucida Grande Bold", size: 9.0) ?? NSF
 let gLogFont     : NSFont = NSFont(name: "Lucida Grande", size: 10.0)     ?? NSFont.systemFont(ofSize: 10.0)
 
 let gHelperID : CFString = "org.slice.HWMonitorSMC2-Helper" as CFString
+
+func getAppearance() -> NSAppearance {
+  let forceDark : Bool = UserDefaults.standard.bool(forKey: kDark)
+  var appearance = NSAppearance(named: .vibrantDark)
+  if !forceDark {
+    let appearanceName : String? = UserDefaults.standard.object(forKey: kAppleInterfaceStyle) as? String
+    if (appearanceName == nil || ((appearanceName?.range(of: "Dark")) == nil)) {
+      appearance = NSAppearance(named: .vibrantLight)
+    }
+  }
+
+  return appearance!
+}

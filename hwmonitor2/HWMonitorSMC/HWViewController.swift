@@ -63,7 +63,7 @@ class HWViewController: NSViewController, NSPopoverDelegate {
     self.detachableWindow?.titlebarAppearsTransparent = true
     self.detachableWindow?.minSize = NSMakeSize(310, 270)
     
-    self.detachableWindow?.appearance = NSAppearance(named: gAppearance)
+    self.detachableWindow?.appearance = getAppearance()
     
     let shared = NSApplication.shared.delegate as! AppDelegate
     if let button = shared.statusItem.button {

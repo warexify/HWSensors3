@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="14269.12" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="14460.23.1" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14269.12"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14460.23.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -33,15 +33,15 @@
         <scene sceneID="n4L-yf-mrD">
             <objects>
                 <viewController id="xPF-f4-5kE" userLabel="PreferencesVC" customClass="PreferencesVC" customModule="HWMonitorSMC2" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" misplaced="YES" id="Sgk-vG-m6s">
+                    <view key="view" id="Sgk-vG-m6s">
                         <rect key="frame" x="0.0" y="0.0" width="480" height="550"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <visualEffectView wantsLayer="YES" appearanceType="vibrantLight" misplaced="YES" blendingMode="behindWindow" material="appearanceBased" state="followsWindowActiveState" id="rVh-nU-KcG">
+                            <visualEffectView wantsLayer="YES" appearanceType="vibrantLight" blendingMode="behindWindow" material="appearanceBased" state="followsWindowActiveState" id="rVh-nU-KcG">
                                 <rect key="frame" x="0.0" y="0.0" width="480" height="550"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <subviews>
-                                    <button verticalHuggingPriority="750" misplaced="YES" id="mqc-iN-VaE">
+                                    <button verticalHuggingPriority="750" id="mqc-iN-VaE">
                                         <rect key="frame" x="33" y="447" width="423" height="18"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="check" title="expand CPU Frequencies group" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="IiS-qj-XaA">
@@ -52,7 +52,7 @@
                                             <action selector="expandCPUFrequencies:" target="xPF-f4-5kE" id="7o6-BW-0cF"/>
                                         </connections>
                                     </button>
-                                    <button verticalHuggingPriority="750" misplaced="YES" id="PM7-Vd-Tfs">
+                                    <button verticalHuggingPriority="750" id="PM7-Vd-Tfs">
                                         <rect key="frame" x="33" y="421" width="423" height="18"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="check" title="expand Voltages group" bezelStyle="regularSquare" imagePosition="left" inset="2" id="f3S-tq-sNl">
@@ -63,7 +63,7 @@
                                             <action selector="expandVoltages:" target="xPF-f4-5kE" id="6WY-hw-WNm"/>
                                         </connections>
                                     </button>
-                                    <button verticalHuggingPriority="750" misplaced="YES" id="OzO-ID-osB">
+                                    <button verticalHuggingPriority="750" id="OzO-ID-osB">
                                         <rect key="frame" x="33" y="368" width="423" height="18"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="check" title="expand all groups" bezelStyle="regularSquare" imagePosition="left" inset="2" id="1ou-TV-z1H">
@@ -74,7 +74,7 @@
                                             <action selector="expandAll:" target="xPF-f4-5kE" id="eV3-go-d7c"/>
                                         </connections>
                                     </button>
-                                    <button verticalHuggingPriority="750" misplaced="YES" id="YTv-4X-456">
+                                    <button verticalHuggingPriority="750" id="YTv-4X-456">
                                         <rect key="frame" x="33" y="395" width="423" height="18"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="check" title="expand CPU Temperatures group" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="Uuk-nv-v6V">
@@ -85,7 +85,7 @@
                                             <action selector="expandCPUTemperature:" target="xPF-f4-5kE" id="cmx-Nv-UAJ"/>
                                         </connections>
                                     </button>
-                                    <button verticalHuggingPriority="750" misplaced="YES" id="WeH-bd-fQA">
+                                    <button verticalHuggingPriority="750" id="WeH-bd-fQA">
                                         <rect key="frame" x="33" y="328" width="423" height="18"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="check" title="don't show empty groups" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="VSp-PT-02b">
@@ -96,7 +96,7 @@
                                             <action selector="dontshowEmpty:" target="xPF-f4-5kE" id="I5u-LM-VrL"/>
                                         </connections>
                                     </button>
-                                    <button verticalHuggingPriority="750" misplaced="YES" id="p4c-KX-rtb">
+                                    <button verticalHuggingPriority="750" id="p4c-KX-rtb">
                                         <rect key="frame" x="33" y="128" width="423" height="18"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="check" title="force to use dark appearance" bezelStyle="regularSquare" imagePosition="left" inset="2" id="fYJ-2d-nMJ">
@@ -107,7 +107,7 @@
                                             <action selector="startDark:" target="xPF-f4-5kE" id="UHf-L1-3WD"/>
                                         </connections>
                                     </button>
-                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" id="UwX-gx-Asa">
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="UwX-gx-Asa">
                                         <rect key="frame" x="33" y="211" width="423" height="17"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Sensors update interval in seconds:" id="i4D-QB-sGd">
@@ -116,24 +116,24 @@
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                     </textField>
-                                    <slider verticalHuggingPriority="750" misplaced="YES" id="Ya9-5g-pGn">
-                                        <rect key="frame" x="35" y="184" width="419" height="18"/>
+                                    <slider verticalHuggingPriority="750" id="Ya9-5g-pGn">
+                                        <rect key="frame" x="35" y="183" width="419" height="18"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <sliderCell key="cell" controlSize="small" state="on" alignment="left" minValue="3" maxValue="10" doubleValue="3" tickMarkPosition="above" numberOfTickMarks="8" allowsTickMarkValuesOnly="YES" sliderType="linear" id="7Pa-AZ-KZo"/>
+                                        <sliderCell key="cell" controlSize="small" state="on" alignment="left" minValue="1" maxValue="10" doubleValue="3" tickMarkPosition="above" numberOfTickMarks="10" allowsTickMarkValuesOnly="YES" sliderType="linear" id="7Pa-AZ-KZo"/>
                                         <connections>
                                             <action selector="sliderMoved:" target="xPF-f4-5kE" id="xKi-fB-oft"/>
                                         </connections>
                                     </slider>
-                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" id="Fh3-7I-7E3">
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="Fh3-7I-7E3">
                                         <rect key="frame" x="33" y="163" width="57" height="14"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                        <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="3" id="sIn-60-xeQ">
+                                        <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="1" id="sIn-60-xeQ">
                                             <font key="font" metaFont="smallSystem"/>
                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                     </textField>
-                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" id="Bcs-rZ-HhR">
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="Bcs-rZ-HhR">
                                         <rect key="frame" x="394" y="163" width="62" height="14"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="10" id="LU8-lc-5MO">
@@ -142,7 +142,7 @@
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                     </textField>
-                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" id="PZk-C4-bs9">
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="PZk-C4-bs9">
                                         <rect key="frame" x="33" y="522" width="423" height="17"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="HWMonitorSMC" id="5gF-Ik-at1">
@@ -151,7 +151,7 @@
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                     </textField>
-                                    <button verticalHuggingPriority="750" misplaced="YES" id="ocn-rq-OF2">
+                                    <button verticalHuggingPriority="750" id="ocn-rq-OF2">
                                         <rect key="frame" x="33" y="485" width="423" height="18"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="check" title="use percentage to display memory usage" bezelStyle="regularSquare" imagePosition="left" inset="2" id="F5h-4I-FHU">
@@ -162,23 +162,23 @@
                                             <action selector="useMemoryPercentage:" target="xPF-f4-5kE" id="xdQ-VO-HdM"/>
                                         </connections>
                                     </button>
-                                    <box verticalHuggingPriority="750" misplaced="YES" boxType="separator" id="F9v-g6-vxS">
+                                    <box verticalHuggingPriority="750" boxType="separator" id="F9v-g6-vxS">
                                         <rect key="frame" x="35" y="469" width="96" height="5"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     </box>
-                                    <box verticalHuggingPriority="750" misplaced="YES" boxType="separator" id="sIO-nT-nvp">
+                                    <box verticalHuggingPriority="750" boxType="separator" id="sIO-nT-nvp">
                                         <rect key="frame" x="35" y="350" width="96" height="5"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     </box>
-                                    <box verticalHuggingPriority="750" misplaced="YES" boxType="separator" id="MQU-D2-YMb">
+                                    <box verticalHuggingPriority="750" boxType="separator" id="MQU-D2-YMb">
                                         <rect key="frame" x="35" y="234" width="96" height="5"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     </box>
-                                    <box verticalHuggingPriority="750" misplaced="YES" boxType="separator" id="Jij-IY-bWm">
+                                    <box verticalHuggingPriority="750" boxType="separator" id="Jij-IY-bWm">
                                         <rect key="frame" x="35" y="152" width="96" height="5"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     </box>
-                                    <button verticalHuggingPriority="750" misplaced="YES" id="dlz-ZL-1ph">
+                                    <button verticalHuggingPriority="750" id="dlz-ZL-1ph">
                                         <rect key="frame" x="33" y="93" width="423" height="18"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="check" title="always hide the vertical scroller" bezelStyle="regularSquare" imagePosition="left" inset="2" id="vMW-P5-ltW">
@@ -189,11 +189,11 @@
                                             <action selector="hideScroller:" target="xPF-f4-5kE" id="DJK-au-hHV"/>
                                         </connections>
                                     </button>
-                                    <box verticalHuggingPriority="750" misplaced="YES" boxType="separator" id="in4-AN-y6e">
+                                    <box verticalHuggingPriority="750" boxType="separator" id="in4-AN-y6e">
                                         <rect key="frame" x="35" y="81" width="96" height="5"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     </box>
-                                    <button verticalHuggingPriority="750" misplaced="YES" id="tx6-AT-DKU">
+                                    <button verticalHuggingPriority="750" id="tx6-AT-DKU">
                                         <rect key="frame" x="33" y="44" width="423" height="18"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="check" title="run HWMonitorSMC.app at login" bezelStyle="regularSquare" imagePosition="left" inset="2" id="Dyg-rv-2Gg">
@@ -204,7 +204,7 @@
                                             <action selector="setAsLoginItem:" target="xPF-f4-5kE" id="OWV-iJ-HOK"/>
                                         </connections>
                                     </button>
-                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" misplaced="YES" id="eB4-pk-qSH">
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="eB4-pk-qSH">
                                         <rect key="frame" x="18" y="27" width="444" height="11"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <textFieldCell key="cell" controlSize="mini" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="right" title="(applied to the next execution)" id="h2D-rP-QYL">
@@ -213,7 +213,7 @@
                                             <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
                                         </textFieldCell>
                                     </textField>
-                                    <button verticalHuggingPriority="750" misplaced="YES" id="mgE-Fa-Utu">
+                                    <button verticalHuggingPriority="750" id="mgE-Fa-Utu">
                                         <rect key="frame" x="33" y="282" width="423" height="18"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="check" title="use the IOAccelerator's monitoring for GPUs" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="jea-Yr-Q5W">
@@ -224,7 +224,7 @@
                                             <action selector="useGPUIOAccelerator:" target="xPF-f4-5kE" id="Xns-f0-NPY"/>
                                         </connections>
                                     </button>
-                                    <box verticalHuggingPriority="750" misplaced="YES" boxType="separator" id="2i2-E0-7fT">
+                                    <box verticalHuggingPriority="750" boxType="separator" id="2i2-E0-7fT">
                                         <rect key="frame" x="35" y="304" width="96" height="5"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     </box>

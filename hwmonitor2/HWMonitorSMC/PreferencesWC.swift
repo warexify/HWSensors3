@@ -12,7 +12,7 @@ class PreferencesWC: NSWindowController, NSWindowDelegate {
   
   override func windowDidLoad() {
     super.windowDidLoad()
-    self.window?.appearance = NSAppearance(named: gAppearance )
+    self.window?.appearance = getAppearance()
   }
   
   class func loadFromNib() -> PreferencesWC {

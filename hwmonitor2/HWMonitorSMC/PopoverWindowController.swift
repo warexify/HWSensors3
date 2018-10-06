@@ -14,7 +14,7 @@ class PopoverWindowController: NSWindowController, NSWindowDelegate {
   
   override func windowDidLoad() {
     super.windowDidLoad()
-    self.window?.appearance = NSAppearance(named: gAppearance )
+    self.window?.appearance = getAppearance()
   }
   
   func windowDidResize(_ notification: Notification) {

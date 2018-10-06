@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="14460.23.1" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14109"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14460.23.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -10,7 +10,7 @@
         <scene sceneID="ib8-YQ-XrY">
             <objects>
                 <windowController storyboardIdentifier="Popover" id="yBe-Le-RmF" userLabel="HWWindowController" customClass="HWWindowController" customModule="HWMonitorSMC2" customModuleProvider="target" sceneMemberID="viewController">
-                    <window key="window" title="HWMonitorSMC" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" oneShot="NO" releasedWhenClosed="NO" showsToolbarButton="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="ZhW-fR-thW" customClass="HWWindow" customModule="HWMonitorSMC2" customModuleProvider="target">
+                    <window key="window" title="HWMonitorSMC" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="ZhW-fR-thW" customClass="HWWindow" customModule="HWMonitorSMC2" customModuleProvider="target">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" resizable="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
                         <rect key="contentRect" x="229" y="240" width="310" height="270"/>
@@ -126,7 +126,7 @@
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                     <subviews>
                                                                         <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="h2t-Kq-5X4" customClass="HWTextField">
-                                                                            <rect key="frame" x="0.0" y="2" width="175" height="14"/>
+                                                                            <rect key="frame" x="1" y="2" width="174" height="14"/>
                                                                             <textFieldCell key="cell" controlSize="small" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="gzL-lY-vMG">
                                                                                 <font key="font" metaFont="smallSystem"/>
                                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -163,7 +163,7 @@
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                     <subviews>
                                                                         <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="seT-aN-tWo" customClass="HWTextField">
-                                                                            <rect key="frame" x="0.0" y="2" width="82" height="14"/>
+                                                                            <rect key="frame" x="1" y="2" width="81" height="14"/>
                                                                             <textFieldCell key="cell" controlSize="small" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="HEQ-lO-R6O">
                                                                                 <font key="font" metaFont="smallSystem"/>
                                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -200,7 +200,7 @@
                                         <constraints>
                                             <constraint firstAttribute="width" constant="20" id="oVO-JV-cu5"/>
                                         </constraints>
-                                        <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="NSStopProgressFreestandingTemplate" imagePosition="overlaps" alignment="center" alternateImage="NSStopProgressFreestandingTemplate" focusRingType="none" imageScaling="proportionallyDown" inset="2" id="9ie-EO-0bE">
+                                        <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="NSStopProgressFreestandingTemplate" imagePosition="only" alignment="center" alternateImage="NSStopProgressFreestandingTemplate" focusRingType="none" imageScaling="proportionallyDown" inset="2" id="9ie-EO-0bE">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
@@ -235,7 +235,7 @@
                                         </connections>
                                     </button>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="7R0-QX-ifS">
-                                        <rect key="frame" x="61" y="8" width="188" height="14"/>
+                                        <rect key="frame" x="109" y="8" width="92" height="14"/>
                                         <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="HWMonitorSMC" id="vyO-yA-2EZ">
                                             <font key="font" metaFont="smallSystem"/>
                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -243,7 +243,7 @@
                                         </textFieldCell>
                                     </textField>
                                     <button focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="PoQ-h5-ji8">
-                                        <rect key="frame" x="284" y="4" width="22" height="22"/>
+                                        <rect key="frame" x="296" y="4" width="10" height="22"/>
                                         <buttonCell key="cell" type="bevel" bezelStyle="regularSquare" image="NSLockUnlockedTemplate" imagePosition="overlaps" alternateImage="NSLockLockedTemplate" state="on" focusRingType="none" inset="2" id="iZe-E7-fwz">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                             <font key="font" metaFont="system"/>
@@ -267,9 +267,9 @@
                                     <constraint firstItem="Ltb-EQ-zNd" firstAttribute="leading" secondItem="RPx-WM-PNq" secondAttribute="leading" constant="4" id="iJQ-0F-JXK"/>
                                     <constraint firstItem="OGf-vp-wlg" firstAttribute="top" secondItem="RPx-WM-PNq" secondAttribute="top" constant="20" symbolic="YES" id="jtI-YG-LnZ"/>
                                     <constraint firstItem="dKa-jB-CcI" firstAttribute="bottom" secondItem="NbD-Xu-Gaz" secondAttribute="bottom" id="mqG-uQ-Ll1"/>
-                                    <constraint firstItem="PoQ-h5-ji8" firstAttribute="leading" secondItem="7R0-QX-ifS" secondAttribute="trailing" constant="37" id="nSL-0a-Ic3"/>
+                                    <constraint firstItem="PoQ-h5-ji8" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="7R0-QX-ifS" secondAttribute="trailing" id="nSL-0a-Ic3"/>
                                     <constraint firstAttribute="bottom" secondItem="Ltb-EQ-zNd" secondAttribute="bottom" constant="4" id="ohQ-OK-hPl"/>
-                                    <constraint firstItem="7R0-QX-ifS" firstAttribute="leading" secondItem="Ltb-EQ-zNd" secondAttribute="trailing" constant="37" id="vcp-CG-W5D"/>
+                                    <constraint firstItem="7R0-QX-ifS" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Ltb-EQ-zNd" secondAttribute="trailing" id="vcp-CG-W5D"/>
                                     <constraint firstItem="NbD-Xu-Gaz" firstAttribute="trailing" secondItem="OGf-vp-wlg" secondAttribute="trailing" id="zeg-4o-Cbx"/>
                                 </constraints>
                             </visualEffectView>
@@ -295,7 +295,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="NSAdvanced" width="32" height="32"/>
+        <image name="NSAdvanced" width="128" height="128"/>
         <image name="NSLockLockedTemplate" width="10" height="14"/>
         <image name="NSLockUnlockedTemplate" width="10" height="14"/>
         <image name="NSStopProgressFreestandingTemplate" width="14" height="14"/>

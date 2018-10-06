@@ -24,7 +24,7 @@ class PreferencesVC: NSViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    self.effectView.appearance = NSAppearance(named: gAppearance)
+    self.effectView.appearance = getAppearance()
     getPreferences()
   }
   
@@ -39,7 +39,7 @@ class PreferencesVC: NSViewController {
     var timeInterval : TimeInterval = 3
     if (UserDefaults.standard.object(forKey: kSensorsTimeInterval) != nil) {
       timeInterval = UserDefaults.standard.double(forKey: kSensorsTimeInterval)
-      if timeInterval < 3 {
+      if timeInterval < 1 {
         timeInterval = 3
       }
     }

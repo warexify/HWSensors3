@@ -11,7 +11,7 @@ import Cocoa
 class RightClickWindowController: NSWindowController, NSWindowDelegate {
   override func windowDidLoad() {
     super.windowDidLoad()
-    self.window?.appearance = NSAppearance(named: gAppearance )
+    self.window?.appearance = getAppearance()
   }
 }
 
@@ -47,12 +47,57 @@ class RightClickViewController: NSViewController {
 }
 
 class HWOulineView: NSOutlineView, NSPopoverDelegate {
-  
+  private var appearanceObserver: NSKeyValueObservation?
   enum InfoViewSize : Int {
     case small  = 1
     case normal = 2
     case medium = 3
     case big    = 4
+  }
+  
+  override init(frame frameRect: NSRect) {
+    super.init(frame: frameRect)
+  }
+  
+  required init?(coder: NSCoder) {
+    super.init(coder: coder)!
+    if #available(OSX 10.14, *) {
+      self.appearanceObserver = self.observe(\.effectiveAppearance) { [weak self] _, _  in
+        self?.update()
+      }
+    }
+  }
+  
+  deinit {
+    if self.appearanceObserver != nil {
+      self.appearanceObserver!.invalidate()
+      self.appearanceObserver = nil
+    }
+  }
+  
+  func update() {
+    let forceDark = UserDefaults.standard.bool(forKey: kDark)
+    if !forceDark {
+      let appearance = getAppearance()
+      if let win = self.window {
+        win.animator().appearance = appearance
+        win.contentView?.appearance = appearance
+        win.titlebarAppearsTransparent = true
+        for v in (win.contentView?.subviews)! {
+          if v is NSVisualEffectView {
+            v.appearance = appearance
+          }
+        }
+      }
+      
+      let scroller : NSScrollView? = self.enclosingScrollView
+      let clipView : NSClipView? = scroller?.contentView
+      scroller?.animator().appearance = appearance
+      clipView?.animator().appearance = appearance
+      self.animator().appearance = appearance
+      self.reloadData()
+    }
+    
   }
   
   func popoverDidClose(_ notification: Notification) {
@@ -101,7 +146,7 @@ class HWOulineView: NSOutlineView, NSPopoverDelegate {
         if (parent != nil) {
           if parent?.sensorData?.group == NSLocalizedString("GPUs", comment: "") {
             let index : Int = (node.parent?.mutableChildren.index(of: node))!
-            log = Graphics.init().getGraphicsInfo(primaryMatch: node.sensorData?.sensor?.characteristics, index: index)
+            log = Graphics.init().getGraphicsInfo(acpiPath: node.sensorData?.sensor?.characteristics, index: index)
             break
           }
         } else {
@@ -161,7 +206,7 @@ class HWOulineView: NSOutlineView, NSPopoverDelegate {
             if parent?.sensorData?.group == NSLocalizedString("GPUs", comment: "") {
               for n in node.mutableChildren {
                 size = .big
-                log = Graphics.init().getGraphicsInfo(primaryMatch: (n as? HWTreeNode)?.sensorData?.sensor?.characteristics, index: 0)
+                log = Graphics.init().getGraphicsInfo(acpiPath: (n as? HWTreeNode)?.sensorData?.sensor?.characteristics, index: 0)
                 break
               }
               break
@@ -352,7 +397,7 @@ class HWOulineView: NSOutlineView, NSPopoverDelegate {
   }
   
   private func getGPUInfo() -> String {
-    return Graphics.init().getGraphicsInfo(primaryMatch: nil, index: 0) + "\n"
+    return Graphics.init().getGraphicsInfo(acpiPath: nil, index: 0) + "\n"
   }
   
   private func getLPCBInfo() -> String {

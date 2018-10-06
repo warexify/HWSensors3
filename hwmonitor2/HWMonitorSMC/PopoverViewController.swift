@@ -108,14 +108,14 @@ class PopoverViewController: NSViewController, USBWatcherDelegate {
     let pin = NSImage(named: NSImage.Name(rawValue: "pin"))
     pin?.isTemplate = true
     self.attachButton.image = pin
-    self.effectView.appearance = NSAppearance(named: gAppearance)
+    self.effectView.appearance = getAppearance()
     if let version = Bundle.main.infoDictionary?["CFBundleVersion"]  as? String {
       self.versionLabel.stringValue = "HWMonitorSMC2 v" + version + " \(kTestVersion)"
     }
     
     self.lock.state = NSControl.StateValue.off
     
-    self.outline.appearance = NSAppearance(named: gAppearance) // bug in mojave Beta 1/2, NSOutlineView does not inherit the appearance
+    self.outline.appearance = getAppearance() // bug in mojave Beta 1/2, NSOutlineView does not inherit the appearance
     
     self.outline.delegate = self
     self.outline.dataSource = self
@@ -197,7 +197,7 @@ class PopoverViewController: NSViewController, USBWatcherDelegate {
     var timeInterval : TimeInterval = 3
     if (UserDefaults.standard.object(forKey: kSensorsTimeInterval) != nil) {
       timeInterval = UserDefaults.standard.double(forKey: kSensorsTimeInterval)
-      if timeInterval < 3 {
+      if timeInterval < 1 {
         timeInterval = 3
       }
     }
@@ -909,7 +909,7 @@ extension PopoverViewController: NSOutlineViewDataSource {
             } else {
               view?.textField?.stringValue = gName
             }
-            view?.textField?.textColor = (gAppearance == NSAppearance.Name.vibrantDark) ? NSColor.green : NSColor.controlTextColor
+            view?.textField?.textColor = (getAppearance().name == NSAppearance.Name.vibrantDark) ? NSColor.green : NSColor.controlTextColor
           } else {
             if node.sensorData?.sensor?.group == UInt(HDSmartLifeSensorGroup) {
               view?.textField?.stringValue = NSLocalizedString("Life", comment: "")
