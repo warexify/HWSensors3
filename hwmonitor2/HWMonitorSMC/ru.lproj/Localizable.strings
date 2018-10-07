@@ -8,8 +8,9 @@
 
 "CPU Frequencies" = "ЧАСТОТЫ ЦПУ";
 "CPU Temperatures" = "ТЕМПЕРАТУРЫ ЦПУ";
-"Temperatures" = "ТЕМПЕРАТУРЫ";
-"Frequencies" = "ЧАСТОТЫ";
+"Temperatures" = "ТЕМПЕРАТУРЫ"; // plural
+"Temperature" = "Температура"; // singular
+"Frequencies" = "ЧАСТОТЫ"; // singular
 "Multipliers" = "МНОЖИТЕЛИ";
 "Voltages" = "НАПРЯЖЕНИЯ";
 "Fans or Pumps" = "Вентиляторы или помпы";
@@ -24,6 +25,11 @@
 "Fan/Pump Speed rate" = "Использование вентилятора"; // GPU, when taken from PerformanceStatistics
 "Device Utilization" = "Использование"; // GPU, when taken from PerformanceStatistics
 "GPU Activity" = "Нагрузка видеокарты"; // GPU, when taken from PerformanceStatistics
+"GPU Core Utilization" = "Использование графического ядра"; // GPU, when taken from PerformanceStatistics
+"Device Unit %d Utilization" = "Использование устройства %d"; // GPU, when taken from PerformanceStatistics
+"GPU Video Engine Utilization" = "Использование видеодвижка"; // GPU, when taken from PerformanceStatistics
+"Used VRAM" = "Занято видеопамяти"; // GPU, when taken from PerformanceStatistics
+"Free VRAM" = "Свободно видеопамяти"; // GPU, when taken from PerformanceStatistics
 
 "Total" = "Всего"; // RAM
 "Active" = "Aктивная"; // RAM

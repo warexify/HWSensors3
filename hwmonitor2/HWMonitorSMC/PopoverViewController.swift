@@ -121,6 +121,7 @@ class PopoverViewController: NSViewController, USBWatcherDelegate {
     self.outline.dataSource = self
     self.outline.doubleAction = #selector(self.clicked)
     self.outline.enclosingScrollView?.verticalScroller?.controlSize = .mini
+
     self.initialize()
   }
   
@@ -180,6 +181,7 @@ class PopoverViewController: NSViewController, USBWatcherDelegate {
   }
   
   @IBAction func reattachPopover(_ sender: NSButton) {
+    print("reattachPopover")
     let shared = NSApplication.shared.delegate as! AppDelegate
     if let button = shared.statusItem.button {
       button.performClick(button)
@@ -480,6 +482,13 @@ class PopoverViewController: NSViewController, USBWatcherDelegate {
     
     self.initiated = true
     self.outline.reloadData()
+    
+    /*
+    for t in self.outline.tableColumns {
+      if t.identifier.rawValue == "column1" {
+        t.sizeToFit()
+      }
+    }*/
     
     
     if (self.CPUFrequenciesNode != nil) && (self.expandCPUFrequencies || self.expandAll) {
@@ -1030,12 +1039,12 @@ extension PopoverViewController {
       let frame = NSScreen.main?.frame
       newLocation.x     = frame!.size.width - mouseLocation.x
       newLocation.y     = frame!.size.height - mouseLocation.y
-      if newLocation.x < 310 {
-        newLocation.x = 310
+      if newLocation.x < kMinWidth {
+        newLocation.x = kMinWidth
       }
       
-      if newLocation.y < 270 {
-        newLocation.y = 270
+      if newLocation.y < kMinHeight {
+        newLocation.y = kMinHeight
       }
       popover.contentSize = NSSize(width: newLocation.x, height: newLocation.y)
       UserDefaults.standard.set(newLocation.x, forKey: kPopoverWidth)

@@ -10,7 +10,8 @@
 
 "CPU Frequencies" = "CPU频率";
 "CPU Temperatures" = "CPU温度";
-"Temperatures" = "温度";
+"Temperatures" = "温度"; // plural
+"Temperature" = "温度"; // singular
 "Frequencies" = "频率";
 "Multipliers" = "倍频";
 "Voltages" = "电压";
@@ -26,6 +27,11 @@
 "Fan/Pump Speed rate" = "风机转速百分率"; //GPU, when taken from PerformanceStatistics
 "Device Utilization" = "显存控制器负载率"; //GPU, when taken from PerformanceStatistics
 "GPU Activity" = "GPU负载率"; //GPU, when taken from PerformanceStatistics
+"GPU Core Utilization" = "GPU Core Utilization"; // GPU, when taken from PerformanceStatistics
+"Device Unit %d Utilization" = "Device Unit %d Utilization"; // GPU, when taken from PerformanceStatistics
+"GPU Video Engine Utilization" = "GPU Video Engine Utilization"; // GPU, when taken from PerformanceStatistics
+"Used VRAM" = "Used VRAM"; // GPU, when taken from PerformanceStatistics
+"Free VRAM" = "Free VRAM"; // GPU, when taken from PerformanceStatistics
 
 "Total" = "物理总内存"; // RAM
 "Active" = "正或刚使用"; // RAM

@@ -11,7 +11,8 @@
 
 "CPU Frequencies" = "CPU 주파수";
 "CPU Temperatures" = "CPU 온도";
-"Temperatures" = "온도";
+"Temperatures" = "온도";  // plural
+"Temperature" = "온도";  // singular
 "Frequencies" = "주파수";
 "Multipliers" = "배수";
 "Voltages" = "전압";
@@ -27,6 +28,11 @@
 "Fan/Pump Speed rate" = "팬/펌프 정격 속도"; //GPU, when taken from PerformanceStatistics
 "Device Utilization" = "장치 사용률"; //GPU, when taken from PerformanceStatistics
 "GPU Activity" = "GPU 활동"; //GPU, when taken from PerformanceStatistics
+"GPU Core Utilization" = "GPU Core Utilization"; // GPU, when taken from PerformanceStatistics
+"Device Unit %d Utilization" = "Device Unit %d Utilization"; // GPU, when taken from PerformanceStatistics
+"GPU Video Engine Utilization" = "GPU Video Engine Utilization"; // GPU, when taken from PerformanceStatistics
+"Used VRAM" = "Used VRAM"; // GPU, when taken from PerformanceStatistics
+"Free VRAM" = "Free VRAM"; // GPU, when taken from PerformanceStatistics
 
 "Total" = "전체"; // RAM
 "Active" = "활성화"; // RAM

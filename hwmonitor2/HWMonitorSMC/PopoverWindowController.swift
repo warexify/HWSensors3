@@ -23,12 +23,12 @@ class PopoverWindowController: NSWindowController, NSWindowDelegate {
       var width : CGFloat = (frame?.width)!
       var height : CGFloat = (frame?.height)!
       
-      if width < 310 {
-        width = 310
+      if width < kMinWidth {
+        width = kMinWidth
       }
       
-      if height < 270 {
-        height = 270
+      if height < kMinHeight {
+        height = kMinHeight
       }
       
       UserDefaults.standard.set(frame?.width, forKey: kPopoverWidth)

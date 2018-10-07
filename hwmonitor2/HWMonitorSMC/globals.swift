@@ -8,7 +8,7 @@
 
 import Cocoa
 
-let kTestVersion            = "NVIDIA Test 3"
+let kTestVersion            = ""
 
 let kRunAtLogin             = "runAtLogin"
 let kHideVerticalScroller   = "hideVerticalScroller"
@@ -25,11 +25,8 @@ let kExpandAll              = "expandAll"
 let kDontShowEmpty          = "dontshowEmpty"
 let kUseGPUIOAccelerator    = "useGPUIOAccelerator"
 
-/*
-let gAppearance = (UserDefaults.standard.string(forKey: kAppleInterfaceStyle) == kDark ||
-    UserDefaults.standard.bool(forKey: kDark)) ?
-        NSAppearance.Name.vibrantDark :
-    NSAppearance.Name.vibrantLight*/
+let kMinWidth  : CGFloat = 350
+let kMinHeight : CGFloat = 270
 
 let gHideVerticalScroller : Bool = UserDefaults.standard.bool(forKey: kHideVerticalScroller)
 

@@ -146,7 +146,7 @@ class HWOulineView: NSOutlineView, NSPopoverDelegate {
         if (parent != nil) {
           if parent?.sensorData?.group == NSLocalizedString("GPUs", comment: "") {
             let index : Int = (node.parent?.mutableChildren.index(of: node))!
-            log = Graphics.init().getGraphicsInfo(acpiPath: node.sensorData?.sensor?.characteristics, index: index)
+            log = Graphics.init().getGraphicsInfo(acpiPathOrPrimaryMatch: node.sensorData?.sensor?.characteristics, index: index)
             break
           }
         } else {
@@ -206,7 +206,7 @@ class HWOulineView: NSOutlineView, NSPopoverDelegate {
             if parent?.sensorData?.group == NSLocalizedString("GPUs", comment: "") {
               for n in node.mutableChildren {
                 size = .big
-                log = Graphics.init().getGraphicsInfo(acpiPath: (n as? HWTreeNode)?.sensorData?.sensor?.characteristics, index: 0)
+                log = Graphics.init().getGraphicsInfo(acpiPathOrPrimaryMatch: (n as? HWTreeNode)?.sensorData?.sensor?.characteristics, index: 0)
                 break
               }
               break
@@ -397,7 +397,7 @@ class HWOulineView: NSOutlineView, NSPopoverDelegate {
   }
   
   private func getGPUInfo() -> String {
-    return Graphics.init().getGraphicsInfo(acpiPath: nil, index: 0) + "\n"
+    return Graphics.init().getGraphicsInfo(acpiPathOrPrimaryMatch: nil, index: 0) + "\n"
   }
   
   private func getLPCBInfo() -> String {

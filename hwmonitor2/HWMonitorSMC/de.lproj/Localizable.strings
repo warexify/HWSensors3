@@ -11,7 +11,8 @@
 
 "CPU Frequencies" = "CPU Frequenzen";
 "CPU Temperatures" = "CPU Temperaturen";
-"Temperatures" = "Temperaturen";
+"Temperatures" = "Temperaturen"; // plural
+"Temperature" = "Temperatur"; // singular
 "Frequencies" = "Frequenzen";
 "Multipliers" = "Multiplikatoren";
 "Voltages" = "Spannungen";
@@ -27,6 +28,11 @@
 "Fan/Pump Speed rate" = "Lüfter/Pumpen Drehzahl"; //GPU, when taken from PerformanceStatistics
 "Device Utilization" = "Geräteauslastung"; //GPU, when taken from PerformanceStatistics
 "GPU Activity" = "GPU-Aktivität"; //GPU, when taken from PerformanceStatistics
+"GPU Core Utilization" = "GPU Core Utilization"; // GPU, when taken from PerformanceStatistics
+"Device Unit %d Utilization" = "Device Unit %d Utilization"; // GPU, when taken from PerformanceStatistics
+"GPU Video Engine Utilization" = "GPU Video Engine Utilization"; // GPU, when taken from PerformanceStatistics
+"Used VRAM" = "Used VRAM"; // GPU, when taken from PerformanceStatistics
+"Free VRAM" = "Free VRAM"; // GPU, when taken from PerformanceStatistics
 
 "Total" = "Total"; // RAM
 "Active" = "Aktiv"; // RAM
