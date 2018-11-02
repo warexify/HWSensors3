@@ -17,15 +17,61 @@ class RightClickWindowController: NSWindowController, NSWindowDelegate {
 
 class RightClickViewController: NSViewController {
   @IBOutlet var textView : NSTextView!
+  @IBOutlet var graphButton: NSButton!
+  var loaded : Bool = false
+  var outLine: HWOulineView? = nil
+  var node: HWTreeNode? = nil
+  
   override func viewDidLoad() {
     super.viewDidLoad()
   }
   
+  override func viewDidAppear() {
+    if !self.loaded {
+      if let sensor = self.node?.sensorData?.sensor {
+        if sensor.canPlot {
+          self.graphButton.image = NSImage(named: ((sensor.plot == nil) ? "freq_small" : "freq_small_on"))
+        } else {
+          self.graphButton.isEnabled = false
+          self.graphButton.isHidden = true
+        }
+      } else {
+        self.graphButton.isEnabled = false
+        self.graphButton.isHidden = true
+      }
+      self.loaded = true
+    }
+  }
   
-  func loadFromNib() -> RightClickViewController {
-    let s = NSStoryboard(name: NSStoryboard.Name(rawValue: "Info"), bundle: nil)
-    let vc = s.instantiateController(withIdentifier: NSStoryboard.SceneIdentifier(rawValue: "Info"))
-    return vc as! RightClickViewController
+  override func viewDidDisappear() {
+    if let out = self.outLine {
+      let row : Int = out.row(forItem: self.node)
+      if row >= 0 {
+        DispatchQueue.main.async {
+          out.reloadData(forRowIndexes: IndexSet(integer: row), columnIndexes: IndexSet(integer: 3))
+        }
+      }
+    }
+  }
+  
+  class func loadFromNib(node: HWTreeNode, outline: HWOulineView) -> RightClickViewController {
+    let s = NSStoryboard(name: "Info", bundle: nil)
+    let vc = s.instantiateController(withIdentifier:"Info") as! RightClickViewController
+    vc.outLine = outline
+    vc.node = node
+    return vc
+  }
+  
+  @IBAction func showPlot(_ sender: Any?) {
+    if let sensor = self.node?.sensorData?.sensor {
+      if sensor.canPlot && sensor.hasPlot {
+        sensor.removePlot()
+        self.graphButton.image = NSImage(named: "freq_small")
+      } else {
+        sensor.addPlot()
+        self.graphButton.image = NSImage(named: "freq_small_on")
+      }
+    }
   }
   
   @IBAction func copyToPasteboard(_ sender: Any?) {
@@ -54,7 +100,7 @@ class HWOulineView: NSOutlineView, NSPopoverDelegate {
     case medium = 3
     case big    = 4
   }
-  
+
   override init(frame frameRect: NSRect) {
     super.init(frame: frameRect)
   }
@@ -101,8 +147,7 @@ class HWOulineView: NSOutlineView, NSPopoverDelegate {
   }
   
   func popoverDidClose(_ notification: Notification) {
-    let shared = NSApplication.shared.delegate as! AppDelegate
-    if let popover = (shared.hwWC?.contentViewController as! HWViewController).popover {
+    if let popover = (AppSd.hwWC?.contentViewController as? HWViewController)?.popover {
       if (self.window != nil) && !(self.window?.isKeyWindow)! {
         if popover.isShown {
           popover.close()
@@ -119,7 +164,9 @@ class HWOulineView: NSOutlineView, NSPopoverDelegate {
       var rowView : NSView? = nil
       let pop : NSPopover? = self.getLogPopOverForNode(item, at: row, rowView: &rowView)
       if (pop != nil && rowView != nil) {
-        pop?.show(relativeTo: (rowView?.bounds)!, of: rowView!, preferredEdge: NSRectEdge.maxX)
+        DispatchQueue.main.async {
+          pop?.show(relativeTo: (rowView?.bounds)!, of: rowView!, preferredEdge: NSRectEdge.maxX)
+        }
       }
     }
     
@@ -129,22 +176,22 @@ class HWOulineView: NSOutlineView, NSPopoverDelegate {
   private func getLogPopOverForNode(_ node: HWTreeNode, at row: Int, rowView: inout NSView?) -> NSPopover? {
     var log : String? = nil
     var size : InfoViewSize = .normal
-    if ((node.sensorData?.sensor?.group) != nil) {
+    if ((node.sensorData?.sensor?.sensorType) != nil) {
       let logType : LogType = (node.sensorData?.sensor?.logType)!
       
       switch logType {
-      case NoLog: break
-      case SystemLog:
+      case .noLog: break
+      case .systemLog:
         size = .big
         log = self.getSystemInfo()
-      case CPULog:
+      case .cpuLog:
         size = .medium
         log = self.getCPUInfo()
-      case GPULog:
+      case .gpuLog:
         size = .big
         let parent : HWTreeNode? = node.parent?.parent as? HWTreeNode
         if (parent != nil) {
-          if parent?.sensorData?.group == NSLocalizedString("GPUs", comment: "") {
+          if parent?.sensorData?.group == "GPUs".locale() {
             let index : Int = (node.parent?.mutableChildren.index(of: node))!
             log = Graphics.init().getGraphicsInfo(acpiPathOrPrimaryMatch: node.sensorData?.sensor?.characteristics, index: index)
             break
@@ -154,13 +201,13 @@ class HWOulineView: NSOutlineView, NSPopoverDelegate {
           log = self.getGPUInfo()
         }
         
-      case MediaLog:
+      case .mediaLog:
         size = .normal
         log = node.sensorData?.sensor?.characteristics
-      case MemoryLog:
+      case .memoryLog:
         size = .normal
         log = self.getMemoryInfo()
-      case BatteryLog:
+      case .batteryLog:
         size = .normal
         log = self.getBatteryInfo()
       default:
@@ -170,23 +217,26 @@ class HWOulineView: NSOutlineView, NSPopoverDelegate {
       //we are on a parent
       if let groupString = node.sensorData?.group {
         switch groupString {
-        case NSLocalizedString("CPU Temperatures", comment: ""): fallthrough
-        case NSLocalizedString("CPU Frequencies", comment: ""):
+        case "Core Temperatures".locale(): fallthrough
+        case "Core Frequencies".locale():  fallthrough
+        case "CPU".locale():
           size = .medium
           log = self.getCPUInfo()
-        case NSLocalizedString("RAM", comment: ""):
+        case "RAM".locale():
           size = .normal
           log = self.getMemoryInfo()
-        case NSLocalizedString("GPUs", comment: ""):
+        case "GPUs".locale():
           size = .medium
           log = self.getGPUInfo()
-        case NSLocalizedString("Batteries", comment: ""):
+        case "Batteries".locale():
           size = .normal
           log = self.getBatteryInfo()
-        case NSLocalizedString("System", comment: ""):
+        case "System".locale(): fallthrough
+        case "Fans or Pumps".locale(): fallthrough
+        case "Motherboard".locale():
           size = .big
           log = self.getSystemStatus()
-        case NSLocalizedString("Media health", comment: ""):
+        case "Media health".locale():
           var allDrivesInfo : String = ""
           for diskNode in node.children! {
             if let disk : HWTreeNode = diskNode as? HWTreeNode {
@@ -203,7 +253,7 @@ class HWOulineView: NSOutlineView, NSPopoverDelegate {
         default:
           let parent : HWTreeNode? = node.parent as? HWTreeNode
           if (parent != nil) {
-            if parent?.sensorData?.group == NSLocalizedString("GPUs", comment: "") {
+            if parent?.sensorData?.group == "GPUs".locale() {
               for n in node.mutableChildren {
                 size = .big
                 log = Graphics.init().getGraphicsInfo(acpiPathOrPrimaryMatch: (n as? HWTreeNode)?.sensorData?.sensor?.characteristics, index: 0)
@@ -231,10 +281,13 @@ class HWOulineView: NSOutlineView, NSPopoverDelegate {
       
       pop.behavior = .transient
       pop.animates = true
-      let vc = RightClickViewController().loadFromNib()
+      let vc = RightClickViewController.loadFromNib(node: node, outline: self)
       vc.view.setFrameSize(pop.contentSize)
       let attrLog = NSMutableAttributedString(string: log!)
-      attrLog.addAttributes([NSAttributedStringKey.font : gLogFont],
+      
+      //NSFont.userFixedPitchFont(ofSize: gLogFont.pointSize)
+      
+      attrLog.addAttributes([NSAttributedString.Key.font : gLogFont],
                             range: NSMakeRange(0, attrLog.length))
       vc.textView.textStorage?.append(attrLog)
       vc.textView.textContainerInset = NSMakeSize(0, 0)
@@ -252,7 +305,14 @@ class HWOulineView: NSOutlineView, NSPopoverDelegate {
     statusString += "CPU:\n"
     statusString += "\tName:\t\t\(System.sysctlbynameString("machdep.cpu.brand_string"))\n"
     statusString += "\tVendor:\t\t\(System.sysctlbynameString("machdep.cpu.vendor"))\n"
-    statusString += "\tPhysical cores:\t\(System.physicalCores())\n"
+    let pkgCount = gCPUPackageCount()
+    if pkgCount > 1 {
+      statusString += "\tCPU count:\t\t\(pkgCount)\n"
+      statusString += "\tCores per CPU:\t\(System.physicalCores())\n"
+    } else {
+      statusString += "\tPhysical cores:\t\(System.physicalCores())\n"
+    }
+    
     statusString += "\tLogical cores:\t\(System.logicalCores())\n"
     statusString += "\tFamily:\t\t\(System.sysctlbynameInt("machdep.cpu.family"))\n"
     statusString += String(format: "\tModel:\t\t0x%X\n", System.sysctlbynameInt("machdep.cpu.model"))
@@ -492,6 +552,19 @@ class HWOulineView: NSOutlineView, NSPopoverDelegate {
     return statusString
   }
   
+  private func getSMCkeys() -> String {
+    var statusString : String = ""
+    let keys = gSMC.dumpSMCKeys()
+    if keys.count > 0 {
+      statusString += "\nSMC DUMP:\n\n"
+      let lines = keys.components(separatedBy: "\n")
+      for line in lines {
+        statusString += "\t\(line)\n"
+      }
+    }
+    return statusString
+  }
+  
   private func getSystemStatus() -> String {
     var statusString : String = ""
     statusString += "MACHINE STATUS:\n\n"
@@ -509,6 +582,7 @@ class HWOulineView: NSOutlineView, NSPopoverDelegate {
     statusString += USBControllers.getUSBControllersInfo()
     statusString += self.getUSBInfo()
     statusString += self.getNETInfo()
+    statusString += self.getSMCkeys()
     return statusString
   }
 }

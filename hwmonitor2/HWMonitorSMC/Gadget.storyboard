@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="14460.23.1" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14460.23.1"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Window Controller-->
+        <scene sceneID="yl3-rn-BcC">
+            <objects>
+                <windowController storyboardIdentifier="Gadget" id="uER-lA-G9p" customClass="GadgetWC" customModule="HWMonitorSMC2" customModuleProvider="target" sceneMemberID="viewController">
+                    <window key="window" title="Gadget" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" hasShadow="NO" visibleAtLaunch="NO" frameAutosaveName="Gadget_Auto" animationBehavior="default" id="41M-tx-uOI">
+                        <windowStyleMask key="styleMask" resizable="YES"/>
+                        <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
+                        <rect key="contentRect" x="1361" y="827" width="200" height="17"/>
+                        <rect key="screenRect" x="0.0" y="0.0" width="1600" height="877"/>
+                        <value key="minSize" type="size" width="80" height="17"/>
+                        <value key="maxSize" type="size" width="200" height="17"/>
+                        <value key="minFullScreenContentSize" type="size" width="200" height="17"/>
+                        <value key="maxFullScreenContentSize" type="size" width="200" height="17"/>
+                        <connections>
+                            <outlet property="delegate" destination="uER-lA-G9p" id="UD8-ba-oOk"/>
+                        </connections>
+                    </window>
+                    <connections>
+                        <segue destination="Ktw-Q3-kUX" kind="relationship" relationship="window.shadowedContentViewController" id="kwe-8f-Vyd"/>
+                    </connections>
+                </windowController>
+                <customObject id="RJ8-4B-45y" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-42" y="150"/>
+        </scene>
+        <!--GadgetVC-->
+        <scene sceneID="b8t-8K-lDj">
+            <objects>
+                <viewController id="Ktw-Q3-kUX" customClass="GadgetVC" customModule="HWMonitorSMC2" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" id="LlF-0h-Y5h">
+                        <rect key="frame" x="0.0" y="0.0" width="200" height="17"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <visualEffectView appearanceType="vibrantDark" blendingMode="behindWindow" material="menu" state="active" translatesAutoresizingMaskIntoConstraints="NO" id="s9d-UN-xiN">
+                                <rect key="frame" x="0.0" y="0.0" width="200" height="17"/>
+                                <subviews>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A6t-HJ-lQa" customClass="GadgetField" customModule="HWMonitorSMC2" customModuleProvider="target">
+                                        <rect key="frame" x="23" y="0.0" width="172" height="17"/>
+                                        <textFieldCell key="cell" lineBreakMode="truncatingHead" allowsUndo="NO" title="Label" usesSingleLineMode="YES" id="GKX-d1-sYU">
+                                            <font key="font" usesAppearanceFont="YES"/>
+                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
+                                    <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Rrl-SK-6UR">
+                                        <rect key="frame" x="3" y="0.0" width="17" height="17"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="17" id="exd-Zk-n4c"/>
+                                        </constraints>
+                                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="temperature_small" id="tpQ-Vo-a1f"/>
+                                    </imageView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="A6t-HJ-lQa" secondAttribute="trailing" constant="7" id="2hz-J0-YUX"/>
+                                    <constraint firstItem="Rrl-SK-6UR" firstAttribute="top" secondItem="A6t-HJ-lQa" secondAttribute="top" id="74n-fO-7vv"/>
+                                    <constraint firstItem="Rrl-SK-6UR" firstAttribute="leading" secondItem="s9d-UN-xiN" secondAttribute="leading" constant="3" id="Aq1-rA-UDW"/>
+                                    <constraint firstItem="A6t-HJ-lQa" firstAttribute="leading" secondItem="Rrl-SK-6UR" secondAttribute="trailing" constant="5" id="EbQ-j9-uj2"/>
+                                    <constraint firstItem="Rrl-SK-6UR" firstAttribute="top" secondItem="s9d-UN-xiN" secondAttribute="top" id="xhs-ip-d07"/>
+                                </constraints>
+                            </visualEffectView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="s9d-UN-xiN" firstAttribute="leading" secondItem="LlF-0h-Y5h" secondAttribute="leading" id="9EB-ct-fUR"/>
+                            <constraint firstItem="s9d-UN-xiN" firstAttribute="top" secondItem="LlF-0h-Y5h" secondAttribute="top" id="Fbo-8h-VXD"/>
+                            <constraint firstAttribute="trailing" secondItem="s9d-UN-xiN" secondAttribute="trailing" id="T86-uR-9jC"/>
+                            <constraint firstAttribute="bottom" secondItem="s9d-UN-xiN" secondAttribute="bottom" id="Z0R-S6-1OP"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="statusField" destination="A6t-HJ-lQa" id="Hag-Rb-T1U"/>
+                    </connections>
+                </viewController>
+                <customObject id="a6H-0C-yQL" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="692" y="133.5"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="temperature_small" width="15" height="17"/>
+    </resources>
+</document>

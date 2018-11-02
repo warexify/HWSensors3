@@ -9,10 +9,10 @@
 import Cocoa
 
 public class HWSensorData: NSObject {
-  var group   : String
-  var sensor  : HWMonitorSensor?
-  var isLeaf  : Bool = false
-  required public init(group: String, sensor: HWMonitorSensor?, isLeaf: Bool) {
+  var group    : String
+  var sensor   : HWMonitorSensor?
+  var isLeaf   : Bool = false
+  required init(group: String, sensor: HWMonitorSensor?, isLeaf: Bool) {
     self.group    = group
     self.sensor   = sensor
     self.isLeaf   = isLeaf

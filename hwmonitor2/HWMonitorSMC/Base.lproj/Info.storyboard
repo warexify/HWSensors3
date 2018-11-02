@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="14460.23.1" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14109"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14460.23.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -23,13 +23,13 @@
                                         <textView editable="NO" drawsBackground="NO" importsGraphics="NO" richText="NO" verticallyResizable="YES" findStyle="panel" allowsCharacterPickerTouchBarItem="NO" textCompletion="NO" id="Rr7-6e-MtL">
                                             <rect key="frame" x="0.0" y="0.0" width="436" height="274"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
                                             <size key="minSize" width="436" height="274"/>
                                             <size key="maxSize" width="463" height="10000000"/>
-                                            <color key="insertionPointColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                            <color key="insertionPointColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                         </textView>
                                     </subviews>
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </clipView>
                                 <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="YES" id="7tI-nO-aMu">
                                     <rect key="frame" x="-100" y="-100" width="87" height="18"/>
@@ -41,10 +41,7 @@
                                 </scroller>
                             </scrollView>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="wPL-15-BTZ">
-                                <rect key="frame" x="147" y="4" width="155" height="19"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="155" id="1pE-4Y-Ugs"/>
-                                </constraints>
+                                <rect key="frame" x="167" y="4" width="116" height="19"/>
                                 <buttonCell key="cell" type="roundRect" title="copy to clip board" bezelStyle="roundedRect" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="qRX-F6-ppe">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="cellTitle"/>
@@ -53,17 +50,31 @@
                                     <action selector="copyToPasteboard:" target="oej-gH-Iw1" id="1wh-Og-9Rs"/>
                                 </connections>
                             </button>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="KqV-C1-2mD">
+                                <rect key="frame" x="20" y="4" width="63" height="19"/>
+                                <buttonCell key="cell" type="roundRect" bezelStyle="roundedRect" image="freq_small" imagePosition="only" alignment="center" alternateImage="freq_small" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="ewT-Gk-e5V">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="cellTitle"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="showPlot:" target="oej-gH-Iw1" id="D2z-Wb-Shg"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <constraints>
+                            <constraint firstItem="wPL-15-BTZ" firstAttribute="leading" secondItem="KqV-C1-2mD" secondAttribute="trailing" constant="84" id="4c7-Ag-8Td"/>
                             <constraint firstItem="1km-gQ-OaH" firstAttribute="top" secondItem="e9M-vA-uva" secondAttribute="top" id="JEG-df-pcw"/>
                             <constraint firstItem="wPL-15-BTZ" firstAttribute="top" secondItem="1km-gQ-OaH" secondAttribute="bottom" constant="3" id="L94-lw-84a"/>
+                            <constraint firstItem="KqV-C1-2mD" firstAttribute="leading" secondItem="e9M-vA-uva" secondAttribute="leading" constant="20" symbolic="YES" id="MgN-Tu-HnG"/>
                             <constraint firstItem="wPL-15-BTZ" firstAttribute="centerX" secondItem="e9M-vA-uva" secondAttribute="centerX" id="NM2-eh-i8T"/>
                             <constraint firstAttribute="trailing" secondItem="1km-gQ-OaH" secondAttribute="trailing" constant="6" id="XZF-Rj-CF9"/>
                             <constraint firstItem="1km-gQ-OaH" firstAttribute="leading" secondItem="e9M-vA-uva" secondAttribute="leading" constant="8" id="cTF-e8-tRh"/>
+                            <constraint firstItem="KqV-C1-2mD" firstAttribute="top" secondItem="wPL-15-BTZ" secondAttribute="top" id="lwN-HH-N3a"/>
                             <constraint firstAttribute="bottom" secondItem="wPL-15-BTZ" secondAttribute="bottom" constant="5" id="vgL-VM-dM1"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="graphButton" destination="KqV-C1-2mD" id="FBG-i8-xlm"/>
                         <outlet property="textView" destination="Rr7-6e-MtL" id="nud-2x-dWk"/>
                     </connections>
                 </viewController>
@@ -72,4 +83,7 @@
             <point key="canvasLocation" x="20" y="190"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="freq_small" width="30" height="16"/>
+    </resources>
 </document>

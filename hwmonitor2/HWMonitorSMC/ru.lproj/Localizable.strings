@@ -6,68 +6,89 @@
   Copyright © 2018 HWSensor. All rights reserved.
 */
 
-"CPU Frequencies" = "ЧАСТОТЫ ЦПУ";
-"CPU Temperatures" = "ТЕМПЕРАТУРЫ ЦПУ";
-"Temperatures" = "ТЕМПЕРАТУРЫ"; // plural
+// translated by Andrey1970
+
+"Core Frequencies" = "Частоты ядер﻿";      // CPU frequencies sub group
+"Core Temperatures" = "Температуры ядер"; // CPU temperature sub group
 "Temperature" = "Температура"; // singular
-"Frequencies" = "ЧАСТОТЫ"; // singular
-"Multipliers" = "МНОЖИТЕЛИ";
-"Voltages" = "НАПРЯЖЕНИЯ";
-"Fans or Pumps" = "Вентиляторы или помпы";
+"Temperatures" = "Темературы"; // plural
+"Frequency"   = "Частота";     // singular
+"Frequencies" = "Частоты";     // plural
+
+"Multipliers" = "Множители";
+"Voltage" = "Напряжение";   // singular
+"Voltages" = "Напряжения"; // plural
+"Amperage" = "Ток";
 "Batteries" = "Батареи";
 "Media health" = "Целостность дисков";
 "Life" = "Жизнь"; // hdd/ssd life
-"Tеmperature" = "Tемпература"; // hdd/ssd tеmperature //GPU, when taken from PerformanceStatistics
 
-"GPUs" = "Графика"; // GPU, when taken from PerformanceStatistics
-"Core Clock" = "Частота ядра"; // GPU, when taken from PerformanceStatistics
-"Fan/Pump Speed" = "Скорость вентилятора"; // GPU, when taken from PerformanceStatistics
-"Fan/Pump Speed rate" = "Использование вентилятора"; // GPU, when taken from PerformanceStatistics
-"Device Utilization" = "Использование"; // GPU, when taken from PerformanceStatistics
-"GPU Activity" = "Нагрузка видеокарты"; // GPU, when taken from PerformanceStatistics
-"GPU Core Utilization" = "Использование графического ядра"; // GPU, when taken from PerformanceStatistics
-"Device Unit %d Utilization" = "Использование устройства %d"; // GPU, when taken from PerformanceStatistics
-"GPU Video Engine Utilization" = "Использование видеодвижка"; // GPU, when taken from PerformanceStatistics
-"Used VRAM" = "Занято видеопамяти"; // GPU, when taken from PerformanceStatistics
-"Free VRAM" = "Свободно видеопамяти"; // GPU, when taken from PerformanceStatistics
+// Intel Power Gadget
+"Intel® Power Gadget info" = "Intel® Power Gadget info";
+"DRAM" = "ОЗУ";
+"Package Temperature" = "Температура пакета";
+"Package Power Limit﻿ (TDP)" = "Термопакет";
+"Max Temperature"  = "Максимальная температура";
+"Thresholds"       = "Пороги";
+"Base Frequency"   = "Базовая частота";
+"Max Frequency" = "Максимальная частота";
 
-"Total" = "Всего"; // RAM
-"Active" = "Aктивная"; // RAM
-"Inactive" = "Неактивная"; // RAM
-"Free" = "Свободная"; // RAM
-"Used" = "Используемая"; // RAM
-"Purgeable" = "Очищаемая"; // RAM
-"Wired" = "Связанная"; // RAM
+// GPU, when taken from PerformanceStatistics
+"GPUs" = "Графика";
+"Core Clock" = "Частота ядра";
+"Fan/Pump speed" = "Скорость вентилятора";
+"Fan/Pump speed rate" = "Использование вентилятора";
+"Utilization" = "Использование";
+"Activity" = "Активность";
+"Core Utilization" = "Использование ядра";
+"Device Unit %d Utilization" = "Использование устройства %d";
+"Video Engine Utilization" = "Использование видеодвижка";
+"Used VRAM" = "Использовано Видео-ОЗУ";
+"Free VRAM" = "Свободно Видео-ОЗУ";
 
-"CPU Proximity" = "Датчик ЦПУ";
-"CPU Heatsink" = "Радиатор ЦПУ";
-"Motherboard" = "Чипсет";
-"DIMM 0" = "DIMM 0";
-"DIMM 1" = "DIMM 1";
-"Ambient" = "Корпус";
-"GPU %d Board" = "GPU %d, плата";
-"GPU %d Proximity" = "GPU %d, оценка";
-"CPU %d Core" = "Ядро ЦПУ %d";
-"CPU %d Diode" = "ЦПУ %d";
+// RAM
+"Total" = "Всего";
+"Active" = "Активная";
+"Inactive" = "Неактивная";
+"Free" = "Свободная";
+"Used" = "Используемая";
+"Purgeable﻿" = "Очищаемая";
+"Wired" = "Связанная";
+
+"Proximity" = "Датчик";     // CPU or GPU
+"Heatsink" = "Радиатор";    // CPU or GPU
+"DIMM 0" = "Модуль ОЗУ 0";  // RAM
+"DIMM 1" = "Модуль ОЗУ 1";  // RAM
+"Ambient" = "Корпус";       // Motherboard
+"GPU %d Board" = "ГПУ %d плата";
+"GPU %d Proximity" = "ГПУ %d оценка";
+"Core %d" = "Ядро %d";    // CPU or GPU
+"Diode %d" = "Датчик %d"; // CPU or GPU
 "CPU %d" = "ЦПУ %d";
-"GPU %d Core" = "GPU %d, ядро";
-"GPU %d Shaders" = "GPU %d, шейдеры";
-"GPU %d Memory" = "GPU %d, память";
-"CPU %d Multiplier" = "Множитель ЦПУ %d";
-"CPU Package Multiplier" = "Пакетный множитель ЦПУ";
-"CPU Voltage" = "Вольтаж ЦПУ";
-"CPU VRM Voltage" = "Шина ЦПУ";
-"DIMM Voltage" = "Шина модулей DIMM";
-"+12V Bus Voltage" = "Шина +12В";
-"+5V Bus Voltage" = "Шина +5В";
-"-12V Bus Voltage" = "Шина -12В";
-"-5V Bus Voltage" = "Шина -5В";
-"3.3 VCC Voltage" = "Шина 3.3В VCC";
-"3.3 VSB Voltage" = "Шина 3.3В VSB";
-"3.3 AVCC Voltage" = "Шина 3.3 AVCC";
-"GPU %d Voltage" = "GPU %d, Вольтаж";
-"Fan %d" = "Вентилятор %d";
-"Battery Voltage" = "Напряжение батареи";
-"Battery Amperage" = "Ток батареи";
+"GPU %d Core" = "ГПУ %d ядро";
+"GPU %d Shaders" = "ГПУ %d шейдеры";
+"GPU %d Memory" = "ГПУ %d память";
+"GPU %d Voltage" = "ГПУ %d напряжение";
+"Core %d Multiplier" = "Ядро %d множитель";
+"Package Multiplier" = "Пакетный множитель";
 
-"log copied to clip board!" = "журнал скопированного";
+// Motherboard's:
+"Motherboard" = "Материнская плата";
+"VRM Voltage" = "Напряжение VRM";
+"DIMM Voltage" = "Напряжение ОЗУ";
+"+12V Bus Voltage" = "Напряжение +12В";
+"+5V Bus Voltage" = "Напряжение +5В";
+"-12V Bus Voltage" = "Напряжение -12В";
+"-5V Bus Voltage" = "Напряжение -5В";
+"3.3 VCC Voltage" = "Напряжение 3.3В VCC";
+"3.3 VSB Voltage" = "Напряжение 3.3В VSB";
+"3.3 AVCC Voltage" = "Напряжение 3.3В AVCC";
+
+// Fans
+"Fans or Pumps" = "Вентиляторы и помпы";
+"Fan %d" = "Вентилятор %d";
+"speed" = "обороты"; // rpm, all in lower case letters
+"min speed" = "мин. обороты"; // rpm, all in lower case letters
+"max speed" = "макс. обороты"; // rpm, all in lower case letters
+
+"log copied to clip board!" = "журнал скопирован в буфер обмена!";﻿

@@ -18,10 +18,8 @@ class HWViewController: NSViewController, NSPopoverDelegate {
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    
     self.popoverVC =
-      self.storyboard?.instantiateController(withIdentifier:
-        NSStoryboard.SceneIdentifier(rawValue: "PopoverViewController")) as? PopoverViewController
+      self.storyboard?.instantiateController(withIdentifier:"PopoverViewController") as? PopoverViewController
     
     var height : CGFloat = (self.popoverVC?.view.bounds.origin.y)!
     var width  : CGFloat = (self.popoverVC?.view.bounds.origin.x)!
@@ -65,8 +63,7 @@ class HWViewController: NSViewController, NSPopoverDelegate {
     
     self.detachableWindow?.appearance = getAppearance()
     
-    let shared = NSApplication.shared.delegate as! AppDelegate
-    if let button = shared.statusItem.button {
+    if let button = AppSd.statusItem.button {
       button.target = self
       button.action = #selector(self.showPopover(_:))
       button.sendAction(on: [.leftMouseUp, .rightMouseUp])
@@ -99,7 +96,7 @@ class HWViewController: NSViewController, NSPopoverDelegate {
     self.popoverVC?.attachButton.isEnabled = false
     self.popoverVC?.attachButton.isHidden = true
     self.createPopover()
-    self.popoverVC?.updateTitles()
+    //self.popoverVC?.updateTitles()
     NSApp.activate(ignoringOtherApps: true)
     self.popover?.show(relativeTo: (sender?.bounds)!, of: sender!, preferredEdge: NSRectEdge.maxY)
   }

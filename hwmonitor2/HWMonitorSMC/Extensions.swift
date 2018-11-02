@@ -8,6 +8,11 @@
 
 import Foundation
 
+extension String {
+  public func locale() -> String {
+    return NSLocalizedString(self, comment: "")
+  }
+}
 extension Data {
   public func hexadecimal() -> String {
     var hex : String = ""
@@ -38,3 +43,4 @@ extension UInt32 {
     return Data(bytes: &p, count: MemoryLayout<UInt32>.size)
   }
 }
+

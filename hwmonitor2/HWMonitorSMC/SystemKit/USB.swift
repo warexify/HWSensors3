@@ -84,7 +84,7 @@ public struct USBControllers {
    This ensure that all of it are show in the log without effectively be aware of them.
    */
   fileprivate static func getProperties(with prefix: String, in dict : NSDictionary) -> [String: String]? {
-    let fontAttr =  [NSAttributedStringKey.font : gLogFont] // need to count a size with proportional font
+    let fontAttr =  [NSAttributedString.Key.font : gLogFont] // need to count a size with proportional font
     var properties : [String: String] = [String: String]()
     let allKeys = dict.allKeys // are as [Any]
     var maxLength : Int = 0

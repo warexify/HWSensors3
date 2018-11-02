@@ -7,11 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9502F2E6217655DB00E65F13 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9502F2E5217655DB00E65F13 /* QuartzCore.framework */; };
 		950618BF208CCC62001C988E /* System.swift in Sources */ = {isa = PBXBuildFile; fileRef = 950618BB208CCC62001C988E /* System.swift */; };
 		950618C0208CCC62001C988E /* Battery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 950618BC208CCC62001C988E /* Battery.swift */; };
 		950618C1208CCC62001C988E /* IOReturn.swift in Sources */ = {isa = PBXBuildFile; fileRef = 950618BD208CCC62001C988E /* IOReturn.swift */; };
 		950618C2208CCC62001C988E /* Process.swift in Sources */ = {isa = PBXBuildFile; fileRef = 950618BE208CCC62001C988E /* Process.swift */; };
+		951A947F217E3EB30057F687 /* SMC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 951A947E217E3EB30057F687 /* SMC.swift */; };
 		951B029F20CD8D0200C17E62 /* GPU.png in Resources */ = {isa = PBXBuildFile; fileRef = 951B029E20CD8D0200C17E62 /* GPU.png */; };
+		951C9DDE216A348E00CDAB92 /* IntelPowerGadget.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 951C9DDD216A348D00CDAB92 /* IntelPowerGadget.framework */; };
+		951C9DE1216A4A6D00CDAB92 /* IntelPowerGadget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 951C9DE0216A4A6D00CDAB92 /* IntelPowerGadget.swift */; };
+		952275D92184C5F800E12C3A /* freq_small_on.png in Resources */ = {isa = PBXBuildFile; fileRef = 952275D82184C5F700E12C3A /* freq_small_on.png */; };
+		95257967217B66BE008FEB8A /* HWMonitorSensor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95257966217B66BE008FEB8A /* HWMonitorSensor.swift */; };
+		9526B5BC217FA1A400BD9E1B /* HWSensorScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9526B5BB217FA1A400BD9E1B /* HWSensorScanner.swift */; };
+		9526EC0F2183369E008595B2 /* Motherboard.png in Resources */ = {isa = PBXBuildFile; fileRef = 9526EC0E2183369D008595B2 /* Motherboard.png */; };
+		9526EC11218346A1008595B2 /* HWSensorsUpdate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9526EC10218346A1008595B2 /* HWSensorsUpdate.swift */; };
 		95280103204444BA008EA219 /* PopoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95280102204444BA008EA219 /* PopoverViewController.swift */; };
 		9528011920447910008EA219 /* checkbox.png in Resources */ = {isa = PBXBuildFile; fileRef = 9528011720447910008EA219 /* checkbox.png */; };
 		9528011A20447910008EA219 /* pin.png in Resources */ = {isa = PBXBuildFile; fileRef = 9528011820447910008EA219 /* pin.png */; };
@@ -24,6 +33,7 @@
 		9544DC47208E395B0023C332 /* Info.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9544DC49208E395B0023C332 /* Info.storyboard */; };
 		9546572B20908A3C0020BA34 /* Display.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9546572A20908A3C0020BA34 /* Display.swift */; };
 		9546572D2091132A0020BA34 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9546572C2091132A0020BA34 /* Extensions.swift */; };
+		954D94E9218601D4006E407C /* SMC_DataTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 954D94E8218601D4006E407C /* SMC_DataTypes.swift */; };
 		9550AC882089004A004537F0 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9550AC852089004A004537F0 /* IOKit.framework */; };
 		9550AC8A20890056004537F0 /* DiskArbitration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9550AC8920890056004537F0 /* DiskArbitration.framework */; };
 		9551F18F20B355AC00A69C50 /* LPCB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9551F18E20B355AB00A69C50 /* LPCB.swift */; };
@@ -36,6 +46,10 @@
 		9551F19E20B35BB300A69C50 /* ServiceManagement.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9551F19D20B35BB300A69C50 /* ServiceManagement.framework */; };
 		9551F1A820B35CBF00A69C50 /* HWMonitorSMC2 Helper.app in Copy Helper */ = {isa = PBXBuildFile; fileRef = 9551F1A420B35C5600A69C50 /* HWMonitorSMC2 Helper.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		9554C08820A76A1C00D9A91F /* Metal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9554C08720A76A1C00D9A91F /* Metal.framework */; };
+		957EC0872188728C00F0A457 /* Gadget.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 957EC0862188728C00F0A457 /* Gadget.storyboard */; };
+		957EC0892188736900F0A457 /* GadgetWC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 957EC0882188736900F0A457 /* GadgetWC.swift */; };
+		957EC08B2188737D00F0A457 /* GadgetVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 957EC08A2188737D00F0A457 /* GadgetVC.swift */; };
+		957EC08D21887C4600F0A457 /* gadget.png in Resources */ = {isa = PBXBuildFile; fileRef = 957EC08C21887C4600F0A457 /* gadget.png */; };
 		958E796E204193EE0007957E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 958E796D204193EE0007957E /* AppDelegate.swift */; };
 		958E7970204193EE0007957E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 958E796F204193EE0007957E /* ViewController.swift */; };
 		958E7972204193EE0007957E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 958E7971204193EE0007957E /* Assets.xcassets */; };
@@ -44,10 +58,6 @@
 		958E79832041996A0007957E /* HWWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 958E79822041996A0007957E /* HWWindowController.swift */; };
 		958E798D2041AF780007957E /* HWOulineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 958E798C2041AF780007957E /* HWOulineView.swift */; };
 		958E79942041D3E90007957E /* IOBatteryStatus.m in Sources */ = {isa = PBXBuildFile; fileRef = 958E79922041D3E80007957E /* IOBatteryStatus.m */; };
-		958E79972041D4030007957E /* smc.c in Sources */ = {isa = PBXBuildFile; fileRef = 958E79962041D4020007957E /* smc.c */; };
-		958E799D2041D42C0007957E /* HWMonitorSensor.m in Sources */ = {isa = PBXBuildFile; fileRef = 958E79992041D42B0007957E /* HWMonitorSensor.m */; };
-		958E79A02041D4910007957E /* NSString+TruncateToWidth.m in Sources */ = {isa = PBXBuildFile; fileRef = 958E799E2041D4900007957E /* NSString+TruncateToWidth.m */; };
-		958E79A32041D72F0007957E /* HWSensorsDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 958E79A22041D72F0007957E /* HWSensorsDelegate.m */; };
 		958E79A52042CC770007957E /* HWTreeNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 958E79A42042CC770007957E /* HWTreeNode.swift */; };
 		958E79AE2042EED10007957E /* hd_small.png in Resources */ = {isa = PBXBuildFile; fileRef = 958E79A62042EED00007957E /* hd_small.png */; };
 		958E79AF2042EED10007957E /* temp_alt_small.png in Resources */ = {isa = PBXBuildFile; fileRef = 958E79A72042EED00007957E /* temp_alt_small.png */; };
@@ -58,19 +68,22 @@
 		958E79B42042EED10007957E /* voltage_small.png in Resources */ = {isa = PBXBuildFile; fileRef = 958E79AC2042EED00007957E /* voltage_small.png */; };
 		958E79B52042EED10007957E /* ssd_small.png in Resources */ = {isa = PBXBuildFile; fileRef = 958E79AD2042EED10007957E /* ssd_small.png */; };
 		958E79B72042F6F80007957E /* HWWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 958E79B62042F6F80007957E /* HWWindow.swift */; };
-		958E79BE2042FD110007957E /* HWTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 958E79BD2042FD110007957E /* HWTextField.m */; };
-		958E79C12042FE070007957E /* HWImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 958E79C02042FE070007957E /* HWImageView.m */; };
 		958E79C5204314A40007957E /* PreferencesWC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 958E79C4204314A40007957E /* PreferencesWC.swift */; };
 		958E79C7204314BF0007957E /* PreferencesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 958E79C6204314BF0007957E /* PreferencesVC.swift */; };
 		9598FC72204AE5F200A6DA72 /* SSMemoryInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 9598FC70204AE5F100A6DA72 /* SSMemoryInfo.m */; };
 		9598FC75204AFC9C00A6DA72 /* cpu_temp_small.png in Resources */ = {isa = PBXBuildFile; fileRef = 9598FC73204AFC9B00A6DA72 /* cpu_temp_small.png */; };
 		9598FC76204AFC9C00A6DA72 /* cpu_freq_small.png in Resources */ = {isa = PBXBuildFile; fileRef = 9598FC74204AFC9B00A6DA72 /* cpu_freq_small.png */; };
 		9598FC78204B0A7500A6DA72 /* HWTableRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9598FC77204B0A7500A6DA72 /* HWTableRowView.swift */; };
+		95B8BCAB216D435C007B56AD /* CPU.png in Resources */ = {isa = PBXBuildFile; fileRef = 95B8BCAA216D435C007B56AD /* CPU.png */; };
 		95CE19C92043486E00E73446 /* Popover.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 95CE19CB2043486E00E73446 /* Popover.storyboard */; };
 		95CE19D3204356DF00E73446 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 95CE19D5204356DF00E73446 /* Main.storyboard */; };
 		95CE19DA2043585A00E73446 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 95CE19DC2043585A00E73446 /* Localizable.strings */; };
 		95CE19DF20435CD200E73446 /* Preferences.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 95CE19E120435CD200E73446 /* Preferences.storyboard */; };
+		95D535F9216F684200289BD7 /* CorePlot.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 95D535F8216F684200289BD7 /* CorePlot.framework */; };
+		95D535FB216F68D700289BD7 /* CorePlot.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 95D535F8216F684200289BD7 /* CorePlot.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		95DA9B992173BB8D00CBAB9F /* Plot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95DA9B982173BB8D00CBAB9F /* Plot.swift */; };
 		95DE45CF205E7F3800E4582D /* RunAtLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95DE45CE205E7F3800E4582D /* RunAtLogin.swift */; };
+		95F300F0216E7AA2006F6E87 /* Light.png in Resources */ = {isa = PBXBuildFile; fileRef = 95F300EF216E7AA2006F6E87 /* Light.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -102,61 +115,49 @@
 			name = "Copy Helper";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		95D535FA216F68C800289BD7 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				95D535FB216F68D700289BD7 /* CorePlot.framework in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		9502F2E5217655DB00E65F13 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		950618BB208CCC62001C988E /* System.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = System.swift; sourceTree = "<group>"; };
 		950618BC208CCC62001C988E /* Battery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Battery.swift; sourceTree = "<group>"; };
 		950618BD208CCC62001C988E /* IOReturn.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IOReturn.swift; sourceTree = "<group>"; };
 		950618BE208CCC62001C988E /* Process.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Process.swift; sourceTree = "<group>"; };
-		950AAF2C2045F22B0004418F /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Main.strings; sourceTree = "<group>"; };
-		950AAF2D2045F22B0004418F /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Popover.strings; sourceTree = "<group>"; };
-		950AAF2E2045F22B0004418F /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Preferences.strings; sourceTree = "<group>"; };
-		950AAF2F2045F22C0004418F /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		950AAF302045F2500004418F /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
 		950AAF312045F2500004418F /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Popover.strings"; sourceTree = "<group>"; };
 		950AAF322045F2500004418F /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Preferences.strings"; sourceTree = "<group>"; };
 		950AAF332045F2510004418F /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
-		950AAF342045F2560004418F /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Main.strings"; sourceTree = "<group>"; };
-		950AAF352045F2560004418F /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Popover.strings"; sourceTree = "<group>"; };
-		950AAF362045F2570004418F /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Preferences.strings"; sourceTree = "<group>"; };
-		950AAF372045F2580004418F /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		950AAF382045F25E0004418F /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Main.strings; sourceTree = "<group>"; };
 		950AAF392045F25E0004418F /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Popover.strings; sourceTree = "<group>"; };
 		950AAF3A2045F25E0004418F /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Preferences.strings; sourceTree = "<group>"; };
 		950AAF3B2045F25F0004418F /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
-		950AAF3C2045F2620004418F /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Main.strings; sourceTree = "<group>"; };
-		950AAF3D2045F2620004418F /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Popover.strings; sourceTree = "<group>"; };
-		950AAF3E2045F2620004418F /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Preferences.strings; sourceTree = "<group>"; };
-		950AAF3F2045F2640004418F /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
-		950AAF402045F2670004418F /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Main.strings; sourceTree = "<group>"; };
-		950AAF412045F2670004418F /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Popover.strings; sourceTree = "<group>"; };
-		950AAF422045F2670004418F /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Preferences.strings; sourceTree = "<group>"; };
-		950AAF432045F2680004418F /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
-		950AAF442045F26C0004418F /* es-419 */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "es-419"; path = "es-419.lproj/Main.strings"; sourceTree = "<group>"; };
-		950AAF452045F26C0004418F /* es-419 */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "es-419"; path = "es-419.lproj/Popover.strings"; sourceTree = "<group>"; };
-		950AAF462045F26C0004418F /* es-419 */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "es-419"; path = "es-419.lproj/Preferences.strings"; sourceTree = "<group>"; };
-		950AAF472045F26D0004418F /* es-419 */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "es-419"; path = "es-419.lproj/Localizable.strings"; sourceTree = "<group>"; };
-		950AAF482045F2710004418F /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Main.strings; sourceTree = "<group>"; };
-		950AAF492045F2710004418F /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Popover.strings; sourceTree = "<group>"; };
-		950AAF4A2045F2720004418F /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Preferences.strings; sourceTree = "<group>"; };
-		950AAF4B2045F2730004418F /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Localizable.strings; sourceTree = "<group>"; };
 		950AAF4C2045F2760004418F /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Main.strings; sourceTree = "<group>"; };
 		950AAF4D2045F2770004418F /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Popover.strings; sourceTree = "<group>"; };
 		950AAF4E2045F2770004418F /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Preferences.strings; sourceTree = "<group>"; };
 		950AAF4F2045F2780004418F /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Localizable.strings; sourceTree = "<group>"; };
-		950AAF502045F27B0004418F /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/Main.strings"; sourceTree = "<group>"; };
-		950AAF512045F27B0004418F /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/Popover.strings"; sourceTree = "<group>"; };
-		950AAF522045F27B0004418F /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/Preferences.strings"; sourceTree = "<group>"; };
-		950AAF532045F27D0004418F /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/Localizable.strings"; sourceTree = "<group>"; };
-		950AAF542045F2800004418F /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "pt-PT.lproj/Main.strings"; sourceTree = "<group>"; };
-		950AAF552045F2800004418F /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "pt-PT.lproj/Popover.strings"; sourceTree = "<group>"; };
-		950AAF562045F2800004418F /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "pt-PT.lproj/Preferences.strings"; sourceTree = "<group>"; };
-		950AAF572045F2810004418F /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "pt-PT.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		950AAF592045F3E00004418F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
 		950AAF5B2045F3E70004418F /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/Main.strings; sourceTree = "<group>"; };
 		950AAF5D2045F3F10004418F /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Main.strings; sourceTree = "<group>"; };
+		951A947E217E3EB30057F687 /* SMC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SMC.swift; sourceTree = "<group>"; };
 		951B029E20CD8D0200C17E62 /* GPU.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = GPU.png; sourceTree = "<group>"; };
+		951C9DDB216A347A00CDAB92 /* Library */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Library; path = ../../../../../../Library; sourceTree = "<group>"; };
+		951C9DDD216A348D00CDAB92 /* IntelPowerGadget.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IntelPowerGadget.framework; path = ../../../../../../Library/Frameworks/IntelPowerGadget.framework; sourceTree = "<group>"; };
+		951C9DE0216A4A6D00CDAB92 /* IntelPowerGadget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntelPowerGadget.swift; sourceTree = "<group>"; };
+		952275D82184C5F700E12C3A /* freq_small_on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = freq_small_on.png; sourceTree = "<group>"; };
+		95257966217B66BE008FEB8A /* HWMonitorSensor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HWMonitorSensor.swift; sourceTree = "<group>"; };
+		9526B5BB217FA1A400BD9E1B /* HWSensorScanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HWSensorScanner.swift; sourceTree = "<group>"; };
+		9526EC0E2183369D008595B2 /* Motherboard.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Motherboard.png; sourceTree = "<group>"; };
+		9526EC10218346A1008595B2 /* HWSensorsUpdate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HWSensorsUpdate.swift; sourceTree = "<group>"; };
 		95280102204444BA008EA219 /* PopoverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverViewController.swift; sourceTree = "<group>"; };
 		9528011720447910008EA219 /* checkbox.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checkbox.png; sourceTree = "<group>"; };
 		9528011820447910008EA219 /* pin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pin.png; sourceTree = "<group>"; };
@@ -165,30 +166,18 @@
 		9536E3BF2082231400186A79 /* HWSMART.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HWSMART.swift; sourceTree = "<group>"; };
 		9538E4A2204DA7D800918032 /* HWScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HWScrollView.swift; sourceTree = "<group>"; };
 		9538E4A4204DAB9900918032 /* globals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = globals.swift; sourceTree = "<group>"; };
-		953A4EC220488D1D003DC900 /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/Main.strings; sourceTree = "<group>"; };
-		953A4EC320488D1D003DC900 /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/Popover.strings; sourceTree = "<group>"; };
-		953A4EC420488D1D003DC900 /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/Preferences.strings; sourceTree = "<group>"; };
-		953A4EC520488D1E003DC900 /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/Localizable.strings; sourceTree = "<group>"; };
 		953A4EEC2048C5CE003DC900 /* ram_small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ram_small.png; sourceTree = "<group>"; };
 		9543AD8E2097AF44009B752B /* Graphics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Graphics.swift; sourceTree = "<group>"; };
 		9544DC48208E395B0023C332 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Info.storyboard; sourceTree = "<group>"; };
 		9544DC4B208E39620023C332 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Info.strings; sourceTree = "<group>"; };
 		9544DC4D208E39640023C332 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/Info.strings; sourceTree = "<group>"; };
 		9544DC4F208E39680023C332 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Info.strings; sourceTree = "<group>"; };
-		9544DC51208E396A0023C332 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Info.strings; sourceTree = "<group>"; };
 		9544DC53208E396C0023C332 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Info.strings"; sourceTree = "<group>"; };
-		9544DC55208E396E0023C332 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Info.strings"; sourceTree = "<group>"; };
 		9544DC57208E39700023C332 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Info.strings; sourceTree = "<group>"; };
-		9544DC59208E39720023C332 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Info.strings; sourceTree = "<group>"; };
-		9544DC5B208E39740023C332 /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Info.strings; sourceTree = "<group>"; };
-		9544DC5D208E39760023C332 /* es-419 */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "es-419"; path = "es-419.lproj/Info.strings"; sourceTree = "<group>"; };
-		9544DC5F208E39780023C332 /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Info.strings; sourceTree = "<group>"; };
 		9544DC61208E397B0023C332 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Info.strings; sourceTree = "<group>"; };
-		9544DC63208E397D0023C332 /* pt-BR */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-BR"; path = "pt-BR.lproj/Info.strings"; sourceTree = "<group>"; };
-		9544DC65208E397F0023C332 /* pt-PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "pt-PT"; path = "pt-PT.lproj/Info.strings"; sourceTree = "<group>"; };
-		9544DC67208E39810023C332 /* pl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pl; path = pl.lproj/Info.strings; sourceTree = "<group>"; };
 		9546572A20908A3C0020BA34 /* Display.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Display.swift; sourceTree = "<group>"; };
 		9546572C2091132A0020BA34 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		954D94E8218601D4006E407C /* SMC_DataTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMC_DataTypes.swift; sourceTree = "<group>"; };
 		9550AC852089004A004537F0 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
 		9550AC8920890056004537F0 /* DiskArbitration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DiskArbitration.framework; path = System/Library/Frameworks/DiskArbitration.framework; sourceTree = SDKROOT; };
 		9551F18E20B355AB00A69C50 /* LPCB.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LPCB.swift; sourceTree = "<group>"; };
@@ -201,6 +190,10 @@
 		9551F19D20B35BB300A69C50 /* ServiceManagement.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ServiceManagement.framework; path = System/Library/Frameworks/ServiceManagement.framework; sourceTree = SDKROOT; };
 		9551F19F20B35C5500A69C50 /* HWMonitorSMC2 Helper.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = "HWMonitorSMC2 Helper.xcodeproj"; path = "HWMonitorSMC2 Helper/HWMonitorSMC2 Helper.xcodeproj"; sourceTree = "<group>"; };
 		9554C08720A76A1C00D9A91F /* Metal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Metal.framework; path = System/Library/Frameworks/Metal.framework; sourceTree = SDKROOT; };
+		957EC0862188728C00F0A457 /* Gadget.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Gadget.storyboard; sourceTree = "<group>"; };
+		957EC0882188736900F0A457 /* GadgetWC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GadgetWC.swift; sourceTree = "<group>"; };
+		957EC08A2188737D00F0A457 /* GadgetVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GadgetVC.swift; sourceTree = "<group>"; };
+		957EC08C21887C4600F0A457 /* gadget.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gadget.png; sourceTree = "<group>"; };
 		958E796A204193EE0007957E /* HWMonitorSMC2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HWMonitorSMC2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		958E796D204193EE0007957E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		958E796F204193EE0007957E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -214,14 +207,6 @@
 		958E79912041D3E80007957E /* HWMonitorSMC-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "HWMonitorSMC-Bridging-Header.h"; sourceTree = "<group>"; };
 		958E79922041D3E80007957E /* IOBatteryStatus.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IOBatteryStatus.m; sourceTree = "<group>"; };
 		958E79932041D3E90007957E /* IOBatteryStatus.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IOBatteryStatus.h; sourceTree = "<group>"; };
-		958E79952041D4020007957E /* smc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = smc.h; sourceTree = "<group>"; };
-		958E79962041D4020007957E /* smc.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = smc.c; sourceTree = "<group>"; };
-		958E79992041D42B0007957E /* HWMonitorSensor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HWMonitorSensor.m; sourceTree = "<group>"; };
-		958E799A2041D42C0007957E /* HWMonitorSensor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HWMonitorSensor.h; sourceTree = "<group>"; };
-		958E799E2041D4900007957E /* NSString+TruncateToWidth.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+TruncateToWidth.m"; sourceTree = "<group>"; };
-		958E799F2041D4910007957E /* NSString+TruncateToWidth.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+TruncateToWidth.h"; sourceTree = "<group>"; };
-		958E79A12041D72F0007957E /* HWSensorsDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HWSensorsDelegate.h; sourceTree = "<group>"; };
-		958E79A22041D72F0007957E /* HWSensorsDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HWSensorsDelegate.m; sourceTree = "<group>"; };
 		958E79A42042CC770007957E /* HWTreeNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HWTreeNode.swift; sourceTree = "<group>"; };
 		958E79A62042EED00007957E /* hd_small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hd_small.png; sourceTree = "<group>"; };
 		958E79A72042EED00007957E /* temp_alt_small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = temp_alt_small.png; sourceTree = "<group>"; };
@@ -232,10 +217,6 @@
 		958E79AC2042EED00007957E /* voltage_small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = voltage_small.png; sourceTree = "<group>"; };
 		958E79AD2042EED10007957E /* ssd_small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ssd_small.png; sourceTree = "<group>"; };
 		958E79B62042F6F80007957E /* HWWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HWWindow.swift; sourceTree = "<group>"; };
-		958E79BC2042FD110007957E /* HWTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HWTextField.h; sourceTree = "<group>"; };
-		958E79BD2042FD110007957E /* HWTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HWTextField.m; sourceTree = "<group>"; };
-		958E79BF2042FE070007957E /* HWImageView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HWImageView.h; sourceTree = "<group>"; };
-		958E79C02042FE070007957E /* HWImageView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HWImageView.m; sourceTree = "<group>"; };
 		958E79C4204314A40007957E /* PreferencesWC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesWC.swift; sourceTree = "<group>"; };
 		958E79C6204314BF0007957E /* PreferencesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesVC.swift; sourceTree = "<group>"; };
 		9598FC70204AE5F100A6DA72 /* SSMemoryInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSMemoryInfo.m; sourceTree = "<group>"; };
@@ -243,6 +224,7 @@
 		9598FC73204AFC9B00A6DA72 /* cpu_temp_small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cpu_temp_small.png; sourceTree = "<group>"; };
 		9598FC74204AFC9B00A6DA72 /* cpu_freq_small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cpu_freq_small.png; sourceTree = "<group>"; };
 		9598FC77204B0A7500A6DA72 /* HWTableRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HWTableRowView.swift; sourceTree = "<group>"; };
+		95B8BCAA216D435C007B56AD /* CPU.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CPU.png; sourceTree = "<group>"; };
 		95CE19CA2043486E00E73446 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Popover.storyboard; sourceTree = "<group>"; };
 		95CE19CD2043488200E73446 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Popover.strings; sourceTree = "<group>"; };
 		95CE19CF204349AF00E73446 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Popover.strings; sourceTree = "<group>"; };
@@ -255,7 +237,10 @@
 		95CE19E320435CE800E73446 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Preferences.strings; sourceTree = "<group>"; };
 		95CE19E520435CEC00E73446 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Preferences.strings; sourceTree = "<group>"; };
 		95CE19E720435CEE00E73446 /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/Preferences.strings; sourceTree = "<group>"; };
+		95D535F8216F684200289BD7 /* CorePlot.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CorePlot.framework; path = HWMonitorSMC/ExternalFrameworks/CorePlot.framework; sourceTree = "<group>"; };
+		95DA9B982173BB8D00CBAB9F /* Plot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plot.swift; sourceTree = "<group>"; };
 		95DE45CE205E7F3800E4582D /* RunAtLogin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunAtLogin.swift; sourceTree = "<group>"; };
+		95F300EF216E7AA2006F6E87 /* Light.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Light.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -263,6 +248,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9502F2E6217655DB00E65F13 /* QuartzCore.framework in Frameworks */,
+				95D535F9216F684200289BD7 /* CorePlot.framework in Frameworks */,
+				951C9DDE216A348E00CDAB92 /* IntelPowerGadget.framework in Frameworks */,
 				9551F19E20B35BB300A69C50 /* ServiceManagement.framework in Frameworks */,
 				9554C08820A76A1C00D9A91F /* Metal.framework in Frameworks */,
 				9550AC8A20890056004537F0 /* DiskArbitration.framework in Frameworks */,
@@ -295,6 +283,7 @@
 		9536E3BD208222F000186A79 /* SMART */ = {
 			isa = PBXGroup;
 			children = (
+				958E79932041D3E90007957E /* IOBatteryStatus.h */,
 				9536E3BF2082231400186A79 /* HWSMART.swift */,
 				9536E3BE2082231400186A79 /* NVMe.h */,
 			);
@@ -312,6 +301,10 @@
 		9570DE2B20837FA0003CF4EA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9502F2E5217655DB00E65F13 /* QuartzCore.framework */,
+				95D535F8216F684200289BD7 /* CorePlot.framework */,
+				951C9DDD216A348D00CDAB92 /* IntelPowerGadget.framework */,
+				951C9DDB216A347A00CDAB92 /* Library */,
 				9551F19D20B35BB300A69C50 /* ServiceManagement.framework */,
 				9554C08720A76A1C00D9A91F /* Metal.framework */,
 				9550AC8920890056004537F0 /* DiskArbitration.framework */,
@@ -341,19 +334,29 @@
 		958E796C204193EE0007957E /* HWMonitorSMC */ = {
 			isa = PBXGroup;
 			children = (
-				9546572C2091132A0020BA34 /* Extensions.swift */,
 				9538E4A4204DAB9900918032 /* globals.swift */,
+				954D94E8218601D4006E407C /* SMC_DataTypes.swift */,
+				951A947E217E3EB30057F687 /* SMC.swift */,
+				951C9DE0216A4A6D00CDAB92 /* IntelPowerGadget.swift */,
+				95257966217B66BE008FEB8A /* HWMonitorSensor.swift */,
+				9526B5BB217FA1A400BD9E1B /* HWSensorScanner.swift */,
+				95DA9B982173BB8D00CBAB9F /* Plot.swift */,
+				9546572C2091132A0020BA34 /* Extensions.swift */,
 				95DE45CE205E7F3800E4582D /* RunAtLogin.swift */,
 				958E796D204193EE0007957E /* AppDelegate.swift */,
 				958E79822041996A0007957E /* HWWindowController.swift */,
 				958E7980204194820007957E /* HWViewController.swift */,
 				952E03752044A8EC00EEC6DF /* PopoverWindowController.swift */,
 				95280102204444BA008EA219 /* PopoverViewController.swift */,
+				9526EC10218346A1008595B2 /* HWSensorsUpdate.swift */,
 				958E798C2041AF780007957E /* HWOulineView.swift */,
 				958E79A42042CC770007957E /* HWTreeNode.swift */,
 				9598FC77204B0A7500A6DA72 /* HWTableRowView.swift */,
 				958E79B62042F6F80007957E /* HWWindow.swift */,
 				9538E4A2204DA7D800918032 /* HWScrollView.swift */,
+				957EC0862188728C00F0A457 /* Gadget.storyboard */,
+				957EC0882188736900F0A457 /* GadgetWC.swift */,
+				957EC08A2188737D00F0A457 /* GadgetVC.swift */,
 				95CE19E120435CD200E73446 /* Preferences.storyboard */,
 				958E79C4204314A40007957E /* PreferencesWC.swift */,
 				958E79C6204314BF0007957E /* PreferencesVC.swift */,
@@ -364,7 +367,7 @@
 				9544DC49208E395B0023C332 /* Info.storyboard */,
 				950618BA208CCC1F001C988E /* SystemKit */,
 				9536E3BD208222F000186A79 /* SMART */,
-				958E79902041D3A50007957E /* SMC */,
+				958E79902041D3A50007957E /* C */,
 				958E7971204193EE0007957E /* Assets.xcassets */,
 				958E7976204193EE0007957E /* Info.plist */,
 				958E7977204193EE0007957E /* HWMonitorSMC.entitlements */,
@@ -376,48 +379,40 @@
 		958E797D204194500007957E /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				957EC08C21887C4600F0A457 /* gadget.png */,
+				95B8BCAA216D435C007B56AD /* CPU.png */,
 				9528011720447910008EA219 /* checkbox.png */,
 				9598FC74204AFC9B00A6DA72 /* cpu_freq_small.png */,
 				9598FC73204AFC9B00A6DA72 /* cpu_temp_small.png */,
 				9528011820447910008EA219 /* pin.png */,
 				958E79AB2042EED00007957E /* fan_small.png */,
 				953A4EEC2048C5CE003DC900 /* ram_small.png */,
+				952275D82184C5F700E12C3A /* freq_small_on.png */,
 				958E79A82042EED00007957E /* freq_small.png */,
 				958E79A62042EED00007957E /* hd_small.png */,
 				958E79AA2042EED00007957E /* modern-battery-icon.png */,
 				958E79A92042EED00007957E /* multiply_small.png */,
+				95F300EF216E7AA2006F6E87 /* Light.png */,
 				958E79AD2042EED10007957E /* ssd_small.png */,
 				958E79A72042EED00007957E /* temp_alt_small.png */,
 				958E79AC2042EED00007957E /* voltage_small.png */,
 				958E797E204194620007957E /* temperature_small.png */,
 				9551F19A20B357BE00A69C50 /* USB.png */,
 				951B029E20CD8D0200C17E62 /* GPU.png */,
+				9526EC0E2183369D008595B2 /* Motherboard.png */,
 			);
 			path = Images;
 			sourceTree = "<group>";
 		};
-		958E79902041D3A50007957E /* SMC */ = {
+		958E79902041D3A50007957E /* C */ = {
 			isa = PBXGroup;
 			children = (
-				958E79932041D3E90007957E /* IOBatteryStatus.h */,
+				958E79912041D3E80007957E /* HWMonitorSMC-Bridging-Header.h */,
 				958E79922041D3E80007957E /* IOBatteryStatus.m */,
-				958E79962041D4020007957E /* smc.c */,
-				958E79952041D4020007957E /* smc.h */,
-				958E799A2041D42C0007957E /* HWMonitorSensor.h */,
-				958E79992041D42B0007957E /* HWMonitorSensor.m */,
-				958E799F2041D4910007957E /* NSString+TruncateToWidth.h */,
-				958E799E2041D4900007957E /* NSString+TruncateToWidth.m */,
-				958E79A12041D72F0007957E /* HWSensorsDelegate.h */,
-				958E79A22041D72F0007957E /* HWSensorsDelegate.m */,
 				9598FC71204AE5F200A6DA72 /* SSMemoryInfo.h */,
 				9598FC70204AE5F100A6DA72 /* SSMemoryInfo.m */,
-				958E79BC2042FD110007957E /* HWTextField.h */,
-				958E79BD2042FD110007957E /* HWTextField.m */,
-				958E79BF2042FE070007957E /* HWImageView.h */,
-				958E79C02042FE070007957E /* HWImageView.m */,
-				958E79912041D3E80007957E /* HWMonitorSMC-Bridging-Header.h */,
 			);
-			path = SMC;
+			path = C;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -431,6 +426,7 @@
 				958E7967204193EE0007957E /* Frameworks */,
 				958E7968204193EE0007957E /* Resources */,
 				9551F1A720B35C8900A69C50 /* Copy Helper */,
+				95D535FA216F68C800289BD7 /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -473,18 +469,9 @@
 				Base,
 				it,
 				ru,
-				fr,
 				"zh-Hans",
-				"zh-Hant",
 				de,
-				ja,
-				es,
-				"es-419",
-				nl,
 				ko,
-				"pt-BR",
-				"pt-PT",
-				pl,
 			);
 			mainGroup = 958E7961204193EE0007957E;
 			productRefGroup = 958E796B204193EE0007957E /* Products */;
@@ -529,15 +516,21 @@
 				958E79AF2042EED10007957E /* temp_alt_small.png in Resources */,
 				9598FC75204AFC9C00A6DA72 /* cpu_temp_small.png in Resources */,
 				95CE19D3204356DF00E73446 /* Main.storyboard in Resources */,
+				95F300F0216E7AA2006F6E87 /* Light.png in Resources */,
+				957EC08D21887C4600F0A457 /* gadget.png in Resources */,
 				958E79B42042EED10007957E /* voltage_small.png in Resources */,
 				953A4EED2048C5CE003DC900 /* ram_small.png in Resources */,
 				95CE19DF20435CD200E73446 /* Preferences.storyboard in Resources */,
+				952275D92184C5F800E12C3A /* freq_small_on.png in Resources */,
 				95CE19DA2043585A00E73446 /* Localizable.strings in Resources */,
 				958E79B32042EED10007957E /* fan_small.png in Resources */,
+				957EC0872188728C00F0A457 /* Gadget.storyboard in Resources */,
+				9526EC0F2183369E008595B2 /* Motherboard.png in Resources */,
 				958E79AE2042EED10007957E /* hd_small.png in Resources */,
 				951B029F20CD8D0200C17E62 /* GPU.png in Resources */,
 				958E797F204194620007957E /* temperature_small.png in Resources */,
 				9544DC47208E395B0023C332 /* Info.storyboard in Resources */,
+				95B8BCAB216D435C007B56AD /* CPU.png in Resources */,
 				958E79B02042EED10007957E /* freq_small.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -559,24 +552,26 @@
 				958E7970204193EE0007957E /* ViewController.swift in Sources */,
 				9551F18F20B355AC00A69C50 /* LPCB.swift in Sources */,
 				958E7981204194820007957E /* HWViewController.swift in Sources */,
-				958E79972041D4030007957E /* smc.c in Sources */,
 				9598FC72204AE5F200A6DA72 /* SSMemoryInfo.m in Sources */,
-				958E79C12042FE070007957E /* HWImageView.m in Sources */,
+				954D94E9218601D4006E407C /* SMC_DataTypes.swift in Sources */,
+				95DA9B992173BB8D00CBAB9F /* Plot.swift in Sources */,
 				9546572B20908A3C0020BA34 /* Display.swift in Sources */,
-				958E799D2041D42C0007957E /* HWMonitorSensor.m in Sources */,
+				957EC08B2188737D00F0A457 /* GadgetVC.swift in Sources */,
 				958E79942041D3E90007957E /* IOBatteryStatus.m in Sources */,
+				951A947F217E3EB30057F687 /* SMC.swift in Sources */,
 				958E796E204193EE0007957E /* AppDelegate.swift in Sources */,
 				950618C0208CCC62001C988E /* Battery.swift in Sources */,
 				958E79832041996A0007957E /* HWWindowController.swift in Sources */,
 				9551F19320B355B500A69C50 /* NVMEController.swift in Sources */,
 				9551F19120B355B000A69C50 /* NET.swift in Sources */,
+				957EC0892188736900F0A457 /* GadgetWC.swift in Sources */,
+				9526EC11218346A1008595B2 /* HWSensorsUpdate.swift in Sources */,
 				9551F19720B355C000A69C50 /* SATAController.swift in Sources */,
 				95DE45CF205E7F3800E4582D /* RunAtLogin.swift in Sources */,
 				958E79C5204314A40007957E /* PreferencesWC.swift in Sources */,
-				958E79A02041D4910007957E /* NSString+TruncateToWidth.m in Sources */,
-				958E79BE2042FD110007957E /* HWTextField.m in Sources */,
+				95257967217B66BE008FEB8A /* HWMonitorSensor.swift in Sources */,
 				9538E4A5204DAB9900918032 /* globals.swift in Sources */,
-				958E79A32041D72F0007957E /* HWSensorsDelegate.m in Sources */,
+				951C9DE1216A4A6D00CDAB92 /* IntelPowerGadget.swift in Sources */,
 				950618BF208CCC62001C988E /* System.swift in Sources */,
 				9538E4A3204DA7D800918032 /* HWScrollView.swift in Sources */,
 				9543AD8F2097AF44009B752B /* Graphics.swift in Sources */,
@@ -586,6 +581,7 @@
 				958E798D2041AF780007957E /* HWOulineView.swift in Sources */,
 				9598FC78204B0A7500A6DA72 /* HWTableRowView.swift in Sources */,
 				950618C2208CCC62001C988E /* Process.swift in Sources */,
+				9526B5BC217FA1A400BD9E1B /* HWSensorScanner.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -607,18 +603,9 @@
 				9544DC4B208E39620023C332 /* en */,
 				9544DC4D208E39640023C332 /* it */,
 				9544DC4F208E39680023C332 /* ru */,
-				9544DC51208E396A0023C332 /* fr */,
 				9544DC53208E396C0023C332 /* zh-Hans */,
-				9544DC55208E396E0023C332 /* zh-Hant */,
 				9544DC57208E39700023C332 /* de */,
-				9544DC59208E39720023C332 /* ja */,
-				9544DC5B208E39740023C332 /* es */,
-				9544DC5D208E39760023C332 /* es-419 */,
-				9544DC5F208E39780023C332 /* nl */,
 				9544DC61208E397B0023C332 /* ko */,
-				9544DC63208E397D0023C332 /* pt-BR */,
-				9544DC65208E397F0023C332 /* pt-PT */,
-				9544DC67208E39810023C332 /* pl */,
 			);
 			name = Info.storyboard;
 			sourceTree = "<group>";
@@ -630,18 +617,9 @@
 				95CE19CD2043488200E73446 /* en */,
 				95CE19CF204349AF00E73446 /* ru */,
 				95CE19D020434BE300E73446 /* it */,
-				950AAF2D2045F22B0004418F /* fr */,
 				950AAF312045F2500004418F /* zh-Hans */,
-				950AAF352045F2560004418F /* zh-Hant */,
 				950AAF392045F25E0004418F /* de */,
-				950AAF3D2045F2620004418F /* ja */,
-				950AAF412045F2670004418F /* es */,
-				950AAF452045F26C0004418F /* es-419 */,
-				950AAF492045F2710004418F /* nl */,
 				950AAF4D2045F2770004418F /* ko */,
-				950AAF512045F27B0004418F /* pt-BR */,
-				950AAF552045F2800004418F /* pt-PT */,
-				953A4EC320488D1D003DC900 /* pl */,
 			);
 			name = Popover.storyboard;
 			sourceTree = "<group>";
@@ -650,21 +628,12 @@
 			isa = PBXVariantGroup;
 			children = (
 				95CE19D4204356DF00E73446 /* Base */,
-				950AAF2C2045F22B0004418F /* fr */,
 				950AAF302045F2500004418F /* zh-Hans */,
-				950AAF342045F2560004418F /* zh-Hant */,
 				950AAF382045F25E0004418F /* de */,
-				950AAF3C2045F2620004418F /* ja */,
-				950AAF402045F2670004418F /* es */,
-				950AAF442045F26C0004418F /* es-419 */,
-				950AAF482045F2710004418F /* nl */,
 				950AAF4C2045F2760004418F /* ko */,
-				950AAF502045F27B0004418F /* pt-BR */,
-				950AAF542045F2800004418F /* pt-PT */,
 				950AAF592045F3E00004418F /* en */,
 				950AAF5B2045F3E70004418F /* it */,
 				950AAF5D2045F3F10004418F /* ru */,
-				953A4EC220488D1D003DC900 /* pl */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -675,18 +644,9 @@
 				95CE19DB2043585A00E73446 /* en */,
 				95CE19DD2043585D00E73446 /* ru */,
 				95CE19DE2043585E00E73446 /* it */,
-				950AAF2F2045F22C0004418F /* fr */,
 				950AAF332045F2510004418F /* zh-Hans */,
-				950AAF372045F2580004418F /* zh-Hant */,
 				950AAF3B2045F25F0004418F /* de */,
-				950AAF3F2045F2640004418F /* ja */,
-				950AAF432045F2680004418F /* es */,
-				950AAF472045F26D0004418F /* es-419 */,
-				950AAF4B2045F2730004418F /* nl */,
 				950AAF4F2045F2780004418F /* ko */,
-				950AAF532045F27D0004418F /* pt-BR */,
-				950AAF572045F2810004418F /* pt-PT */,
-				953A4EC520488D1E003DC900 /* pl */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -698,18 +658,9 @@
 				95CE19E320435CE800E73446 /* en */,
 				95CE19E520435CEC00E73446 /* ru */,
 				95CE19E720435CEE00E73446 /* it */,
-				950AAF2E2045F22B0004418F /* fr */,
 				950AAF322045F2500004418F /* zh-Hans */,
-				950AAF362045F2570004418F /* zh-Hant */,
 				950AAF3A2045F25E0004418F /* de */,
-				950AAF3E2045F2620004418F /* ja */,
-				950AAF422045F2670004418F /* es */,
-				950AAF462045F26C0004418F /* es-419 */,
-				950AAF4A2045F2720004418F /* nl */,
 				950AAF4E2045F2770004418F /* ko */,
-				950AAF522045F27B0004418F /* pt-BR */,
-				950AAF562045F2800004418F /* pt-PT */,
-				953A4EC420488D1D003DC900 /* pl */,
 			);
 			name = Preferences.storyboard;
 			sourceTree = "<group>";
@@ -752,7 +703,7 @@
 				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_IDENTITY = "-";
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 2.3.1;
+				CURRENT_PROJECT_VERSION = 2.4.0;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -777,6 +728,7 @@
 				SDKROOT = macosx;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
 		};
@@ -815,7 +767,7 @@
 				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_IDENTITY = "-";
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 2.3.1;
+				CURRENT_PROJECT_VERSION = 2.4.0;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -832,6 +784,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_VERSION = 4.2;
 			};
 			name = Release;
 		};
@@ -842,18 +795,22 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 2.3.1;
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				CURRENT_PROJECT_VERSION = 2.4.0;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(LOCAL_LIBRARY_DIR)/Frameworks",
+					"$(PROJECT_DIR)/HWMonitorSMC/ExternalFrameworks",
+				);
 				INFOPLIST_FILE = HWMonitorSMC/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
-				MODULE_VERSION = 2.3.1;
+				MODULE_VERSION = 2.4.0;
 				PRODUCT_BUNDLE_IDENTIFIER = org.slice.HWMonitorSMC2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
-				SWIFT_OBJC_BRIDGING_HEADER = "HWMonitorSMC/SMC/HWMonitorSMC-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "HWMonitorSMC/C/HWMonitorSMC-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
 		};
@@ -864,17 +821,21 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 2.3.1;
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
+				CURRENT_PROJECT_VERSION = 2.4.0;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(LOCAL_LIBRARY_DIR)/Frameworks",
+					"$(PROJECT_DIR)/HWMonitorSMC/ExternalFrameworks",
+				);
 				INFOPLIST_FILE = HWMonitorSMC/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
-				MODULE_VERSION = 2.3.1;
+				MODULE_VERSION = 2.4.0;
 				PRODUCT_BUNDLE_IDENTIFIER = org.slice.HWMonitorSMC2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
-				SWIFT_OBJC_BRIDGING_HEADER = "HWMonitorSMC/SMC/HWMonitorSMC-Bridging-Header.h";
-				SWIFT_VERSION = 4.0;
+				SWIFT_OBJC_BRIDGING_HEADER = "HWMonitorSMC/C/HWMonitorSMC-Bridging-Header.h";
+				SWIFT_VERSION = 4.2;
 			};
 			name = Release;
 		};

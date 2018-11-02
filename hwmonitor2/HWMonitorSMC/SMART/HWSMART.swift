@@ -220,7 +220,6 @@ class HWSmartDataScanner: NSObject {
     var sensors : [HWMonitorSensor] = [HWMonitorSensor]()
     
     if (dictionary.object(forKey: kIsNVMeKey) != nil) { // otherwise you are passing the wrong dict!
-      let ud = UserDefaults.standard
       var description : String = ""
       var key : String = ""
       
@@ -252,56 +251,70 @@ class HWSmartDataScanner: NSObject {
       description += "\(kIOPropertyPhysicalInterconnectLocationKey): \(self.getLocation(characteristics: protocolCharacteristics))\n"
       if isNVMe {
         let temp: NSNumber = attributes.object(forKey: kNVMeSMARTTemperatureKey) as! NSNumber
-        description += "\(kNVMeSMARTTemperatureKey): \(temp.intValue)C°\n"
+        description += "\(kNVMeSMARTTemperatureKey): \(temp.intValue)\(HWUnit.C.rawValue)\n"
         
         let tempSensor = HWMonitorSensor(key: "temp" + productName + serial,
-                                         andType: "fpe2",
-                                         andGroup: UInt(HDSmartTempSensorGroup),
-                                         withCaption: serial)
-        tempSensor?.stringValue = "\(temp.intValue)"
-        tempSensor?.favorite = ud.bool(forKey: (tempSensor?.key)!)
-        tempSensor?.logType = MediaLog
-        sensors.append(tempSensor!)
+                                         unit: HWUnit.C,
+                                         type: "S.M.A.R.T",
+                                         sensorType: .hdSmartTemp,
+                                         title: serial,
+                                         canPlot: true)
+        tempSensor.stringValue = "\(temp.intValue)\(tempSensor.unit.rawValue)"
+        tempSensor.favorite = UDs.bool(forKey: tempSensor.key)
+        tempSensor.doubleValue = temp.doubleValue
+        tempSensor.logType = .mediaLog
+        sensors.append(tempSensor)
+        
         
         let life: NSNumber = attributes.object(forKey: kSMARTLifeKey) as! NSNumber
-        description += "\(kSMARTLifeKey): \(life.intValue)%\n"
+        description += "\(kSMARTLifeKey): \(life.intValue)\(HWUnit.Percent.rawValue)\n"
+        
         let lifeSensor = HWMonitorSensor(key: "life" + productName + serial,
-                                         andType: "fpe2",
-                                         andGroup: UInt(HDSmartLifeSensorGroup),
-                                         withCaption: serial)
-        lifeSensor?.stringValue = "\(life.intValue)"
-        lifeSensor?.favorite = ud.bool(forKey: (lifeSensor?.key)!)
-        lifeSensor?.logType = MediaLog
-        sensors.append(lifeSensor!)
+                                         unit: .Percent,
+                                         type: "S.M.A.R.T",
+                                         sensorType: .hdSmartLife,
+                                         title: serial,
+                                         canPlot: true)
+        
+        
+        lifeSensor.stringValue = "\(life.intValue)\(lifeSensor.unit.rawValue)"
+        lifeSensor.favorite = UDs.bool(forKey: lifeSensor.key)
+        lifeSensor.doubleValue = life.doubleValue
+        lifeSensor.logType = .mediaLog
+        sensors.append(lifeSensor)
         
         let cw: NSNumber = attributes.object(forKey: kNVMeSMARTCriticalWarningKey) as! NSNumber
-        description += "\(kNVMeSMARTCriticalWarningKey): \(cw.intValue)%\n"
+        description += "\(kNVMeSMARTCriticalWarningKey): \(cw.intValue)\(HWUnit.Percent.rawValue)\n"
         
         let asp: NSNumber = attributes.object(forKey: kNVMeSMARTAvailableSpareKey) as! NSNumber
-        description += "\(kNVMeSMARTAvailableSpareKey): \(asp.intValue)%\n"
+        description += "\(kNVMeSMARTAvailableSpareKey): \(asp.intValue)\(HWUnit.Percent.rawValue)\n"
         
         let aspt: NSNumber = attributes.object(forKey: kNVMeSMARTAvailableSpareThresholdKey) as! NSNumber
-        description += "\(kNVMeSMARTAvailableSpareThresholdKey): \(aspt.intValue)%\n"
+        description += "\(kNVMeSMARTAvailableSpareThresholdKey): \(aspt.intValue)\(HWUnit.Percent.rawValue)\n"
         
         let us: NSNumber = attributes.object(forKey: kNVMeSMARTUnsafeShutdownsKey) as! NSNumber
         description += "\(kNVMeSMARTUnsafeShutdownsKey): \(us.intValue)\n"
       } else {
         if (deviceCharacteristics.object(forKey: kIOPropertyMediumRotationRateKey) != nil) {
           let rpm : NSNumber = deviceCharacteristics.object(forKey: kIOPropertyMediumRotationRateKey) as! NSNumber
-          description += "\(kIOPropertyMediumRotationRateKey): \(rpm.intValue)rpm\n"
+          description += "\(kIOPropertyMediumRotationRateKey): \(rpm.intValue)\(HWUnit.RPM.rawValue)\n"
         }
         let temperature : Int = self.getATATemperatureIn(attributes: attributes)
         
         if temperature != kSMARTTemperatureNotFound {
-          description += "\(kNVMeSMARTTemperatureKey): \(temperature)C°\n"
+          description += "\(kNVMeSMARTTemperatureKey): \(temperature)\(HWUnit.C.rawValue)\n"
+          
           let tempSensor = HWMonitorSensor(key: "temp" + productName + serial,
-                                           andType: "fpe2",
-                                           andGroup: UInt(HDSmartTempSensorGroup),
-                                           withCaption: serial)
-          tempSensor?.stringValue = "\(temperature)"
-          tempSensor?.favorite = ud.bool(forKey: (tempSensor?.key)!)
-          tempSensor?.logType = MediaLog
-          sensors.append(tempSensor!)
+                                           unit: HWUnit.C,
+                                           type: "S.M.A.R.T",
+                                           sensorType: .hdSmartTemp,
+                                           title: serial,
+                                           canPlot: true)
+          tempSensor.stringValue = "\(temperature)\(tempSensor.unit.rawValue)"
+          tempSensor.favorite = UDs.bool(forKey: tempSensor.key)
+          tempSensor.doubleValue = Double(temperature)
+          tempSensor.logType = .mediaLog
+          sensors.append(tempSensor)
         }
         
         if self.isSolidSate(characteristics: deviceCharacteristics) {
@@ -309,19 +322,30 @@ class HWSmartDataScanner: NSObject {
           // 177 is the attribute most used for life percentage in SATA SSDs
           if (attributes.object(forKey: "177") != nil) {
             lifeDict = (attributes.object(forKey: "177") as! NSDictionary)
+          } else if (attributes.object(forKey: "173") != nil) {
+            lifeDict = (attributes.object(forKey: "173") as! NSDictionary)
           }
           
           if (lifeDict != nil) {
             let life: NSNumber = lifeDict?.object(forKey: kATASMARTCurrentValueKey) as! NSNumber
-            description += "\(kSMARTLifeKey): \(life.intValue)%\n"
-            let lifeSensor = HWMonitorSensor(key: "life" + productName + serial,
-                                             andType: "fpe2",
-                                             andGroup: UInt(HDSmartLifeSensorGroup),
-                                             withCaption: serial)
-            lifeSensor?.stringValue = "\(life.intValue)"
-            lifeSensor?.favorite = ud.bool(forKey: (lifeSensor?.key)!)
-            lifeSensor?.logType = MediaLog
-            sensors.append(lifeSensor!)
+            if life.intValue >= 0 && life.intValue <= 100 {
+              description += "\(kSMARTLifeKey): \(life.intValue)\(HWUnit.Percent.rawValue)\n"
+              
+              
+              let lifeSensor = HWMonitorSensor(key: "life" + productName + serial,
+                                               unit: .Percent,
+                                               type: "S.M.A.R.T",
+                                               sensorType: .hdSmartLife,
+                                               title: serial,
+                                               canPlot: true)
+              
+              
+              lifeSensor.stringValue = "\(life.intValue)\(lifeSensor.unit.rawValue)"
+              lifeSensor.favorite = UDs.bool(forKey: lifeSensor.key)
+              lifeSensor.doubleValue = life.doubleValue
+              lifeSensor.logType = .mediaLog
+              sensors.append(lifeSensor)
+            }
           }
         }
       }

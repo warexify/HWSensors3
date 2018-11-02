@@ -461,14 +461,14 @@ public struct System {
         let status = UnsafeMutablePointer<Unmanaged<CFDictionary>?>.allocate(capacity: 1)
 
         let result = IOPMCopyCPUPowerStatus(status)
-
+        /*
         #if DEBUG
             // TODO: kIOReturnNotFound case as seen in pmset
             if result != kIOReturnSuccess {
                 print("ERROR - \(#file):\(#function) - kern_result_t = "
                         + "\(result)")
             }
-        #endif
+        #endif*/
 
 
         if result == kIOReturnSuccess,
@@ -499,7 +499,6 @@ public struct System {
         if result == kIOReturnNotFound {
             return System.ThermalLevel.NotPublished
         }
-
 
         #if DEBUG
             if result != kIOReturnSuccess {

@@ -8,69 +8,90 @@
   zh-Hans (simplified Chinese) by maoyeye
 */
 
-"CPU Frequencies" = "CPU频率";
-"CPU Temperatures" = "CPU温度";
-"Temperatures" = "温度"; // plural
-"Temperature" = "温度"; // singular
-"Frequencies" = "频率";
-"Multipliers" = "倍频";
-"Voltages" = "电压";
-"Fans or Pumps" = "风扇 & 泵";
-"Batteries" = "电池";
-"Media health" = "硬盘健康";
-"Life" = "寿命"; // hdd/ssd life
-"Tеmperature" = "温度"; // hdd/ssd tеmperature //GPU, when taken from PerformanceStatistics
+// translated by vector sigma
 
-"GPUs" = "显卡"; // GPU, when taken from PerformanceStatistics
-"Core Clock" = "核心频率"; //GPU, when taken from PerformanceStatistics
-"Fan/Pump Speed" = "风扇 & 泵 转速"; //GPU, when taken from PerformanceStatistics
-"Fan/Pump Speed rate" = "风机转速百分率"; //GPU, when taken from PerformanceStatistics
-"Device Utilization" = "显存控制器负载率"; //GPU, when taken from PerformanceStatistics
-"GPU Activity" = "GPU负载率"; //GPU, when taken from PerformanceStatistics
-"GPU Core Utilization" = "GPU Core Utilization"; // GPU, when taken from PerformanceStatistics
-"Device Unit %d Utilization" = "Device Unit %d Utilization"; // GPU, when taken from PerformanceStatistics
-"GPU Video Engine Utilization" = "GPU Video Engine Utilization"; // GPU, when taken from PerformanceStatistics
-"Used VRAM" = "Used VRAM"; // GPU, when taken from PerformanceStatistics
-"Free VRAM" = "Free VRAM"; // GPU, when taken from PerformanceStatistics
+"Core Frequencies" = "Core Frequencies";   // CPU temperature sub group
+"Core Temperatures" = "Core Temperatures"; // CPU frequencies sub group
+"Temperature" = "Temperature";   // singular
+"Temperatures" = "Temperatures"; // plural
+"Frequency"   = "Frequency";     // singular
+"Frequencies" = "Frequencies";   // plural
 
-"Total" = "物理总内存"; // RAM
-"Active" = "正或刚使用"; // RAM
-"Inactive" = "最近未使用"; // RAM
-"Free" = "未使用总量"; // RAM
-"Used" = "已使用总量"; // RAM
-"Purgeable" = "可清除空间"; // RAM
-"Wired" = "联动固定占用"; // RAM
+"Multipliers" = "Multipliers";
+"Voltage" = "Voltage";   // singular
+"Voltages" = "Voltages"; // plural
+"Amperage" = "Amperage";
+"Batteries" = "Batteries";
+"Media health" = "Media health";
+"Life" = "Life"; // hdd/ssd life
 
-"CPU Proximity" = "CPU附近";
-"CPU Heatsink" = "CPU表面";
-"Motherboard" = "主板";
-"DIMM 0" = "内存模块 0";
-"DIMM 1" = "内存模块 1";
-"Ambient" = "环境";
-"GPU %d Board" = "GPU %d 核心";
-"GPU %d Proximity" = "GPU %d 周边";
-"CPU %d Core" = "CPU %d 核心";
-"CPU %d Diode" = "CPU %d 二极管";
+// Intel Power Gadget
+"Intel® Power Gadget info" = "Intel® Power Gadget info";
+"DRAM" = "DRAM";
+"Package Temperature" = "Package Temperature";
+"Package Power Limit (TDP)" = "TDP";
+"Max Temperature"  = "Max Temperature";
+"Thresholds"       = "Thresholds";
+"Base Frequency"   = "Base Frequency";
+"Max Frequency" = "Max Frequency";
+
+// GPU, when taken from PerformanceStatistics
+"GPUs" = "GPUs";
+"Core Clock" = "Core Clock";
+"Fan/Pump speed" = "Fan/Pump speed";
+"Fan/Pump speed rate" = "Fan/Pump speed rate";
+"Utilization" = "Utilization";
+"Activity" = "Activity";
+"Core Utilization" = "Core Utilization";
+"Device Unit %d Utilization" = "Device Unit %d Utilization";
+"Video Engine Utilization" = "Video Engine Utilization";
+"Used VRAM" = "Used VRAM";
+"Free VRAM" = "Free VRAM";
+
+// RAM
+"Total" = "Total";
+"Active" = "Active";
+"Inactive" = "Inactive";
+"Free" = "Free";
+"Used" = "Used";
+"Purgeable" = "Purgeable";
+"Wired" = "Wired";
+
+"Proximity" = "Proximity"; // CPU or GPU
+"Heatsink" = "Heatsink";  // CPU or GPU
+"DIMM 0" = "DIMM 0"; // RAM
+"DIMM 1" = "DIMM 1"; // RAM
+"Ambient" = "Ambient"; // Motherboard
+"GPU %d Board" = "GPU %d Board";
+"GPU %d Proximity" = "GPU %d Proximity";
+"Core %d" = "Core %d";   // CPU or GPU
+"Diode %d" = "Diode %d"; // CPU or GPU
 "CPU %d" = "CPU %d";
-"GPU %d Core" = "GPU %d 核心";
-"GPU %d Shaders" = "GPU %d 着色器";
-"GPU %d Memory" = "GPU %d 显存";
-"CPU %d Multiplier" = "CPU %d 倍频";
-"CPU Package Multiplier" = "CPU整体倍频";
-"CPU Voltage" = "CPU核心电压";
-"CPU VRM Voltage" = "CPU供电电压";
-"DIMM Voltage" = "内存电压";
-"+12V Bus Voltage" = "+12V Bus 电压";
-"+5V Bus Voltage" = "+5V Bus 电压";
-"-12V Bus Voltage" = "-12V Bus 电压";
-"-5V Bus Voltage" = "-5V Bus 电压";
-"3.3 VCC Voltage" = "3.3 VCC 电压";
-"3.3 VSB Voltage" = "3.3 VSB 电压";
-"3.3 AVCC Voltage" = "3.3 AVCC 电压";
-"GPU %d Voltage" = "GPU %d 电压";
-"Fan %d" = "风扇转速 %d";
-"Battery Voltage" = "电池电压";
-"Battery Amperage" = "电池安培数";
+"GPU %d Core" = "GPU %d Core";
+"GPU %d Shaders" = "GPU %d Shaders";
+"GPU %d Memory" = "GPU %d Memory";
+"GPU %d Voltage" = "GPU %d Voltage";
+"Core %d Multiplier" = "Core %d Multiplier";
+"Package Multiplier" = "Package Multiplier";
 
-"log copied to clip board!" = "日志复制到剪贴板！";
+// Motherboard
+"Motherboard" = "Motherboard";
+"VRM Voltage" = "VRM Voltage";
+"DIMM Voltage" = "DIMM Voltage";
+"+12V Bus Voltage" = "+12V Bus Voltage";
+"+5V Bus Voltage" = "+5V Bus Voltage";
+"-12V Bus Voltage" = "-12V Bus Voltage";
+"-5V Bus Voltage" = "-5V Bus Voltage";
+"3.3 VCC Voltage" = "3.3 VCC Voltage";
+"3.3 VSB Voltage" = "3.3 VSB Voltage";
+"3.3 AVCC Voltage" = "3.3 AVCC Voltage";
+
+// Fans
+"Fans or Pumps" = "Fans or Pumps";
+"Fan %d" = "Fan %d";
+"speed" = "speed"; // rpm, all in lower case letters
+"min speed" = "min speed"; // rpm, all in lower case letters
+"max speed" = "max speed"; // rpm, all in lower case letters
+
+"log copied to clip board!" = "log copied to clip board!";
 

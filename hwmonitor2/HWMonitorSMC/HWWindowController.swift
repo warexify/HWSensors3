@@ -16,8 +16,8 @@ class HWWindowController: NSWindowController, NSWindowDelegate {
   }
   
   class func loadFromNib() -> HWWindowController {
-    let wc = (NSStoryboard(name: NSStoryboard.Name(rawValue: "Popover"),
-                           bundle: nil).instantiateController(withIdentifier: NSStoryboard.SceneIdentifier(rawValue: "Popover")) as! HWWindowController)
+    let wc = (NSStoryboard(name: "Popover",
+                           bundle: nil).instantiateController(withIdentifier:"Popover") as! HWWindowController)
     return wc
   }
   

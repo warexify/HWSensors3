@@ -13,9 +13,9 @@
                     <window key="window" title="HWMonitorSMC" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" restorable="NO" releasedWhenClosed="NO" visibleAtLaunch="NO" frameAutosaveName="" animationBehavior="default" id="ZhW-fR-thW" customClass="HWWindow" customModule="HWMonitorSMC2" customModuleProvider="target">
                         <windowStyleMask key="styleMask" titled="YES" closable="YES" resizable="YES"/>
                         <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-                        <rect key="contentRect" x="229" y="240" width="310" height="270"/>
+                        <rect key="contentRect" x="229" y="240" width="370" height="270"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1600" height="877"/>
-                        <value key="minSize" type="size" width="310" height="270"/>
+                        <value key="minSize" type="size" width="370" height="270"/>
                         <connections>
                             <outlet property="delegate" destination="yBe-Le-RmF" id="d0o-8F-nMA"/>
                         </connections>
@@ -33,7 +33,7 @@
             <objects>
                 <viewController id="Inv-Z6-uvw" userLabel="HWViewController" customClass="HWViewController" customModule="HWMonitorSMC2" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="3sR-t5-Jdh">
-                        <rect key="frame" x="0.0" y="0.0" width="350" height="270"/>
+                        <rect key="frame" x="0.0" y="0.0" width="363" height="270"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </view>
                     <connections>
@@ -52,27 +52,27 @@
             <objects>
                 <viewController storyboardIdentifier="PopoverViewController" id="D3w-Vf-IMK" userLabel="PopoverViewController" customClass="PopoverViewController" customModule="HWMonitorSMC2" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="t9p-yZ-glJ">
-                        <rect key="frame" x="0.0" y="0.0" width="350" height="270"/>
+                        <rect key="frame" x="0.0" y="0.0" width="359" height="270"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <visualEffectView wantsLayer="YES" appearanceType="vibrantDark" blendingMode="withinWindow" material="appearanceBased" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="RPx-WM-PNq">
-                                <rect key="frame" x="0.0" y="0.0" width="350" height="270"/>
+                            <visualEffectView wantsLayer="YES" appearanceType="vibrantDark" blendingMode="withinWindow" material="popover" state="followsWindowActiveState" translatesAutoresizingMaskIntoConstraints="NO" id="RPx-WM-PNq">
+                                <rect key="frame" x="0.0" y="0.0" width="359" height="270"/>
                                 <subviews>
-                                    <scrollView appearanceType="aqua" autohidesScrollers="YES" horizontalLineScroll="24" horizontalPageScroll="10" verticalLineScroll="24" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OGf-vp-wlg" customClass="HWScrollView" customModule="HWMonitorSMC2" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="350" height="222"/>
-                                        <clipView key="contentView" id="zy5-5L-wc9">
-                                            <rect key="frame" x="1" y="1" width="348" height="220"/>
+                                    <scrollView wantsLayer="YES" appearanceType="aqua" autohidesScrollers="YES" horizontalLineScroll="24" horizontalPageScroll="10" verticalLineScroll="24" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OGf-vp-wlg" customClass="HWScrollView" customModule="HWMonitorSMC2" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="359" height="222"/>
+                                        <clipView key="contentView" wantsLayer="YES" id="zy5-5L-wc9">
+                                            <rect key="frame" x="1" y="1" width="357" height="220"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
-                                                <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="22" rowSizeStyle="small" viewBased="YES" indentationPerLevel="7" autosaveExpandedItems="YES" autoresizesOutlineColumn="YES" outlineTableColumn="V2W-Qb-HLa" id="N63-Ub-LYL" customClass="HWOulineView" customModule="HWMonitorSMC2" customModuleProvider="target">
-                                                    <rect key="frame" x="0.0" y="0.0" width="348" height="220"/>
+                                                <outlineView wantsLayer="YES" verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" multipleSelection="NO" autosaveColumns="NO" rowHeight="22" rowSizeStyle="small" viewBased="YES" indentationPerLevel="7" autosaveExpandedItems="YES" autoresizesOutlineColumn="YES" outlineTableColumn="V2W-Qb-HLa" id="N63-Ub-LYL" customClass="HWOulineView" customModule="HWMonitorSMC2" customModuleProvider="target">
+                                                    <rect key="frame" x="0.0" y="0.0" width="370" height="220"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <size key="intercellSpacing" width="3" height="2"/>
                                                     <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     <tableViewGridLines key="gridStyleMask" vertical="YES" dashed="YES"/>
                                                     <color key="gridColor" name="gridColor" catalog="System" colorSpace="catalog"/>
                                                     <tableColumns>
-                                                        <tableColumn identifier="column0" width="54" minWidth="40" maxWidth="80" id="V2W-Qb-HLa">
+                                                        <tableColumn identifier="column0" width="50" minWidth="40" maxWidth="80" id="V2W-Qb-HLa">
                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
                                                                 <font key="font" metaFont="smallSystem"/>
                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -86,10 +86,10 @@
                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                             <prototypeCellViews>
                                                                 <tableCellView identifier="column0" id="ssx-Oo-FNv">
-                                                                    <rect key="frame" x="1" y="1" width="54" height="17"/>
+                                                                    <rect key="frame" x="1" y="1" width="50" height="17"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                     <subviews>
-                                                                        <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="pMT-YG-Vof" customClass="HWImageView">
+                                                                        <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="pMT-YG-Vof">
                                                                             <rect key="frame" x="3" y="0.0" width="17" height="17"/>
                                                                             <constraints>
                                                                                 <constraint firstAttribute="height" constant="17" id="EhG-9u-27e"/>
@@ -108,7 +108,7 @@
                                                                 </tableCellView>
                                                             </prototypeCellViews>
                                                         </tableColumn>
-                                                        <tableColumn identifier="column1" width="189" minWidth="175" maxWidth="1000" id="iCD-MT-omi">
+                                                        <tableColumn identifier="column1" width="202" minWidth="175" maxWidth="1000" id="iCD-MT-omi">
                                                             <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border">
                                                                 <font key="font" metaFont="smallSystem"/>
                                                                 <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
@@ -122,11 +122,11 @@
                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                             <prototypeCellViews>
                                                                 <tableCellView identifier="column1" id="nX3-gm-a2b">
-                                                                    <rect key="frame" x="58" y="1" width="189" height="17"/>
+                                                                    <rect key="frame" x="54" y="1" width="202" height="17"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                     <subviews>
-                                                                        <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="h2t-Kq-5X4" customClass="HWTextField">
-                                                                            <rect key="frame" x="1" y="2" width="187" height="14"/>
+                                                                        <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="h2t-Kq-5X4">
+                                                                            <rect key="frame" x="1" y="2" width="200" height="14"/>
                                                                             <textFieldCell key="cell" controlSize="small" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="gzL-lY-vMG">
                                                                                 <font key="font" metaFont="smallSystem"/>
                                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
@@ -159,12 +159,12 @@
                                                             <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                             <prototypeCellViews>
                                                                 <tableCellView identifier="column2" id="Gmq-Ha-PtX">
-                                                                    <rect key="frame" x="250" y="1" width="96" height="17"/>
+                                                                    <rect key="frame" x="259" y="1" width="96" height="17"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                                     <subviews>
-                                                                        <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="seT-aN-tWo" customClass="HWTextField">
+                                                                        <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="seT-aN-tWo">
                                                                             <rect key="frame" x="1" y="2" width="94" height="14"/>
-                                                                            <textFieldCell key="cell" controlSize="small" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="HEQ-lO-R6O">
+                                                                            <textFieldCell key="cell" controlSize="small" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="left" title="Table View Cell" id="HEQ-lO-R6O">
                                                                                 <font key="font" metaFont="smallSystem"/>
                                                                                 <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                                 <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
@@ -178,6 +178,39 @@
                                                                     </constraints>
                                                                     <connections>
                                                                         <outlet property="textField" destination="seT-aN-tWo" id="C3c-SW-XxR"/>
+                                                                    </connections>
+                                                                </tableCellView>
+                                                            </prototypeCellViews>
+                                                        </tableColumn>
+                                                        <tableColumn identifier="column3" width="10" minWidth="10" maxWidth="3.4028234663852886e+38" id="TAH-nN-uv1">
+                                                            <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left">
+                                                                <font key="font" metaFont="smallSystem"/>
+                                                                <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
+                                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            </tableHeaderCell>
+                                                            <textFieldCell key="dataCell" controlSize="small" lineBreakMode="truncatingTail" selectable="YES" editable="YES" alignment="left" title="Text Cell" id="WBJ-MJ-F7J">
+                                                                <font key="font" metaFont="smallSystem"/>
+                                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                                <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                            </textFieldCell>
+                                                            <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
+                                                            <prototypeCellViews>
+                                                                <tableCellView wantsLayer="YES" id="pE4-Se-zKq">
+                                                                    <rect key="frame" x="358" y="1" width="10" height="21"/>
+                                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                                    <subviews>
+                                                                        <customView translatesAutoresizingMaskIntoConstraints="NO" id="ZDV-PZ-rM3" customClass="PlotView" customModule="HWMonitorSMC2" customModuleProvider="target">
+                                                                            <rect key="frame" x="3" y="3" width="111" height="15"/>
+                                                                        </customView>
+                                                                    </subviews>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="bottom" secondItem="ZDV-PZ-rM3" secondAttribute="bottom" constant="3" id="POg-k5-GrL"/>
+                                                                        <constraint firstItem="ZDV-PZ-rM3" firstAttribute="top" secondItem="pE4-Se-zKq" secondAttribute="top" constant="3" id="WcR-no-WwU"/>
+                                                                        <constraint firstAttribute="trailing" secondItem="ZDV-PZ-rM3" secondAttribute="trailing" constant="-104" id="aRE-GT-U2R"/>
+                                                                        <constraint firstItem="ZDV-PZ-rM3" firstAttribute="leading" secondItem="pE4-Se-zKq" secondAttribute="leading" constant="3" id="hhH-v6-kiu"/>
+                                                                    </constraints>
+                                                                    <connections>
+                                                                        <outlet property="nextKeyView" destination="ZDV-PZ-rM3" id="Cgf-MV-zSr"/>
                                                                     </connections>
                                                                 </tableCellView>
                                                             </prototypeCellViews>
@@ -196,7 +229,7 @@
                                         </scroller>
                                     </scrollView>
                                     <button focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="NbD-Xu-Gaz">
-                                        <rect key="frame" x="330" y="250" width="20" height="20"/>
+                                        <rect key="frame" x="339" y="250" width="20" height="20"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="20" id="oVO-JV-cu5"/>
                                         </constraints>
@@ -209,7 +242,7 @@
                                         </connections>
                                     </button>
                                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="dKa-jB-CcI">
-                                        <rect key="frame" x="165" y="250" width="20" height="20"/>
+                                        <rect key="frame" x="170" y="250" width="20" height="20"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="20" id="TYE-Ua-xIx"/>
                                         </constraints>
@@ -235,7 +268,7 @@
                                         </connections>
                                     </button>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="7R0-QX-ifS">
-                                        <rect key="frame" x="129" y="8" width="92" height="14"/>
+                                        <rect key="frame" x="134" y="8" width="92" height="14"/>
                                         <textFieldCell key="cell" controlSize="small" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" alignment="center" title="HWMonitorSMC" id="vyO-yA-2EZ">
                                             <font key="font" metaFont="smallSystem"/>
                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
@@ -243,11 +276,25 @@
                                         </textFieldCell>
                                     </textField>
                                     <button focusRingType="none" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="PoQ-h5-ji8">
-                                        <rect key="frame" x="336" y="4" width="10" height="22"/>
+                                        <rect key="frame" x="345" y="4" width="10" height="22"/>
                                         <buttonCell key="cell" type="bevel" bezelStyle="regularSquare" image="NSLockUnlockedTemplate" imagePosition="overlaps" alternateImage="NSLockLockedTemplate" state="on" focusRingType="none" inset="2" id="iZe-E7-fwz">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
+                                    </button>
+                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="vVM-MT-heU">
+                                        <rect key="frame" x="34" y="6" width="34" height="18"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="18" id="DGj-L3-vLO"/>
+                                            <constraint firstAttribute="width" constant="34" id="vRI-sq-K8V"/>
+                                        </constraints>
+                                        <buttonCell key="cell" type="bevel" bezelStyle="rounded" image="gadget" imagePosition="only" alignment="center" controlSize="small" imageScaling="proportionallyDown" inset="2" id="Nlo-e3-tTk">
+                                            <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="smallSystem"/>
+                                        </buttonCell>
+                                        <connections>
+                                            <action selector="showGadgetWithSender:" target="D3w-Vf-IMK" id="1XU-sS-ubk"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <constraints>
@@ -264,11 +311,13 @@
                                     <constraint firstItem="dKa-jB-CcI" firstAttribute="top" secondItem="NbD-Xu-Gaz" secondAttribute="top" id="c6d-dC-bqD"/>
                                     <constraint firstAttribute="trailing" secondItem="NbD-Xu-Gaz" secondAttribute="trailing" id="e6Q-0O-Vtc"/>
                                     <constraint firstItem="Ltb-EQ-zNd" firstAttribute="top" secondItem="PoQ-h5-ji8" secondAttribute="top" id="eUZ-Ep-QkN"/>
+                                    <constraint firstItem="vVM-MT-heU" firstAttribute="centerY" secondItem="Ltb-EQ-zNd" secondAttribute="centerY" id="etk-F6-ZLy"/>
                                     <constraint firstItem="Ltb-EQ-zNd" firstAttribute="leading" secondItem="RPx-WM-PNq" secondAttribute="leading" constant="4" id="iJQ-0F-JXK"/>
                                     <constraint firstItem="OGf-vp-wlg" firstAttribute="top" secondItem="RPx-WM-PNq" secondAttribute="top" constant="20" symbolic="YES" id="jtI-YG-LnZ"/>
                                     <constraint firstItem="dKa-jB-CcI" firstAttribute="bottom" secondItem="NbD-Xu-Gaz" secondAttribute="bottom" id="mqG-uQ-Ll1"/>
                                     <constraint firstItem="PoQ-h5-ji8" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="7R0-QX-ifS" secondAttribute="trailing" id="nSL-0a-Ic3"/>
                                     <constraint firstAttribute="bottom" secondItem="Ltb-EQ-zNd" secondAttribute="bottom" constant="4" id="ohQ-OK-hPl"/>
+                                    <constraint firstItem="vVM-MT-heU" firstAttribute="leading" secondItem="Ltb-EQ-zNd" secondAttribute="trailing" constant="8" symbolic="YES" id="qks-Oi-1cc"/>
                                     <constraint firstItem="7R0-QX-ifS" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Ltb-EQ-zNd" secondAttribute="trailing" id="vcp-CG-W5D"/>
                                     <constraint firstItem="NbD-Xu-Gaz" firstAttribute="trailing" secondItem="OGf-vp-wlg" secondAttribute="trailing" id="zeg-4o-Cbx"/>
                                 </constraints>
@@ -286,12 +335,13 @@
                         <outlet property="effectView" destination="RPx-WM-PNq" id="Hgx-6R-n0P"/>
                         <outlet property="lock" destination="PoQ-h5-ji8" id="Ajm-ig-tRP"/>
                         <outlet property="outline" destination="N63-Ub-LYL" id="xrm-w7-iWd"/>
+                        <outlet property="useGadgetButton" destination="vVM-MT-heU" id="abh-k4-zY5"/>
                         <outlet property="versionLabel" destination="7R0-QX-ifS" id="FMr-Y3-tfR"/>
                     </connections>
                 </viewController>
                 <customObject id="mGy-fk-w3C" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="513" y="521"/>
+            <point key="canvasLocation" x="571.5" y="521"/>
         </scene>
     </scenes>
     <resources>
@@ -299,5 +349,6 @@
         <image name="NSLockLockedTemplate" width="10" height="14"/>
         <image name="NSLockUnlockedTemplate" width="10" height="14"/>
         <image name="NSStopProgressFreestandingTemplate" width="14" height="14"/>
+        <image name="gadget" width="128" height="57"/>
     </resources>
 </document>

@@ -7,7 +7,7 @@
 //
 
 import IOKit.graphics
-import Foundation
+import Cocoa
 
 extension Data {
   var checksum: Int {

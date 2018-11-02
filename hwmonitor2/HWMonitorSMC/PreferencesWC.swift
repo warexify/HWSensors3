@@ -16,8 +16,8 @@ class PreferencesWC: NSWindowController, NSWindowDelegate {
   }
   
   class func loadFromNib() -> PreferencesWC {
-    let wc = (NSStoryboard(name: NSStoryboard.Name(rawValue: "Preferences"),
-                           bundle: nil).instantiateController(withIdentifier: NSStoryboard.SceneIdentifier(rawValue: "Preferences")) as! PreferencesWC)
+    let wc = NSStoryboard(name: "Preferences",
+                           bundle: nil).instantiateController(withIdentifier: "Preferences") as! PreferencesWC
     return wc
   }
   
