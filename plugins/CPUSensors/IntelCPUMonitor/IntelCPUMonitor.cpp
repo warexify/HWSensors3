@@ -412,10 +412,18 @@ IOService* IntelCPUMonitor::probe(IOService *provider, SInt32 *score)
 		}
 	}
   
-  
 	for (int i = 0; i < count; i++) {
-		key[i] = (char*)IOMalloc(5);
-		snprintf(key[i], 5, "TC%XD", i);
+    key[i] = (char*)IOMalloc(5);
+    if (i > 15) {
+      for (char c = 'G'; c <= 'Z'; c++) {
+        int l = (int)c - 55;
+        if (l == i) {
+          snprintf(key[i], 5, "TC%cD", c);
+        }
+      }
+    } else {
+      snprintf(key[i], 5, "TC%XD", i);
+    }
 	}
   //	InfoLog("Platform string %s", Platform);
 	return this;
@@ -487,7 +495,18 @@ bool IntelCPUMonitor::start(IOService * provider)
 		}
     
 		char keyF[5];
-		snprintf(keyF, 5, "FRC%X", i);
+    
+    if (i > 15) {
+      for (char c = 'G'; c <= 'Z'; c++) {
+        int l = (int)c - 55;
+        if (l == i) {
+          snprintf(keyF, 5, "FRC%c", c);
+        }
+      }
+    } else {
+      snprintf(keyF, 5, "FRC%X", i);
+    }
+    
 		if (kIOReturnSuccess != fakeSMC->callPlatformFunction(kFakeSMCAddKeyHandler, false, (void *)keyF, (void *)"freq", (void *)2, this)) {
 			WarningLog("Can't add Frequency key to fake SMC device");
 		}
