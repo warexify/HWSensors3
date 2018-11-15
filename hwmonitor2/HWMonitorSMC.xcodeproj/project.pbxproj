@@ -14,9 +14,10 @@
 		950618C2208CCC62001C988E /* Process.swift in Sources */ = {isa = PBXBuildFile; fileRef = 950618BE208CCC62001C988E /* Process.swift */; };
 		951A947F217E3EB30057F687 /* SMC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 951A947E217E3EB30057F687 /* SMC.swift */; };
 		951B029F20CD8D0200C17E62 /* GPU.png in Resources */ = {isa = PBXBuildFile; fileRef = 951B029E20CD8D0200C17E62 /* GPU.png */; };
-		951C9DDE216A348E00CDAB92 /* IntelPowerGadget.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 951C9DDD216A348D00CDAB92 /* IntelPowerGadget.framework */; };
+		951C9DDE216A348E00CDAB92 /* IntelPowerGadget.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 951C9DDD216A348D00CDAB92 /* IntelPowerGadget.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		951C9DE1216A4A6D00CDAB92 /* IntelPowerGadget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 951C9DE0216A4A6D00CDAB92 /* IntelPowerGadget.swift */; };
 		952275D92184C5F800E12C3A /* freq_small_on.png in Resources */ = {isa = PBXBuildFile; fileRef = 952275D82184C5F700E12C3A /* freq_small_on.png */; };
+		9524F93D2196035B004D8513 /* SMC_Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9524F93C2196035A004D8513 /* SMC_Keys.swift */; };
 		95257967217B66BE008FEB8A /* HWMonitorSensor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95257966217B66BE008FEB8A /* HWMonitorSensor.swift */; };
 		9526B5BC217FA1A400BD9E1B /* HWSensorScanner.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9526B5BB217FA1A400BD9E1B /* HWSensorScanner.swift */; };
 		9526EC0F2183369E008595B2 /* Motherboard.png in Resources */ = {isa = PBXBuildFile; fileRef = 9526EC0E2183369D008595B2 /* Motherboard.png */; };
@@ -24,6 +25,8 @@
 		95280103204444BA008EA219 /* PopoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95280102204444BA008EA219 /* PopoverViewController.swift */; };
 		9528011920447910008EA219 /* checkbox.png in Resources */ = {isa = PBXBuildFile; fileRef = 9528011720447910008EA219 /* checkbox.png */; };
 		9528011A20447910008EA219 /* pin.png in Resources */ = {isa = PBXBuildFile; fileRef = 9528011820447910008EA219 /* pin.png */; };
+		9529D942219DEEEC006222DC /* License.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9529D941219DEEEC006222DC /* License.swift */; };
+		9529D943219DF7B0006222DC /* License.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9529D945219DF7B0006222DC /* License.storyboard */; };
 		952E03762044A8EC00EEC6DF /* PopoverWindowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 952E03752044A8EC00EEC6DF /* PopoverWindowController.swift */; };
 		9536E3C02082231400186A79 /* HWSMART.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9536E3BF2082231400186A79 /* HWSMART.swift */; };
 		9538E4A3204DA7D800918032 /* HWScrollView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9538E4A2204DA7D800918032 /* HWScrollView.swift */; };
@@ -75,6 +78,7 @@
 		9598FC76204AFC9C00A6DA72 /* cpu_freq_small.png in Resources */ = {isa = PBXBuildFile; fileRef = 9598FC74204AFC9B00A6DA72 /* cpu_freq_small.png */; };
 		9598FC78204B0A7500A6DA72 /* HWTableRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9598FC77204B0A7500A6DA72 /* HWTableRowView.swift */; };
 		95B8BCAB216D435C007B56AD /* CPU.png in Resources */ = {isa = PBXBuildFile; fileRef = 95B8BCAA216D435C007B56AD /* CPU.png */; };
+		95C3754A218F734D0074BC84 /* HWVisualEffectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95C37549218F734D0074BC84 /* HWVisualEffectView.swift */; };
 		95CE19C92043486E00E73446 /* Popover.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 95CE19CB2043486E00E73446 /* Popover.storyboard */; };
 		95CE19D3204356DF00E73446 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 95CE19D5204356DF00E73446 /* Main.storyboard */; };
 		95CE19DA2043585A00E73446 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 95CE19DC2043585A00E73446 /* Localizable.strings */; };
@@ -154,6 +158,7 @@
 		951C9DDD216A348D00CDAB92 /* IntelPowerGadget.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IntelPowerGadget.framework; path = ../../../../../../Library/Frameworks/IntelPowerGadget.framework; sourceTree = "<group>"; };
 		951C9DE0216A4A6D00CDAB92 /* IntelPowerGadget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntelPowerGadget.swift; sourceTree = "<group>"; };
 		952275D82184C5F700E12C3A /* freq_small_on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = freq_small_on.png; sourceTree = "<group>"; };
+		9524F93C2196035A004D8513 /* SMC_Keys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMC_Keys.swift; sourceTree = "<group>"; };
 		95257966217B66BE008FEB8A /* HWMonitorSensor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HWMonitorSensor.swift; sourceTree = "<group>"; };
 		9526B5BB217FA1A400BD9E1B /* HWSensorScanner.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HWSensorScanner.swift; sourceTree = "<group>"; };
 		9526EC0E2183369D008595B2 /* Motherboard.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Motherboard.png; sourceTree = "<group>"; };
@@ -161,7 +166,27 @@
 		95280102204444BA008EA219 /* PopoverViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverViewController.swift; sourceTree = "<group>"; };
 		9528011720447910008EA219 /* checkbox.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = checkbox.png; sourceTree = "<group>"; };
 		9528011820447910008EA219 /* pin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pin.png; sourceTree = "<group>"; };
+		9529D6AE2199F85B00BC0804 /* fi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fi; path = fi.lproj/Preferences.strings; sourceTree = "<group>"; };
+		9529D6AF2199F85B00BC0804 /* fi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fi; path = fi.lproj/Info.strings; sourceTree = "<group>"; };
+		9529D6B02199F85B00BC0804 /* fi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fi; path = fi.lproj/Popover.strings; sourceTree = "<group>"; };
+		9529D6B12199F85B00BC0804 /* fi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fi; path = fi.lproj/Main.strings; sourceTree = "<group>"; };
+		9529D6B22199F85B00BC0804 /* fi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fi; path = fi.lproj/Localizable.strings; sourceTree = "<group>"; };
+		9529D941219DEEEC006222DC /* License.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = License.swift; sourceTree = "<group>"; };
+		9529D944219DF7B0006222DC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/License.storyboard; sourceTree = "<group>"; };
+		9529D947219DF7B3006222DC /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/License.strings; sourceTree = "<group>"; };
+		9529D949219DF7B4006222DC /* it */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = it; path = it.lproj/License.strings; sourceTree = "<group>"; };
+		9529D94B219DF7B6006222DC /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/License.strings; sourceTree = "<group>"; };
+		9529D94D219DF7B7006222DC /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/License.strings"; sourceTree = "<group>"; };
+		9529D94F219DF7B8006222DC /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/License.strings; sourceTree = "<group>"; };
+		9529D951219DF7BA006222DC /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/License.strings; sourceTree = "<group>"; };
+		9529D953219DF7BB006222DC /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/License.strings; sourceTree = "<group>"; };
+		9529D955219DF7BD006222DC /* fi */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fi; path = fi.lproj/License.strings; sourceTree = "<group>"; };
 		952E03752044A8EC00EEC6DF /* PopoverWindowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopoverWindowController.swift; sourceTree = "<group>"; };
+		9530466B2198F2FD002425E0 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/Preferences.strings; sourceTree = "<group>"; };
+		9530466C2198F2FD002425E0 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/Info.strings; sourceTree = "<group>"; };
+		9530466D2198F2FD002425E0 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/Popover.strings; sourceTree = "<group>"; };
+		9530466E2198F2FD002425E0 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/Main.strings; sourceTree = "<group>"; };
+		9530466F2198F2FD002425E0 /* tr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = tr; path = tr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		9536E3BE2082231400186A79 /* NVMe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NVMe.h; sourceTree = "<group>"; };
 		9536E3BF2082231400186A79 /* HWSMART.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HWSMART.swift; sourceTree = "<group>"; };
 		9538E4A2204DA7D800918032 /* HWScrollView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HWScrollView.swift; sourceTree = "<group>"; };
@@ -225,6 +250,7 @@
 		9598FC74204AFC9B00A6DA72 /* cpu_freq_small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cpu_freq_small.png; sourceTree = "<group>"; };
 		9598FC77204B0A7500A6DA72 /* HWTableRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HWTableRowView.swift; sourceTree = "<group>"; };
 		95B8BCAA216D435C007B56AD /* CPU.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CPU.png; sourceTree = "<group>"; };
+		95C37549218F734D0074BC84 /* HWVisualEffectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HWVisualEffectView.swift; sourceTree = "<group>"; };
 		95CE19CA2043486E00E73446 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Popover.storyboard; sourceTree = "<group>"; };
 		95CE19CD2043488200E73446 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Popover.strings; sourceTree = "<group>"; };
 		95CE19CF204349AF00E73446 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Popover.strings; sourceTree = "<group>"; };
@@ -278,6 +304,79 @@
 				9551F19820B355C400A69C50 /* USB.swift */,
 			);
 			path = SystemKit;
+			sourceTree = "<group>";
+		};
+		9524F93B2196032C004D8513 /* HWMonitorSensors */ = {
+			isa = PBXGroup;
+			children = (
+				9536E3BD208222F000186A79 /* SMART */,
+				950618BA208CCC1F001C988E /* SystemKit */,
+				954D94E8218601D4006E407C /* SMC_DataTypes.swift */,
+				9524F93C2196035A004D8513 /* SMC_Keys.swift */,
+				951A947E217E3EB30057F687 /* SMC.swift */,
+				95257966217B66BE008FEB8A /* HWMonitorSensor.swift */,
+				9526B5BB217FA1A400BD9E1B /* HWSensorScanner.swift */,
+				9526EC10218346A1008595B2 /* HWSensorsUpdate.swift */,
+				951C9DE0216A4A6D00CDAB92 /* IntelPowerGadget.swift */,
+				958E79A42042CC770007957E /* HWTreeNode.swift */,
+			);
+			path = HWMonitorSensors;
+			sourceTree = "<group>";
+		};
+		9524F93E21960429004D8513 /* Interface */ = {
+			isa = PBXGroup;
+			children = (
+				958E7971204193EE0007957E /* Assets.xcassets */,
+				952A2BD1219B5269001F78E9 /* License */,
+				958E797D204194500007957E /* Images */,
+				9524F94021960510004D8513 /* Preferences */,
+				9524F93F219604B9004D8513 /* Gadget */,
+				95DA9B982173BB8D00CBAB9F /* Plot.swift */,
+				958E796F204193EE0007957E /* ViewController.swift */,
+				958E79822041996A0007957E /* HWWindowController.swift */,
+				958E7980204194820007957E /* HWViewController.swift */,
+				952E03752044A8EC00EEC6DF /* PopoverWindowController.swift */,
+				95280102204444BA008EA219 /* PopoverViewController.swift */,
+				958E798C2041AF780007957E /* HWOulineView.swift */,
+				9598FC77204B0A7500A6DA72 /* HWTableRowView.swift */,
+				9538E4A2204DA7D800918032 /* HWScrollView.swift */,
+				958E79B62042F6F80007957E /* HWWindow.swift */,
+				95C37549218F734D0074BC84 /* HWVisualEffectView.swift */,
+				95CE19DC2043585A00E73446 /* Localizable.strings */,
+				9544DC49208E395B0023C332 /* Info.storyboard */,
+				95CE19CB2043486E00E73446 /* Popover.storyboard */,
+				95CE19D5204356DF00E73446 /* Main.storyboard */,
+			);
+			path = Interface;
+			sourceTree = "<group>";
+		};
+		9524F93F219604B9004D8513 /* Gadget */ = {
+			isa = PBXGroup;
+			children = (
+				957EC08A2188737D00F0A457 /* GadgetVC.swift */,
+				957EC0882188736900F0A457 /* GadgetWC.swift */,
+				957EC0862188728C00F0A457 /* Gadget.storyboard */,
+			);
+			path = Gadget;
+			sourceTree = "<group>";
+		};
+		9524F94021960510004D8513 /* Preferences */ = {
+			isa = PBXGroup;
+			children = (
+				958E79C4204314A40007957E /* PreferencesWC.swift */,
+				958E79C6204314BF0007957E /* PreferencesVC.swift */,
+				95CE19E120435CD200E73446 /* Preferences.storyboard */,
+			);
+			path = Preferences;
+			sourceTree = "<group>";
+		};
+		952A2BD1219B5269001F78E9 /* License */ = {
+			isa = PBXGroup;
+			children = (
+				9529D945219DF7B0006222DC /* License.storyboard */,
+				9529D941219DEEEC006222DC /* License.swift */,
+			);
+			path = License;
 			sourceTree = "<group>";
 		};
 		9536E3BD208222F000186A79 /* SMART */ = {
@@ -335,43 +434,14 @@
 			isa = PBXGroup;
 			children = (
 				9538E4A4204DAB9900918032 /* globals.swift */,
-				954D94E8218601D4006E407C /* SMC_DataTypes.swift */,
-				951A947E217E3EB30057F687 /* SMC.swift */,
-				951C9DE0216A4A6D00CDAB92 /* IntelPowerGadget.swift */,
-				95257966217B66BE008FEB8A /* HWMonitorSensor.swift */,
-				9526B5BB217FA1A400BD9E1B /* HWSensorScanner.swift */,
-				95DA9B982173BB8D00CBAB9F /* Plot.swift */,
 				9546572C2091132A0020BA34 /* Extensions.swift */,
-				95DE45CE205E7F3800E4582D /* RunAtLogin.swift */,
 				958E796D204193EE0007957E /* AppDelegate.swift */,
-				958E79822041996A0007957E /* HWWindowController.swift */,
-				958E7980204194820007957E /* HWViewController.swift */,
-				952E03752044A8EC00EEC6DF /* PopoverWindowController.swift */,
-				95280102204444BA008EA219 /* PopoverViewController.swift */,
-				9526EC10218346A1008595B2 /* HWSensorsUpdate.swift */,
-				958E798C2041AF780007957E /* HWOulineView.swift */,
-				958E79A42042CC770007957E /* HWTreeNode.swift */,
-				9598FC77204B0A7500A6DA72 /* HWTableRowView.swift */,
-				958E79B62042F6F80007957E /* HWWindow.swift */,
-				9538E4A2204DA7D800918032 /* HWScrollView.swift */,
-				957EC0862188728C00F0A457 /* Gadget.storyboard */,
-				957EC0882188736900F0A457 /* GadgetWC.swift */,
-				957EC08A2188737D00F0A457 /* GadgetVC.swift */,
-				95CE19E120435CD200E73446 /* Preferences.storyboard */,
-				958E79C4204314A40007957E /* PreferencesWC.swift */,
-				958E79C6204314BF0007957E /* PreferencesVC.swift */,
-				95CE19D5204356DF00E73446 /* Main.storyboard */,
-				95CE19CB2043486E00E73446 /* Popover.storyboard */,
-				95CE19DC2043585A00E73446 /* Localizable.strings */,
-				958E796F204193EE0007957E /* ViewController.swift */,
-				9544DC49208E395B0023C332 /* Info.storyboard */,
-				950618BA208CCC1F001C988E /* SystemKit */,
-				9536E3BD208222F000186A79 /* SMART */,
+				95DE45CE205E7F3800E4582D /* RunAtLogin.swift */,
+				9524F93B2196032C004D8513 /* HWMonitorSensors */,
+				9524F93E21960429004D8513 /* Interface */,
 				958E79902041D3A50007957E /* C */,
-				958E7971204193EE0007957E /* Assets.xcassets */,
 				958E7976204193EE0007957E /* Info.plist */,
 				958E7977204193EE0007957E /* HWMonitorSMC.entitlements */,
-				958E797D204194500007957E /* Images */,
 			);
 			path = HWMonitorSMC;
 			sourceTree = "<group>";
@@ -472,6 +542,8 @@
 				"zh-Hans",
 				de,
 				ko,
+				tr,
+				fi,
 			);
 			mainGroup = 958E7961204193EE0007957E;
 			productRefGroup = 958E796B204193EE0007957E /* Products */;
@@ -513,6 +585,7 @@
 				9551F19B20B357BE00A69C50 /* USB.png in Resources */,
 				958E79B12042EED10007957E /* multiply_small.png in Resources */,
 				9528011920447910008EA219 /* checkbox.png in Resources */,
+				9529D943219DF7B0006222DC /* License.storyboard in Resources */,
 				958E79AF2042EED10007957E /* temp_alt_small.png in Resources */,
 				9598FC75204AFC9C00A6DA72 /* cpu_temp_small.png in Resources */,
 				95CE19D3204356DF00E73446 /* Main.storyboard in Resources */,
@@ -551,6 +624,7 @@
 				958E79A52042CC770007957E /* HWTreeNode.swift in Sources */,
 				958E7970204193EE0007957E /* ViewController.swift in Sources */,
 				9551F18F20B355AC00A69C50 /* LPCB.swift in Sources */,
+				9529D942219DEEEC006222DC /* License.swift in Sources */,
 				958E7981204194820007957E /* HWViewController.swift in Sources */,
 				9598FC72204AE5F200A6DA72 /* SSMemoryInfo.m in Sources */,
 				954D94E9218601D4006E407C /* SMC_DataTypes.swift in Sources */,
@@ -567,6 +641,7 @@
 				957EC0892188736900F0A457 /* GadgetWC.swift in Sources */,
 				9526EC11218346A1008595B2 /* HWSensorsUpdate.swift in Sources */,
 				9551F19720B355C000A69C50 /* SATAController.swift in Sources */,
+				9524F93D2196035B004D8513 /* SMC_Keys.swift in Sources */,
 				95DE45CF205E7F3800E4582D /* RunAtLogin.swift in Sources */,
 				958E79C5204314A40007957E /* PreferencesWC.swift in Sources */,
 				95257967217B66BE008FEB8A /* HWMonitorSensor.swift in Sources */,
@@ -580,6 +655,7 @@
 				950618C1208CCC62001C988E /* IOReturn.swift in Sources */,
 				958E798D2041AF780007957E /* HWOulineView.swift in Sources */,
 				9598FC78204B0A7500A6DA72 /* HWTableRowView.swift in Sources */,
+				95C3754A218F734D0074BC84 /* HWVisualEffectView.swift in Sources */,
 				950618C2208CCC62001C988E /* Process.swift in Sources */,
 				9526B5BC217FA1A400BD9E1B /* HWSensorScanner.swift in Sources */,
 			);
@@ -596,6 +672,22 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		9529D945219DF7B0006222DC /* License.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				9529D944219DF7B0006222DC /* Base */,
+				9529D947219DF7B3006222DC /* en */,
+				9529D949219DF7B4006222DC /* it */,
+				9529D94B219DF7B6006222DC /* ru */,
+				9529D94D219DF7B7006222DC /* zh-Hans */,
+				9529D94F219DF7B8006222DC /* de */,
+				9529D951219DF7BA006222DC /* ko */,
+				9529D953219DF7BB006222DC /* tr */,
+				9529D955219DF7BD006222DC /* fi */,
+			);
+			name = License.storyboard;
+			sourceTree = "<group>";
+		};
 		9544DC49208E395B0023C332 /* Info.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -606,6 +698,8 @@
 				9544DC53208E396C0023C332 /* zh-Hans */,
 				9544DC57208E39700023C332 /* de */,
 				9544DC61208E397B0023C332 /* ko */,
+				9530466C2198F2FD002425E0 /* tr */,
+				9529D6AF2199F85B00BC0804 /* fi */,
 			);
 			name = Info.storyboard;
 			sourceTree = "<group>";
@@ -620,6 +714,8 @@
 				950AAF312045F2500004418F /* zh-Hans */,
 				950AAF392045F25E0004418F /* de */,
 				950AAF4D2045F2770004418F /* ko */,
+				9530466D2198F2FD002425E0 /* tr */,
+				9529D6B02199F85B00BC0804 /* fi */,
 			);
 			name = Popover.storyboard;
 			sourceTree = "<group>";
@@ -634,6 +730,8 @@
 				950AAF592045F3E00004418F /* en */,
 				950AAF5B2045F3E70004418F /* it */,
 				950AAF5D2045F3F10004418F /* ru */,
+				9530466E2198F2FD002425E0 /* tr */,
+				9529D6B12199F85B00BC0804 /* fi */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -647,6 +745,8 @@
 				950AAF332045F2510004418F /* zh-Hans */,
 				950AAF3B2045F25F0004418F /* de */,
 				950AAF4F2045F2780004418F /* ko */,
+				9530466F2198F2FD002425E0 /* tr */,
+				9529D6B22199F85B00BC0804 /* fi */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -661,6 +761,8 @@
 				950AAF322045F2500004418F /* zh-Hans */,
 				950AAF3A2045F25E0004418F /* de */,
 				950AAF4E2045F2770004418F /* ko */,
+				9530466B2198F2FD002425E0 /* tr */,
+				9529D6AE2199F85B00BC0804 /* fi */,
 			);
 			name = Preferences.storyboard;
 			sourceTree = "<group>";
@@ -703,7 +805,7 @@
 				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_IDENTITY = "-";
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 2.4.0;
+				CURRENT_PROJECT_VERSION = 2.4.1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -767,7 +869,7 @@
 				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_IDENTITY = "-";
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 2.4.0;
+				CURRENT_PROJECT_VERSION = 2.4.1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -795,7 +897,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 2.4.0;
+				CURRENT_PROJECT_VERSION = 2.4.1;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(LOCAL_LIBRARY_DIR)/Frameworks",
@@ -804,7 +906,7 @@
 				INFOPLIST_FILE = HWMonitorSMC/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
-				MODULE_VERSION = 2.4.0;
+				MODULE_VERSION = 2.4.1;
 				PRODUCT_BUNDLE_IDENTIFIER = org.slice.HWMonitorSMC2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
@@ -821,7 +923,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 2.4.0;
+				CURRENT_PROJECT_VERSION = 2.4.1;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(LOCAL_LIBRARY_DIR)/Frameworks",
@@ -830,7 +932,7 @@
 				INFOPLIST_FILE = HWMonitorSMC/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
-				MODULE_VERSION = 2.4.0;
+				MODULE_VERSION = 2.4.1;
 				PRODUCT_BUNDLE_IDENTIFIER = org.slice.HWMonitorSMC2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;

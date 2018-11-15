@@ -13,19 +13,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
   var useIPG : Bool = false
   var ipgInited : Bool = false
   let useIOAcceleratorForGPUs : Bool = UDs.bool(forKey: kUseGPUIOAccelerator)
+  var sensorScanner : HWSensorsScanner = HWSensorsScanner()
+  var debugIOACC: Bool = true
   
   let statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
   var hwWC : HWWindowController?
-  
-  var graphNum : Int = 0
-  var plotNum: Int {
-    get {
-      return self.graphNum
-    }
-    set {
-      self.graphNum = newValue
-    }
-  }
 
   var cpuFrequencyMax : Double = Double(gCPUBaseFrequency()) // Turbo Boost frequency to be set by the user
   var cpuTDP : Double = 100 // to be set by Intel Power Gadget or by the user
@@ -35,6 +27,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     icon?.isTemplate = true
     self.statusItem.image = icon
     
+    self.license()
+    
     if (UDs.object(forKey: kUseIPG) != nil) {
       self.useIPG = UDs.bool(forKey: kUseIPG)
     }
@@ -43,8 +37,15 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     if (UserDefaults.standard.object(forKey: kRunAtLogin) == nil) {
       self.setLaunchAtStartup()
     }
+  }
   
-    
+  func license() {
+    if !UDs.bool(forKey: kLinceseAccepted) {
+      if let lwc = NSStoryboard(name: "License",
+                                bundle: nil).instantiateController(withIdentifier: "License") as? LicenseWC {
+        NSApp.beginModalSession(for: lwc.window!)
+      }
+    }
   }
   
   func applicationWillTerminate(_ aNotification: Notification) {

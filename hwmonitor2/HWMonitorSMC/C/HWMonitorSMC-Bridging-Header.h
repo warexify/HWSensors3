@@ -7,7 +7,7 @@
 #include <unistd.h>
 
 #import "SSMemoryInfo.h"
-#import "../SMART/NVMe.h"
+#import "NVMe.h"
 #include <sys/sysctl.h>
 
 #import "IOBatteryStatus.h"
@@ -18,4 +18,4 @@
 #import <mach/task_info.h>
 #import <mach/task.h>
 
-#include <IntelPowerGadget/EnergyLib.h>
+#include <IntelPowerGadget/EnergyLib.h> // optional link

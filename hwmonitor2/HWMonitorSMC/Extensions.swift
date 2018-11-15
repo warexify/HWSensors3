@@ -12,7 +12,18 @@ extension String {
   public func locale() -> String {
     return NSLocalizedString(self, comment: "")
   }
+  
+  public func noSpaces() -> String {
+    return self.trimmingCharacters(in: CharacterSet.whitespaces)
+  }
+  
+  // require
+  public func withFormat(_ arg: Any) -> String {
+    return String(format: self, "\(arg)")
+  }
 }
+  
+
 extension Data {
   public func hexadecimal() -> String {
     var hex : String = ""
@@ -44,3 +55,19 @@ extension UInt32 {
   }
 }
 
+// HWMonitorSMC2 debug
+extension NSDictionary {
+  public func writeIOAcc(with name: String) {
+    let dir = NSHomeDirectory() + "/Desktop/HWGraphics"
+    if FileManager.default.fileExists(atPath: NSHomeDirectory() + "/Desktop/HWGraphics") {
+      self.write(toFile: "\(dir)/IOAccelerator_\(name).plist", atomically: true)
+    }
+  }
+  
+  public func writeGraphicsInf(with name: String) {
+    let dir = NSHomeDirectory() + "/Desktop/HWGraphics"
+    if FileManager.default.fileExists(atPath: NSHomeDirectory() + "/Desktop/HWGraphics") {
+      self.write(toFile: "\(dir)/Inf_\(name).plist", atomically: true)
+    }
+  }
+}

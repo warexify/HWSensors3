@@ -10,6 +10,7 @@ import Cocoa
 
 let kTestVersion            = ""
 
+let kLinceseAccepted        = "LinceseAccepted"
 let kRunAtLogin             = "runAtLogin"
 let kUseIPG                 = "UseIPG"
 let kShowGadget             = "ShowGadget"
@@ -86,3 +87,4 @@ func getAppearance() -> NSAppearance {
   }
   return appearance!
 }
+

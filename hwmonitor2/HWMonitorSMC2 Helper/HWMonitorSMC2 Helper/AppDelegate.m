@@ -29,7 +29,7 @@
   if (!running) {
     [[NSWorkspace sharedWorkspace] launchApplication:appPath];
   }
-  [NSApp terminate:nil];
+  [self performSelector:@selector(terminate) withObject:nil afterDelay:3];
 }
 
 - (NSString *)HWMonitorSMC2Path {
@@ -40,6 +40,10 @@
     count--;
   }
   return myUrl.path;
+}
+
+- (void)terminate {
+  [NSApp terminate:nil];
 }
 
 @end
