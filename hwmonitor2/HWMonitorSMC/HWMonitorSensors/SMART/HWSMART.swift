@@ -390,8 +390,8 @@ class HWSmartDataScanner: NSObject {
   }
   
   private func isSolidSate(characteristics : NSDictionary) -> Bool {
-    if (characteristics.object(forKey: kIOPropertyMediumTypeKey) as! String) == kIOPropertyMediumTypeSolidStateKey {
-      return true
+    if let type : String = characteristics.object(forKey: kIOPropertyMediumTypeKey) as? String {
+      return (type == kIOPropertyMediumTypeSolidStateKey)
     }
     return false
   }
@@ -405,10 +405,10 @@ class HWSmartDataScanner: NSObject {
   }
   
   private func getMediumType(characteristics : NSDictionary) -> String {
-    if (characteristics.object(forKey: kIOPropertyMediumTypeKey) as! String) == kIOPropertyMediumTypeSolidStateKey {
-      return "SSD"
+    if let type : String = characteristics.object(forKey: kIOPropertyMediumTypeKey) as? String {
+      return (type == kIOPropertyMediumTypeSolidStateKey ? "SSD" : "HDD")
     }
-    return "HDD"
+    return "Unknown"
   }
   
   private func getPhysicalInterconnect(characteristics : NSDictionary) -> String {

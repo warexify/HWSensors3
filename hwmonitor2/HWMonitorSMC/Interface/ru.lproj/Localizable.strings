@@ -106,7 +106,7 @@
 "GHz" = "ГГц"; // Giga Hertz
 "MHz" = "МГц"; // Mega Hertz
 "MB"  = "МБ﻿";  // Mega byte
-"GB"  = "ГВ";  // Giga byte
+"GB"  = "ГБ";  // Giga byte
 "°C"  = "°C";  // Celsius
 "W"   = "Вт";  // Watt
 "mWh" = "мВт⋅ч"; // milli Watt per hour
