@@ -282,16 +282,16 @@ extension PopoverViewController {
     AppSd.statusItem.attributedTitle = nil
     
     let useGadget : Bool = (self.gadgetWC != nil)
-
+    let useOneLine : Bool = true
     for i in copy {
       let node = i as! HWTreeNode
       if let sensor = node.sensorData?.sensor {
         if sensor.favorite {
-          if components.count <= 12 {
+          //if components.count <= 12 {
             components.append("\(sensor.stringValue)\(sensor.unit.rawValue.locale())")
-          } else {
-            sensor.favorite = false
-          }
+          //} else {
+          //  sensor.favorite = false
+          //}
         }
         //ensure the node is visible before reload its view (no sense otherwise)
         let nodeIndex = self.outline.row(forItem: node)
@@ -302,7 +302,7 @@ extension PopoverViewController {
       }
     }
 
-    let useOneLine : Bool = true
+    
     var statusString = ""
     let style = NSMutableParagraphStyle()
     var f = NSFont(name: "Lucida Grande Bold", size: 9.0)!
