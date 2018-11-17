@@ -460,6 +460,14 @@ class HWSensorsScanner: NSObject {
                                       canPlot: true,
                                       list: &arr)
     
+    let _ =  self.addSMCSensorIfValid(key: SMC_AMBIENT_TEMP,
+                                      type: DataTypes.SP78,
+                                      unit: .C,
+                                      sensorType: .temperature,
+                                      title: "Ambient".locale(),
+                                      logType: logtype,
+                                      canPlot: true,
+                                      list: &arr)
     
     // voltages
     // VBAT, @maoyeye has it but is it Apple stuff?

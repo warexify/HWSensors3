@@ -6,107 +6,106 @@
  Copyright © 2018 HWSensor. All rights reserved.
  */
 
-// translated by vector sigma
+// translated by Amble
 
-"Core Frequencies" = "Core Frequencies";   // CPU temperature sub group
-"Core Temperatures" = "Core Temperatures"; // CPU frequencies sub group
-"Temperature" = "Temperature";   // singular
-"Temperatures" = "Temperatures"; // plural
-"Frequency"   = "Frequency";     // singular
-"Frequencies" = "Frequencies";   // plural
-"Package Core" = "Package Core";
-"Package Total" = "Package Total";
-"Package IGPU" = "Package IGPU";
-"Multipliers" = "Multipliers";
-"Voltage" = "Voltage";   // singular
-"Voltages" = "Voltages"; // plural
-"Amperage" = "Amperage";
-"Battery" = "Battery"; // singular
-"Batteries" = "Batteries"; // plural
-"Media health" = "Media health";
-"Life" = "Life"; // hdd/ssd life
-"IGPU Frequency" = "IGPU Frequency";
-"IGPU Max Frequency" = "IGPU Max Frequency";
-"IGPU Utilization" = "IGPU Utilization";
+"Core Frequencies" = "Ytimien kellotaajuudet";   // CPU temperature sub group
+"Core Temperatures" = "Ytimien lämpötilat"; // CPU frequencies sub group
+"Temperature" = "Lämpötila";   // singular
+"Temperatures" = "Lämpötilat"; // plural
+"Frequency"   = "Kellotaajuus";     // singular
+"Frequencies" = "Kellotaajuudet";   // plural
+"Package Core" = "Paketin ydin";
+"Package Total" = "Paketti yhteensä";
+"Package IGPU" = "Paketti yhdysrakenteinen näytönohjain";
+"Multipliers" = "Kertoimet";
+"Voltage" = "Jännite";   // singular
+"Voltages" = "Jännitteet"; // plural
+"Amperage" = "Ampeeri";
+"Battery" = "Akku"; // singular
+"Batteries" = "Akut"; // plural
+"Media health" = "Median kunto";
+"Life" = "Elinikä"; // hdd/ssd life
+"IGPU Frequency" = "Yhdysrakenteisen näytönohjaimen kellotaajuus";
+"IGPU Max Frequency" = "Yhdysrakenteisen näytönohjaimen maks. kellotaajuus";
+"IGPU Utilization" = "Yhdysrakenteisen näytönohjaimen käyttö";
 
 // Intel Power Gadget
-"Intel® Power Gadget info" = "Intel® Power Gadget info";
+"Intel® Power Gadget info" = "Intel® Power Gadget tietoa";
 "DRAM" = "DRAM";
-"Package Temperature" = "Package Temperature";
+"Package Temperature" = "Paketin lämpötila";
 "Package Power Limit (TDP)" = "TDP";
-"Max Temperature"  = "Max Temperature";
-"Thresholds"       = "Thresholds";
-"Base Frequency"   = "Base Frequency";
-"Max Frequency" = "Max Frequency";
+"Max Temperature"  = "maks. lämpötila";
+"Thresholds"       = "Energiapisteet";
+"Base Frequency"   = "Perus kellotaajuus";
+"Max Frequency" = "maks. kellotaajuus";
 
 // GPU, when taken from PerformanceStatistics
-"GPUs" = "GPUs";
-"Core Clock" = "Core Clock";
-"Fan/Pump speed" = "Fan/Pump speed";
-"Fan/Pump speed rate" = "Fan/Pump speed rate";
-"Utilization" = "Utilization";
-"Activity" = "Activity";
-"Core Utilization" = "Core Utilization";
-"Device Unit %d Utilization" = "Device Unit %d Utilization";
-"Video Engine Utilization" = "Video Engine Utilization";
-"Used VRAM" = "Used VRAM";
-"Free VRAM" = "Free VRAM";
-"Total Power" = "Total Power";
+"GPUs" = "Näytönohjaimet";
+"Core Clock" = "Ytimen kellotaajuus";
+"Fan/Pump speed" = "Tuulettimen/Pumpun nopeus";
+"Fan/Pump speed rate" = "Tuulettimen/Pumpun nopeustaso";
+"Utilization" = "Käyttö";
+"Activity" = "Aktiivisuus";
+"Core Utilization" = "Ytimen käyttö";
+"Device Unit %d Utilization" = "Device Unit:n %d käyttö";
+"Video Engine Utilization" = "Video Engine:n käyttö";
+"Used VRAM" = "Käytetty näyttömuisti";
+"Free VRAM" = "Vapaa näyttömuisti";
+"Total Power" = "Kokonaisteho";
 
 // RAM
-"RAM" = "RAM";
-"Total" = "Total";
-"Active" = "Active";
-"Inactive" = "Inactive";
-"Free" = "Free";
-"Used" = "Used";
-"Purgeable" = "Purgeable";
-"Wired" = "Wired";
+"RAM" = "Keskusmuisti";
+"Total" = "Yhteensä";
+"Active" = "Aktiivisena";
+"Inactive" = "Inaktiivisena";
+"Free" = "Vapaa";
+"Used" = "Käytössä";
+"Purgeable" = "Tyhjennettävät";
+"Wired" = "Lukittuna";
 
-"CPU" = "CPU";
-"Proximity" = "Proximity"; // CPU or GPU
-"Heatsink" = "Heatsink";  // CPU or GPU
+"CPU" = "Suoritin";
+"Proximity" = "Läheisyys"; // CPU or GPU
+"Heatsink" = "Jäähdytyssiili";  // CPU or GPU
 "DIMM 0" = "DIMM 0"; // RAM
 "DIMM 1" = "DIMM 1"; // RAM
-"Ambient" = "Ambient"; // Motherboard
-"GPU %d Board" = "GPU %d Board";
-"GPU %d Proximity" = "GPU %d Proximity";
-"Core %d" = "Core %d";   // CPU or GPU
-"Diode %d" = "Diode %d"; // CPU or GPU
-"CPU %d" = "CPU %d";
-"GPU %d Core" = "GPU %d Core";
-"GPU %d Shaders" = "GPU %d Shaders";
-"GPU %d Memory" = "GPU %d Memory";
-"GPU %d Voltage" = "GPU %d Voltage";
-"Core %d Multiplier" = "Core %d Multiplier";
-"Package Multiplier" = "Package Multiplier";
+"Ambient" = "Ympäristö"; // Motherboard
+"GPU %d Board" = "Näytönohjaimen %d piirilevy";
+"GPU %d Proximity" = "Näytönohjaimen %d läheisyys";
+"Core %d" = "Ydin %d";   // CPU or GPU
+"Diode %d" = "Diodi %d"; // CPU or GPU
+"CPU %d" = "Suoritin %d";
+"GPU %d Core" = "Näytönohjaimen %d ydin";
+"GPU %d Shaders" = "Näytönohjaimen %d varjostinyksiköt";
+"GPU %d Memory" = "Näytönohjaimen %d muisti";
+"GPU %d Voltage" = "Näytönohjaimen %d jännite";
+"Core %d Multiplier" = "Ytimen %d kerroin";
+"Package Multiplier" = "Paketin kerroin";
 
 // Motherboard
-"Motherboard" = "Main Logic Board";  // MLB (Main Logic Board)
-"North Bridge" = "North Bridge";
-"PRAM Battery" = "Battery"; // PRAM Battery (..or CMOS)
-"VRM Voltage" = "VRM Voltage";
-"DIMM Voltage" = "DIMM Voltage";
-"+12V Bus Voltage" = "+12V Bus Voltage";
-"+5V Bus Voltage" = "+5V Bus Voltage";
-"-12V Bus Voltage" = "-12V Bus Voltage";
-"-5V Bus Voltage" = "-5V Bus Voltage";
-"3.3 VCC Voltage" = "3.3 VCC Voltage";
-"3.3 VSB Voltage" = "3.3 VSB Voltage";
-"3.3 AVCC Voltage" = "3.3 AVCC Voltage";
+"Motherboard" = "Emolevy";
+"North Bridge" = "Pohjoissilta";
+"VRM Voltage" = "VRM jännite";
+"DIMM Voltage" = "DIMM jännite";
+"+12V Bus Voltage" = "+12V väylän jännite";
+"+5V Bus Voltage" = "+5V väylän jännite";
+"-12V Bus Voltage" = "-12V väylän jännite";
+"-5V Bus Voltage" = "-5V väylän jännite";
+"3.3 VCC Voltage" = "3.3 VCC jännite";
+"3.3 VSB Voltage" = "3.3 VSB jännite";
+"3.3 AVCC Voltage" = "3.3 AVCC jännite";
 
 // Fans
-"Fans or Pumps" = "Fans or Pumps";
-"Fan %d" = "Fan %d";
-"speed" = "speed"; // rpm, all in lower case letters
-"min speed" = "min speed"; // rpm, all in lower case letters
-"max speed" = "max speed"; // rpm, all in lower case letters
+"Fans or Pumps" = "Tuulettimet tai pumput";
+"Fan %d" = "Tuuletin %d";
+"speed" = "nopeus"; // rpm, all in lower case letters
+"min speed" = "min. nopeus"; // rpm, all in lower case letters
+"max speed" = "maks. nopeus"; // rpm, all in lower case letters
 
 // Units of measurement
 "GHz" = "GHz"; // Giga Hertz
 "MHz" = "MHz"; // Mega Hertz
-"MB"  = "MB";  // Mega byte
-"GB"  = "GB";  // Giga byte
+"MB"  = "Mt";  // Mega byte
+"GB"  = "Gt";  // Giga byte
 "°C"  = "°C";  // Celsius
 "W"   = "W";   // Watt
 "mWh" = "mWh"; // milli Watt per hour
@@ -116,5 +115,5 @@
 "mA"  = "mA";  // milli Ampere
 "rpm" = "rpm"; // revolutions per minute
 
-"log copied to clip board!" = "log copied to clip board!";
+"log copied to clip board!" = "lokitiedosto kopioitu leikepöydälle!";
 
