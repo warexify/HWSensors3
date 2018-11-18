@@ -973,13 +973,6 @@ extension PopoverViewController {
   }
   
   @objc func powerOffListener() {
-    do {
-      try "sleep".write(to: URL(fileURLWithPath: NSHomeDirectory() + "/sleep.txt"), atomically: false, encoding: String.Encoding.utf8)
-    } catch  {
-      
-    }
-    
-    self.removeAllTimers()
     self.removeObservers()
   }
   
@@ -994,7 +987,6 @@ extension PopoverViewController {
   }
   
   @objc func wakeListener() {
-    print("wake")
     self.updateCPUSensors()
     self.updateGPUSensors()
     self.updateMotherboardSensors()
