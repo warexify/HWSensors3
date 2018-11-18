@@ -23,6 +23,7 @@ class PreferencesVC: NSViewController, NSTextFieldDelegate {
   @IBOutlet var dontShowEmptyBtn        : NSButton!
   @IBOutlet var darkBtn                 : NSButton!
   @IBOutlet var hideScrollerBtn         : NSButton!
+  @IBOutlet var translateUnitsBtn       : NSButton!
   @IBOutlet var runAtLoginBtn           : NSButton!
   @IBOutlet var useGPUAccelerator       : NSButton!
   
@@ -115,12 +116,12 @@ class PreferencesVC: NSViewController, NSTextFieldDelegate {
         var tdp : Double = 0
         GetTDP(0, &tdp)
         self.cpuTDPOverrideField.isEnabled = false
-        self.cpuTDPOverrideField.stringValue = String(format: "%.2f", tdp)
+        self.cpuTDPOverrideField.stringValue = String(format: "%.f", tdp)
         AppSd.cpuTDP = tdp
       } else {
         let tdp : Double = UDs.double(forKey: kCPU_TDP_MAX)
         self.CPU_TDP_MAX = (tdp >= 7 && tdp <= 250) ? tdp : 100
-        self.cpuTDPOverrideField.stringValue = String(format: "%.2f", self.CPU_TDP_MAX)
+        self.cpuTDPOverrideField.stringValue = String(format: "%.f", self.CPU_TDP_MAX)
         UDs.set(tdp, forKey: kCPU_TDP_MAX)
         AppSd.cpuTDP = tdp
       }
@@ -128,12 +129,13 @@ class PreferencesVC: NSViewController, NSTextFieldDelegate {
     
     let freqMax : Double = UDs.double(forKey: kCPU_Frequency_MAX)
     self.CPU_Frequency_MAX = (freqMax > 0 && freqMax <= 7000) ? freqMax : 5000
-    self.cpuFrequencyOverrideField.stringValue = String(format: "%.2f", self.CPU_Frequency_MAX)
+    self.cpuFrequencyOverrideField.stringValue = String(format: "%.f", self.CPU_Frequency_MAX)
     UDs.set(freqMax, forKey: kCPU_Frequency_MAX)
     
     
     AppSd.cpuFrequencyMax = freqMax
     
+    self.translateUnitsBtn.state = UDs.bool(forKey: kTranslateUnits) ? .on : .off
     self.runAtLoginBtn.state = UDs.bool(forKey: kRunAtLogin) ? .on : .off
     
     self.useGPUAccelerator.state = UDs.bool(forKey: kUseGPUIOAccelerator) ? .on : .off
@@ -379,6 +381,12 @@ class PreferencesVC: NSViewController, NSTextFieldDelegate {
   
   @IBAction func startDark(_ sender: NSButton) {
     UDs.set(sender.state == NSControl.StateValue.on, forKey: kDark)
+    self.synchronize()
+  }
+  
+  @IBAction func translateUnits(_ sender: NSButton) {
+    UDs.set(sender.state == NSControl.StateValue.on, forKey: kTranslateUnits)
+    AppSd.translateUnits = sender.state == NSControl.StateValue.on
     self.synchronize()
   }
   

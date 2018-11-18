@@ -282,57 +282,33 @@ extension PopoverViewController {
     AppSd.statusItem.attributedTitle = nil
     
     let useGadget : Bool = (self.gadgetWC != nil)
-    let useOneLine : Bool = true
     for i in copy {
       let node = i as! HWTreeNode
       if let sensor = node.sensorData?.sensor {
         if sensor.favorite {
-          //if components.count <= 12 {
-            components.append("\(sensor.stringValue)\(sensor.unit.rawValue.locale())")
-          //} else {
-          //  sensor.favorite = false
-          //}
+          components.append("\(sensor.stringValue)\(sensor.unit.rawValue.locale(AppSd.translateUnits))")
         }
-        //ensure the node is visible before reload its view (no sense otherwise)
-        let nodeIndex = self.outline.row(forItem: node)
-        if self.outline.isItemExpanded(node.parent) && (nodeIndex >= 0) {
-          self.outline.reloadData(forRowIndexes: IndexSet(integer: nodeIndex),
-                                  columnIndexes: IndexSet(integer: 2))
+        // ensure the outline is visible
+        if (self.outline.window != nil) && self.outline.window!.isVisible {
+          //ensure the node is visible before reload its view (no sense otherwise)
+          let nodeIndex = self.outline.row(forItem: node)
+          if self.outline.isItemExpanded(node.parent) && (nodeIndex >= 0) {
+            self.outline.reloadData(forRowIndexes: IndexSet(integer: nodeIndex),
+                                    columnIndexes: IndexSet(integer: 2))
+          }
         }
       }
     }
-
     
     var statusString = ""
     let style = NSMutableParagraphStyle()
-    var f = NSFont(name: "Lucida Grande Bold", size: 9.0)!
+    let f = NSFont(name: "Lucida Grande Bold", size: 9.0)!
     
-    if useGadget {
-      if useOneLine {
-        style.lineSpacing = 0.0
-        statusString = components.joined(separator: " ")
-      } else {
-        if components.count > 6 {
-          f = NSFont(name: "Lucida Grande Bold", size: 8.0)!
-          style.lineSpacing = 0.1
-          for i in 0..<components.count {
-            statusString += components[i]
-            if i == 5 {
-              statusString += "\n"
-            } else {
-              if i != (components.count - 1) {
-                statusString += " "
-              }
-            }
-          }
-        } else {
-          style.lineSpacing = 0.0
-          statusString = components.joined(separator: " ")
-        }
-      }
-    } else {
-      style.lineSpacing = 0.0
-      statusString = components.joined(separator: " ")
+    style.lineSpacing = 0.0
+    //statusString = components.joined(separator: " ")
+    if components.count > 0 { statusString += " "}
+    for s in components {
+      statusString += s.trimmingCharacters(in: CharacterSet.whitespaces) + " "
     }
     
     let title = NSMutableAttributedString(string: statusString as String, attributes: [NSAttributedString.Key.paragraphStyle : style])

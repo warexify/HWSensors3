@@ -6,11 +6,15 @@
 //  Copyright © 2018 vector sigma. All rights reserved.
 //
 
-import Foundation
+import Cocoa
 
 extension String {
   public func locale() -> String {
     return NSLocalizedString(self, comment: "")
+  }
+  
+  public func locale(_ localized: Bool) -> String {
+    return (localized ? self.locale() : self)
   }
   
   public func noSpaces() -> String {
@@ -68,6 +72,18 @@ extension NSDictionary {
     let dir = NSHomeDirectory() + "/Desktop/HWGraphics"
     if FileManager.default.fileExists(atPath: NSHomeDirectory() + "/Desktop/HWGraphics") {
       self.write(toFile: "\(dir)/Inf_\(name).plist", atomically: true)
+    }
+  }
+}
+
+public extension NSView {
+  @IBInspectable var cornerRadius: CGFloat {
+    get {
+      return self.layer?.cornerRadius ?? 0
+    } set {
+      self.wantsLayer = true
+      self.layer?.masksToBounds = true
+      self.layer?.cornerRadius = CGFloat(Int(newValue * 100)) / 100
     }
   }
 }

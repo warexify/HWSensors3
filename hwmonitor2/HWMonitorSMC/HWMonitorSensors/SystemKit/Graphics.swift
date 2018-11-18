@@ -327,7 +327,8 @@ public struct Graphics {
             vrubSensor.characteristics = primaryMatch
             vrubSensor.logType = .gpuLog
             vrubSensor.doubleValue = vramUsedBytes.doubleValue
-            vrubSensor.stringValue = ByteCountFormatter.string(fromByteCount: vramUsedBytes.int64Value, countStyle: .memory)
+            //vrubSensor.stringValue = ByteCountFormatter.string(fromByteCount: vramUsedBytes.int64Value, countStyle: .memory)
+            vrubSensor.stringValue = BytesFormatter.init(bytes: vramUsedBytes.int64Value, countStyle: 1024).stringValue()
             vrubSensor.vendor = vendorString
             gpuNode.mutableChildren.add(HWTreeNode(representedObject: HWSensorData(group: model,
                                                                                    sensor: vrubSensor,
@@ -347,7 +348,8 @@ public struct Graphics {
             vrfbSensor.characteristics = primaryMatch
             vrfbSensor.logType = .gpuLog
             vrfbSensor.doubleValue = vramFreeBytes.doubleValue
-            vrfbSensor.stringValue = ByteCountFormatter.string(fromByteCount: vramFreeBytes.int64Value, countStyle: .memory)
+            //vrfbSensor.stringValue = ByteCountFormatter.string(fromByteCount: vramFreeBytes.int64Value, countStyle: .memory)
+            vrfbSensor.stringValue = BytesFormatter.init(bytes: vramFreeBytes.int64Value, countStyle: 1024).stringValue()
             vrfbSensor.vendor = vendorString
             gpuNode.mutableChildren.add(HWTreeNode(representedObject: HWSensorData(group: model,
                                                                                    sensor: vrfbSensor,
@@ -368,7 +370,8 @@ public struct Graphics {
             gubSensor.characteristics = primaryMatch
             gubSensor.logType = .gpuLog
             gubSensor.doubleValue = gartUsedBytes.doubleValue
-            gubSensor.stringValue = ByteCountFormatter.string(fromByteCount: gartUsedBytes.int64Value, countStyle: .memory)
+            //gubSensor.stringValue = ByteCountFormatter.string(fromByteCount: gartUsedBytes.int64Value, countStyle: .memory)
+            gubSensor.stringValue = BytesFormatter.init(bytes: gartUsedBytes.int64Value, countStyle: 1024).stringValue()
             gubSensor.vendor = vendorString
             gpuNode.mutableChildren.add(HWTreeNode(representedObject: HWSensorData(group: model,
                                                                                    sensor: gubSensor,
@@ -389,7 +392,8 @@ public struct Graphics {
             gfbSensor.characteristics = primaryMatch
             gfbSensor.logType = .gpuLog
             gfbSensor.doubleValue = gartFreeBytes.doubleValue
-            gfbSensor.stringValue = ByteCountFormatter.string(fromByteCount: gartFreeBytes.int64Value, countStyle: .memory)
+            //gfbSensor.stringValue = ByteCountFormatter.string(fromByteCount: gartFreeBytes.int64Value, countStyle: .memory)
+            gfbSensor.stringValue = BytesFormatter.init(bytes: gartFreeBytes.int64Value, countStyle: 1024).stringValue()
             gfbSensor.vendor = vendorString
             gpuNode.mutableChildren.add(HWTreeNode(representedObject: HWSensorData(group: model,
                                                                                    sensor: gfbSensor,

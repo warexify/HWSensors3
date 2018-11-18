@@ -398,8 +398,9 @@ class HWSmartDataScanner: NSObject {
   
   private func getFormattedMediaSize(characteristics : NSDictionary) -> String {
     if (characteristics.object(forKey: kDADiskDescriptionMediaSizeKey) != nil)  {
-      let size : Int64 = characteristics.object(forKey: kDADiskDescriptionMediaSizeKey) as! Int64
-      return "\(ByteCountFormatter.string(fromByteCount: size, countStyle: .file)) (\(size) bytes)"
+      let size : NSNumber = characteristics.object(forKey: kDADiskDescriptionMediaSizeKey) as! NSNumber
+      //return "\(ByteCountFormatter.string(fromByteCount: size, countStyle: .file)) (\(size) bytes)"
+      return BytesFormatter.init(bytes: size.int64Value, countStyle: 1000).stringValue() + " \(size) bytes"
     }
     return "Unknown"
   }

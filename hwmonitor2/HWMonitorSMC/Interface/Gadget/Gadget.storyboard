@@ -16,9 +16,9 @@
                         <rect key="contentRect" x="1361" y="827" width="200" height="17"/>
                         <rect key="screenRect" x="0.0" y="0.0" width="1600" height="877"/>
                         <value key="minSize" type="size" width="80" height="17"/>
-                        <value key="maxSize" type="size" width="200" height="17"/>
+                        <value key="maxSize" type="size" width="200" height="400"/>
                         <value key="minFullScreenContentSize" type="size" width="200" height="17"/>
-                        <value key="maxFullScreenContentSize" type="size" width="200" height="17"/>
+                        <value key="maxFullScreenContentSize" type="size" width="200" height="400"/>
                         <connections>
                             <outlet property="delegate" destination="uER-lA-G9p" id="UD8-ba-oOk"/>
                         </connections>
@@ -53,26 +53,31 @@
                                     <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Rrl-SK-6UR">
                                         <rect key="frame" x="3" y="0.0" width="17" height="17"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="17" id="exd-Zk-n4c"/>
+                                            <constraint firstAttribute="width" constant="17" id="GTP-gJ-suL"/>
                                         </constraints>
                                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="temperature_small" id="tpQ-Vo-a1f"/>
                                     </imageView>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="A6t-HJ-lQa" secondAttribute="trailing" constant="7" id="2hz-J0-YUX"/>
-                                    <constraint firstItem="Rrl-SK-6UR" firstAttribute="top" secondItem="A6t-HJ-lQa" secondAttribute="top" id="74n-fO-7vv"/>
-                                    <constraint firstItem="Rrl-SK-6UR" firstAttribute="leading" secondItem="s9d-UN-xiN" secondAttribute="leading" constant="3" id="Aq1-rA-UDW"/>
-                                    <constraint firstItem="A6t-HJ-lQa" firstAttribute="leading" secondItem="Rrl-SK-6UR" secondAttribute="trailing" constant="5" id="EbQ-j9-uj2"/>
-                                    <constraint firstItem="Rrl-SK-6UR" firstAttribute="top" secondItem="s9d-UN-xiN" secondAttribute="top" id="xhs-ip-d07"/>
+                                    <constraint firstItem="Rrl-SK-6UR" firstAttribute="top" secondItem="A6t-HJ-lQa" secondAttribute="top" id="6oL-YW-bB5"/>
+                                    <constraint firstItem="Rrl-SK-6UR" firstAttribute="leading" secondItem="s9d-UN-xiN" secondAttribute="leading" constant="3" id="AkT-FR-lSP"/>
+                                    <constraint firstItem="Rrl-SK-6UR" firstAttribute="top" secondItem="s9d-UN-xiN" secondAttribute="top" id="Ed7-Qw-33A"/>
+                                    <constraint firstAttribute="trailing" secondItem="A6t-HJ-lQa" secondAttribute="trailing" constant="7" id="IPe-nl-hvA"/>
+                                    <constraint firstItem="A6t-HJ-lQa" firstAttribute="leading" secondItem="Rrl-SK-6UR" secondAttribute="trailing" constant="5" id="Lbv-Li-cwB"/>
                                 </constraints>
                             </visualEffectView>
                         </subviews>
                         <constraints>
-                            <constraint firstItem="s9d-UN-xiN" firstAttribute="leading" secondItem="LlF-0h-Y5h" secondAttribute="leading" id="9EB-ct-fUR"/>
-                            <constraint firstItem="s9d-UN-xiN" firstAttribute="top" secondItem="LlF-0h-Y5h" secondAttribute="top" id="Fbo-8h-VXD"/>
-                            <constraint firstAttribute="trailing" secondItem="s9d-UN-xiN" secondAttribute="trailing" id="T86-uR-9jC"/>
-                            <constraint firstAttribute="bottom" secondItem="s9d-UN-xiN" secondAttribute="bottom" id="Z0R-S6-1OP"/>
+                            <constraint firstAttribute="trailing" secondItem="s9d-UN-xiN" secondAttribute="trailing" id="PoP-un-99I"/>
+                            <constraint firstAttribute="bottom" secondItem="s9d-UN-xiN" secondAttribute="bottom" id="hMp-aA-3fE"/>
+                            <constraint firstItem="s9d-UN-xiN" firstAttribute="leading" secondItem="LlF-0h-Y5h" secondAttribute="leading" id="iod-Oz-7LB"/>
+                            <constraint firstItem="s9d-UN-xiN" firstAttribute="top" secondItem="LlF-0h-Y5h" secondAttribute="top" id="lvV-Vo-oC8"/>
                         </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                <real key="value" value="2"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
                     </view>
                     <connections>
                         <outlet property="statusField" destination="A6t-HJ-lQa" id="Hag-Rb-T1U"/>

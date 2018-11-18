@@ -17,7 +17,7 @@ class GadgetWC: NSWindowController, NSWindowDelegate {
     self.window?.isMovableByWindowBackground = true
     self.window?.level = .statusBar
     self.window?.collectionBehavior = .canJoinAllSpaces
-    self.window?.contentMaxSize = NSSize(width: 5000, height: 17)
+    self.window?.contentMaxSize = NSSize(width: 5000, height: 400)
   }
   
   class func loadFromNib() -> GadgetWC {
@@ -26,8 +26,8 @@ class GadgetWC: NSWindowController, NSWindowDelegate {
 
     return wc
   }
-  
-  func windowWillClose(_ notification: Notification) {
-    
-  }
+  /*
+  func windowDidResize(_ notification: Notification) {
+    print("windowDidResize")
+  }*/
 }

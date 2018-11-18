@@ -24,7 +24,6 @@ let kSensorsTimeInterval    = "SensorsTimeInterval"
 let kCPU_TDP_MAX            = "CPU_TDP_MAX"
 let kCPU_Frequency_MAX      = "CPU_Frequency_MAX"
 
-
 let kCPUTimeInterval        = "CPUTimeInterval"
 let kGPUTimeInterval        = "GPUTimeInterval"
 let kMoBoTimeInterval       = "MoBoTimeInterval"
@@ -40,6 +39,8 @@ let kExpandCPUFrequencies   = "expandCPUFrequencies"
 let kExpandAll              = "expandAll"
 let kDontShowEmpty          = "dontshowEmpty"
 let kUseGPUIOAccelerator    = "useGPUIOAccelerator"
+
+let kTranslateUnits         = "TranslateUnits"
 
 let AppSd = NSApplication.shared.delegate as! AppDelegate
 let UDs = UserDefaults.standard
@@ -88,3 +89,43 @@ func getAppearance() -> NSAppearance {
   return appearance!
 }
 
+
+// https://gist.github.com/fethica/52ef6d842604e416ccd57780c6dd28e6
+public struct BytesFormatter {
+  
+  public let bytes: Int64
+  public let countStyle: Int64
+  
+  public var kilobytes: Double {
+    return Double(bytes) / Double(countStyle)
+  }
+  
+  public var megabytes: Double {
+    return kilobytes / Double(countStyle)
+  }
+  
+  public var gigabytes: Double {
+    return megabytes / Double(countStyle)
+  }
+  
+  public init(bytes: Int64, countStyle: Int64) {
+    self.bytes = bytes
+    self.countStyle = countStyle
+  }
+  
+  public func stringValue() -> String {
+    
+    switch bytes {
+    case 0..<countStyle:
+      return "\(bytes) " + "bytes".locale(AppSd.translateUnits)
+    case countStyle..<(countStyle * countStyle):
+      return "\(String(format: "%.2f", kilobytes)) " + "KB".locale(AppSd.translateUnits)
+    case countStyle..<(countStyle * countStyle * countStyle):
+      return "\(String(format: "%.2f", megabytes)) " + "MB".locale(AppSd.translateUnits)
+    case (countStyle * countStyle * countStyle)...Int64.max:
+      return "\(String(format: "%.2f", gigabytes)) " + "GB".locale(AppSd.translateUnits)
+    default:
+      return "\(bytes) " + "bytes".locale(AppSd.translateUnits)
+    }
+  }
+}

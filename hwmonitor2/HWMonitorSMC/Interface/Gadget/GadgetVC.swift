@@ -18,11 +18,22 @@ class GadgetVC: NSViewController {
   
   override func viewDidAppear() {
     super.viewDidAppear()
+    self.statusField.autoHeight()
   }
 }
 
 class GadgetField: NSTextField {
-  override var intrinsicContentSize:NSSize{
-    return NSMakeSize(-1, 17)
+  func autoHeight() {
+    let h : CGFloat = self.window?.frame.height ?? 17
+    let fs : CGFloat = (13 * h) / 17
+    self.font  = NSFont.systemFont(ofSize: fs)
+  }
+  override func viewDidEndLiveResize() {
+    self.autoHeight()
+  }
+  
+  override var intrinsicContentSize:NSSize {
+    let h : CGFloat = self.window?.frame.height ?? 17
+    return NSMakeSize(-1, h)
   }
 }

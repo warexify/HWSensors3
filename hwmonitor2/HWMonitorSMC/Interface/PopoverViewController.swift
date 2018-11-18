@@ -64,8 +64,6 @@ class PopoverViewController: NSViewController, USBWatcherDelegate {
   var timeMediaInterval         : TimeInterval = 300
   var timeBatteryInterval       : TimeInterval = 3
   
-  var forceSmartScan            : Bool = false
-  
   var useIntelPowerGadget       : Bool = false
   var statusIsUpdating          : Bool = false
   
@@ -796,7 +794,7 @@ extension PopoverViewController: NSOutlineViewDataSource {
             if let value : String = node.sensorData?.sensor?.stringValue {
               var us = ""
               if node.sensorData!.sensor!.unit != .none {
-                us = "\(node.sensorData!.sensor!.unit.rawValue.locale())"
+                us = "\(node.sensorData!.sensor!.unit.rawValue.locale(AppSd.translateUnits))"
                 if node.sensorData!.sensor!.unit != .Percent &&
                   node.sensorData!.sensor!.unit != .C {
                   us = " \(us)"
@@ -940,9 +938,10 @@ extension PopoverViewController {
   }
   
   func removeObservers() {
+    /*
     if #available(OSX 10.12, *) {
       //print("no need to remove the observer in 10.12 onward!")
-    } else {
+    } else {*/
       NSWorkspace.shared.notificationCenter.removeObserver(self,
                                                            name: NSWorkspace.didMountNotification,
                                                            object: nil)
@@ -962,25 +961,40 @@ extension PopoverViewController {
       NSWorkspace.shared.notificationCenter.removeObserver(self,
                                                            name: NSWorkspace.willPowerOffNotification,
                                                            object: nil)
-    }
+    //}
   }
 
   @objc func diskMounted() {
-    self.forceSmartScan = true
     self.updateMediaSensors()
   }
   
   @objc func diskUmounted() {
-    self.forceSmartScan = true
     self.updateMediaSensors()
   }
   
   @objc func powerOffListener() {
+    do {
+      try "sleep".write(to: URL(fileURLWithPath: NSHomeDirectory() + "/sleep.txt"), atomically: false, encoding: String.Encoding.utf8)
+    } catch  {
+      
+    }
+    
+    self.removeAllTimers()
     self.removeObservers()
   }
   
+  func removeAllTimers() {
+    if (self.timerCPU != nil) && timerCPU!.isValid { self.timerCPU!.invalidate() }
+    if (self.timerGPU != nil) && timerGPU!.isValid { self.timerGPU!.invalidate() }
+    if (self.timerMotherboard != nil) && timerMotherboard!.isValid { self.timerMotherboard!.invalidate() }
+    if (self.timerFans != nil) && timerFans!.isValid { self.timerFans!.invalidate() }
+    if (self.timerRAM != nil) && timerRAM!.isValid { self.timerRAM!.invalidate() }
+    if (self.timerMedia != nil) && timerCPU!.isValid { self.timerMedia!.invalidate() }
+    if (self.timerBattery != nil) && timerCPU!.isValid { self.timerBattery!.invalidate() }
+  }
+  
   @objc func wakeListener() {
-    self.forceSmartScan = true
+    print("wake")
     self.updateCPUSensors()
     self.updateGPUSensors()
     self.updateMotherboardSensors()

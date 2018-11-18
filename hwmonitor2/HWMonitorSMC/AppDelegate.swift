@@ -10,6 +10,7 @@ import Cocoa
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
+  var translateUnits : Bool = true
   var useIPG : Bool = false
   var ipgInited : Bool = false
   let useIOAcceleratorForGPUs : Bool = UDs.bool(forKey: kUseGPUIOAccelerator)
@@ -23,6 +24,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
   var cpuTDP : Double = 100 // to be set by Intel Power Gadget or by the user
   
   func applicationDidFinishLaunching(_ aNotification: Notification) {
+    if (UDs.object(forKey: kTranslateUnits) != nil) {
+      self.translateUnits = UDs.bool(forKey: kTranslateUnits)
+    }
     let icon = NSImage(named: "temperature_small")
     icon?.isTemplate = true
     self.statusItem.image = icon
