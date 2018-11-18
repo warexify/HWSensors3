@@ -35,11 +35,11 @@
         <scene sceneID="b8t-8K-lDj">
             <objects>
                 <viewController id="Ktw-Q3-kUX" customClass="GadgetVC" customModule="HWMonitorSMC2" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" id="LlF-0h-Y5h">
+                    <view key="view" wantsLayer="YES" id="LlF-0h-Y5h">
                         <rect key="frame" x="0.0" y="0.0" width="200" height="17"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <visualEffectView appearanceType="vibrantDark" blendingMode="behindWindow" material="menu" state="active" translatesAutoresizingMaskIntoConstraints="NO" id="s9d-UN-xiN">
+                            <visualEffectView wantsLayer="YES" appearanceType="vibrantDark" blendingMode="withinWindow" material="menu" state="active" translatesAutoresizingMaskIntoConstraints="NO" id="s9d-UN-xiN">
                                 <rect key="frame" x="0.0" y="0.0" width="200" height="17"/>
                                 <subviews>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" textCompletion="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A6t-HJ-lQa" customClass="GadgetField" customModule="HWMonitorSMC2" customModuleProvider="target">
@@ -65,6 +65,11 @@
                                     <constraint firstAttribute="trailing" secondItem="A6t-HJ-lQa" secondAttribute="trailing" constant="7" id="IPe-nl-hvA"/>
                                     <constraint firstItem="A6t-HJ-lQa" firstAttribute="leading" secondItem="Rrl-SK-6UR" secondAttribute="trailing" constant="5" id="Lbv-Li-cwB"/>
                                 </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="2"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                             </visualEffectView>
                         </subviews>
                         <constraints>

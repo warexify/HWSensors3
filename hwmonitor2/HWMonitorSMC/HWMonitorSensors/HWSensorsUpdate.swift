@@ -308,7 +308,7 @@ extension PopoverViewController {
     //statusString = components.joined(separator: " ")
     if components.count > 0 { statusString += " "}
     for s in components {
-      statusString += s.trimmingCharacters(in: CharacterSet.whitespaces) + " "
+      statusString += s.replacingOccurrences(of: HWUnit.C.rawValue.locale(AppSd.translateUnits), with: "°").trimmingCharacters(in: CharacterSet.whitespaces) + " "
     }
     
     let title = NSMutableAttributedString(string: statusString as String, attributes: [NSAttributedString.Key.paragraphStyle : style])
