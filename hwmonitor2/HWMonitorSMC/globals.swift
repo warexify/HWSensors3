@@ -8,7 +8,7 @@
 
 import Cocoa
 
-let kTestVersion            = "v6t"
+let kTestVersion            = ""
 
 let kLinceseAccepted        = "LinceseAccepted"
 let kRunAtLogin             = "runAtLogin"
