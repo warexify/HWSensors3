@@ -20,6 +20,12 @@
 /* Class = "NSButtonCell"; title = "expand Voltages group"; ObjectID = "f3S-tq-sNl"; */
 "f3S-tq-sNl.title" = "전압 그룹 펼쳐보기";
 
+/* Class = "NSTexfieldCell"; title = "Themes:"; ObjectID = "AHz-v5-cAO"; */
+"AHz-v5-cAO.title" = "테마:";
+
+/* Class = "NSButtonCell"; title = "Translate units of measurements"; ObjectID = "kwG-Mh-ogc"; */
+"kwG-Mh-ogc.title" = "Translate units of measurements";
+
 /* Class = "NSButtonCell"; title = "force to use dark appearance"; ObjectID = "fYJ-2d-nMJ"; */
 "fYJ-2d-nMJ.title" = "다크 모드 강제로 사용하기";
 

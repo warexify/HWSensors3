@@ -18,6 +18,7 @@ class GadgetWC: NSWindowController, NSWindowDelegate {
     self.window?.level = .statusBar
     self.window?.collectionBehavior = .canJoinAllSpaces
     self.window?.contentMaxSize = NSSize(width: 5000, height: 400)
+    self.window?.backgroundColor = NSColor.clear
   }
   
   class func loadFromNib() -> GadgetWC {

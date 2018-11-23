@@ -275,7 +275,7 @@ extension PopoverViewController {
   }
   
   func updateStatuBar() {
-    if !self.initiated || self.statusIsUpdating { return }
+    if !self.initiated || !AppSd.licensed || self.statusIsUpdating { return }
     self.statusIsUpdating  = true
     let copy : NSArray = self.sensorList?.copy() as! NSArray
     var components : [String] = [String]()
@@ -299,14 +299,13 @@ extension PopoverViewController {
         }
       }
     }
-    
+   
     var statusString = ""
     let style = NSMutableParagraphStyle()
     let f = NSFont(name: "Lucida Grande Bold", size: 9.0)!
     
     style.lineSpacing = 0.0
-    //statusString = components.joined(separator: " ")
-    if components.count > 0 { statusString += " "}
+    if components.count > 0 { statusString = " " }
     for s in components {
       statusString += s.replacingOccurrences(of: HWUnit.C.rawValue.locale(AppSd.translateUnits), with: "°").trimmingCharacters(in: CharacterSet.whitespaces) + " "
     }
@@ -316,11 +315,16 @@ extension PopoverViewController {
     title.addAttributes([NSAttributedString.Key.font : f/*gPopOverFont*/, NSAttributedString.Key.kern : 1.0],
                         range: NSMakeRange(0, title.length))
     if useGadget {
+      AppSd.statusItem.attributedTitle = nil
       AppSd.statusItem.length = 23
       (self.gadgetWC?.contentViewController as! GadgetVC).statusField.animator().stringValue = title.string
     } else {
       AppSd.statusItem.attributedTitle = title
-      AppSd.statusItem.length = (AppSd.statusItem.button?.intrinsicContentSize.width)! + 20
+      let intrinsic : CGFloat = AppSd.statusItem.button!.intrinsicContentSize.width
+      if AppSd.statusItemLen == 0 {
+        AppSd.statusItemLen = intrinsic + 15
+        AppSd.statusItem.length = AppSd.statusItemLen
+      }
     }
     self.statusIsUpdating  = false
   }

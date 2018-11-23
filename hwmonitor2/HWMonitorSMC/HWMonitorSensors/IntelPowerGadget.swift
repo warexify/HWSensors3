@@ -10,7 +10,7 @@ import Cocoa
 
 func getIntelPowerGadgetGPUSensors() -> [HWMonitorSensor] {
   var sensors : [HWMonitorSensor] = [HWMonitorSensor]()
-
+  
   if IsGTAvailable() {
     /*
     var gpuutil : Float = 0

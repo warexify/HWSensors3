@@ -23,6 +23,7 @@ class PreferencesVC: NSViewController, NSTextFieldDelegate {
   @IBOutlet var dontShowEmptyBtn        : NSButton!
   @IBOutlet var darkBtn                 : NSButton!
   @IBOutlet var hideScrollerBtn         : NSButton!
+  @IBOutlet var themesPop               : NSPopUpButton!
   @IBOutlet var translateUnitsBtn       : NSButton!
   @IBOutlet var runAtLoginBtn           : NSButton!
   @IBOutlet var useGPUAccelerator       : NSButton!
@@ -59,6 +60,19 @@ class PreferencesVC: NSViewController, NSTextFieldDelegate {
         (v as! TemplateImageView).image?.isTemplate = true
       }
     }
+    
+    self.themesPop.removeAllItems()
+    self.themesPop.addItem(withTitle: Theme.Default.rawValue.locale())
+    self.themesPop.lastItem?.representedObject = Theme.Default.rawValue
+    self.themesPop.addItem(withTitle: Theme.DashedH.rawValue.locale())
+    self.themesPop.lastItem?.representedObject = Theme.DashedH.rawValue
+    self.themesPop.addItem(withTitle: Theme.NoGrid.rawValue.locale())
+    self.themesPop.lastItem?.representedObject = Theme.NoGrid.rawValue
+    self.themesPop.addItem(withTitle: Theme.NoGridCB.rawValue.locale())
+    self.themesPop.lastItem?.representedObject = Theme.NoGridCB.rawValue
+    self.themesPop.addItem(withTitle: Theme.GridClear.rawValue.locale())
+    self.themesPop.lastItem?.representedObject = Theme.GridClear.rawValue
+    
     
     self.updateAppearance()
     if #available(OSX 10.14, *) {
@@ -112,19 +126,20 @@ class PreferencesVC: NSViewController, NSTextFieldDelegate {
   func getPreferences() {
     if UDs.bool(forKey: kUseIPG) {
       self.useIntelPowerGadget.state = .on
-      if AppSd.ipgInited {
-        var tdp : Double = 0
-        GetTDP(0, &tdp)
-        self.cpuTDPOverrideField.isEnabled = false
-        self.cpuTDPOverrideField.stringValue = String(format: "%.f", tdp)
-        AppSd.cpuTDP = tdp
-      } else {
-        let tdp : Double = UDs.double(forKey: kCPU_TDP_MAX)
-        self.CPU_TDP_MAX = (tdp >= 7 && tdp <= 250) ? tdp : 100
-        self.cpuTDPOverrideField.stringValue = String(format: "%.f", self.CPU_TDP_MAX)
-        UDs.set(tdp, forKey: kCPU_TDP_MAX)
-        AppSd.cpuTDP = tdp
-      }
+    }
+    
+    if AppSd.ipgInited {
+      var tdp : Double = 0
+      GetTDP(0, &tdp)
+      self.cpuTDPOverrideField.isEnabled = false
+      self.cpuTDPOverrideField.stringValue = String(format: "%.f", tdp)
+      AppSd.cpuTDP = tdp
+    } else {
+      let tdp : Double = UDs.double(forKey: kCPU_TDP_MAX)
+      self.CPU_TDP_MAX = (tdp >= 7 && tdp <= 250) ? tdp : 100
+      self.cpuTDPOverrideField.stringValue = String(format: "%.f", self.CPU_TDP_MAX)
+      UDs.set(tdp, forKey: kCPU_TDP_MAX)
+      AppSd.cpuTDP = tdp
     }
     
     let freqMax : Double = UDs.double(forKey: kCPU_Frequency_MAX)
@@ -146,6 +161,10 @@ class PreferencesVC: NSViewController, NSTextFieldDelegate {
     self.dontShowEmptyBtn.state = UDs.bool(forKey: kDontShowEmpty) ? .on : .off
     self.darkBtn.state = UDs.bool(forKey: kDark) ? .on : .off
     self.hideScrollerBtn.state = UDs.bool(forKey: kHideVerticalScroller) ? .on : .off
+    
+    self.themesPop.selectItem(withTitle: (UDs.string(forKey: kTheme) ?? Theme.Default.rawValue).locale())
+    
+    
     self.synchronize()
     
     var ti : TimeInterval = UDs.double(forKey: kCPUTimeInterval) * 1000
@@ -190,6 +209,11 @@ class PreferencesVC: NSViewController, NSTextFieldDelegate {
   
   @IBAction func useIntelPowerGadget(_ sender: NSButton) {
     UDs.set(sender.state == NSControl.StateValue.on, forKey: kUseIPG)
+    self.synchronize()
+  }
+  
+  @IBAction func themesPressed(_ sender: NSPopUpButton) {
+    UDs.set(sender.selectedItem?.representedObject as! String, forKey: kTheme)
     self.synchronize()
   }
   

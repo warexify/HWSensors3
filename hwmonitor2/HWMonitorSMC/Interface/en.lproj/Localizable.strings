@@ -40,7 +40,7 @@
 "Max Frequency" = "Max Frequency";
 
 // GPU, when taken from PerformanceStatistics
-"GPUs" = "GPUs";
+"GPUs" = "Graphics";
 "Core Clock" = "Core Clock";
 "Fan/Pump speed" = "Fan/Pump speed";
 "Fan/Pump speed rate" = "Fan/Pump speed rate";
@@ -118,3 +118,9 @@
 
 "log copied to clip board!" = "log copied to clip board!";
 
+// Themes
+"Default" = "Default";
+"Dashed Horizontally" = "Dashed Horizontally";
+"No Grid" = "No Grid";
+"No Grid, clear background" = "No Grid, clear background";
+"With Grid, clear background" = "With Grid, clear background";

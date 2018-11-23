@@ -117,3 +117,10 @@
 "rpm" = "rpm"; // revolutions per minute
 
 "log copied to clip board!" = "log copied to clip board!";
+
+// Themes
+"Default" = "Default";
+"Dashed Horizontally" = "Dashed Horizontally";
+"No Grid" = "No Grid";
+"No Grid, clear background" = "No Grid, clear background";
+"With Grid, clear background" = "With Grid, clear background";

@@ -18,15 +18,11 @@ class LicenseWC: NSWindowController, NSWindowDelegate {
 class LicenseVC: NSViewController {
   @IBAction func acceptPressed(_ sender: NSButton) {
     UDs.set(true, forKey: kLinceseAccepted)
-    self.stop()
+    AppSd.licensed = true
+    self.view.window?.close()
   }
   
   @IBAction func refusePressed(_ sender: NSButton) {
     NSApp.terminate(sender)
-  }
-  
-  func stop() {
-    NSApp.stopModal()
-    self.view.window?.close()
   }
 }

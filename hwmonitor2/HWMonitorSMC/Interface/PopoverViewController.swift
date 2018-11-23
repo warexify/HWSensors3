@@ -125,6 +125,14 @@ class PopoverViewController: NSViewController, USBWatcherDelegate {
     }
   }
   
+  override func viewWillAppear() {
+    super.viewWillAppear()
+  }
+  
+  override func viewDidAppear() {
+    super.viewDidAppear()
+  }
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     let pin = NSImage(named: "pin")
@@ -138,15 +146,25 @@ class PopoverViewController: NSViewController, USBWatcherDelegate {
     self.lock.state = NSControl.StateValue.off
     self.useGadgetButton.image?.isTemplate = true
     
-    self.outline.appearance = getAppearance() // bug in mojave Beta 1/2, NSOutlineView does not inherit the appearance
+    self.outline.headerView = nil
+    self.outline.appearance = getAppearance()
     self.outline.delegate = self
     self.outline.dataSource = self
     self.outline.doubleAction = #selector(self.clicked)
     self.outline.enclosingScrollView?.verticalScroller?.controlSize = .mini
     
+    self.outline.wantsLayer = true
+    self.outline.enclosingScrollView?.wantsLayer = true
+    
+    /*
+     Apply Theme
+     */
+    let theme : Theme = Theme(rawValue: UDs.string(forKey: kTheme) ?? "Default") ?? .Default
+    let _ = Themes.init(theme: theme, outline: self.outline)
+    
     /*
      Intel Power Gadget support Intel CPU only :-) (hot water),
-     Family must be 6 and model must be > 42.
+     Family must be 6 and model must be >= 42.
      All this for 2nd generation Intel® Core™ processors and later
      
      NOTE: model 44, 46 and 47 are Xeon CPUs, usually not supported,
@@ -232,7 +250,9 @@ class PopoverViewController: NSViewController, USBWatcherDelegate {
   
   @IBAction func reattachPopover(_ sender: NSButton) {
     if let button = AppSd.statusItem.button {
-      button.performClick(button)
+      DispatchQueue.main.async {
+        button.performClick(button)
+      }
     }
   }
   
@@ -240,10 +260,13 @@ class PopoverViewController: NSViewController, USBWatcherDelegate {
     if (self.preferenceWC == nil) {
       self.preferenceWC = PreferencesWC.loadFromNib()
     }
-    self.preferenceWC?.showWindow(self)
+    DispatchQueue.main.async {
+      self.preferenceWC?.showWindow(self)
+    }
   }
   
   @IBAction func showGadget(sender : NSButton?) {
+    AppSd.statusItemLen = 0
     if (self.gadgetWC == nil) {
       self.gadgetWC = GadgetWC.loadFromNib()
       self.gadgetWC?.showWindow(self)
@@ -253,7 +276,6 @@ class PopoverViewController: NSViewController, USBWatcherDelegate {
       self.gadgetWC = nil
       UDs.set(false, forKey: kShowGadget)
     }
-    
   }
   
   func initialize() {
@@ -677,7 +699,6 @@ extension PopoverViewController: NSOutlineViewDelegate {
   
   func outlineView(_ outlineView: NSOutlineView, rowViewForItem item: Any) -> NSTableRowView? {
     let rowView = HWTableRowView()
-    rowView.isEmphasized = true
     return rowView
   }
   
@@ -693,6 +714,7 @@ extension PopoverViewController: NSOutlineViewDelegate {
             if sensor.isInformativeOnly {
               NSSound.beep()
             } else {
+              AppSd.statusItemLen = 0
               if sensor.favorite {
                 sensor.favorite = false
                 view.imageView?.image = nil
@@ -814,6 +836,8 @@ extension PopoverViewController: NSOutlineViewDataSource {
         }
       }
     }
+    view?.appearance = getAppearance()
+    view?.backgroundStyle = .emphasized
     return view
   }
   

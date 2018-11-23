@@ -118,3 +118,10 @@
 
 "log copied to clip board!" = "günlük panoya kopyalandı!";
 
+// Themes
+"Default" = "Default";
+"Dashed Horizontally" = "Dashed Horizontally";
+"No Grid" = "No Grid";
+"No Grid, clear background" = "No Grid, clear background";
+"With Grid, clear background" = "With Grid, clear background";
+

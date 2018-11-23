@@ -56,7 +56,7 @@ let SMC_BUS_5VDIFF_VOLT         = "Vp2C"
 let SMC_BUS_3_3VCC_VOLT         = "Vp3C"
 let SMC_BUS_3_3VSB_VOLT         = "Vp4C"
 let SMC_BUS_3_3AVCC_VOLT        = "Vp5C"
-let SMC_AMBIENT_TEMP            = "TN0P"
+let SMC_AMBIENT_TEMP            = "TA0P"
 
 // Fans
 let SMC_FAN_NUM_INT             = "FNum"

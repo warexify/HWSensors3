@@ -9,6 +9,8 @@
 import Cocoa
 
 class HWVisualEffectView: NSVisualEffectView {
+  private var appearanceObserver: NSKeyValueObservation?
+
   override init(frame frameRect: NSRect) {
     super.init(frame: frameRect)
     self.customize()
@@ -16,34 +18,40 @@ class HWVisualEffectView: NSVisualEffectView {
   
   required init?(coder decoder: NSCoder) {
     super.init(coder: decoder)
-    self.customize()
-  }
-  
-  fileprivate func customize() {
     self.wantsLayer = true
+    
     self.blendingMode = NSVisualEffectView.BlendingMode.withinWindow
     
     if #available(OSX 10.14, *) {
-      self.material = .popover
+      // self.material = .popover
     }
     
-    self.state = NSVisualEffectView.State.followsWindowActiveState
+    self.state = NSVisualEffectView.State.active
     
     if #available(OSX 10.12, *) {
       self.isEmphasized = true
     } else {
       // Fallback on earlier versions
     }
+    self.customize()
+    if #available(OSX 10.14, *) {
+      self.appearanceObserver = self.observe(\.effectiveAppearance) { [weak self] _, _  in
+        self?.customize()
+      }
+    }
   }
   
-  override func viewDidEndLiveResize() {
-    if (self.window != nil) && (self.window?.isSheet)! {
-      /*
-       Why do that here?
-       If the windows is sheet the Visual Effect View looks "highlighted",
-       the material goes crazy after a resize and must be set again.
-       */
-      self.customize()
+  deinit {
+    if self.appearanceObserver != nil {
+      self.appearanceObserver!.invalidate()
+      self.appearanceObserver = nil
     }
+  }
+  
+  override func viewDidMoveToWindow() {
+    self.customize()
+  }
+  func customize() {
+    self.appearance = getAppearance()
   }
 }

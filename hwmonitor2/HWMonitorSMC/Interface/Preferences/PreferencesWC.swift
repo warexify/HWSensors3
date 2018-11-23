@@ -12,6 +12,7 @@ class PreferencesWC: NSWindowController, NSWindowDelegate {
   
   override func windowDidLoad() {
     super.windowDidLoad()
+    self.window?.backgroundColor = NSColor.clear
     self.window?.appearance = getAppearance()
   }
   

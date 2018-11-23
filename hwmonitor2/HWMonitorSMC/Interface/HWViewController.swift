@@ -62,7 +62,7 @@ class HWViewController: NSViewController, NSPopoverDelegate {
     self.detachableWindow?.minSize = NSMakeSize(CGFloat(kMinWidth), CGFloat(kMinHeight))
     
     self.detachableWindow?.appearance = getAppearance()
-    
+    self.detachableWindow?.backgroundColor = NSColor.clear
     if let button = AppSd.statusItem.button {
       button.target = self
       button.action = #selector(self.showPopover(_:))
@@ -82,10 +82,15 @@ class HWViewController: NSViewController, NSPopoverDelegate {
       self.popover?.contentViewController = self.popoverVC
       self.popover?.behavior = .transient
       self.popover?.delegate = self
+      self.popover?.appearance = getAppearance()
     }
   }
   
   @objc func showPopover(_ sender: NSStatusBarButton?) {
+    if !AppSd.licensed {
+      NSSound.beep()
+      return
+    }
     if  (self.detachableWindow?.isVisible)! {
       if (self.detachableWindow?.styleMask.contains(.fullScreen))! {
         self.detachableWindow?.toggleFullScreen(self)
@@ -96,9 +101,12 @@ class HWViewController: NSViewController, NSPopoverDelegate {
     self.popoverVC?.attachButton.isEnabled = false
     self.popoverVC?.attachButton.isHidden = true
     self.createPopover()
-    //self.popoverVC?.updateTitles()
-    NSApp.activate(ignoringOtherApps: true)
-    self.popover?.show(relativeTo: (sender?.bounds)!, of: sender!, preferredEdge: NSRectEdge.maxY)
+    
+    DispatchQueue.main.async {
+      self.popover?.show(relativeTo: (sender?.bounds)!, of: sender!, preferredEdge: NSRectEdge.maxY)
+      NSApp.activate(ignoringOtherApps: true)
+      sender?.window?.makeKey()
+    }
   }
   
   func popoverWillShow(_ notification: Notification) {
@@ -120,7 +128,14 @@ class HWViewController: NSViewController, NSPopoverDelegate {
   func detachableWindow(for popover: NSPopover) -> NSWindow? {
     self.popoverVC?.attachButton.isEnabled = true
     self.popoverVC?.attachButton.isHidden = false
+    self.perform(#selector(self.moveToMainScreen), with: nil, afterDelay: 0.5)
     return self.detachableWindow
+  }
+  
+  @objc func moveToMainScreen() {
+    if self.detachableWindow?.screen != NSScreen.main {
+      self.detachableWindow?.setFrameOrigin(NSScreen.main!.visibleFrame.origin)
+    }
   }
 }
 

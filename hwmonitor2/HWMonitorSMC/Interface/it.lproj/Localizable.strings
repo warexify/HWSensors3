@@ -40,7 +40,7 @@
 "Max Frequency" = "Frequenza max";
 
 // GPU, when taken from PerformanceStatistics
-"GPUs" = "Schede video";
+"GPUs" = "Grafica";
 "Core Clock" = "Clock del core";
 "Fan/Pump speed" = "Rotazione ventola/pompa";
 "Fan/Pump speed rate" = "Rotazione ventola/pompa (rate)";
@@ -117,4 +117,11 @@
 "rpm" = "rpm"; // revolutions per minute
 
 "log copied to clip board!" = "log copiato negli appunti!";
+
+// Themes
+"Default" = "Predefinito";
+"Dashed Horizontally" = "Griglia tratteggiata orizzontale";
+"No Grid" = "Senza griglia";
+"No Grid, clear background" = "Senza griglia, sfondo pulito";
+"With Grid, clear background" = "Con griglia, sfondo pulito";
 

@@ -8,7 +8,7 @@
 
 import Cocoa
 
-let kTestVersion            = ""
+let kTestVersion            = "v6t"
 
 let kLinceseAccepted        = "LinceseAccepted"
 let kRunAtLogin             = "runAtLogin"
@@ -41,6 +41,8 @@ let kDontShowEmpty          = "dontshowEmpty"
 let kUseGPUIOAccelerator    = "useGPUIOAccelerator"
 
 let kTranslateUnits         = "TranslateUnits"
+
+let kTheme                  = "Theme"
 
 let AppSd = NSApplication.shared.delegate as! AppDelegate
 let UDs = UserDefaults.standard
@@ -78,15 +80,19 @@ func gCPUBaseFrequency() -> Int64 {
 }
 
 func getAppearance() -> NSAppearance {
-  let forceDark : Bool = UserDefaults.standard.bool(forKey: kDark)
-  var appearance = NSAppearance(named: .vibrantDark)
-  if !forceDark {
-    let appearanceName : String? = UserDefaults.standard.object(forKey: kAppleInterfaceStyle) as? String
-    if (appearanceName == nil || ((appearanceName?.range(of: "Dark")) == nil)) {
-      appearance = NSAppearance(named: .vibrantLight)
+  if #available(OSX 10.14, *) {
+    let forceDark : Bool = UserDefaults.standard.bool(forKey: kDark)
+    var appearance = NSAppearance(named: .vibrantDark)
+    if !forceDark {
+      let appearanceName : String? = UserDefaults.standard.object(forKey: kAppleInterfaceStyle) as? String
+      if (appearanceName == nil || ((appearanceName?.range(of: "Dark")) == nil)) {
+        appearance = NSAppearance(named: .vibrantLight)
+      }
     }
+    return appearance!
+  } else {
+    return AppSd.initialAppearance
   }
-  return appearance!
 }
 
 

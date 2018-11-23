@@ -296,6 +296,7 @@ hwmonitor2/HWMonitorSMC/Interface/Preferences/ko.lproj/Preferences.strings -text
 hwmonitor2/HWMonitorSMC/Interface/Preferences/ru.lproj/Preferences.strings -text
 hwmonitor2/HWMonitorSMC/Interface/Preferences/tr.lproj/Preferences.strings -text
 hwmonitor2/HWMonitorSMC/Interface/Preferences/zh-Hans.lproj/Preferences.strings -text
+hwmonitor2/HWMonitorSMC/Interface/Themes.swift -text
 hwmonitor2/HWMonitorSMC/Interface/ViewController.swift -text
 hwmonitor2/HWMonitorSMC/Interface/de.lproj/Info.strings -text
 hwmonitor2/HWMonitorSMC/Interface/de.lproj/Localizable.strings -text

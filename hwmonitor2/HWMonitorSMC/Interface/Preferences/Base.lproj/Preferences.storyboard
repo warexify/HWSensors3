@@ -33,11 +33,11 @@
         <scene sceneID="n4L-yf-mrD">
             <objects>
                 <viewController id="xPF-f4-5kE" userLabel="PreferencesVC" customClass="PreferencesVC" customModule="HWMonitorSMC2" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" id="Sgk-vG-m6s">
+                    <view key="view" wantsLayer="YES" id="Sgk-vG-m6s">
                         <rect key="frame" x="0.0" y="0.0" width="830" height="550"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <visualEffectView wantsLayer="YES" blendingMode="behindWindow" material="menu" state="followsWindowActiveState" id="rVh-nU-KcG" customClass="HWVisualEffectView" customModule="HWMonitorSMC2" customModuleProvider="target">
+                            <visualEffectView wantsLayer="YES" blendingMode="behindWindow" material="menu" state="followsWindowActiveState" id="rVh-nU-KcG">
                                 <rect key="frame" x="0.0" y="0.0" width="830" height="550"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <subviews>
@@ -127,11 +127,11 @@
                                         </connections>
                                     </button>
                                     <box verticalHuggingPriority="750" boxType="separator" id="in4-AN-y6e">
-                                        <rect key="frame" x="35" y="98" width="96" height="5"/>
+                                        <rect key="frame" x="35" y="92" width="96" height="5"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     </box>
                                     <button verticalHuggingPriority="750" id="tx6-AT-DKU">
-                                        <rect key="frame" x="33" y="76" width="416" height="18"/>
+                                        <rect key="frame" x="33" y="70" width="416" height="18"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="check" title="run HWMonitorSMC.app at login" bezelStyle="regularSquare" imagePosition="left" inset="2" id="Dyg-rv-2Gg">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -187,15 +187,6 @@
                                         <rect key="frame" x="13" y="422" width="17" height="17"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="*" id="dlj-Qt-Aec">
-                                            <font key="font" metaFont="system"/>
-                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                        </textFieldCell>
-                                    </textField>
-                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="SDT-vu-rGJ">
-                                        <rect key="frame" x="13" y="395" width="17" height="17"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="*" id="wA5-vP-HUf">
                                             <font key="font" metaFont="system"/>
                                             <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                             <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -418,7 +409,7 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     </box>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="6Hk-LR-r1w">
-                                        <rect key="frame" x="13" y="76" width="17" height="17"/>
+                                        <rect key="frame" x="13" y="70" width="17" height="17"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="*" id="NU3-u7-Xs7">
                                             <font key="font" metaFont="system"/>
@@ -493,11 +484,11 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     </box>
                                     <box verticalHuggingPriority="750" boxType="separator" id="ITR-wz-aSI">
-                                        <rect key="frame" x="35" y="185" width="96" height="5"/>
+                                        <rect key="frame" x="35" y="137" width="96" height="5"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     </box>
                                     <button verticalHuggingPriority="750" id="yZr-PH-CoQ">
-                                        <rect key="frame" x="34" y="162" width="415" height="18"/>
+                                        <rect key="frame" x="34" y="114" width="415" height="18"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <buttonCell key="cell" type="check" title="Translate units of measurements" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="kwG-Mh-ogc">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -512,6 +503,36 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                         <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="NSApplicationIcon" id="984-Ix-aF8"/>
                                     </imageView>
+                                    <popUpButton verticalHuggingPriority="750" id="g94-Ii-OA1">
+                                        <rect key="frame" x="33" y="145" width="306" height="22"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <popUpButtonCell key="cell" type="push" bezelStyle="rounded" alignment="left" controlSize="small" lineBreakMode="truncatingTail" borderStyle="borderAndBezel" imageScaling="proportionallyDown" inset="2" id="vKV-CH-Uks">
+                                            <behavior key="behavior" lightByBackground="YES" lightByGray="YES"/>
+                                            <font key="font" metaFont="smallSystem"/>
+                                            <menu key="menu" id="Mj1-Tx-anM"/>
+                                        </popUpButtonCell>
+                                        <connections>
+                                            <action selector="themesPressed:" target="xPF-f4-5kE" id="rWJ-QQ-mdf"/>
+                                        </connections>
+                                    </popUpButton>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="UiT-hO-zw9">
+                                        <rect key="frame" x="34" y="173" width="415" height="17"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <textFieldCell key="cell" lineBreakMode="clipping" title="Themes:" id="AHz-v5-cAO">
+                                            <font key="font" usesAppearanceFont="YES"/>
+                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
+                                    <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="Tkx-eU-cf5">
+                                        <rect key="frame" x="18" y="149" width="17" height="17"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <textFieldCell key="cell" lineBreakMode="clipping" title="*" id="zV1-2U-ku3">
+                                            <font key="font" usesAppearanceFont="YES"/>
+                                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        </textFieldCell>
+                                    </textField>
                                 </subviews>
                             </visualEffectView>
                         </subviews>
@@ -542,6 +563,7 @@
                         <outlet property="sliderMedia" destination="KSY-GQ-vWn" id="zCy-hJ-ZKw"/>
                         <outlet property="sliderMoBo" destination="TjH-t0-0wu" id="f3y-4F-JJV"/>
                         <outlet property="sliderRam" destination="6Ci-WU-bhL" id="OAg-Yl-5og"/>
+                        <outlet property="themesPop" destination="g94-Ii-OA1" id="1Dq-WJ-Z6B"/>
                         <outlet property="translateUnitsBtn" destination="yZr-PH-CoQ" id="Y06-cT-fF8"/>
                         <outlet property="useGPUAccelerator" destination="mgE-Fa-Utu" id="mo3-ch-ThY"/>
                         <outlet property="useIntelPowerGadget" destination="FI9-35-qYY" id="b96-yU-CSJ"/>

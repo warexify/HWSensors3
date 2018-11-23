@@ -9,5 +9,7 @@
 import Cocoa
 
 class HWWindow: NSWindow {
-  
+  override var canBecomeKey: Bool {
+    return true
+  }
 }

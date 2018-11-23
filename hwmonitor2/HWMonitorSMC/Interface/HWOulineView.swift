@@ -100,13 +100,20 @@ class HWOulineView: NSOutlineView, NSPopoverDelegate {
     case medium = 3
     case big    = 4
   }
-
+  
   override init(frame frameRect: NSRect) {
     super.init(frame: frameRect)
   }
   
   required init?(coder: NSCoder) {
     super.init(coder: coder)!
+    self.selectionHighlightStyle = .sourceList
+    let scroller : NSScrollView? = self.enclosingScrollView
+    let clipView : NSClipView? = scroller?.contentView
+    scroller?.appearance = appearance
+    clipView?.appearance = appearance
+    self.appearance = appearance
+    self.update()
     if #available(OSX 10.14, *) {
       self.appearanceObserver = self.observe(\.effectiveAppearance) { [weak self] _, _  in
         self?.update()
@@ -120,27 +127,49 @@ class HWOulineView: NSOutlineView, NSPopoverDelegate {
       self.appearanceObserver = nil
     }
   }
+
+  override func drawGrid(inClipRect clipRect: NSRect) {
+    let rows = self.numberOfRows
+    var superRect : NSRect = clipRect
+    if rows > 0 {
+      let lastRect = self.rect(ofRow: rows - 1)
+      let aclipRect = NSMakeRect(0, 0, self.frame.size.width, lastRect.maxY)
+      let finalRect : NSRect = NSIntersectionRect(clipRect, aclipRect)
+      superRect = finalRect
+    }
+    super.drawGrid(inClipRect: superRect)
+  }
+  
+  override func makeView(withIdentifier identifier: NSUserInterfaceItemIdentifier, owner: Any?) -> NSView? {
+    let view: Any? = super.makeView(withIdentifier: identifier, owner: owner)
+    if (identifier == NSOutlineView.disclosureButtonIdentifier) {
+      let t: NSButton? = (view as? NSButton)
+      t?.image?.isTemplate = true
+      t?.alternateImage?.isTemplate = true
+    }
+    return view as? NSView
+  }
   
   func update() {
     let forceDark = UserDefaults.standard.bool(forKey: kDark)
-    if !forceDark {
-      let appearance = getAppearance()
-      if let win = self.window {
-        win.animator().appearance = appearance
-        win.contentView?.appearance = appearance
-        win.titlebarAppearsTransparent = true
-        for v in (win.contentView?.subviews)! {
-          if v is NSVisualEffectView {
-            v.appearance = appearance
-          }
+    let appearance = getAppearance()
+    if let win = self.window {
+      win.animator().appearance = appearance
+      win.contentView?.appearance = appearance
+      win.titlebarAppearsTransparent = true
+      for v in (win.contentView?.subviews)! {
+        if v is NSVisualEffectView {
+          v.appearance = appearance
         }
       }
-      
-      let scroller : NSScrollView? = self.enclosingScrollView
-      let clipView : NSClipView? = scroller?.contentView
-      scroller?.animator().appearance = appearance
-      clipView?.animator().appearance = appearance
-      self.animator().appearance = appearance
+    }
+    
+    let scroller : NSScrollView? = self.enclosingScrollView
+    let clipView : NSClipView? = scroller?.contentView
+    scroller?.appearance = appearance
+    clipView?.appearance = appearance
+    self.appearance = appearance
+    if !forceDark {
       self.reloadData()
     }
     
@@ -156,7 +185,7 @@ class HWOulineView: NSOutlineView, NSPopoverDelegate {
     }
   }
 
-  override func menu(for event: NSEvent) -> NSMenu? {
+  override public func menu(for event: NSEvent) -> NSMenu? {
     let point = self.convert(event.locationInWindow, from: nil)
     let row = self.row(at: point)
     if let item : HWTreeNode = self.item(atRow: row) as? HWTreeNode {

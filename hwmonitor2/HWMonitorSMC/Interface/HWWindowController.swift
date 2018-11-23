@@ -9,7 +9,6 @@
 import Cocoa
 
 class HWWindowController: NSWindowController, NSWindowDelegate {
-  
   override func windowDidLoad() {
     super.windowDidLoad()
     self.window?.appearance = getAppearance()

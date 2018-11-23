@@ -11,7 +11,6 @@
 import Cocoa
 
 class PopoverWindowController: NSWindowController, NSWindowDelegate {
-  
   override func windowDidLoad() {
     super.windowDidLoad()
     self.window?.appearance = getAppearance()
