@@ -654,15 +654,13 @@ class HWSensorsScanner: NSObject {
     var valid : Bool = false
     switch sensor.sensorType {
     case .temperature:
-      var t: Int = 0
-      bcopy((data as NSData).bytes, &t, 2)
-      if t > -15 && t < 150 {
+      if v > -15 && v < 150 {
         /*
          -10 min temp + 5 to ensure no one start a pc this way.
          150 (110 °C it is enough) to ensure reading is correct
          */
-        sensor.stringValue = "\(t)"
-        sensor.doubleValue = Double(t)
+        sensor.stringValue = String(format: "%.f", v)
+        sensor.doubleValue = v
         valid = true
       }
     case .battery: fallthrough /* only if from the smc */
