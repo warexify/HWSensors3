@@ -16,7 +16,6 @@ extension Data {
 }
 
 public struct Display {
-  
   //--------------------------------------------------------------------------
   // MARK: PUBLIC INITIALIZERS
   //--------------------------------------------------------------------------
@@ -91,12 +90,16 @@ public struct Display {
         self.ManufactureName[1] = data[9]
         self.ProductCode[0]     = data[10]
         self.ProductCode[1]     = data[11]
-        self.SerialNumber = UInt32(littleEndian:
-          Data(bytes: [data[12],
-                       data[13],
-                       data[14],
-                       data[15]]
-            ).withUnsafeBytes { $0.pointee })
+ 
+        var n32: UInt32 = 0
+        let ad : NSData = Data.init([data[12],
+                   data[13],
+                   data[14],
+                   data[15]]) as NSData
+      
+        ad.getBytes(&n32, length: MemoryLayout<UInt32>.size)
+        self.SerialNumber = UInt32(littleEndian: n32)
+        
         self.WeekOfManufacture = data[16]
         self.YearOfManufacture = data[17]
         self.EdidVersion = data[18]
@@ -318,9 +321,8 @@ public struct Display {
         }
         
         if (IODisplayEDID != nil) {
-          let bytes = IODisplayEDID!.withUnsafeBytes {
-            [UInt8](UnsafeBufferPointer(start: $0, count: IODisplayEDID!.count))
-          }
+          let bytes = [UInt8](IODisplayEDID!)
+ 
           statusString += "\n\tEDID data:\n"
           var byte8Count = 0
           var byteCount = 0

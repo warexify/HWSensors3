@@ -116,11 +116,15 @@
 "mA"  = "мА";  // milli Ampere
 "rpm" = "об/мин"; // revolutions per minute
 
-"log copied to clip board!" = "журнал скопирован в буфер обмена!";﻿
+"log copied to clip board!" = "журнал скопирован в буфер обмена!";
 
 // Themes
-"Default" = "Default";
-"Dashed Horizontally" = "Dashed Horizontally";
-"No Grid" = "No Grid";
-"No Grid, clear background" = "No Grid, clear background";
-"With Grid, clear background" = "With Grid, clear background";
+"Default" = "По умолчанию"; // View Size as well
+"Classic" = "Классическая";
+"Dashed Horizontally" = "Без вертикальных линий";
+"No Grid" = "Без сетки";
+"With Grid, clear background" = "С сеткой, чистый фон";
+
+// View Size
+"Medium" = "Средний";
+"Large"  = "Большой";

@@ -10,7 +10,7 @@ import Cocoa
 
 extension PopoverViewController {
   @objc func updateCPUSensors() {
-    if self.initiated && (self.CPUNode != nil) {
+    if AppSd.sensorsInited && (self.CPUNode != nil) {
       var newRead : [HWMonitorSensor] = AppSd.sensorScanner.get_CPU_GlobalParameters()
       
       for s in AppSd.sensorScanner.getSMC_SingleCPUFrequencies() {
@@ -36,16 +36,17 @@ extension PopoverViewController {
           }
         }
       }
+      
       self.updateStatuBar()
     }
   }
   
   @objc func updateGPUSensors() {
-    if self.initiated && (self.GPUNode != nil) {
+    if AppSd.sensorsInited && (self.GPUNode != nil) {
       var newRead : [HWMonitorSensor] = AppSd.sensorScanner.getSMCGPU()
       
       if self.useIOAcceleratorForGPUs {
-        for n in Graphics.init().getVideoCardsSensorsFromAccelerator() {
+        for n in Graphics.init().graphicsCardsSensors() {
           for sub in n.mutableChildren {
             if let sensor : HWMonitorSensor = (sub as! HWTreeNode).sensorData?.sensor {
               newRead.append(sensor)
@@ -80,7 +81,7 @@ extension PopoverViewController {
   }
   
   @objc func updateMotherboardSensors() {
-    if self.initiated && (self.MOBONode != nil) {
+    if AppSd.sensorsInited && (self.MOBONode != nil) {
       let newRead = AppSd.sensorScanner.getMotherboard()
       
       let copy : NSArray = self.sensorList?.copy() as! NSArray
@@ -101,7 +102,7 @@ extension PopoverViewController {
   }
   
   @objc func updateFanSensors() {
-    if self.initiated && (self.FansNode != nil) {
+    if AppSd.sensorsInited && (self.FansNode != nil) {
       let newRead = AppSd.sensorScanner.getFans()
       
       let copy : NSArray = self.sensorList?.copy() as! NSArray
@@ -122,7 +123,7 @@ extension PopoverViewController {
   }
   
   @objc func updateRAMSensors() {
-    if self.initiated && (self.RAMNode != nil) {
+    if AppSd.sensorsInited && (self.RAMNode != nil) {
       let newRAM = AppSd.sensorScanner.getMemory()
       
       let copy : NSArray = self.sensorList?.copy() as! NSArray
@@ -144,7 +145,7 @@ extension PopoverViewController {
   }
   
   @objc func updateMediaSensors() {
-    if self.initiated && (self.mediaNode != nil) {
+    if AppSd.sensorsInited && (self.mediaNode != nil) {
       // to do? see if we have new hard drive, and update the outline.
       let newMediaNode = HWTreeNode(representedObject: HWSensorData(group: (self.mediaNode?.sensorData?.group)!,
                                                                      sensor: nil,
@@ -252,7 +253,7 @@ extension PopoverViewController {
 
   
   @objc func updateBatterySensors() {
-    if self.initiated && (self.batteriesNode != nil) {
+    if AppSd.sensorsInited && (self.batteriesNode != nil) {
       let newBattery = AppSd.sensorScanner.getBattery()
       
       let copy : NSArray = self.sensorList?.copy() as! NSArray
@@ -275,11 +276,11 @@ extension PopoverViewController {
   }
   
   func updateStatuBar() {
-    if !self.initiated || !AppSd.licensed || self.statusIsUpdating { return }
+    if !AppSd.sensorsInited || !AppSd.licensed || self.statusIsUpdating { return }
     self.statusIsUpdating  = true
     let copy : NSArray = self.sensorList?.copy() as! NSArray
     var components : [String] = [String]()
-    AppSd.statusItem.attributedTitle = nil
+    AppSd.statusItem.button?.attributedTitle = NSAttributedString(string: "")
     
     let useGadget : Bool = (self.gadgetWC != nil)
     for i in copy {
@@ -302,24 +303,31 @@ extension PopoverViewController {
    
     var statusString = ""
     let style = NSMutableParagraphStyle()
-    let f = NSFont(name: "Lucida Grande Bold", size: 9.0)!
-    
     style.lineSpacing = 0.0
+    
     if components.count > 0 { statusString = " " }
     for s in components {
-      statusString += s.replacingOccurrences(of: HWUnit.C.rawValue.locale(AppSd.translateUnits), with: "°").trimmingCharacters(in: CharacterSet.whitespaces) + " "
+      statusString += s.replacingOccurrences(of: HWUnit.C.rawValue.locale(AppSd.translateUnits),
+                                             with: "°").trimmingCharacters(in: CharacterSet.whitespaces) + " "
     }
-    
-    let title = NSMutableAttributedString(string: statusString as String, attributes: [NSAttributedString.Key.paragraphStyle : style])
-    
-    title.addAttributes([NSAttributedString.Key.font : f/*gPopOverFont*/, NSAttributedString.Key.kern : 1.0],
-                        range: NSMakeRange(0, title.length))
+
     if useGadget {
-      AppSd.statusItem.attributedTitle = nil
+      AppSd.statusItem.button?.title = ""
       AppSd.statusItem.length = 23
-      (self.gadgetWC?.contentViewController as! GadgetVC).statusField.animator().stringValue = title.string
+      (self.gadgetWC?.contentViewController as! GadgetVC).statusField.animator().stringValue = statusString
     } else {
-      AppSd.statusItem.attributedTitle = title
+      if (AppSd.topBarFont != nil) {
+        let title = NSMutableAttributedString(string: statusString,
+                                              attributes: [NSAttributedString.Key.paragraphStyle : style])
+        
+        title.addAttributes([NSAttributedString.Key.font : AppSd.topBarFont!,
+                             NSAttributedString.Key.kern : 0.0],
+                            range: NSMakeRange(0, title.length))
+        AppSd.statusItem.button?.attributedTitle = title
+      } else {
+        AppSd.statusItem.button?.title = statusString
+      }
+ 
       let intrinsic : CGFloat = AppSd.statusItem.button!.intrinsicContentSize.width
       if AppSd.statusItemLen == 0 {
         AppSd.statusItemLen = intrinsic + 15

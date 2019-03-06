@@ -11,9 +11,24 @@
 import Cocoa
 
 class PopoverWindowController: NSWindowController, NSWindowDelegate {
+  
   override func windowDidLoad() {
     super.windowDidLoad()
+  }
+  
+  func setUp() {
     self.window?.appearance = getAppearance()
+    self.window?.hasShadow = true
+    self.window?.isMovableByWindowBackground = true
+    
+    self.window?.collectionBehavior = [.fullScreenAuxiliary, .fullScreenPrimary]
+    self.window?.styleMask.insert([.titled,
+                                   .closable,
+                                   .resizable,
+                                   .fullSizeContentView /*, .miniaturizable */])
+    
+    self.window?.titleVisibility = .hidden // the pin button works again with this
+    self.window?.titlebarAppearsTransparent = false
   }
   
   func windowDidResize(_ notification: Notification) {
@@ -30,11 +45,19 @@ class PopoverWindowController: NSWindowController, NSWindowDelegate {
         height = kMinHeight
       }
       
-      UserDefaults.standard.set(frame?.width, forKey: kPopoverWidth)
-      UserDefaults.standard.set(frame?.height, forKey: kPopoverHeight)
-      UserDefaults.standard.synchronize()
+      UDs.set(frame?.width, forKey: kPopoverWidth)
+      UDs.set(frame?.height, forKey: kPopoverHeight)
+      UDs.synchronize()
     }
   }
+
+  func windowDidExitFullScreen(_ notification: Notification) {
+    
+  }
+  
+  func windowWillEnterFullScreen(_ notification: Notification) {
+  }
+  
   func windowWillClose(_ notification: Notification) {
     
   }

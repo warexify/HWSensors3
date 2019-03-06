@@ -50,27 +50,6 @@ public typealias SMCBytes = (UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8,
   UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8,
   UInt8, UInt8, UInt8, UInt8, UInt8, UInt8, UInt8,
   UInt8, UInt8, UInt8, UInt8)
-/*
- let KA_NULL   = 0
- let KA_R      = 1
- let KA_W      = 2
- let KA_CONST  = 4
- let KA_VAR    = 8
- let KA_STR    = 16
- let KA_DESC   = 32
- let KA_FUNC   = 64
- let KA_ATOMIC = 128
- 
- let k_CONST  = (KA_R | KA_CONST)
- let k_DESC_STR = (KA_R | KA_DESC | KA_STR)
- let k_FUNC_R = (KA_R | KA_FUNC)
- let k_FUNC_RW = (KA_R | KA_W | KA_FUNC)
- let k_FUNC_W = (KA_W | KA_FUNC)
- let k_VAR_ATOM_R = (KA_R | KA_VAR | KA_ATOMIC)
- let k_VAR_ATOM_RW = (KA_R | KA_W | KA_VAR | KA_ATOMIC)
- let k_VAR_R = (KA_R | KA_VAR)
- let k_VAR_RW = (KA_R | KA_W | KA_VAR)
- let k_VAR_W = (KA_W | KA_VAR)*/
 
 //------------------------------------------------------------------------------
 // MARK: Standard Library Extensions

@@ -10,6 +10,11 @@ import Cocoa
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
+  var mainViewSize = MainViewSize.init(rawValue: UDs.string(forKey: kViewSize) ?? MainViewSize.normal.rawValue) ?? MainViewSize.normal
+  var hideVerticalScroller : Bool = UserDefaults.standard.bool(forKey: kHideVerticalScroller)
+  var theme : Themes? = nil
+  var topBarFont : NSFont? = getTopBarFont(saved: true)
+  var sensorsInited : Bool = false
   var initialAppearance : NSAppearance = NSAppearance(named: .vibrantDark)!
   var licensed : Bool = false
   var translateUnits : Bool = true
@@ -17,7 +22,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
   var ipgInited : Bool = false
   let useIOAcceleratorForGPUs : Bool = UDs.bool(forKey: kUseGPUIOAccelerator)
   var sensorScanner : HWSensorsScanner = HWSensorsScanner()
-  var debugIOACC: Bool = true
+  var debugGraphics: Bool = true
   
   let statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
   var statusItemLen : CGFloat = 0
@@ -27,6 +32,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
   var cpuTDP : Double = 100 // to be set by Intel Power Gadget or by the user
   
   func applicationWillFinishLaunching(_ notification: Notification) {
+    self.statusItem.button?.alignment = .left
+    self.statusItem.button?.imagePosition = .imageLeft
     let pid = NSRunningApplication.current.processIdentifier
     for app in NSRunningApplication.runningApplications(withBundleIdentifier: Bundle.main.bundleIdentifier!) {
       if app.processIdentifier != pid {
@@ -49,7 +56,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
     let icon = NSImage(named: "temperature_small")
     icon?.isTemplate = true
-    self.statusItem.image = icon
+    self.statusItem.button?.image = icon
     self.license()
     
     if (UDs.object(forKey: kUseIPG) != nil) {
@@ -86,6 +93,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     if self.ipgInited {
       IntelEnergyLibShutdown()
     }
+    NotificationCenter.default.post(name: .terminate, object: nil)
   }
   
   override func awakeFromNib() {

@@ -12,6 +12,7 @@ class HWWindowController: NSWindowController, NSWindowDelegate {
   override func windowDidLoad() {
     super.windowDidLoad()
     self.window?.appearance = getAppearance()
+    self.window?.titlebarAppearsTransparent = false
   }
   
   class func loadFromNib() -> HWWindowController {

@@ -15,15 +15,20 @@ public struct Graphics {
   fileprivate let AMD_ID    : Data = Data([0x02, 0x10, 0x00, 0x00])
   fileprivate let NVidia_ID : Data = Data([0xDE, 0x10, 0x00, 0x00])
   
+  fileprivate let kAGP_FreeBytes  = "gartFreeBytes"
+  fileprivate let kAGP_UsedBytes  = "gartUsedBytes"
+  fileprivate let kVRAM_FreeBytes = "vramFreeBytes"
+  fileprivate let kVRAM_UsedBytes = "vramUsedBytes"
+  fileprivate let kVid_UsedBytes  = "inUseVidMemoryBytes"
+  
   /*
-   getVideoCardsSensorsFromAccelerator() is a replacement for RadeonSensor.kext
+   graphicsCardsSensors() is a replacement for RadeonSensor.kext
    when possible. NVIdia doesn't publish enough information ATM.
    */
-  
-  public func getVideoCardsSensorsFromAccelerator() -> [HWTreeNode] {
+  public func graphicsCardsSensors() -> [HWTreeNode] {
     //let ipg : Bool = AppSd.ipgInited
     var nodes : [HWTreeNode] = [HWTreeNode]()
-    let list = Graphics.listGraphicsInfo()
+    let list = Graphics.listGraphicsCard()
     for i in 0..<list.count {
       let dict = list[i]
       //print("dict \(i):\n\(dict)\n-----------------------------------------------")
@@ -31,7 +36,6 @@ public struct Graphics {
       let deviceID          : Data = dict.object(forKey: "device-id") as! Data
       var model             : String = "Unknown" // model can be String/Data
       let modelValue        : Any? = dict.object(forKey: "model")
-      let acpiPath : String? = dict.object(forKey: "acpi-path") as? String
       
       var vendorString : String = "Unknown"
       if vendorID == NVidia_ID {
@@ -56,53 +60,14 @@ public struct Graphics {
         String(format: "%02x", vendorID[1]) +
         String(format: "%02x", vendorID[0])
       
-      if AppSd.debugIOACC { dict.writeGraphicsInf(with: "\(primaryMatch)_\(i)") }
+      if AppSd.debugGraphics { dict.writeGraphicsInfo(with: "\(primaryMatch)_\(i)") }
       
-      let accelerators = Graphics.listAcceleratorsInfo()
-      var PerformanceStatistics : NSDictionary? = nil
-      for i in 0..<accelerators.count {
-        let accDict = accelerators[i]
-        if AppSd.debugIOACC { accDict.writeIOAcc(with: "\(i)") }
-        if vendorID == NVidia_ID {
-          if let apath : String = accDict.object(forKey: "acpi-path") as? String {
-            if apath == acpiPath  {
-              if let ps : NSDictionary = accDict.object(forKey: "PerformanceStatistics") as? NSDictionary {
-                PerformanceStatistics = ps
-                break
-              }
-            }
-          }
-        } else {
-          if let IOPCIPrimaryMatch : String = accDict.object(forKey: "IOPCIPrimaryMatch") as? String {
-            if (IOPCIPrimaryMatch.lowercased().range(of: primaryMatch) != nil) {
-              if let ps : NSDictionary = accDict.object(forKey: "PerformanceStatistics") as? NSDictionary {
-                PerformanceStatistics = ps
-              }
-              break
-            }
-          } else if let IOPCIMatch : String = accDict.object(forKey: "IOPCIMatch") as? String {
-            if (IOPCIMatch.lowercased().range(of: primaryMatch) != nil) {
-              if let ps : NSDictionary = accDict.object(forKey: "PerformanceStatistics") as? NSDictionary {
-                PerformanceStatistics = ps
-              }
-              break
-            }
-          }
-        }
-      }
-
-      
-      var bytesVRAMU : Bool = false
-      var bytesVRAMF : Bool = false
-      
-      if (PerformanceStatistics != nil) {
-        let ud = UserDefaults.standard
+      if let PerformanceStatistics = dict.object(forKey: kIOPerformanceStatistics) as? NSDictionary {
         let gpuNode : HWTreeNode = HWTreeNode(representedObject: HWSensorData(group: model,
                                                                               sensor: nil,
                                                                               isLeaf: false))
         let unique : String = "\(primaryMatch)\(i)"
-        //var utilFound : Bool = false
-        if let coreclock : NSNumber = PerformanceStatistics?.object(forKey: "Core Clock(MHz)﻿﻿") as? NSNumber {
+        if let coreclock : NSNumber = PerformanceStatistics.object(forKey: "Core Clock(MHz)﻿﻿") as? NSNumber {
           
           let ccSensor = HWMonitorSensor(key: "Core Clock" + unique,
                                          unit: HWUnit.GHz,
@@ -111,7 +76,7 @@ public struct Graphics {
                                          title: "Core Clock".locale(),
                                          canPlot: false)
           
-          ccSensor.favorite = ud.bool(forKey: ccSensor.key)
+          ccSensor.favorite = UDs.bool(forKey: ccSensor.key)
           ccSensor.characteristics = primaryMatch
           ccSensor.logType = .gpuLog
           ccSensor.doubleValue = Double(coreclock.doubleValue)
@@ -122,15 +87,15 @@ public struct Graphics {
                                                                                  isLeaf: true)))
         }
         
-        if let totalPower : NSNumber = PerformanceStatistics?.object(forKey: "Total Power(W)") as? NSNumber {
+        if let totalPower : NSNumber = PerformanceStatistics.object(forKey: "Total Power(W)") as? NSNumber {
           
           let tpSensor = HWMonitorSensor(key: "Total Power(W)" + unique,
-                                           unit: HWUnit.Watt,
-                                           type: "IOAcc",
-                                           sensorType: .gpuIO_Watts,
-                                           title: "Total Power".locale(),
-                                           canPlot: true)
-          tpSensor.favorite = ud.bool(forKey: tpSensor.key)
+                                         unit: HWUnit.Watt,
+                                         type: "IOAcc",
+                                         sensorType: .gpuIO_Watts,
+                                         title: "Total Power".locale(),
+                                         canPlot: true)
+          tpSensor.favorite = UDs.bool(forKey: tpSensor.key)
           tpSensor.characteristics = primaryMatch
           tpSensor.logType = .gpuLog
           tpSensor.doubleValue = totalPower.doubleValue
@@ -141,15 +106,15 @@ public struct Graphics {
                                                                                  isLeaf: true)))
         }
         
-        if let temperature : NSNumber = PerformanceStatistics?.object(forKey: "Temperature(C)") as? NSNumber {
+        if let temperature : NSNumber = PerformanceStatistics.object(forKey: "Temperature(C)") as? NSNumber {
           
           let tempSensor = HWMonitorSensor(key: "Temperature" + unique,
-                                         unit: HWUnit.C,
-                                         type: "IOAcc",
-                                         sensorType: .gpuIO_temp,
-                                         title: "Temperature".locale(),
-                                         canPlot: true)
-          tempSensor.favorite = ud.bool(forKey: tempSensor.key)
+                                           unit: HWUnit.C,
+                                           type: "IOAcc",
+                                           sensorType: .gpuIO_temp,
+                                           title: "Temperature".locale(),
+                                           canPlot: true)
+          tempSensor.favorite = UDs.bool(forKey: tempSensor.key)
           tempSensor.characteristics = primaryMatch
           tempSensor.logType = .gpuLog
           tempSensor.doubleValue = temperature.doubleValue
@@ -159,8 +124,8 @@ public struct Graphics {
                                                                                  sensor: tempSensor,
                                                                                  isLeaf: true)))
         }
-
-        if let fanSpeed : NSNumber = PerformanceStatistics?.object(forKey: "Fan Speed(RPM)") as? NSNumber {
+        
+        if let fanSpeed : NSNumber = PerformanceStatistics.object(forKey: "Fan Speed(RPM)") as? NSNumber {
           
           let fanSensor = HWMonitorSensor(key: "Fan/Pump Speed" + unique,
                                           unit: HWUnit.RPM,
@@ -168,8 +133,8 @@ public struct Graphics {
                                           sensorType: .gpuIO_FanRPM,
                                           title: "Fan/Pump speed".locale(),
                                           canPlot: true)
-
-          fanSensor.favorite = ud.bool(forKey: fanSensor.key)
+          
+          fanSensor.favorite = UDs.bool(forKey: fanSensor.key)
           fanSensor.characteristics = primaryMatch
           fanSensor.logType = .gpuLog
           fanSensor.doubleValue = fanSpeed.doubleValue
@@ -180,7 +145,7 @@ public struct Graphics {
                                                                                  isLeaf: true)))
         }
         
-        if let fanSpeed100 : NSNumber = PerformanceStatistics?.object(forKey: "Fan Speed(%)") as? NSNumber {
+        if let fanSpeed100 : NSNumber = PerformanceStatistics.object(forKey: "Fan Speed(%)") as? NSNumber {
           
           let fan100Sensor = HWMonitorSensor(key: "Fan/Pump Speed rate" + unique,
                                              unit: HWUnit.Percent,
@@ -189,7 +154,7 @@ public struct Graphics {
                                              title: "Fan/Pump speed rate".locale(),
                                              canPlot: true)
           
-          fan100Sensor.favorite = ud.bool(forKey: fan100Sensor.key)
+          fan100Sensor.favorite = UDs.bool(forKey: fan100Sensor.key)
           fan100Sensor.characteristics = primaryMatch
           fan100Sensor.logType = .gpuLog
           fan100Sensor.doubleValue = fanSpeed100.doubleValue
@@ -200,43 +165,41 @@ public struct Graphics {
                                                                                  isLeaf: true)))
         }
         
-        //if (!ipg && vendorID == Intel_ID) || vendorID != Intel_ID {
-          if let deviceUtilization : NSNumber = PerformanceStatistics?.object(forKey: "Device Utilization %") as? NSNumber {
-            //utilFound = true
-            let duSensor = HWMonitorSensor(key: "Device Utilization" + unique,
-                                           unit: HWUnit.Percent,
-                                           type: "IOAcc",
-                                           sensorType: .gpuIO_percent,
-                                           title: "Utilization".locale(),
-                                           canPlot: true)
-            
-            duSensor.favorite = ud.bool(forKey: duSensor.key)
-            duSensor.characteristics = primaryMatch
-            duSensor.logType = .gpuLog
-            duSensor.doubleValue = deviceUtilization.doubleValue
-            duSensor.stringValue = deviceUtilization.stringValue
-            duSensor.vendor = vendorString
-            gpuNode.mutableChildren.add(HWTreeNode(representedObject: HWSensorData(group: model,
-                                                                                   sensor: duSensor,
-                                                                                   isLeaf: true)))
-          }
-        //}
+        if let deviceUtilization : NSNumber = PerformanceStatistics.object(forKey: "Device Utilization %") as? NSNumber {
+          //utilFound = true
+          let duSensor = HWMonitorSensor(key: "Device Utilization" + unique,
+                                         unit: HWUnit.Percent,
+                                         type: "IOAcc",
+                                         sensorType: .gpuIO_percent,
+                                         title: "Utilization".locale(),
+                                         canPlot: true)
+          
+          duSensor.favorite = UDs.bool(forKey: duSensor.key)
+          duSensor.characteristics = primaryMatch
+          duSensor.logType = .gpuLog
+          duSensor.doubleValue = deviceUtilization.doubleValue
+          duSensor.stringValue = deviceUtilization.stringValue
+          duSensor.vendor = vendorString
+          gpuNode.mutableChildren.add(HWTreeNode(representedObject: HWSensorData(group: model,
+                                                                                 sensor: duSensor,
+                                                                                 isLeaf: true)))
+        }
         
         if vendorID == NVidia_ID {
-          if let gpuCoreUtilization : NSNumber = PerformanceStatistics?.object(forKey: "GPU Core Utilization") as? NSNumber {
+          if let gpuCoreUtilization : NSNumber = PerformanceStatistics.object(forKey: "GPU Core Utilization") as? NSNumber {
             var gcuInt = gpuCoreUtilization.intValue
             if gcuInt >= 10000000 {
               gcuInt = gcuInt / 10000000
             }
             
             let gcuSensor = HWMonitorSensor(key: "GPU Core Utilization" + unique,
-                                           unit: HWUnit.Percent,
-                                           type: "IOAcc",
-                                           sensorType: .gpuIO_percent,
-                                           title: "Core Utilization".locale(),
-                                           canPlot: true)
+                                            unit: HWUnit.Percent,
+                                            type: "IOAcc",
+                                            sensorType: .gpuIO_percent,
+                                            title: "Core Utilization".locale(),
+                                            canPlot: true)
             
-            gcuSensor.favorite = ud.bool(forKey: gcuSensor.key)
+            gcuSensor.favorite = UDs.bool(forKey: gcuSensor.key)
             gcuSensor.characteristics = primaryMatch
             gcuSensor.logType = .gpuLog
             gcuSensor.doubleValue = Double(gcuInt)
@@ -248,8 +211,7 @@ public struct Graphics {
           }
         }
         
-        
-        if let gpuActivity : NSNumber = PerformanceStatistics?.object(forKey: "GPU Activity(%)") as? NSNumber {
+        if let gpuActivity : NSNumber = PerformanceStatistics.object(forKey: "GPU Activity(%)") as? NSNumber {
           
           let gaSensor = HWMonitorSensor(key: "GPU Activity" + unique,
                                          unit: HWUnit.Percent,
@@ -258,7 +220,7 @@ public struct Graphics {
                                          title: "Activity".locale(),
                                          canPlot: true)
           
-          gaSensor.favorite = ud.bool(forKey: gaSensor.key)
+          gaSensor.favorite = UDs.bool(forKey: gaSensor.key)
           gaSensor.characteristics = primaryMatch
           gaSensor.logType = .gpuLog
           gaSensor.doubleValue = gpuActivity.doubleValue
@@ -268,33 +230,31 @@ public struct Graphics {
                                                                                  sensor: gaSensor,
                                                                                  isLeaf: true)))
         }
-        
-        //if !AppSd.ipgInited {
-          for i in 0..<1 /*0x0A*/ { // limited to Device Unit 0 Utilization
-            if let deunUtilization : NSNumber = PerformanceStatistics?.object(forKey: "Device Unit \(i) Utilization %") as? NSNumber {
-              
-              let dunuSensor = HWMonitorSensor(key: "Device Unit \(i) Utilization" + unique,
-                                               unit: HWUnit.Percent,
-                                               type: "IOAcc",
-                                               sensorType: .gpuIO_percent,
-                                               title: String(format: "Device Unit %d Utilization".locale(), i),
-                                               canPlot: true)
-              
-              dunuSensor.favorite = ud.bool(forKey: dunuSensor.key)
-              dunuSensor.characteristics = primaryMatch
-              dunuSensor.logType = .gpuLog
-              dunuSensor.doubleValue = deunUtilization.doubleValue
-              dunuSensor.stringValue = deunUtilization.stringValue
-              dunuSensor.vendor = vendorString
-              gpuNode.mutableChildren.add(HWTreeNode(representedObject: HWSensorData(group: model,
-                                                                                     sensor: dunuSensor,
-                                                                                     isLeaf: true)))
-            }
-          //}
-        }
+        /*
+        for i in 0..<1 /*0x0A*/ { // limited to Device Unit 0 Utilization
+          if let deunUtilization : NSNumber = PerformanceStatistics.object(forKey: "Device Unit \(i) Utilization %") as? NSNumber {
+            
+            let dunuSensor = HWMonitorSensor(key: "Device Unit \(i) Utilization" + unique,
+                                             unit: HWUnit.Percent,
+                                             type: "IOAcc",
+                                             sensorType: .gpuIO_percent,
+                                             title: String(format: "Device Unit %d Utilization".locale(), i),
+                                             canPlot: true)
+            
+            dunuSensor.favorite = UDs.bool(forKey: dunuSensor.key)
+            dunuSensor.characteristics = primaryMatch
+            dunuSensor.logType = .gpuLog
+            dunuSensor.doubleValue = deunUtilization.doubleValue
+            dunuSensor.stringValue = deunUtilization.stringValue
+            dunuSensor.vendor = vendorString
+            gpuNode.mutableChildren.add(HWTreeNode(representedObject: HWSensorData(group: model,
+                                                                                   sensor: dunuSensor,
+                                                                                   isLeaf: true)))
+          }
+        }*/
         
         if vendorID == NVidia_ID {
-          if let gpuEngineUtilization : NSNumber = PerformanceStatistics?.object(forKey: "GPU Video Engine Utilization") as? NSNumber {
+          if let gpuEngineUtilization : NSNumber = PerformanceStatistics.object(forKey: "GPU Video Engine Utilization") as? NSNumber {
             
             let gveuSensor = HWMonitorSensor(key: "GPU Video Engine Utilization" + unique,
                                              unit: HWUnit.Percent,
@@ -303,7 +263,7 @@ public struct Graphics {
                                              title: "Video Engine Utilization".locale(),
                                              canPlot: true)
             
-            gveuSensor.favorite = ud.bool(forKey: gveuSensor.key)
+            gveuSensor.favorite = UDs.bool(forKey: gveuSensor.key)
             gveuSensor.characteristics = primaryMatch
             gveuSensor.logType =  .gpuLog
             gveuSensor.doubleValue = gpuEngineUtilization.doubleValue
@@ -313,94 +273,18 @@ public struct Graphics {
                                                                                    sensor: gveuSensor,
                                                                                    isLeaf: true)))
           }
-          
-          if let vramUsedBytes : NSNumber = PerformanceStatistics?.object(forKey: "vramUsedBytes") as? NSNumber {
-            bytesVRAMU = true
-            let vrubSensor = HWMonitorSensor(key: "Used VRAM" + unique,
-                                             unit: HWUnit.none,
-                                             type: "IOAcc",
-                                             sensorType: .gpuIO_RamBytes,
-                                             title: "Used VRAM".locale(),
-                                             canPlot: false)
-            
-            vrubSensor.favorite = ud.bool(forKey: vrubSensor.key)
-            vrubSensor.characteristics = primaryMatch
-            vrubSensor.logType = .gpuLog
-            vrubSensor.doubleValue = vramUsedBytes.doubleValue
-            //vrubSensor.stringValue = ByteCountFormatter.string(fromByteCount: vramUsedBytes.int64Value, countStyle: .memory)
-            vrubSensor.stringValue = BytesFormatter.init(bytes: vramUsedBytes.int64Value, countStyle: 1024).stringValue()
-            vrubSensor.vendor = vendorString
+        }
+        
+        if let memorySensors = self.getMemorySensors(statistics: PerformanceStatistics,
+                                                     unique: primaryMatch,
+                                                     vendor: vendorString) {
+          for ms in memorySensors {
             gpuNode.mutableChildren.add(HWTreeNode(representedObject: HWSensorData(group: model,
-                                                                                   sensor: vrubSensor,
-                                                                                   isLeaf: true)))
-          }
-          
-          if let vramFreeBytes : NSNumber = PerformanceStatistics?.object(forKey: "vramFreeBytes") as? NSNumber {
-            bytesVRAMF = true
-            let vrfbSensor = HWMonitorSensor(key: "Free VRAM" + unique,
-                                             unit: HWUnit.none,
-                                             type: "IOAcc",
-                                             sensorType: .gpuIO_RamBytes,
-                                             title: "Free VRAM".locale(),
-                                             canPlot: false)
-            
-            vrfbSensor.favorite = ud.bool(forKey: vrfbSensor.key)
-            vrfbSensor.characteristics = primaryMatch
-            vrfbSensor.logType = .gpuLog
-            vrfbSensor.doubleValue = vramFreeBytes.doubleValue
-            //vrfbSensor.stringValue = ByteCountFormatter.string(fromByteCount: vramFreeBytes.int64Value, countStyle: .memory)
-            vrfbSensor.stringValue = BytesFormatter.init(bytes: vramFreeBytes.int64Value, countStyle: 1024).stringValue()
-            vrfbSensor.vendor = vendorString
-            gpuNode.mutableChildren.add(HWTreeNode(representedObject: HWSensorData(group: model,
-                                                                                   sensor: vrfbSensor,
+                                                                                   sensor: ms,
                                                                                    isLeaf: true)))
           }
         }
-        
-        if !bytesVRAMU {
-          if let gartUsedBytes : NSNumber = PerformanceStatistics?.object(forKey: "gartUsedBytes") as? NSNumber {
-            let gubSensor = HWMonitorSensor(key: "Used VRAM" + unique,
-                                            unit: HWUnit.none,
-                                            type: "IOAcc",
-                                            sensorType: .gpuIO_RamBytes,
-                                            title: "Used VRAM".locale(),
-                                            canPlot: false)
-            
-            gubSensor.favorite = ud.bool(forKey: gubSensor.key)
-            gubSensor.characteristics = primaryMatch
-            gubSensor.logType = .gpuLog
-            gubSensor.doubleValue = gartUsedBytes.doubleValue
-            //gubSensor.stringValue = ByteCountFormatter.string(fromByteCount: gartUsedBytes.int64Value, countStyle: .memory)
-            gubSensor.stringValue = BytesFormatter.init(bytes: gartUsedBytes.int64Value, countStyle: 1024).stringValue()
-            gubSensor.vendor = vendorString
-            gpuNode.mutableChildren.add(HWTreeNode(representedObject: HWSensorData(group: model,
-                                                                                   sensor: gubSensor,
-                                                                                   isLeaf: true)))
-          }
-        }
-        
-        if !bytesVRAMF {
-          if let gartFreeBytes : NSNumber = PerformanceStatistics?.object(forKey: "gartFreeBytes") as? NSNumber {
-            let gfbSensor = HWMonitorSensor(key: "Free VRAM" + unique,
-                                            unit: HWUnit.none,
-                                            type: "IOAcc",
-                                            sensorType: .gpuIO_RamBytes,
-                                            title: "Free VRAM".locale(),
-                                            canPlot: false)
-            
-            gfbSensor.favorite = ud.bool(forKey: gfbSensor.key)
-            gfbSensor.characteristics = primaryMatch
-            gfbSensor.logType = .gpuLog
-            gfbSensor.doubleValue = gartFreeBytes.doubleValue
-            //gfbSensor.stringValue = ByteCountFormatter.string(fromByteCount: gartFreeBytes.int64Value, countStyle: .memory)
-            gfbSensor.stringValue = BytesFormatter.init(bytes: gartFreeBytes.int64Value, countStyle: 1024).stringValue()
-            gfbSensor.vendor = vendorString
-            gpuNode.mutableChildren.add(HWTreeNode(representedObject: HWSensorData(group: model,
-                                                                                   sensor: gfbSensor,
-                                                                                   isLeaf: true)))
-          }
-        }
-        
+
         if vendorID == Intel_ID {
           if let ipp = AppSd.sensorScanner.getIGPUPackagePower() {
             let IGPUPackage = HWTreeNode(representedObject: HWSensorData(group: model,
@@ -412,8 +296,8 @@ public struct Graphics {
           if AppSd.ipgInited {
             for s in getIntelPowerGadgetGPUSensors() {
               let ipgSensor = HWTreeNode(representedObject: HWSensorData(group: model,
-                                                                      sensor: s,
-                                                                      isLeaf: true))
+                                                                         sensor: s,
+                                                                         isLeaf: true))
               gpuNode.mutableChildren.add(ipgSensor)
             }
           }
@@ -422,17 +306,69 @@ public struct Graphics {
         nodes.append(gpuNode)
       }
     }
-    AppSd.debugIOACC = false
+    AppSd.debugGraphics = false
     return nodes
   }
 
-  /*
-   The public getGraphicsInfo() function return a detailed log for each
-   pci-GPU in the System. If the acpi-path (or primaryMatch) is not nil this is used for a specific card at index
-   */
+  fileprivate func getMemorySensors(statistics: NSDictionary,
+                                    unique: String,
+                                    vendor: String) ->[HWMonitorSensor]? {
+    var valid : Bool = false
+    var free : Int64 = (statistics.object(forKey: kVRAM_FreeBytes) as? Int64) ?? 0
+    var used : Int64 = (statistics.object(forKey: kVRAM_UsedBytes) as? Int64) ?? 0
+    
+    if free > 0 && used > 0 { valid = true }
+    
+    if !valid {
+      free = (statistics.object(forKey: kVRAM_FreeBytes) as? Int64) ?? 0
+      used = (statistics.object(forKey: kVid_UsedBytes) as? Int64) ?? 0
+      if free > 0 && used > 0 { valid = true }
+    }
+    
+    if !valid {
+      free = (statistics.object(forKey: kAGP_FreeBytes) as? Int64) ?? 0
+      used = (statistics.object(forKey: kAGP_UsedBytes) as? Int64) ?? 0
+      if free > 0 && used > 0 { valid = true }
+    }
+    
+    if valid {
+      let freeS = HWMonitorSensor(key: "Free VRAM" + unique,
+                                       unit: HWUnit.none,
+                                       type: "IOAcc",
+                                       sensorType: .gpuIO_RamBytes,
+                                       title: "Free VRAM".locale(),
+                                       canPlot: false)
+      
+      freeS.favorite = UDs.bool(forKey: freeS.key)
+      freeS.characteristics = unique
+      freeS.logType = .gpuLog
+      freeS.doubleValue = Double(free)
+      freeS.stringValue = BytesFormatter.init(bytes: free, countStyle: 1024).stringValue()
+      freeS.vendor = vendor
+      
+      let usedS = HWMonitorSensor(key: "Used VRAM" + unique,
+                                  unit: HWUnit.none,
+                                  type: "IOAcc",
+                                  sensorType: .gpuIO_RamBytes,
+                                  title: "Used VRAM".locale(),
+                                  canPlot: false)
+      
+      usedS.favorite = UDs.bool(forKey: usedS.key)
+      usedS.characteristics = unique
+      usedS.logType = .gpuLog
+      usedS.doubleValue = Double(used)
+      usedS.stringValue = BytesFormatter.init(bytes: used, countStyle: 1024).stringValue()
+      usedS.vendor = vendor
+      
+      return [freeS, usedS]
+    } else {
+      return nil
+    }
+  }
+  
   public func getGraphicsInfo(acpiPathOrPrimaryMatch: String?, index: Int) -> String {
     var log : String = ""
-    let list = Graphics.listGraphicsInfo()
+    let list = Graphics.listGraphicsCard()
     for i in 0..<list.count {
       let path : String? = list[i].object(forKey: "acpi-path") as? String
       if (acpiPathOrPrimaryMatch != nil && path != nil) {
@@ -478,12 +414,6 @@ public struct Graphics {
     let subsystemID       : Data = dictionary.object(forKey: "subsystem-id") as! Data
     let subsystemVendorID : Data = dictionary.object(forKey: "subsystem-vendor-id") as! Data
     let acpiPath : String? = (dictionary.object(forKey: "acpi-path") as? String)
-
-    let primaryMatch : String = "0x" +
-      String(format: "%02x", deviceID[1]) +
-      String(format: "%02x", deviceID[0]) +
-      String(format: "%02x", vendorID[1]) +
-      String(format: "%02x", vendorID[0])
     
     if (modelValue != nil) {
       if modelValue is NSString {
@@ -588,74 +518,39 @@ public struct Graphics {
       }
     }
     
-    // accelerator info
-    /*
-     We can get IOAccelerator info through Metal (if supported) or through the IOAccelerator class
-     The Metal's registriID instance variable is only available in 10.13..
-     */
-    var acceleratorDict : NSDictionary? = nil
-    if #available(OSX 10.13, *) {
-      let metals = MTLCopyAllDevices()
-      for metal in metals {
-        acceleratorDict = Graphics.acceleratorsInfo(with: metal.registryID, acpiPathOrPrimaryMatch: acpiPath ?? primaryMatch)
-        if (acceleratorDict != nil) {
-          log += "\tMetal support: true\n"
+    if #available(OSX 10.11, *) {
+      if let metal: MTLDevice = dictionary.object(forKey: kMetalDevice) as? MTLDevice {
+        if #available(OSX 10.12, *) {
           log += "\tMetal properties:\n"
-          log += "\t\tMax Threads Per Thread group: width \(metal.maxThreadsPerThreadgroup.width), height \(metal.maxThreadsPerThreadgroup.height), depth \(metal.maxThreadsPerThreadgroup.depth)\n"
-          log += "\t\tMax Thread group Memory Length:\t\(metal.maxThreadgroupMemoryLength)\n"
           log += "\t\tRecommended Max Working Set Size:\t\(String(format: "0x%X", metal.recommendedMaxWorkingSetSize))\n"
+          log += "\t\tMax Threads Per Thread group: width \(metal.maxThreadsPerThreadgroup.width), height \(metal.maxThreadsPerThreadgroup.height), depth \(metal.maxThreadsPerThreadgroup.depth)\n"
           log += "\t\tDepth 24 Stencil 8 Pixel Format:\t\t\(metal.isDepth24Stencil8PixelFormatSupported)\n"
-          log += "\t\tProgrammable Sample Positions:\t\t\(metal.areProgrammableSamplePositionsSupported)\n"
-          log += "\t\tRead-Write Texture:\t\t\t\t\(metal.readWriteTextureSupport.rawValue)\n"
+          if #available(OSX 10.13, *) {
+            log += "\t\tMax Thread group Memory Length:\t\(metal.maxThreadgroupMemoryLength)\n"
+            log += "\t\tProgrammable Sample Positions:\t\t\(metal.areProgrammableSamplePositionsSupported)\n"
+            log += "\t\tRead-Write Texture:\t\t\t\t\(metal.readWriteTextureSupport.rawValue)\n"
+            log += "\t\tRemovable:\t\t\t\t\t\t\(metal.isRemovable)\n"
+          }
           log += "\t\tHeadless:\t\t\t\t\t\t\(metal.isHeadless)\n"
           log += "\t\tIs Low Power:\t\t\t\t\t\(metal.isLowPower)\n"
-          log += "\t\tRemovable:\t\t\t\t\t\t\(metal.isRemovable)\n"
-          break
         }
-      }
-    }
-    
-    if (acceleratorDict == nil) {
-      if #available(OSX 10.13, *) {
+      } else {
         log += "\tMetal support: false\n"
       }
-      let accelerators = Graphics.listAcceleratorsInfo()
-      for card in accelerators {
-        if let IOPCIPrimaryMatch : String = card.object(forKey: "IOPCIPrimaryMatch") as? String {
-          if (IOPCIPrimaryMatch.lowercased().range(of: primaryMatch.lowercased()) != nil) {
-            acceleratorDict = card
-            break // We have the IOAccelerator info
-          }
-        } else if let IOPCIMatch : String = card.object(forKey: "IOPCIMatch") as? String {
-          if (IOPCIMatch.lowercased().range(of: primaryMatch.lowercased()) != nil) {
-            acceleratorDict = card
-            break // We have the IOAccelerator info
-          }
-        }
-        // alive?
-        if let path : String = card.object(forKey: "acpi-path") as? String {
-          if path == acpiPath {
-            acceleratorDict = card
-            break // We have the IOAccelerator info
-          }
+    }
+    
+    if let PerformanceStatistics = dictionary.object(forKey: "PerformanceStatistics") as? NSDictionary {
+      if let performances = getPerformanceStatistics(in: PerformanceStatistics) {
+        log += "\tPerformance Statistics:\n"
+        for key in (performances.keys) {
+          log += "\(key)\(performances[key]!)\n"
         }
       }
     }
-    
-    if (acceleratorDict != nil) {
-      if let PerformanceStatistics : NSDictionary = acceleratorDict?.object(forKey: "PerformanceStatistics") as? NSDictionary {
-        if let performances = getPerformanceStatistics(in: PerformanceStatistics) {
-          log += "\tPerformance Statistics:\n"
-          for key in (performances.keys) {
-            log += "\(key)\(performances[key]!)\n"
-          }
-        }
-      }
-      if !vramLogged {
-        if let vram : NSNumber = acceleratorDict?.object(forKey: "VRAM,totalMB") as? NSNumber {
-          log += "\tVRAM,totalMB: \(vram.intValue)\n"
-          vramLogged = true
-        }
+    if !vramLogged {
+      if let vram : NSNumber = dictionary.object(forKey: "VRAM,totalMB") as? NSNumber {
+        log += "\tVRAM,totalMB: \(vram.intValue)\n"
+        vramLogged = true
       }
     }
     return log
@@ -726,7 +621,7 @@ public struct Graphics {
     
     return nil
   }
-
+  
   /*
    vendorStringFromData() return the GPU vendor name string
    */
@@ -743,190 +638,171 @@ public struct Graphics {
   }
   
   /*
-   listGraphicsInfo() returns all the pci-GPU in the System
+   listGraphicsCard() returns all the pci-GPU in the System
    */
-  fileprivate static func listGraphicsInfo() -> [NSDictionary] {
+  fileprivate static func listGraphicsCard() -> [NSDictionary] {
+    var cards : [NSDictionary] = [NSDictionary]()
     let GPU_CLASS_CODE : Data = Data([0x00, 0x00, 0x03, 0x00])
     let GPU_CLASS_CODE_OTHER : Data = Data([0x00, 0x80, 0x03, 0x00])
     let GPU_CLASS_CODE_3D : Data = Data([0x00, 0x02, 0x03, 0x00])
-    var cards : [NSDictionary] = [NSDictionary]()
     var serviceObject : io_object_t
     var iter : io_iterator_t = 0
     let matching = IOServiceMatching("IOPCIDevice")
-    let err = IOServiceGetMatchingServices(kIOMasterPortDefault,
+    
+    let ret = IOServiceGetMatchingServices(kIOMasterPortDefault,
                                            matching,
                                            &iter)
-    if err == KERN_SUCCESS && iter != 0 {
-      if KERN_SUCCESS == err {
-        repeat {
-          serviceObject = IOIteratorNext(iter)
-          let opt : IOOptionBits = IOOptionBits(kIORegistryIterateParents | kIORegistryIterateRecursively)
-          var serviceDictionary : Unmanaged<CFMutableDictionary>?
-          if IORegistryEntryCreateCFProperties(serviceObject,
-                                               &serviceDictionary,
-                                               kCFAllocatorDefault, opt) != kIOReturnSuccess {
-            IOObjectRelease(serviceObject)
-            continue
-          }
-          if let info : NSMutableDictionary = serviceDictionary?.takeRetainedValue() {
-            if (info.object(forKey: "model") != nil) && (info.object(forKey: "class-code") != nil) {
-              if let classcode : Data = info.object(forKey: "class-code") as? Data {
-                if classcode == GPU_CLASS_CODE ||
-                  classcode == GPU_CLASS_CODE_OTHER ||
-                  classcode == GPU_CLASS_CODE_3D {
-                  info.setValue(NSNumber(value: serviceObject), forKey: "ServiceMatching")
-                  cards.append(info)
-                }
+    if ret == KERN_SUCCESS && iter != 0 {
+      var metals : Any? = nil
+      if #available(OSX 10.11, *) {
+        metals = MTLCopyAllDevices()
+      }
+      repeat {
+        serviceObject = IOIteratorNext(iter)
+        let opt : IOOptionBits = IOOptionBits(kIORegistryIterateParents | kIORegistryIterateRecursively)
+        var serviceDictionary : Unmanaged<CFMutableDictionary>?
+        if IORegistryEntryCreateCFProperties(serviceObject,
+                                             &serviceDictionary,
+                                             kCFAllocatorDefault, opt) != kIOReturnSuccess {
+          IOObjectRelease(serviceObject)
+          continue
+        }
+        if let info : NSMutableDictionary = serviceDictionary?.takeRetainedValue() {
+          if let classcode : Data = info.object(forKey: "class-code") as? Data {
+            if classcode == GPU_CLASS_CODE ||
+              classcode == GPU_CLASS_CODE_3D ||
+              classcode == GPU_CLASS_CODE_OTHER {
+              
+              var child_iter : io_iterator_t = 0
+              let kr = IORegistryEntryGetChildIterator(serviceObject, kIOServicePlane, &child_iter);
+              if kr == KERN_SUCCESS && child_iter != 0 {
+                var child = io_registry_entry_t()
+                repeat {
+                  child = IOIteratorNext( child_iter )
+                  if let ps : NSDictionary = IORegistryEntrySearchCFProperty(serviceObject,
+                                                                             kIOServicePlane,
+                                                                             kIOPerformanceStatistics as CFString,
+                                                                             kCFAllocatorDefault, IOOptionBits(kIORegistryIterateRecursively)) as? NSDictionary {
+                    info.setValue(ps, forKey: kIOPerformanceStatistics)
+                    if (metals != nil) {
+                      if #available(OSX 10.13, *) {
+                        for c in (metals as! [MTLDevice]) {
+                          if let metalDict = getInfo(with: c.registryID) {
+                            if (metalDict.object(forKey: "vendor-id") != nil &&
+                              metalDict.object(forKey: "device-id") != nil &&
+                              metalDict.object(forKey: "subsystem-vendor-id") != nil &&
+                              metalDict.object(forKey: "subsystem-id") != nil &&
+                              metalDict.object(forKey: "revision-id") != nil &&
+                              info.object(forKey: "vendor-id") != nil &&
+                              info.object(forKey: "device-id") != nil &&
+                              info.object(forKey: "subsystem-vendor-id") != nil &&
+                              info.object(forKey: "subsystem-id") != nil &&
+                              info.object(forKey: "revision-id") != nil) {
+                              if (
+                                (metalDict.object(forKey: "vendor-id") as! Data) == (info.object(forKey: "vendor-id") as! Data) &&
+                                  (metalDict.object(forKey: "device-id") as! Data) == (info.object(forKey: "device-id") as! Data) &&
+                                  (metalDict.object(forKey: "subsystem-vendor-id") as! Data) == (info.object(forKey: "subsystem-vendor-id") as! Data) &&
+                                  (metalDict.object(forKey: "subsystem-id") as! Data) == (info.object(forKey: "subsystem-id") as! Data) &&
+                                  (metalDict.object(forKey: "revision-id") as! Data) == (info.object(forKey: "revision-id") as! Data)
+                                ) {
+                                info.setValue(c, forKey: kMetalDevice)
+                                break
+                              }
+                              
+                            }
+                          }
+                        }
+                      }
+                    }
+                    cards.append(info)
+                    break
+                  }
+                } while child != 0
+                
+                IOObjectRelease(child_iter)
               }
             }
           }
-          IOObjectRelease(serviceObject)
-        } while serviceObject != 0
-      }
+        }
+        IOObjectRelease(serviceObject)
+      } while serviceObject != 0
       IOObjectRelease(iter)
     }
     return cards
   }
   
-  /*
-   acceleratorsInfo(with entryID, acpiPath) return a dictionary
-   for the IOAccelerator object that match the acpiPath string
-   */
-  fileprivate static func acceleratorsInfo(with entryID : UInt64, acpiPathOrPrimaryMatch: String) -> NSDictionary? {
+  fileprivate static func getInfo(with entryID : UInt64) -> NSDictionary? {
     var dict : NSDictionary? = nil
     var serviceObject : io_object_t
     var iter : io_iterator_t = 0
     let matching = IORegistryEntryIDMatching(entryID)
-    let err = IOServiceGetMatchingServices(kIOMasterPortDefault,
+    let ret = IOServiceGetMatchingServices(kIOMasterPortDefault,
                                            matching,
                                            &iter)
-    if err == KERN_SUCCESS && iter != 0 {
-      if KERN_SUCCESS == err  {
-        repeat {
-          serviceObject = IOIteratorNext(iter)
-          let opt : IOOptionBits = IOOptionBits(kIORegistryIterateParents | kIORegistryIterateRecursively)
-          var serviceDictionary : Unmanaged<CFMutableDictionary>?
-          if IORegistryEntryCreateCFProperties(serviceObject,
-                                               &serviceDictionary,
-                                               kCFAllocatorDefault, opt) != kIOReturnSuccess {
-            IOObjectRelease(serviceObject)
-            continue
-          }
-          
-          if let info : NSDictionary = serviceDictionary?.takeRetainedValue() {
-            
-            if let IOPCIPrimaryMatch : String = info.object(forKey: "IOPCIPrimaryMatch") as? String {
-              if (IOPCIPrimaryMatch.lowercased().range(of: acpiPathOrPrimaryMatch) != nil) {
-                dict = info
-                IOObjectRelease(serviceObject)
-                break
-              }
-            } else if let IOPCIMatch : String = info.object(forKey: "IOPCIMatch") as? String {
-              if (IOPCIMatch.lowercased().range(of: acpiPathOrPrimaryMatch) != nil) {
-                dict = info
-                IOObjectRelease(serviceObject)
-                break
-              }
-            }
-            // loop alive?
-            if let path : String = IORegistryEntrySearchCFProperty(serviceObject,
-                                                                   kIOServicePlane,
-                                                                   "acpi-path" as CFString,
-                                                                   kCFAllocatorDefault, opt) as? String {
-              if path == acpiPathOrPrimaryMatch {
-                dict = info
-                IOObjectRelease(serviceObject)
-                break
-              }
-            }
-          }
+    if ret == KERN_SUCCESS && iter != 0 {
+      repeat {
+        serviceObject = IOIteratorNext(iter)
+        let opt : IOOptionBits = IOOptionBits(kIORegistryIterateParents | kIORegistryIterateRecursively)
+        var serviceDictionary : Unmanaged<CFMutableDictionary>?
+        if IORegistryEntryCreateCFProperties(serviceObject,
+                                             &serviceDictionary,
+                                             kCFAllocatorDefault, opt) != kIOReturnSuccess {
           IOObjectRelease(serviceObject)
-        } while serviceObject != 0
-      }
+          continue
+        }
+        
+        if let info : NSDictionary = serviceDictionary?.takeRetainedValue() {
+          if let vendorId : NSData = IORegistryEntrySearchCFProperty(serviceObject,
+                                                                     kIOServicePlane,
+                                                                     "vendor-id" as CFString,
+                                                                     kCFAllocatorDefault, opt) as? NSData {
+            info.setValue(vendorId, forKey: "vendor-id")
+          }
+          if let devId : NSData = IORegistryEntrySearchCFProperty(serviceObject,
+                                                                  kIOServicePlane,
+                                                                  "device-id" as CFString,
+                                                                  kCFAllocatorDefault, opt) as? NSData {
+            info.setValue(devId, forKey: "device-id")
+          }
+          if let revId : NSData = IORegistryEntrySearchCFProperty(serviceObject,
+                                                                  kIOServicePlane,
+                                                                  "revision-id" as CFString,
+                                                                  kCFAllocatorDefault, opt) as? NSData {
+            info.setValue(revId, forKey: "revision-id")
+          }
+          if let subSysId : NSData = IORegistryEntrySearchCFProperty(serviceObject,
+                                                                     kIOServicePlane,
+                                                                     "subsystem-id" as CFString,
+                                                                     kCFAllocatorDefault, opt) as? NSData {
+            info.setValue(subSysId, forKey: "subsystem-id")
+          }
+          if let subSysVenId : NSData = IORegistryEntrySearchCFProperty(serviceObject,
+                                                                        kIOServicePlane,
+                                                                        "subsystem-vendor-id" as CFString,
+                                                                        kCFAllocatorDefault, opt) as? NSData {
+            info.setValue(subSysVenId, forKey: "subsystem-vendor-id")
+          }
+          /*
+           if let model : NSString = IORegistryEntrySearchCFProperty(serviceObject, kIOServicePlane, "model" as CFString, kCFAllocatorDefault, opt) as? NSString {
+           print(model)
+           info.setValue(model, forKey: "model")
+           }*/
+          if let acpipath : NSString = IORegistryEntrySearchCFProperty(serviceObject,
+                                                                       kIOServicePlane,
+                                                                       "acpi-path" as CFString,
+                                                                       kCFAllocatorDefault, opt) as? NSString {
+            //print(acpipath)
+            info.setValue(acpipath, forKey: "acpi-path")
+          } else {
+            info.setValue("unknown" as NSString, forKey: "acpi-path")
+          }
+          dict = info
+        }
+        IOObjectRelease(serviceObject)
+      } while serviceObject != 0
       IOObjectRelease(iter)
     }
-
     return dict
-  }
-  
-  /*
-   listAcceleratorsInfo() Return an array Dictionaries under IOAccelerator
-   */
-  fileprivate static func listAcceleratorsInfo() -> [NSDictionary] {
-    var cards : [NSDictionary] = [NSDictionary]()
-    var serviceObject : io_object_t
-    var iter : io_iterator_t = 0
-    let matching = IOServiceMatching(kIOAcceleratorClassName)
-    let err = IOServiceGetMatchingServices(kIOMasterPortDefault,
-                                           matching,
-                                           &iter)
-    if err == KERN_SUCCESS && iter != 0 {
-      if KERN_SUCCESS == err  {
-        repeat {
-          serviceObject = IOIteratorNext(iter)
-          let opt : IOOptionBits = IOOptionBits(kIORegistryIterateParents | kIORegistryIterateRecursively)
-          var serviceDictionary : Unmanaged<CFMutableDictionary>?
-          if IORegistryEntryCreateCFProperties(serviceObject,
-                                               &serviceDictionary,
-                                               kCFAllocatorDefault, opt) != kIOReturnSuccess {
-            IOObjectRelease(serviceObject)
-            continue
-          }
-          if let info : NSMutableDictionary = serviceDictionary?.takeRetainedValue() {
-            //print("info \(serviceObject):\n\(info)\n-----------------------------------------------")
-            // look up for device-id and vendor-id (and more) that allow us to understand what card we are taliking about..
-            if let vendorId : NSData = IORegistryEntrySearchCFProperty(serviceObject,
-                                                                       kIOServicePlane,
-                                                                       "vendor-id" as CFString,
-                                                                       kCFAllocatorDefault, opt) as? NSData {
-              info.setValue(vendorId, forKey: "vendor-id")
-            }
-            if let devId : NSData = IORegistryEntrySearchCFProperty(serviceObject,
-                                                                    kIOServicePlane,
-                                                                    "device-id" as CFString,
-                                                                    kCFAllocatorDefault, opt) as? NSData {
-              info.setValue(devId, forKey: "device-id")
-            }
-            if let revId : NSData = IORegistryEntrySearchCFProperty(serviceObject,
-                                                                    kIOServicePlane,
-                                                                    "revision-id" as CFString,
-                                                                    kCFAllocatorDefault, opt) as? NSData {
-              info.setValue(revId, forKey: "revision-id")
-            }
-            if let subSysId : NSData = IORegistryEntrySearchCFProperty(serviceObject,
-                                                                       kIOServicePlane,
-                                                                       "subsystem-id" as CFString,
-                                                                       kCFAllocatorDefault, opt) as? NSData {
-              info.setValue(subSysId, forKey: "subsystem-id")
-            }
-            if let subSysVenId : NSData = IORegistryEntrySearchCFProperty(serviceObject,
-                                                                          kIOServicePlane,
-                                                                          "subsystem-vendor-id" as CFString,
-                                                                          kCFAllocatorDefault, opt) as? NSData {
-              info.setValue(subSysVenId, forKey: "subsystem-vendor-id")
-            }
-            /*
-            if let model : NSString = IORegistryEntrySearchCFProperty(serviceObject, kIOServicePlane, "model" as CFString, kCFAllocatorDefault, opt) as? NSString {
-              print(model)
-              info.setValue(model, forKey: "model")
-            }*/
-            if let acpipath : NSString = IORegistryEntrySearchCFProperty(serviceObject,
-                                                                         kIOServicePlane,
-                                                                         "acpi-path" as CFString,
-                                                                         kCFAllocatorDefault, opt) as? NSString {
-              //print(acpipath)
-              info.setValue(acpipath, forKey: "acpi-path")
-            } else {
-              info.setValue("unknown" as NSString, forKey: "acpi-path")
-            }
-            cards.append(info)
-          }
-          IOObjectRelease(serviceObject)
-        } while serviceObject != 0
-      }
-      IOObjectRelease(iter)
-    }
-    return cards
   }
   
   /*
@@ -982,3 +858,4 @@ public struct Graphics {
     return nil
   }
 }
+

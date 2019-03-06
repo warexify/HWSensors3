@@ -102,6 +102,7 @@ fileprivate func decodeNumericValue(from data: Data, dataType: DataType) -> Doub
   return 0
 }
 
+//MARK: - HWSensorsScanner
 class HWSensorsScanner: NSObject {
   func getType(_ key: String) -> DataType? {
     let type : DataType? = gSMC.getType(key: FourCharCode.init(fromString: key))
@@ -136,7 +137,7 @@ class HWSensorsScanner: NSObject {
                         type: type,
                         sensorType: sensorType,
                         title: "Active".locale(),
-                        canPlot: true)
+                        canPlot: AppSd.sensorsInited ? false : true)
     s.logType = logtype
     s.format = format
     s.unit = unit
@@ -150,7 +151,7 @@ class HWSensorsScanner: NSObject {
                         type: type,
                         sensorType: sensorType,
                         title: "Inactive".locale(),
-                        canPlot: true)
+                        canPlot: AppSd.sensorsInited ? false : true)
     s.logType = logtype
     s.format = format
     s.unit = unit
@@ -164,7 +165,7 @@ class HWSensorsScanner: NSObject {
                         type: type,
                         sensorType: sensorType,
                         title: "Free".locale(),
-                        canPlot: true)
+                        canPlot: AppSd.sensorsInited ? false : true)
     s.logType = logtype
     s.format = format
     s.unit = unit
@@ -178,7 +179,7 @@ class HWSensorsScanner: NSObject {
                         type: type,
                         sensorType: sensorType,
                         title: "Used".locale(),
-                        canPlot: true)
+                        canPlot: AppSd.sensorsInited ? false : true)
     s.logType = logtype
     s.format = format
     s.unit = unit
@@ -192,7 +193,7 @@ class HWSensorsScanner: NSObject {
                         type: type,
                         sensorType: sensorType,
                         title: "Purgeable".locale(),
-                        canPlot: true)
+                        canPlot: AppSd.sensorsInited ? false : true)
     s.logType = logtype
     s.format = format
     s.unit = unit
@@ -206,7 +207,7 @@ class HWSensorsScanner: NSObject {
                         type: type,
                         sensorType: sensorType,
                         title: "Wired".locale(),
-                        canPlot: true)
+                        canPlot: AppSd.sensorsInited ? false : true)
     s.logType = logtype
     s.format = format
     s.unit = unit
@@ -224,7 +225,7 @@ class HWSensorsScanner: NSObject {
                                        sensorType: .temperature,
                                        title: String(format: "DIMM %d".locale(), i),
                                        logType: logtype,
-                                       canPlot: true,
+                                       canPlot: AppSd.sensorsInited ? false : true,
                                        list: &arr)
     }
     return arr
@@ -249,7 +250,7 @@ class HWSensorsScanner: NSObject {
                                       sensorType: .temperature,
                                       title: "Proximity".locale(),
                                       logType: logtype,
-                                      canPlot: false,
+                                      canPlot: AppSd.sensorsInited ? false : true,
                                       list: &arr)
     
     let _ =  self.addSMCSensorIfValid(key: SMC_CPU_PACKAGE_CORE_WATT,
@@ -258,7 +259,7 @@ class HWSensorsScanner: NSObject {
                                       sensorType: .cpuPowerWatt,
                                       title: "Package Core".locale(),
                                       logType: logtype,
-                                      canPlot: true,
+                                      canPlot: AppSd.sensorsInited ? false : true,
                                       list: &arr)
     
     let _ =  self.addSMCSensorIfValid(key: SMC_CPU_PACKAGE_TOTAL_WATT,
@@ -267,7 +268,7 @@ class HWSensorsScanner: NSObject {
                                       sensorType: .cpuPowerWatt,
                                       title: "Package Total".locale(),
                                       logType: logtype,
-                                      canPlot: true,
+                                      canPlot: AppSd.sensorsInited ? false : true,
                                       list: &arr)
     
     
@@ -277,7 +278,7 @@ class HWSensorsScanner: NSObject {
                                       sensorType: .temperature,
                                       title: "Heatsink".locale(),
                                       logType: logtype,
-                                      canPlot: false,
+                                      canPlot: AppSd.sensorsInited ? false : true,
                                       list: &arr)
     
     // CPU voltages
@@ -337,7 +338,7 @@ class HWSensorsScanner: NSObject {
                                        sensorType: .temperature,
                                        title: String(format: "Core %d".locale(), i),
                                        logType: logtype,
-                                       canPlot: true,
+                                       canPlot: AppSd.sensorsInited ? false : true,
                                        list: &arr)
     }
  
@@ -349,7 +350,7 @@ class HWSensorsScanner: NSObject {
                                        sensorType: .temperature,
                                        title: String(format: "Diode %d".locale(), i),
                                        logType: logtype,
-                                       canPlot: true,
+                                       canPlot: AppSd.sensorsInited ? false : true,
                                        list: &arr)
     }
     return arr
@@ -369,7 +370,7 @@ class HWSensorsScanner: NSObject {
                                        sensorType: .frequencyCPU,
                                        title: String(format: "Core %d".locale(), i),
                                        logType: logtype,
-                                       canPlot: true,
+                                       canPlot: AppSd.sensorsInited ? false : true,
                                        list: &arr)
     }
     return arr
@@ -388,7 +389,7 @@ class HWSensorsScanner: NSObject {
                                        sensorType: .frequencyGPU,
                                        title: String(format: "GPU %d Core".locale(), i),
                                        logType: logtype,
-                                       canPlot: true,
+                                       canPlot: AppSd.sensorsInited ? false : true,
                                        list: &arr)
       let _ = self.addSMCSensorIfValid(key: SMC_GPU_SHADER_FREQ_F.withFormat(a),
                                        type: DataTypes.FREQ,
@@ -396,7 +397,7 @@ class HWSensorsScanner: NSObject {
                                        sensorType: .frequencyGPU,
                                        title: String(format: "GPU %d Shaders".locale(), i),
                                        logType: logtype,
-                                       canPlot: true,
+                                       canPlot: AppSd.sensorsInited ? false : true,
                                        list: &arr)
       let _ = self.addSMCSensorIfValid(key: SMC_GPU_MEMORY_FREQ_F.withFormat(a),
                                        type: DataTypes.FREQ,
@@ -404,7 +405,7 @@ class HWSensorsScanner: NSObject {
                                        sensorType: .frequencyGPU,
                                        title: String(format: "GPU %d Memory".locale(), i),
                                        logType: logtype,
-                                       canPlot: true,
+                                       canPlot: AppSd.sensorsInited ? false : true,
                                        list: &arr)
       let _ = self.addSMCSensorIfValid(key: SMC_GPU_VOLT.withFormat(a),
                                        type: DataTypes.FP2E,
@@ -420,7 +421,7 @@ class HWSensorsScanner: NSObject {
                                        sensorType:.temperature,
                                        title: String(format: "GPU %d Board".locale(), i),
                                        logType: logtype,
-                                       canPlot: true,
+                                       canPlot: AppSd.sensorsInited ? false : true,
                                        list: &arr)
       let _ = self.addSMCSensorIfValid(key: SMC_GPU_PROXIMITY_TEMP.withFormat(a),
                                        type: DataTypes.SP78,
@@ -428,7 +429,7 @@ class HWSensorsScanner: NSObject {
                                        sensorType:.temperature,
                                        title: String(format: "GPU %d Proximity".locale(), i),
                                        logType: logtype,
-                                       canPlot: true,
+                                       canPlot: AppSd.sensorsInited ? false : true,
                                        list: &arr)
     }
     return arr
@@ -442,7 +443,7 @@ class HWSensorsScanner: NSObject {
                                       sensorType: .cpuPowerWatt,
                                       title: "Package IGPU".locale(),
                                       logType: LogType.gpuLog,
-                                      canPlot: true,
+                                      canPlot: AppSd.sensorsInited ? false : true,
                                       list: &arr)
     return (arr.count > 0) ? arr[0] : nil
   }
@@ -457,7 +458,7 @@ class HWSensorsScanner: NSObject {
                                       sensorType: .temperature,
                                       title: "North Bridge".locale(),
                                       logType: logtype,
-                                      canPlot: true,
+                                      canPlot: AppSd.sensorsInited ? false : true,
                                       list: &arr)
     
     let _ =  self.addSMCSensorIfValid(key: SMC_AMBIENT_TEMP,
@@ -466,7 +467,7 @@ class HWSensorsScanner: NSObject {
                                       sensorType: .temperature,
                                       title: "Ambient".locale(),
                                       logType: logtype,
-                                      canPlot: true,
+                                      canPlot: AppSd.sensorsInited ? false : true,
                                       list: &arr)
     
     // voltages
@@ -665,9 +666,9 @@ class HWSensorsScanner: NSObject {
       }
     case .battery: fallthrough /* only if from the smc */
     case .hdSmartLife:          /* only if from the smc */
-      let t = data.withUnsafeBytes { (ptr: UnsafePointer<Int>) -> Int in
-        return ptr.pointee
-      }
+      var t: Int = 0
+      (data as NSData).getBytes(&t, length: MemoryLayout<Int>.size)
+
       if t >= 0 && t <= 100 {
         sensor.stringValue = String(format: "%ld", t)
         sensor.doubleValue = v

@@ -39,21 +39,19 @@ class HWViewController: NSViewController, NSPopoverDelegate {
       height = kMinHeight
     }
     self.popoverVC?.view.setFrameSize(NSMakeSize(CGFloat(width), CGFloat(height)))
-
-    let frame : NSRect = (self.popoverVC?.view.bounds)!
     
-    let rect  : NSRect = HWWindow.contentRect(forFrameRect: frame,
-                                              styleMask: [.titled, .closable, .resizable, .fullSizeContentView])
+    let rect : NSRect = (self.popoverVC?.view.bounds)!
 
     self.detachableWindow = HWWindow(contentRect: rect,
-                                     styleMask: [.titled, .closable, .resizable, .fullSizeContentView],
+                                     styleMask: [],
                                      backing: .buffered,
                                      defer: true)
     //---------------------
     self.popoverWC = PopoverWindowController()
     self.detachableWindow?.windowController = self.popoverWC
-    self.popoverWC?.window = self.detachableWindow
     self.detachableWindow?.delegate = self.popoverWC
+    self.popoverWC?.window = self.detachableWindow
+    self.popoverWC?.setUp()
     //---------------------
     
     self.detachableWindow?.contentViewController = self.popoverVC
@@ -68,13 +66,17 @@ class HWViewController: NSViewController, NSPopoverDelegate {
       button.action = #selector(self.showPopover(_:))
       button.sendAction(on: [.leftMouseUp, .rightMouseUp])
     }
+    
+    NotificationCenter.default.addObserver(self,
+                                           selector: #selector(self.terminate),
+                                           name: .terminate,
+                                           object: nil)
   }
   
   override var representedObject: Any? {
-    didSet {
-      // Update the view, if already loaded.
-    }
+    didSet { }
   }
+  
   func createPopover() {
     if (self.popover == nil) {
       self.popover = NSPopover()
@@ -91,7 +93,8 @@ class HWViewController: NSViewController, NSPopoverDelegate {
       NSSound.beep()
       return
     }
-    if  (self.detachableWindow?.isVisible)! {
+    
+    if  (self.detachableWindow != nil && self.detachableWindow!.isVisible) {
       if (self.detachableWindow?.styleMask.contains(.fullScreen))! {
         self.detachableWindow?.toggleFullScreen(self)
         return
@@ -100,19 +103,25 @@ class HWViewController: NSViewController, NSPopoverDelegate {
   
     self.popoverVC?.attachButton.isEnabled = false
     self.popoverVC?.attachButton.isHidden = true
-    self.createPopover()
-    
-    DispatchQueue.main.async {
-      self.popover?.show(relativeTo: (sender?.bounds)!, of: sender!, preferredEdge: NSRectEdge.maxY)
-      NSApp.activate(ignoringOtherApps: true)
-      sender?.window?.makeKey()
+    if self.popoverVC!.sleeping {
+      self.popoverVC!.wakeListener()
     }
+    self.createPopover()
+
+    self.popover?.show(relativeTo: (sender?.bounds)!, of: sender!, preferredEdge: NSRectEdge.maxY)
+    NSApp.activate(ignoringOtherApps: true)
+    sender?.window?.makeKey()
+    self.popoverVC?.outline.update()
   }
   
   func popoverWillShow(_ notification: Notification) {
     if (self.detachableWindow?.isVisible)! {
       self.detachableWindow?.orderOut(self)
     }
+  }
+  
+  func popoverDidShow(_ notification: Notification) {
+    
   }
     
   func popoverDidClose(_ notification: Notification) {
@@ -128,14 +137,24 @@ class HWViewController: NSViewController, NSPopoverDelegate {
   func detachableWindow(for popover: NSPopover) -> NSWindow? {
     self.popoverVC?.attachButton.isEnabled = true
     self.popoverVC?.attachButton.isHidden = false
-    self.perform(#selector(self.moveToMainScreen), with: nil, afterDelay: 0.5)
     return self.detachableWindow
   }
   
-  @objc func moveToMainScreen() {
+  func popoverDidDetach(_ popover: NSPopover) {
+    self.popoverVC?.outline.update()
     if self.detachableWindow?.screen != NSScreen.main {
       self.detachableWindow?.setFrameOrigin(NSScreen.main!.visibleFrame.origin)
     }
   }
+  
+  @objc func terminate() {
+    // exit the full screen to save the correct size of the window
+    if  (self.detachableWindow != nil) {
+      if (self.detachableWindow?.styleMask.contains(.fullScreen))! {
+        self.detachableWindow?.toggleFullScreen(self)
+      }
+    }
+  }
+
 }
 

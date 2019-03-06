@@ -79,7 +79,6 @@
 		9598FC78204B0A7500A6DA72 /* HWTableRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9598FC77204B0A7500A6DA72 /* HWTableRowView.swift */; };
 		95B8BCAB216D435C007B56AD /* CPU.png in Resources */ = {isa = PBXBuildFile; fileRef = 95B8BCAA216D435C007B56AD /* CPU.png */; };
 		95BC225121A565B000E4413F /* Themes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95BC225021A565B000E4413F /* Themes.swift */; };
-		95C3754A218F734D0074BC84 /* HWVisualEffectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95C37549218F734D0074BC84 /* HWVisualEffectView.swift */; };
 		95CE19C92043486E00E73446 /* Popover.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 95CE19CB2043486E00E73446 /* Popover.storyboard */; };
 		95CE19D3204356DF00E73446 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 95CE19D5204356DF00E73446 /* Main.storyboard */; };
 		95CE19DA2043585A00E73446 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 95CE19DC2043585A00E73446 /* Localizable.strings */; };
@@ -88,6 +87,8 @@
 		95D535FB216F68D700289BD7 /* CorePlot.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 95D535F8216F684200289BD7 /* CorePlot.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		95DA9B992173BB8D00CBAB9F /* Plot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95DA9B982173BB8D00CBAB9F /* Plot.swift */; };
 		95DE45CF205E7F3800E4582D /* RunAtLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95DE45CE205E7F3800E4582D /* RunAtLogin.swift */; };
+		95EC3B5521AACFB400EC70AE /* LightAppearance.png in Resources */ = {isa = PBXBuildFile; fileRef = 95EC3B5321AACFB300EC70AE /* LightAppearance.png */; };
+		95EC3B5621AACFB400EC70AE /* DarkAppearance.png in Resources */ = {isa = PBXBuildFile; fileRef = 95EC3B5421AACFB400EC70AE /* DarkAppearance.png */; };
 		95F300F0216E7AA2006F6E87 /* Light.png in Resources */ = {isa = PBXBuildFile; fileRef = 95F300EF216E7AA2006F6E87 /* Light.png */; };
 /* End PBXBuildFile section */
 
@@ -252,7 +253,6 @@
 		9598FC77204B0A7500A6DA72 /* HWTableRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HWTableRowView.swift; sourceTree = "<group>"; };
 		95B8BCAA216D435C007B56AD /* CPU.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CPU.png; sourceTree = "<group>"; };
 		95BC225021A565B000E4413F /* Themes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Themes.swift; sourceTree = "<group>"; };
-		95C37549218F734D0074BC84 /* HWVisualEffectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HWVisualEffectView.swift; sourceTree = "<group>"; };
 		95CE19CA2043486E00E73446 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Popover.storyboard; sourceTree = "<group>"; };
 		95CE19CD2043488200E73446 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Popover.strings; sourceTree = "<group>"; };
 		95CE19CF204349AF00E73446 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Popover.strings; sourceTree = "<group>"; };
@@ -268,6 +268,8 @@
 		95D535F8216F684200289BD7 /* CorePlot.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CorePlot.framework; path = HWMonitorSMC/ExternalFrameworks/CorePlot.framework; sourceTree = "<group>"; };
 		95DA9B982173BB8D00CBAB9F /* Plot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plot.swift; sourceTree = "<group>"; };
 		95DE45CE205E7F3800E4582D /* RunAtLogin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunAtLogin.swift; sourceTree = "<group>"; };
+		95EC3B5321AACFB300EC70AE /* LightAppearance.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LightAppearance.png; sourceTree = "<group>"; };
+		95EC3B5421AACFB400EC70AE /* DarkAppearance.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DarkAppearance.png; sourceTree = "<group>"; };
 		95F300EF216E7AA2006F6E87 /* Light.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Light.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -343,7 +345,6 @@
 				9598FC77204B0A7500A6DA72 /* HWTableRowView.swift */,
 				9538E4A2204DA7D800918032 /* HWScrollView.swift */,
 				958E79B62042F6F80007957E /* HWWindow.swift */,
-				95C37549218F734D0074BC84 /* HWVisualEffectView.swift */,
 				95CE19DC2043585A00E73446 /* Localizable.strings */,
 				9544DC49208E395B0023C332 /* Info.storyboard */,
 				95CE19CB2043486E00E73446 /* Popover.storyboard */,
@@ -356,8 +357,8 @@
 		9524F93F219604B9004D8513 /* Gadget */ = {
 			isa = PBXGroup;
 			children = (
-				957EC08A2188737D00F0A457 /* GadgetVC.swift */,
 				957EC0882188736900F0A457 /* GadgetWC.swift */,
+				957EC08A2188737D00F0A457 /* GadgetVC.swift */,
 				957EC0862188728C00F0A457 /* Gadget.storyboard */,
 			);
 			path = Gadget;
@@ -462,6 +463,8 @@
 				953A4EEC2048C5CE003DC900 /* ram_small.png */,
 				952275D82184C5F700E12C3A /* freq_small_on.png */,
 				958E79A82042EED00007957E /* freq_small.png */,
+				95EC3B5421AACFB400EC70AE /* DarkAppearance.png */,
+				95EC3B5321AACFB300EC70AE /* LightAppearance.png */,
 				958E79A62042EED00007957E /* hd_small.png */,
 				958E79AA2042EED00007957E /* modern-battery-icon.png */,
 				958E79A92042EED00007957E /* multiply_small.png */,
@@ -591,6 +594,7 @@
 				9529D943219DF7B0006222DC /* License.storyboard in Resources */,
 				958E79AF2042EED10007957E /* temp_alt_small.png in Resources */,
 				9598FC75204AFC9C00A6DA72 /* cpu_temp_small.png in Resources */,
+				95EC3B5621AACFB400EC70AE /* DarkAppearance.png in Resources */,
 				95CE19D3204356DF00E73446 /* Main.storyboard in Resources */,
 				95F300F0216E7AA2006F6E87 /* Light.png in Resources */,
 				957EC08D21887C4600F0A457 /* gadget.png in Resources */,
@@ -601,6 +605,7 @@
 				95CE19DA2043585A00E73446 /* Localizable.strings in Resources */,
 				958E79B32042EED10007957E /* fan_small.png in Resources */,
 				957EC0872188728C00F0A457 /* Gadget.storyboard in Resources */,
+				95EC3B5521AACFB400EC70AE /* LightAppearance.png in Resources */,
 				9526EC0F2183369E008595B2 /* Motherboard.png in Resources */,
 				958E79AE2042EED10007957E /* hd_small.png in Resources */,
 				951B029F20CD8D0200C17E62 /* GPU.png in Resources */,
@@ -659,7 +664,6 @@
 				950618C1208CCC62001C988E /* IOReturn.swift in Sources */,
 				958E798D2041AF780007957E /* HWOulineView.swift in Sources */,
 				9598FC78204B0A7500A6DA72 /* HWTableRowView.swift in Sources */,
-				95C3754A218F734D0074BC84 /* HWVisualEffectView.swift in Sources */,
 				950618C2208CCC62001C988E /* Process.swift in Sources */,
 				9526B5BC217FA1A400BD9E1B /* HWSensorScanner.swift in Sources */,
 			);
@@ -828,12 +832,13 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
-				MODULE_VERSION = 2.4.3;
+				MODULE_VERSION = 2.4.4;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
 				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
@@ -886,10 +891,11 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
-				MODULE_VERSION = 2.4.3;
+				MODULE_VERSION = 2.4.4;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
 				SWIFT_VERSION = 4.2;
 			};
 			name = Release;
@@ -901,7 +907,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 2.4.3;
+				CURRENT_PROJECT_VERSION = 2.4.4;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(LOCAL_LIBRARY_DIR)/Frameworks",
@@ -910,7 +916,7 @@
 				INFOPLIST_FILE = HWMonitorSMC/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
-				MODULE_VERSION = 2.4.3;
+				MODULE_VERSION = 2.4.4;
 				PRODUCT_BUNDLE_IDENTIFIER = org.slice.HWMonitorSMC2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
@@ -927,7 +933,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 2.4.3;
+				CURRENT_PROJECT_VERSION = 2.4.4;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(LOCAL_LIBRARY_DIR)/Frameworks",
@@ -936,7 +942,7 @@
 				INFOPLIST_FILE = HWMonitorSMC/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
-				MODULE_VERSION = 2.4.3;
+				MODULE_VERSION = 2.4.4;
 				PRODUCT_BUNDLE_IDENTIFIER = org.slice.HWMonitorSMC2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;

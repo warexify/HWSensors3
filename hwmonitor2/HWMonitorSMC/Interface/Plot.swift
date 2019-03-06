@@ -16,11 +16,14 @@ class PlotView: NSView, CPTPlotDataSource, CPTPlotDelegate {
     let host = CPTGraphHostingView(frame: NSRect(x: 0, y: 0, width: 111, height: 17))
     return host
   }()
+  
   var plotSpace : CPTXYPlotSpace? = nil
+  var lineStyle : CPTMutableLineStyle? = nil
+  let dataSourceLinePlot = CPTScatterPlot(frame: .zero)
   var sensor : HWMonitorSensor?
   var plotData : [Double] = [Double]()
   let kFrameRate : Double = 5.0  // frames per second
-  let kAlpha     : Double =  0.0 // smoothing constant
+  let kAlpha     : Double = 0.0  // smoothing constant
   
   let kMaxDataPoints : Int = 302
   let kPlotIdentifier : NSString = "Data Source Plot" as NSString // to changed
@@ -30,11 +33,22 @@ class PlotView: NSView, CPTPlotDataSource, CPTPlotDelegate {
   
   private var graph : CPTXYGraph? = nil
   
+  private var appearanceObserver: NSKeyValueObservation?
+  
   convenience init(frame frameRect: NSRect, sensor: HWMonitorSensor) {
     self.init(frame:frameRect);
     self.sensor = sensor
     self.wantsLayer = true
     self.configure()
+    NotificationCenter.default.addObserver(self,
+                                           selector: #selector(self.updateLineStyle),
+                                           name: NSNotification.Name.appearanceDidChange,
+                                           object: nil)
+    
+    NotificationCenter.default.addObserver(self,
+                                           selector: #selector(self.updateLineStyle),
+                                           name: NSNotification.Name.updatePlotLine,
+                                           object: nil)
   }
   
   
@@ -104,29 +118,40 @@ class PlotView: NSView, CPTPlotDataSource, CPTPlotDelegate {
     }
     
     // Create a plot that uses the data source method
-    let dataSourceLinePlot = CPTScatterPlot(frame: .zero)
     
-    dataSourceLinePlot.identifier = kPlotIdentifier
-    dataSourceLinePlot.cachePrecision = .double
     
-    if let lineStyle = dataSourceLinePlot.dataLineStyle?.mutableCopy() as? CPTMutableLineStyle {
-      lineStyle.lineWidth              = 1.0
-      var color : NSColor = NSColor.orange
-      if #available(OSX 10.13, *) {
-        color = NSColor(named: "GraphLineColor")!
-      } else {
-        color = (getAppearance().name == .vibrantDark) ? NSColor.green : NSColor.blue
-      }
-      
-      lineStyle.lineColor              = CPTColor.init(nsColor: color)
-      dataSourceLinePlot.dataLineStyle = lineStyle
-    }
+    self.dataSourceLinePlot.identifier = kPlotIdentifier
+    self.dataSourceLinePlot.cachePrecision = .double
     
-    dataSourceLinePlot.dataSource = self
-    newGraph.add(dataSourceLinePlot)
+    self.updateLineStyle()
+    
+    self.dataSourceLinePlot.dataSource = self
+    newGraph.add(self.dataSourceLinePlot)
     
     self.graph = newGraph
     self.graph?.delegate = self
+  }
+  
+  
+  func appearanceDidChange() {
+    self.updateLineStyle()
+  }
+  
+  @objc func updateLineStyle() {
+    self.lineStyle = dataSourceLinePlot.dataLineStyle?.mutableCopy() as? CPTMutableLineStyle
+    switch AppSd.mainViewSize {
+    case .normal:
+      self.lineStyle?.lineWidth              = 1.3
+    case .medium:
+      self.lineStyle?.lineWidth              = 1.7
+    case .large:
+      self.lineStyle?.lineWidth              = 2.0
+    }
+    
+    let color : NSColor = (getAppearance().name == .vibrantDark) ? UDs.darkPlotColor() : UDs.lightPlotColor()
+    
+    self.lineStyle?.lineColor              = CPTColor.init(nsColor: color)
+    self.dataSourceLinePlot.dataLineStyle = lineStyle
   }
   
   func newData(value: Double) {
@@ -217,5 +242,12 @@ class PlotView: NSView, CPTPlotDataSource, CPTPlotDelegate {
     return (fieldEnum == UInt(CPTScatterPlotField.X.rawValue) ?
       NSNumber(value: Double(idx) + Double(self.currentIndex) - Double(self.plotData.count)) :
       NSNumber(value: self.plotData[Int(idx)]))
+  }
+  
+  deinit {
+    if self.appearanceObserver != nil {
+      self.appearanceObserver!.invalidate()
+      self.appearanceObserver = nil
+    }
   }
 }

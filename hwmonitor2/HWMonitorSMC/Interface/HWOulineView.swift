@@ -8,6 +8,19 @@
 
 import Cocoa
 
+class HWTextFieldCell : NSTextFieldCell {
+  override func drawInterior(withFrame cellFrame: NSRect, in controlView: NSView) {
+    self.attributedStringValue.draw(in: self.titleRect(forBounds: cellFrame))
+  }
+  
+  override func titleRect(forBounds rect: NSRect) -> NSRect {
+    var titleRect = super.titleRect(forBounds: rect)
+    let stringSize = self.attributedStringValue.size
+    titleRect.origin.y = (rect.origin.y - 1.0 + (rect.size.height - stringSize().height)) / 2.0
+    return titleRect
+  }
+}
+
 class RightClickWindowController: NSWindowController, NSWindowDelegate {
   override func windowDidLoad() {
     super.windowDidLoad()
@@ -92,8 +105,19 @@ class RightClickViewController: NSViewController {
   }
 }
 
+enum MainViewSize: String {
+  case normal   = "Default"
+  case medium   = "Medium"
+  case large    = "Large"
+}
+
+protocol AppearanceChangeDelegate : class {
+  func appearanceDidChange()
+}
+
 class HWOulineView: NSOutlineView, NSPopoverDelegate {
   private var appearanceObserver: NSKeyValueObservation?
+  weak var appearanceDelegate: AppearanceChangeDelegate?
   enum InfoViewSize : Int {
     case small  = 1
     case normal = 2
@@ -107,13 +131,20 @@ class HWOulineView: NSOutlineView, NSPopoverDelegate {
   
   required init?(coder: NSCoder) {
     super.init(coder: coder)!
+    
+    NotificationCenter.default.addObserver(self,
+                                           selector: #selector(self.redraw),
+                                           name: NSNotification.Name.outlineNeedsDisplay,
+                                           object: nil)
+    let appear = getAppearance()
     self.selectionHighlightStyle = .sourceList
     let scroller : NSScrollView? = self.enclosingScrollView
     let clipView : NSClipView? = scroller?.contentView
-    scroller?.appearance = appearance
-    clipView?.appearance = appearance
-    self.appearance = appearance
+    scroller?.appearance = appear
+    clipView?.appearance = appear
+    self.appearance = appear
     self.update()
+    
     if #available(OSX 10.14, *) {
       self.appearanceObserver = self.observe(\.effectiveAppearance) { [weak self] _, _  in
         self?.update()
@@ -127,18 +158,6 @@ class HWOulineView: NSOutlineView, NSPopoverDelegate {
       self.appearanceObserver = nil
     }
   }
-
-  override func drawGrid(inClipRect clipRect: NSRect) {
-    let rows = self.numberOfRows
-    var superRect : NSRect = clipRect
-    if rows > 0 {
-      let lastRect = self.rect(ofRow: rows - 1)
-      let aclipRect = NSMakeRect(0, 0, self.frame.size.width, lastRect.maxY)
-      let finalRect : NSRect = NSIntersectionRect(clipRect, aclipRect)
-      superRect = finalRect
-    }
-    super.drawGrid(inClipRect: superRect)
-  }
   
   override func makeView(withIdentifier identifier: NSUserInterfaceItemIdentifier, owner: Any?) -> NSView? {
     let view: Any? = super.makeView(withIdentifier: identifier, owner: owner)
@@ -151,15 +170,37 @@ class HWOulineView: NSOutlineView, NSPopoverDelegate {
   }
   
   func update() {
-    let forceDark = UserDefaults.standard.bool(forKey: kDark)
     let appearance = getAppearance()
-    if let win = self.window {
-      win.animator().appearance = appearance
-      win.contentView?.appearance = appearance
-      win.titlebarAppearsTransparent = true
-      for v in (win.contentView?.subviews)! {
-        if v is NSVisualEffectView {
-          v.appearance = appearance
+    for win in NSApplication.shared.windows {
+      if let views = win.contentView?.subviews {
+        if (win.title != "Gadget") &&
+          win != AppSd.statusItem.button!.window {
+          win.appearance = appearance
+          win.contentView?.appearance = appearance
+          for v in views {
+            if v is NSVisualEffectView {
+              let vev = v as! NSVisualEffectView
+              if win.identifier?.rawValue != "Preferences" {
+                vev.appearance = appearance
+                if let themes = AppSd.theme {
+                  switch themes.theme {
+                  case .Classic: fallthrough
+                  case .DashedH: fallthrough
+                  case .NoGrid:
+                    vev.blendingMode = .withinWindow
+                  case .Default:fallthrough
+                  case .GridClear:
+                    vev.blendingMode = .behindWindow
+                  }
+                }
+                
+                vev.state = .active
+                if #available(OSX 10.11, *) {
+                  vev.material = .popover
+                }
+              }
+            }
+          }
         }
       }
     }
@@ -169,10 +210,42 @@ class HWOulineView: NSOutlineView, NSPopoverDelegate {
     scroller?.appearance = appearance
     clipView?.appearance = appearance
     self.appearance = appearance
-    if !forceDark {
-      self.reloadData()
+    self.gridColor = (appearance.name == .vibrantDark) ? UDs.darkGridColor() : UDs.lightGridColor()
+    if let themes = AppSd.theme {
+      switch themes.theme {
+      case .Classic: fallthrough
+      case .DashedH: fallthrough
+      case .NoGrid:
+        self.backgroundColor = (appearance.name == .vibrantDark) ? .black : .white
+      case .Default:
+        self.backgroundColor = .clear
+      case .GridClear:
+        self.backgroundColor = .clear
+      }
     }
     
+    let column1 : NSTableColumn? = self.tableColumn(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "column1"))
+    switch AppSd.mainViewSize {
+    case .normal:
+      self.rowSizeStyle = .small
+      column1?.width = 202
+    case .medium:
+      self.rowSizeStyle = .medium
+      column1?.width = 215
+    case .large:
+      self.rowSizeStyle = .large
+      column1?.width = 215
+    }
+    
+    self.reloadData()
+    NotificationCenter.default.post(name: NSNotification.Name.appearanceDidChange, object: self)
+  }
+  
+  @objc func redraw() {
+    let theme : Theme = Theme(rawValue: UDs.string(forKey: kTheme) ?? "Default") ?? .Default
+    AppSd.theme = Themes.init(theme: theme, outline: self)
+    self.needsDisplay = true
+    self.update()
   }
   
   func popoverDidClose(_ notification: Notification) {

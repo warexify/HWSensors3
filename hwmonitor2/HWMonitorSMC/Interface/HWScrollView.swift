@@ -29,7 +29,7 @@ class HWScrollView: NSScrollView {
   }
   
   override func mouseEntered(with event: NSEvent) {
-    if gHideVerticalScroller {
+    if AppSd.hideVerticalScroller {
       self.autohidesScrollers = false
       self.hasVerticalScroller = false
     } else {

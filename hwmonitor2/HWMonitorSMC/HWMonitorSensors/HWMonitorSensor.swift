@@ -8,6 +8,7 @@
 
 import Cocoa
 
+//MARK: - log type
 enum LogType : Int {
   case noLog      = 0
   case systemLog  = 1
@@ -19,6 +20,7 @@ enum LogType : Int {
   case usbLog     = 7
 }
 
+//MARK: - Units of measurement
 enum HWUnit : String {
   case none     = ""
   case GHz      = "GHz"
@@ -36,6 +38,7 @@ enum HWUnit : String {
   case Percent  = "%"
 }
 
+//MARK: - Sensor type
 enum HWSensorType : Int {
   // generic percentage
   case percent              =  0
@@ -82,6 +85,7 @@ enum HWSensorType : Int {
 }
 
 
+//MARK: - HWMonitorSensor
 class HWMonitorSensor: NSObject {
   var prefix : String = ""
   var key : String
@@ -107,9 +111,7 @@ class HWMonitorSensor: NSObject {
     }
     set {
       if self.canPlot && self.hasPlot { // update the plot
-        if (self.plot == nil) {
-          self.addPlot()
-        }
+        self.addPlot()
         self.plot?.newData(value: self.doubleValue)
       } else {
         if (self.plot != nil) {
@@ -126,8 +128,11 @@ class HWMonitorSensor: NSObject {
     UDs.set(false, forKey: "coreplot_" + self.key)
     UDs.synchronize()
   }
+  
   func addPlot() {
-    self.plot = PlotView(frame: NSRect(x: 0, y: 0, width: 111, height: 17), sensor: self)
+    if (self.plot == nil) {
+      self.plot = PlotView(frame: NSRect(x: 0, y: 0, width: 111, height: 17), sensor: self)
+    }
     self.hasPlot = true
     UDs.set(true, forKey: "coreplot_" + self.key)
     UDs.synchronize()
@@ -137,7 +142,12 @@ class HWMonitorSensor: NSObject {
   var characteristics : String = ""
   var vendor : String = ""
   
-  init(key: String, unit: HWUnit, type: String, sensorType: HWSensorType, title: String, canPlot: Bool) {
+  init(key: String,
+       unit: HWUnit,
+       type: String,
+       sensorType: HWSensorType,
+       title: String,
+       canPlot: Bool) {
     self.type = type
     self.key = key;
     self.sensorType = sensorType;

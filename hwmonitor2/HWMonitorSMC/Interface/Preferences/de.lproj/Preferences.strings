@@ -1,4 +1,13 @@
 
+/* Class = "NSTabViewItem"; label = "Sensors"; ObjectID = "Tam-QO-tbG"; */
+"Tam-QO-tbG.label" = "Sensors";
+
+/* Class = "NSTabViewItem"; label = "View"; ObjectID = "wQH-9z-ULe"; */
+"wQH-9z-ULe.label" = "View";
+
+/* Class = "NSTabViewItem"; label = "Other"; ObjectID = "YC5-C6-UHP"; */
+"YC5-C6-UHP.label" = "Other";
+
 /* Class = "NSButtonCell"; title = "use percentage to display memory usage"; ObjectID = "1ou-TV-z1H"; */
 "F5h-4I-FHU.title" = "RAM-Angaben in Prozent (%)";
 
@@ -23,6 +32,18 @@
 /* Class = "NSTexfieldCell"; title = "Themes:"; ObjectID = "AHz-v5-cAO"; */
 "AHz-v5-cAO.title" = "Themes:";
 
+/* Class = "NSTexfieldCell"; title = "View size"; ObjectID = "PZk-7X-P2q"; */
+"PZk-7X-P2q.title" = "View size";
+
+/* Class = "NSTexfieldCell"; title = "Grid Color:"; ObjectID = "7rV-gv-BVk"; */
+"7rV-gv-BVk.title" = "Grid Color:";
+
+/* Class = "NSTexfieldCell"; title = "Plot Color:"; ObjectID = "ovp-5x-7r3"; */
+"ovp-5x-7r3.title" = "Plot Color:";
+
+/* Class = "NSTexfieldCell"; title = "Top bar font:"; ObjectID = "58Y-P2-lbm"; */
+"58Y-P2-lbm.title" = "Top bar font:";
+
 /* Class = "NSButtonCell"; title = "Translate units of measurements"; ObjectID = "kwG-Mh-ogc"; */
 "kwG-Mh-ogc.title" = "Translate units of measurements";
 
@@ -35,11 +56,15 @@
 /* Class = "NSTexfieldCell"; title = "Sensor update interval in seconds:"; ObjectID = "i4D-QB-sGd"; */
 "i4D-QB-sGd.title" = "Updateinterval für Sensoren in Sekunden:";
 
-/* Class = "NSTexfieldCell"; title = "(applied to the next execution)"; ObjectID = "i4D-QB-sGd"; */
+/* Class = "NSTexfieldCell"; title = "(applied to the next execution)"; ObjectID = "i4D-QB-sGd" - "63u-ee-4HM"; */
 "h2D-rP-QYL.title" = "(Änderungen der Einstellungen werden nach App-Neustart übernommen)";
+"63u-ee-4HM.title" = "(Änderungen der Einstellungen werden nach App-Neustart übernommen)";
 
 /* Class = "NSButtonCell"; title = "run HWMonitorSMC.app at login"; ObjectID = "Dyg-rv-2Gg"; */
 "Dyg-rv-2Gg.title" = "HWMonitorSMC.app beim Anmelden starten";
 
 /* Class = "NSButtonCell"; title = "use the IOAccelerator's monitoring for GPUs"; ObjectID = "jea-Yr-Q5W"; */
-"jea-Yr-Q5W.title" = "Zeige GPU-Überwachung von IOAccelerator";
+"jea-Yr-Q5W.title" = "Zeige GPU-Überwachung von IOkit";
+
+/* Class = "NSButtonCell"; title = "Reset"; ObjectID = "wsU-ie-0D9"; */
+"wsU-ie-0D9.title" = "Reset";

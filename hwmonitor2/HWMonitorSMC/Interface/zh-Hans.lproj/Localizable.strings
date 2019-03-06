@@ -119,9 +119,13 @@
 "log copied to clip board!" = "日志复制到剪贴板!";
 
 // Themes
-"Default" = "Default";
+"Default" = "Default"; // View Size as well
+"Classic" = "Classic";
 "Dashed Horizontally" = "Dashed Horizontally";
 "No Grid" = "No Grid";
-"No Grid, clear background" = "No Grid, clear background";
 "With Grid, clear background" = "With Grid, clear background";
+
+// View Size
+"Medium" = "Medium";
+"Large"  = "Large";
 

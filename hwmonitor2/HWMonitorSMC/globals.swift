@@ -24,6 +24,14 @@ let kSensorsTimeInterval    = "SensorsTimeInterval"
 let kCPU_TDP_MAX            = "CPU_TDP_MAX"
 let kCPU_Frequency_MAX      = "CPU_Frequency_MAX"
 
+let kShowCPUSensors         = "ShowCPUSensors"
+let kShowGPUSensors         = "ShowGPUSensors"
+let kShowMoBoSensors        = "ShowMoBoSensors"
+let kShowFansSensors        = "ShowFansSensors"
+let kShowRAMSensors         = "ShowRAMSensors"
+let kShowMediaSensors       = "ShowMediaSensors"
+let kShowBatterySensors     = "ShowBatterySensors"
+
 let kCPUTimeInterval        = "CPUTimeInterval"
 let kGPUTimeInterval        = "GPUTimeInterval"
 let kMoBoTimeInterval       = "MoBoTimeInterval"
@@ -41,15 +49,17 @@ let kDontShowEmpty          = "dontshowEmpty"
 let kUseGPUIOAccelerator    = "useGPUIOAccelerator"
 
 let kTranslateUnits         = "TranslateUnits"
-
+let kTopBarFont             = "TopBarFont"
 let kTheme                  = "Theme"
+let kViewSize               = "ViewSize"
+
+let kIOPerformanceStatistics : String = "PerformanceStatistics"
+let kMetalDevice : String = "MetalDevice"
 
 let AppSd = NSApplication.shared.delegate as! AppDelegate
 let UDs = UserDefaults.standard
 let kMinWidth  : CGFloat = 370
 let kMinHeight : CGFloat = 270
-
-let gHideVerticalScroller : Bool = UserDefaults.standard.bool(forKey: kHideVerticalScroller)
 
 let gPopOverFont : NSFont = NSFont(name: "Lucida Grande Bold", size: 9.0) ?? NSFont.systemFont(ofSize:  9.0)
 let gLogFont     : NSFont = NSFont(name: "Lucida Grande", size: 10.0)     ?? NSFont.systemFont(ofSize: 10.0)
@@ -95,10 +105,12 @@ func getAppearance() -> NSAppearance {
   }
 }
 
+func getTopBarFont(saved: Bool) -> NSFont? {
+  return saved ? UDs.topBarFont() : nil
+}
 
 // https://gist.github.com/fethica/52ef6d842604e416ccd57780c6dd28e6
 public struct BytesFormatter {
-  
   public let bytes: Int64
   public let countStyle: Int64
   

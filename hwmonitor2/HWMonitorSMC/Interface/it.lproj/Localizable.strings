@@ -119,9 +119,13 @@
 "log copied to clip board!" = "log copiato negli appunti!";
 
 // Themes
-"Default" = "Predefinito";
+"Default" = "Predefinito"; // View Size as well
+"Classic" = "Classico";
 "Dashed Horizontally" = "Griglia tratteggiata orizzontale";
 "No Grid" = "Senza griglia";
-"No Grid, clear background" = "Senza griglia, sfondo pulito";
 "With Grid, clear background" = "Con griglia, sfondo pulito";
+
+// View Size
+"Medium" = "Media";
+"Large"  = "Grande";
 

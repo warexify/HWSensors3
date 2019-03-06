@@ -27,8 +27,4 @@ class GadgetWC: NSWindowController, NSWindowDelegate {
 
     return wc
   }
-  /*
-  func windowDidResize(_ notification: Notification) {
-    print("windowDidResize")
-  }*/
 }

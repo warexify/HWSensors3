@@ -20,7 +20,7 @@ func getIntelPowerGadgetGPUSensors() -> [HWMonitorSensor] {
                                    type: "IPG",
                                    sensorType: .percent,
                                    title: "Utilization".locale(),
-                                   canPlot: true)
+                                   canPlot: AppSd.sensorsInited ? false : true)
       sensor.logType = .cpuLog;
       sensor.stringValue = String(format: "%.2f", Double(gpuutil)) + sensor.unit.rawValue.locale()
       sensor.doubleValue = Double(gpuutil)
@@ -37,7 +37,7 @@ func getIntelPowerGadgetGPUSensors() -> [HWMonitorSensor] {
                                type: "IPG",
                                sensorType: .intelGPUFrequency,
                                title: (AppSd.useIOAcceleratorForGPUs ? "Frequency".locale() : "IGPU Frequency".locale()),
-                               canPlot: true)
+                               canPlot: AppSd.sensorsInited ? false : true)
       
       
       sensor.logType = .cpuLog;
@@ -55,7 +55,7 @@ func getIntelPowerGadgetGPUSensors() -> [HWMonitorSensor] {
                                  type: "IPG",
                                  sensorType: .intelGPUFrequency,
                                  title: (AppSd.useIOAcceleratorForGPUs ? "Max Frequency".locale() : "IGPU Max Frequency".locale()),
-                                 canPlot: true)
+                                 canPlot: AppSd.sensorsInited ? false : true)
         
         sensor.isInformativeOnly = true
         sensor.logType = .cpuLog;
@@ -142,7 +142,7 @@ func getIntelPowerGadgetCPUSensors() -> [HWMonitorSensor] {
                                type: "IPG",
                                sensorType: .intelCPUFrequency,
                                title: "Frequency".locale(),
-                               canPlot: true)
+                               canPlot: AppSd.sensorsInited ? false : true)
   
   
   sensor.logType = .cpuLog;
@@ -172,7 +172,7 @@ func getIntelPowerGadgetCPUSensors() -> [HWMonitorSensor] {
                            type: "IPG",
                            sensorType: .percent,
                            title: "Utilization".locale(),
-                           canPlot: true)
+                           canPlot: AppSd.sensorsInited ? false : true)
   
   sensor.logType = .cpuLog;
   sensor.stringValue = String(format: "%.f", Double(cpuutil))
@@ -186,7 +186,7 @@ func getIntelPowerGadgetCPUSensors() -> [HWMonitorSensor] {
                            type: "IPG",
                            sensorType: .intelTemp,
                            title: "Package Temperature".locale(),
-                           canPlot: true)
+                           canPlot: AppSd.sensorsInited ? false : true)
   
   
   sensor.logType = .cpuLog;
@@ -229,7 +229,7 @@ func getIntelPowerGadgetCPUSensors() -> [HWMonitorSensor] {
                              type: "IPG",
                              sensorType: .intelWatt,
                              title: "DRAM".locale(),
-                             canPlot: true)
+                             canPlot: AppSd.sensorsInited ? false : true)
     
     
     sensor.logType = .cpuLog;

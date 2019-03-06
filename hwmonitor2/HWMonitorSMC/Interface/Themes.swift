@@ -10,69 +10,43 @@ import Cocoa
 
 public enum Theme : String {
   case Default    = "Default"
+  case Classic    = "Classic"
   case DashedH    = "Dashed Horizontally"
   case NoGrid     = "No Grid"
-  case NoGridCB   = "No Grid, clear background"
   case GridClear  = "With Grid, clear background"
 }
 
 public struct Themes {
+  var theme : Theme
   
   init(theme: Theme, outline: HWOulineView) {
-    let dark = getAppearance().name == .vibrantDark
-    switch theme {
+    self.theme = theme
+    let dark : Bool = getAppearance().name == .vibrantDark
+    outline.window?.backgroundColor = .clear
+    outline.enclosingScrollView?.borderType = NSBorderType.lineBorder
+    outline.enclosingScrollView?.drawsBackground = false
+    outline.enclosingScrollView?.contentView.drawsBackground = false
+    switch self.theme {
     case .Default:
+      outline.gridStyleMask = []
       outline.enclosingScrollView?.borderType = NSBorderType.noBorder
-      outline.enclosingScrollView?.drawsBackground = true
+      outline.usesAlternatingRowBackgroundColors = false
       outline.enclosingScrollView?.contentView.drawsBackground = false
-      outline.enclosingScrollView?.backgroundColor = NSColor.clear
+    case .Classic:
       outline.usesAlternatingRowBackgroundColors = true
-      outline.backgroundColor = (dark ? NSColor.black : NSColor.white)
-      outline.gridColor = NSColor.gridColor
+      outline.gridColor = (dark ? UDs.darkGridColor() : UDs.lightGridColor())
       outline.gridStyleMask = [.solidVerticalGridLineMask, .dashedHorizontalGridLineMask ]
     case .DashedH:
-      outline.enclosingScrollView?.borderType = NSBorderType.lineBorder
-      outline.enclosingScrollView?.drawsBackground = true
-      outline.enclosingScrollView?.contentView.drawsBackground = true
-      outline.enclosingScrollView?.backgroundColor = NSColor.clear
       outline.usesAlternatingRowBackgroundColors = true
-      outline.backgroundColor = (dark ? NSColor.black : NSColor.white)
-      outline.gridColor = NSColor.gridColor
+      outline.gridColor = (dark ? UDs.darkGridColor() : UDs.lightGridColor())
       outline.gridStyleMask = [.dashedHorizontalGridLineMask]
     case .NoGrid:
-      outline.enclosingScrollView?.borderType = NSBorderType.lineBorder
-      outline.enclosingScrollView?.drawsBackground = true
-      outline.enclosingScrollView?.contentView.drawsBackground = true
       outline.usesAlternatingRowBackgroundColors = true
-      outline.backgroundColor = (dark ? NSColor.black : NSColor.white)
-    case .NoGridCB:
-      outline.enclosingScrollView?.borderType = NSBorderType.noBorder
-      outline.enclosingScrollView?.drawsBackground = false
-      outline.usesAlternatingRowBackgroundColors = false
-      if #available(OSX 10.14, *) {
-        outline.enclosingScrollView?.contentView.drawsBackground = false
-        outline.enclosingScrollView?.backgroundColor = NSColor.clear
-        outline.backgroundColor = NSColor.clear
-      } else {
-        outline.enclosingScrollView?.contentView.drawsBackground = false
-        outline.enclosingScrollView?.backgroundColor = /*(dark ? NSColor.black : NSColor.white)*/ NSColor.clear
-        outline.backgroundColor = /*(dark ? NSColor.black : NSColor.white)*/ NSColor.clear
-      }
-      break
+      outline.gridStyleMask = []
     case .GridClear:
-      outline.enclosingScrollView?.borderType = NSBorderType.lineBorder
-      outline.enclosingScrollView?.drawsBackground = false
       outline.usesAlternatingRowBackgroundColors = false
-      if #available(OSX 10.14, *) {
-        outline.enclosingScrollView?.contentView.drawsBackground = false
-        outline.enclosingScrollView?.backgroundColor = NSColor.clear
-        outline.backgroundColor = NSColor.clear
-      } else {
-        outline.enclosingScrollView?.contentView.drawsBackground = false
-        outline.enclosingScrollView?.backgroundColor = /*(dark ? NSColor.black : NSColor.white)*/ NSColor.clear
-        outline.backgroundColor = /*(dark ? NSColor.black : NSColor.white)*/ NSColor.clear
-      }
-      outline.gridColor = NSColor.gridColor
+      outline.enclosingScrollView?.borderType = NSBorderType.noBorder
+      outline.gridColor = (dark ? UDs.darkGridColor() : UDs.lightGridColor())
       outline.gridStyleMask = [.dashedHorizontalGridLineMask, .solidVerticalGridLineMask]
     }
   }

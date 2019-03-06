@@ -118,9 +118,14 @@
 "log copied to clip board!" = "lokitiedosto kopioitu leikepöydälle!";
 
 // Themes
-"Default" = "Default";
-"Dashed Horizontally" = "Dashed Horizontally";
-"No Grid" = "No Grid";
-"No Grid, clear background" = "No Grid, clear background";
-"With Grid, clear background" = "With Grid, clear background";
+"Default" = "Oletus"; // View Size as well
+"Classic" = "Klassinen";
+"Dashed Horizontally" = "Vaakasuora piste";
+"No Grid" = "Ei ruudukkoa";
+"Classic" = "Classic";
+"With Grid, clear background" = "Ruudukko, tyhjä tausta";
+
+// View Size
+"Medium" = "Keskimääräinen";
+"Large"  = "Suuri";
 
