@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="14460.23.1" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="14490.64" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14460.23.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14490.64"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -30,7 +30,7 @@
         <!--LicenseVC-->
         <scene sceneID="P9B-8x-U23">
             <objects>
-                <viewController id="wQI-fc-FmZ" customClass="LicenseVC" customModule="HWMonitorSMC2" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="License" id="wQI-fc-FmZ" customClass="LicenseVC" customModule="HWMonitorSMC2" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="mUx-5V-vQ2">
                         <rect key="frame" x="0.0" y="0.0" width="550" height="340"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -967,6 +967,10 @@ Cg
                                         </textView>
                                     </subviews>
                                 </clipView>
+                                <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="YES" id="Rp4-6J-sLR">
+                                    <rect key="frame" x="-100" y="-100" width="495" height="15"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </scroller>
                                 <scroller key="verticalScroller" verticalHuggingPriority="750" horizontal="NO" id="kLH-RX-1eo">
                                     <rect key="frame" x="495" y="0.0" width="15" height="265"/>
                                     <autoresizingMask key="autoresizingMask"/>

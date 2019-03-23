@@ -31,6 +31,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
   var cpuFrequencyMax : Double = Double(gCPUBaseFrequency()) // Turbo Boost frequency to be set by the user
   var cpuTDP : Double = 100 // to be set by Intel Power Gadget or by the user
   
+  var licenseWC : LicenseWC?
+  
   func applicationWillFinishLaunching(_ notification: Notification) {
     self.statusItem.button?.alignment = .left
     self.statusItem.button?.imagePosition = .imageLeft
@@ -70,22 +72,15 @@ class AppDelegate: NSObject, NSApplicationDelegate {
   }
   
   func license() {
-    //FIXME: in El Capitan the license window wont show up
-    if #available(OSX 10.12, *) {
-      if (UDs.object(forKey: kLinceseAccepted) != nil) {
-        self.licensed = UDs.bool(forKey: kLinceseAccepted)
-      }
+    if (UDs.object(forKey: kLinceseAccepted) != nil) {
       self.licensed = UDs.bool(forKey: kLinceseAccepted)
-      if !self.licensed {
-        if let lwc = NSStoryboard(name: "License",
-                                  bundle: nil).instantiateController(withIdentifier: "License") as? LicenseWC {
-          lwc.showWindow(self)
-        }
-      }
-    } else {
-      self.licensed = true // to be removed
     }
-    
+    self.licensed = UDs.bool(forKey: kLinceseAccepted)
+    if !self.licensed {
+      licenseWC = NSStoryboard(name: "License",
+                                   bundle: nil).instantiateController(withIdentifier: "License") as? LicenseWC
+      licenseWC?.showWindow(self)
+    }
   }
   
   func applicationWillTerminate(_ aNotification: Notification) {
