@@ -527,247 +527,249 @@ class HWSmartDataScanner: NSObject {
     if (IOObjectConformsTo(object, kIOBlockStorageDeviceClass) > 0) {
       
       let opt = IOOptionBits(kIORegistryIterateRecursively | kIORegistryIterateParents)
-      let deviceCharacteristics : NSDictionary = IORegistryEntrySearchCFProperty(object,
-                                                                                 kIOServicePlane,
-                                                                                 kIOPropertyDeviceCharacteristicsKey as CFString,
-                                                                                 kCFAllocatorDefault,
-                                                                                 opt) as! NSDictionary
-      
-      let protocolCharacteristics : NSDictionary = IORegistryEntrySearchCFProperty(object,
-                                                                                   kIOServicePlane,
-                                                                                   kIOPropertyProtocolCharacteristicsKey as CFString,
-                                                                                   kCFAllocatorDefault,
-                                                                                   opt) as! NSDictionary
-      
-      let arbitration : NSMutableDictionary = NSMutableDictionary()
-      arbitration.setValue("disk\(bsdUnit)", forKey: kIOBSDNameKey)
-      
-      if let dict : NSDictionary = getDAdiskDescription(from: "disk\(bsdUnit)") {
-        arbitration.setValue(self.getMediaSize(from: dict),   forKey: kDADiskDescriptionMediaSizeKey as String)
-        arbitration.setValue(self.getDeviceModel(from: dict), forKey: kDADiskDescriptionDeviceModelKey as String)
-        arbitration.setValue(self.getBustPath(from: dict),    forKey: kDADiskDescriptionBusPathKey as String)
-        arbitration.setValue(bsdUnit,    forKey: kDADiskDescriptionMediaBSDUnitKey as String)
-      }
-      
-      attributes.setValue(arbitration,             forKey: kArbitrationKey)
-      attributes.setValue(deviceCharacteristics,   forKey: kIOPropertyDeviceCharacteristicsKey)
-      attributes.setValue(protocolCharacteristics, forKey: kIOPropertyProtocolCharacteristicsKey)
-      
-      let b1 = IORegistryEntryCreateCFProperty(object, kIOPropertySMARTCapableKey as CFString, kCFAllocatorDefault, 0)
-      if (b1 != nil) {
-        smartCapable = b1?.takeRetainedValue() as! Bool
-      }
-      
-      
-      if !smartCapable {
-        let b2 = IORegistryEntryCreateCFProperty(object, kIOUserClientClassKey as CFString, kCFAllocatorDefault, 0)
+      if let deviceCharacteristics = IORegistryEntrySearchCFProperty(object,
+                                                                     kIOServicePlane,
+                                                                     kIOPropertyDeviceCharacteristicsKey as CFString,
+                                                                     kCFAllocatorDefault,
+                                                                     opt) as? NSDictionary {
         
-        if (b2 != nil) {
-          smartCapable = ((b2?.takeRetainedValue() as! CFString) as String) == kATASMARTUserClientClassKey
-        }
-      }
-      
-      if !smartCapable {
-        let b3 = IORegistryEntryCreateCFProperty(object, kIOPropertyNVMeSMARTCapableKey as CFString, kCFAllocatorDefault, 0)
-        
-        if (b3 != nil) {
-          smartCapableNVME = b3?.takeRetainedValue() as! Bool
-        }
-      }
-      
-      if smartCapable {
-        var pluginInterface: UnsafeMutablePointer<UnsafeMutablePointer<IOCFPlugInInterface>?>?
-        var smartInterface: UnsafeMutablePointer<UnsafeMutablePointer<IOATASMARTInterface>?>?
-        var herr : HRESULT  = S_OK
-        var score : Int32  = 0
-        
-        error = IOCreatePlugInInterfaceForService(object,
-                                                  kIOATASMARTUserClientTypeID,
-                                                  kIOCFPlugInInterfaceID,
-                                                  &pluginInterface,
-                                                  &score)
-        
-        if error == kIOReturnSuccess {
-          // Use plug-in interface to get a device interface.
-          herr = withUnsafeMutablePointer(to: &smartInterface) {
-            $0.withMemoryRebound(to: Optional<LPVOID>.self, capacity: 1) {
-              pluginInterface?.pointee?.pointee.QueryInterface(
-                pluginInterface,
-                CFUUIDGetUUIDBytes(kIOATASMARTInterfaceID),
-                $0)
-            }
-            }!
+        if let protocolCharacteristics = IORegistryEntrySearchCFProperty(object,
+                                                                      kIOServicePlane,
+                                                                      kIOPropertyProtocolCharacteristicsKey as CFString,
+                                                                      kCFAllocatorDefault,
+                                                                      opt) as? NSDictionary {
+          let arbitration : NSMutableDictionary = NSMutableDictionary()
+          arbitration.setValue("disk\(bsdUnit)", forKey: kIOBSDNameKey)
           
-          if (herr == S_OK) && (smartInterface != nil) {
-            error = (smartInterface?.pointee?.pointee.SMARTEnableDisableOperations(smartInterface, true))!
+          if let dict : NSDictionary = getDAdiskDescription(from: "disk\(bsdUnit)") {
+            arbitration.setValue(self.getMediaSize(from: dict),   forKey: kDADiskDescriptionMediaSizeKey as String)
+            arbitration.setValue(self.getDeviceModel(from: dict), forKey: kDADiskDescriptionDeviceModelKey as String)
+            arbitration.setValue(self.getBustPath(from: dict),    forKey: kDADiskDescriptionBusPathKey as String)
+            arbitration.setValue(bsdUnit,    forKey: kDADiskDescriptionMediaBSDUnitKey as String)
+          }
+          
+          attributes.setValue(arbitration,             forKey: kArbitrationKey)
+          attributes.setValue(deviceCharacteristics,   forKey: kIOPropertyDeviceCharacteristicsKey)
+          attributes.setValue(protocolCharacteristics, forKey: kIOPropertyProtocolCharacteristicsKey)
+          
+          let b1 = IORegistryEntryCreateCFProperty(object, kIOPropertySMARTCapableKey as CFString, kCFAllocatorDefault, 0)
+          if (b1 != nil) {
+            smartCapable = b1?.takeRetainedValue() as! Bool
+          }
+          
+          
+          if !smartCapable {
+            let b2 = IORegistryEntryCreateCFProperty(object, kIOUserClientClassKey as CFString, kCFAllocatorDefault, 0)
+            
+            if (b2 != nil) {
+              smartCapable = ((b2?.takeRetainedValue() as! CFString) as String) == kATASMARTUserClientClassKey
+            }
+          }
+          
+          if !smartCapable {
+            let b3 = IORegistryEntryCreateCFProperty(object, kIOPropertyNVMeSMARTCapableKey as CFString, kCFAllocatorDefault, 0)
+            
+            if (b3 != nil) {
+              smartCapableNVME = b3?.takeRetainedValue() as! Bool
+            }
+          }
+          
+          if smartCapable {
+            var pluginInterface: UnsafeMutablePointer<UnsafeMutablePointer<IOCFPlugInInterface>?>?
+            var smartInterface: UnsafeMutablePointer<UnsafeMutablePointer<IOATASMARTInterface>?>?
+            var herr : HRESULT  = S_OK
+            var score : Int32  = 0
+            
+            error = IOCreatePlugInInterfaceForService(object,
+                                                      kIOATASMARTUserClientTypeID,
+                                                      kIOCFPlugInInterfaceID,
+                                                      &pluginInterface,
+                                                      &score)
+            
             if error == kIOReturnSuccess {
-              error = (smartInterface?.pointee?.pointee.SMARTEnableDisableAutosave(smartInterface, true))!
-              if error == kIOReturnSuccess {
-                var ec : DarwinBoolean = false
-                error = (smartInterface?.pointee?.pointee.SMARTReturnStatus(smartInterface, &ec))!
+              // Use plug-in interface to get a device interface.
+              herr = withUnsafeMutablePointer(to: &smartInterface) {
+                $0.withMemoryRebound(to: Optional<LPVOID>.self, capacity: 1) {
+                  pluginInterface?.pointee?.pointee.QueryInterface(
+                    pluginInterface,
+                    CFUUIDGetUUIDBytes(kIOATASMARTInterfaceID),
+                    $0)
+                }
+                }!
+              
+              if (herr == S_OK) && (smartInterface != nil) {
+                error = (smartInterface?.pointee?.pointee.SMARTEnableDisableOperations(smartInterface, true))!
                 if error == kIOReturnSuccess {
-                  
-                  if ec.boolValue {
-                    status = SMARTStatus.error
-                  } else {
-                    status = SMARTStatus.ok
-                  }
-                  
-                  attributes.setValue(NSNumber(value: status.rawValue), forKey: kSMARTStatus)
-                  var smartdata : ATASMARTData? = nil
-                  var smartThresholds : ATASMARTDataThresholds? = nil
-                  
-                  bzero(&smartThresholds, MemoryLayout.size(ofValue: smartThresholds))
-                  bzero(&smartdata, MemoryLayout.size(ofValue: smartdata))
-                  
-                  error = (smartInterface?.pointee?.pointee.SMARTReadData(smartInterface, &smartdata!))!
-                  
+                  error = (smartInterface?.pointee?.pointee.SMARTEnableDisableAutosave(smartInterface, true))!
                   if error == kIOReturnSuccess {
-                    error = (smartInterface?.pointee?.pointee.SMARTValidateReadData(smartInterface, &smartdata!))!
+                    var ec : DarwinBoolean = false
+                    error = (smartInterface?.pointee?.pointee.SMARTReturnStatus(smartInterface, &ec))!
                     if error == kIOReturnSuccess {
-                      error = (smartInterface?.pointee?.pointee.SMARTReadDataThresholds(smartInterface, &smartThresholds!))!
+                      
+                      if ec.boolValue {
+                        status = SMARTStatus.error
+                      } else {
+                        status = SMARTStatus.ok
+                      }
+                      
+                      attributes.setValue(NSNumber(value: status.rawValue), forKey: kSMARTStatus)
+                      var smartdata : ATASMARTData? = nil
+                      var smartThresholds : ATASMARTDataThresholds? = nil
+                      
+                      bzero(&smartThresholds, MemoryLayout.size(ofValue: smartThresholds))
+                      bzero(&smartdata, MemoryLayout.size(ofValue: smartdata))
+                      
+                      error = (smartInterface?.pointee?.pointee.SMARTReadData(smartInterface, &smartdata!))!
+                      
                       if error == kIOReturnSuccess {
-                        // Vendor Specifics data
-                        let mirror = Mirror(reflecting: (smartdata?.vendorSpecific1)!)
-                        var svsdata : Data = Data()
-                        for child in mirror.children {
-                          svsdata.append(child.value as! UInt8)
-                        }
-                        
-                        var dataVendorSpecific : VendorSpecificData = VendorSpecificData(from: svsdata)
-
-                        // Threshold Vendor Specifics data
-                        let mirror2 = Mirror(reflecting: (smartThresholds?.vendorSpecific1)!)
-                        var stvsdata : Data = Data()
-                        for child in mirror2.children {
-                          stvsdata.append(child.value as! UInt8)
-                        }
-                        var smartThresholdVendorSpecifics : VendorSpecificDataThresholds = VendorSpecificDataThresholds(from: stvsdata)
-                        
-                        let saDict : NSMutableDictionary = NSMutableDictionary()
-                        for i in 0..<30 {
-                          let attr: ATASMARTAttribute = dataVendorSpecific.vendorAttributes[i]
-                          let thres: ThresholdAttribute = smartThresholdVendorSpecifics.thresholdEntries[i]
-                          if attr.attributeID > 0 {
-                            let threshold: UInt8 = (attr.attributeID == thres.attributeId) ? thres.thresholdValue : 0
-                            saDict.setValue([kATASMARTCurrentValueKey: attr.currentValue,
-                                             kATASMARTWorstValueKey: attr.worstValue,
-                                             kATASMARTRawValueKey:   attr.rawValue,
-                                             kATASMARTThresholdKey:  threshold,
-                                             kATASMARTPrefailKey:   (attr.flag & 0x01),
-                                             kATASMARTflagKey:       ((attr.flag & 0x02) > 0 ? 1 : 0)],
-                                            forKey: "\(attr.attributeID)")
+                        error = (smartInterface?.pointee?.pointee.SMARTValidateReadData(smartInterface, &smartdata!))!
+                        if error == kIOReturnSuccess {
+                          error = (smartInterface?.pointee?.pointee.SMARTReadDataThresholds(smartInterface, &smartThresholds!))!
+                          if error == kIOReturnSuccess {
+                            // Vendor Specifics data
+                            let mirror = Mirror(reflecting: (smartdata?.vendorSpecific1)!)
+                            var svsdata : Data = Data()
+                            for child in mirror.children {
+                              svsdata.append(child.value as! UInt8)
+                            }
+                            
+                            var dataVendorSpecific : VendorSpecificData = VendorSpecificData(from: svsdata)
+                            
+                            // Threshold Vendor Specifics data
+                            let mirror2 = Mirror(reflecting: (smartThresholds?.vendorSpecific1)!)
+                            var stvsdata : Data = Data()
+                            for child in mirror2.children {
+                              stvsdata.append(child.value as! UInt8)
+                            }
+                            var smartThresholdVendorSpecifics : VendorSpecificDataThresholds = VendorSpecificDataThresholds(from: stvsdata)
+                            
+                            let saDict : NSMutableDictionary = NSMutableDictionary()
+                            for i in 0..<30 {
+                              let attr: ATASMARTAttribute = dataVendorSpecific.vendorAttributes[i]
+                              let thres: ThresholdAttribute = smartThresholdVendorSpecifics.thresholdEntries[i]
+                              if attr.attributeID > 0 {
+                                let threshold: UInt8 = (attr.attributeID == thres.attributeId) ? thres.thresholdValue : 0
+                                saDict.setValue([kATASMARTCurrentValueKey: attr.currentValue,
+                                                 kATASMARTWorstValueKey: attr.worstValue,
+                                                 kATASMARTRawValueKey:   attr.rawValue,
+                                                 kATASMARTThresholdKey:  threshold,
+                                                 kATASMARTPrefailKey:   (attr.flag & 0x01),
+                                                 kATASMARTflagKey:       ((attr.flag & 0x02) > 0 ? 1 : 0)],
+                                                forKey: "\(attr.attributeID)")
+                              }
+                            }
+                            attributes.setValue(saDict, forKey: kSMARTAttributesDictKey)
+                            attributes.setValue(NSNumber(value: isNVMe), forKey: kIsNVMeKey)
                           }
                         }
-                        attributes.setValue(saDict, forKey: kSMARTAttributesDictKey)
-                        attributes.setValue(NSNumber(value: isNVMe), forKey: kIsNVMeKey)
                       }
                     }
                   }
                 }
+                _ = smartInterface?.pointee?.pointee.SMARTEnableDisableAutosave(smartInterface, false)
+                _ = smartInterface?.pointee?.pointee.SMARTEnableDisableOperations(smartInterface, false)
+              } else {
+                //print("Unable to get Device Interface")
+                error = herr
+              }
+              
+              if (smartInterface != nil) {
+                _ = pluginInterface?.pointee?.pointee.Release(smartInterface)
+                smartInterface = nil
               }
             }
-            _ = smartInterface?.pointee?.pointee.SMARTEnableDisableAutosave(smartInterface, false)
-            _ = smartInterface?.pointee?.pointee.SMARTEnableDisableOperations(smartInterface, false)
-          } else {
-            //print("Unable to get Device Interface")
-            error = herr
-          }
-          
-          if (smartInterface != nil) {
-            _ = pluginInterface?.pointee?.pointee.Release(smartInterface)
-            smartInterface = nil
-          }
-        }
-        if (pluginInterface != nil) {
-          IODestroyPlugInInterface(pluginInterface)
-        }
-        found = true
-      } else if smartCapableNVME {
-        isNVMe = true
-        var pluginInterface: UnsafeMutablePointer<UnsafeMutablePointer<IOCFPlugInInterface>?>?
-        var smartInterface:  UnsafeMutablePointer<UnsafeMutablePointer<IONVMeSMARTInterface>?>?
-        var herr : HRESULT  = S_OK
-        var score : Int32  = 0
-        
-        error = IOCreatePlugInInterfaceForService(object,
-                                                  kIONVMeSMARTUserClientTypeID,
-                                                  kIOCFPlugInInterfaceID,
-                                                  &pluginInterface,
-                                                  &score)
-        
-        if error == kIOReturnSuccess {
-          // Use plug-in interface to get a device interface.
-          herr = withUnsafeMutablePointer(to: &smartInterface) {
-            $0.withMemoryRebound(to: Optional<LPVOID>.self, capacity: 1) {
-              pluginInterface?.pointee?.pointee.QueryInterface(
-                pluginInterface,
-                CFUUIDGetUUIDBytes(kIONVMeSMARTInterfaceID),
-                $0)
+            if (pluginInterface != nil) {
+              IODestroyPlugInInterface(pluginInterface)
             }
-            }!
-          
-          if (herr == S_OK) && (smartInterface != nil) {
-            var smartdata : nvme_smart_log = nvme_smart_log()
-            let sdsize = MemoryLayout.size(ofValue: smartdata)
-            bzero(&smartdata, sdsize)
-            error = (smartInterface?.pointee?.pointee.SMARTReadData(smartInterface, &smartdata))!
+            found = true
+          } else if smartCapableNVME {
+            isNVMe = true
+            var pluginInterface: UnsafeMutablePointer<UnsafeMutablePointer<IOCFPlugInInterface>?>?
+            var smartInterface:  UnsafeMutablePointer<UnsafeMutablePointer<IONVMeSMARTInterface>?>?
+            var herr : HRESULT  = S_OK
+            var score : Int32  = 0
+            
+            error = IOCreatePlugInInterfaceForService(object,
+                                                      kIONVMeSMARTUserClientTypeID,
+                                                      kIOCFPlugInInterfaceID,
+                                                      &pluginInterface,
+                                                      &score)
+            
             if error == kIOReturnSuccess {
-              let saDict : NSMutableDictionary = NSMutableDictionary()
-
-              let array : [UInt8] = [UInt8(smartdata.temperature.1), UInt8(smartdata.temperature.0)]
-              var celsius : UInt16 = 0
-              let data = NSData(bytes: array, length: 2)
-              data.getBytes(&celsius, length: 2)
-              celsius = UInt16(bigEndian: celsius) - 273
-
-              if celsius < 1 {
-                // can be.. if you put your disk in the freezer. naah, is really cold!?
-                celsius = 0
-              } else if celsius > 100 {
-                celsius = 0
-                // can be.. if you put your disk in a blast furnace (joke, so is invalid)
+              // Use plug-in interface to get a device interface.
+              herr = withUnsafeMutablePointer(to: &smartInterface) {
+                $0.withMemoryRebound(to: Optional<LPVOID>.self, capacity: 1) {
+                  pluginInterface?.pointee?.pointee.QueryInterface(
+                    pluginInterface,
+                    CFUUIDGetUUIDBytes(kIONVMeSMARTInterfaceID),
+                    $0)
+                }
+                }!
+              
+              if (herr == S_OK) && (smartInterface != nil) {
+                var smartdata : nvme_smart_log = nvme_smart_log()
+                let sdsize = MemoryLayout.size(ofValue: smartdata)
+                bzero(&smartdata, sdsize)
+                error = (smartInterface?.pointee?.pointee.SMARTReadData(smartInterface, &smartdata))!
+                if error == kIOReturnSuccess {
+                  let saDict : NSMutableDictionary = NSMutableDictionary()
+                  
+                  let array : [UInt8] = [UInt8(smartdata.temperature.1), UInt8(smartdata.temperature.0)]
+                  var celsius : UInt16 = 0
+                  let data = NSData(bytes: array, length: 2)
+                  data.getBytes(&celsius, length: 2)
+                  celsius = UInt16(bigEndian: celsius) - 273
+                  
+                  if celsius < 1 {
+                    // can be.. if you put your disk in the freezer. naah, is really cold!?
+                    celsius = 0
+                  } else if celsius > 100 {
+                    celsius = 0
+                    // can be.. if you put your disk in a blast furnace (joke, so is invalid)
+                  }
+                  
+                  // status
+                  attributes.setValue((smartdata.critical_warning == 0) ?
+                    NSNumber(value: SMARTStatus.ok.rawValue) :
+                    NSNumber(value: SMARTStatus.error.rawValue),
+                                      forKey: kSMARTStatus)
+                  
+                  // life remaining
+                  let life: Int = 100 - Int(smartdata.percent_used) // nvme says life used otherwise
+                  saDict.setValue(smartdata.critical_warning, forKey: kNVMeSMARTCriticalWarningKey)
+                  saDict.setValue(celsius, forKey: kNVMeSMARTTemperatureKey)
+                  saDict.setValue(smartdata.avail_spare, forKey: kNVMeSMARTAvailableSpareKey)
+                  saDict.setValue(smartdata.spare_thresh, forKey: kNVMeSMARTAvailableSpareThresholdKey)
+                  saDict.setValue(life, forKey: kSMARTLifeKey)
+                  
+                  // Unsafe Shutdowns
+                  let us = UInt64(smartdata.unsafe_shutdowns.1) << 32 + UInt64(smartdata.unsafe_shutdowns.0)
+                  saDict.setValue(us, forKey: kNVMeSMARTUnsafeShutdownsKey)
+                  attributes.setValue(saDict, forKey: kSMARTAttributesDictKey)
+                  attributes.setValue(NSNumber(value: isNVMe), forKey: kIsNVMeKey)
+                } else {
+                  //print(error)
+                }
+                
+                _ = pluginInterface?.pointee?.pointee.Release(smartInterface)
+                smartInterface = nil
               }
               
-              // status
-              attributes.setValue((smartdata.critical_warning == 0) ?
-                NSNumber(value: SMARTStatus.ok.rawValue) :
-                NSNumber(value: SMARTStatus.error.rawValue),
-                                  forKey: kSMARTStatus)
-              
-              // life remaining
-              let life: Int = 100 - Int(smartdata.percent_used) // nvme says life used otherwise
-              saDict.setValue(smartdata.critical_warning, forKey: kNVMeSMARTCriticalWarningKey)
-              saDict.setValue(celsius, forKey: kNVMeSMARTTemperatureKey)
-              saDict.setValue(smartdata.avail_spare, forKey: kNVMeSMARTAvailableSpareKey)
-              saDict.setValue(smartdata.spare_thresh, forKey: kNVMeSMARTAvailableSpareThresholdKey)
-              saDict.setValue(life, forKey: kSMARTLifeKey)
-              
-              // Unsafe Shutdowns
-              let us = UInt64(smartdata.unsafe_shutdowns.1) << 32 + UInt64(smartdata.unsafe_shutdowns.0)
-              saDict.setValue(us, forKey: kNVMeSMARTUnsafeShutdownsKey)
-              attributes.setValue(saDict, forKey: kSMARTAttributesDictKey)
-              attributes.setValue(NSNumber(value: isNVMe), forKey: kIsNVMeKey)
             } else {
               //print(error)
             }
+            // Plug-in interface is no longer needed.
+            if (pluginInterface != nil) {
+              IODestroyPlugInInterface(pluginInterface)
+            }
             
-            _ = pluginInterface?.pointee?.pointee.Release(smartInterface)
-            smartInterface = nil
+            found = true
+          } else {
+            // not capable
+            found = false
           }
           
-        } else {
-          //print(error)
         }
-        // Plug-in interface is no longer needed.
-        if (pluginInterface != nil) {
-          IODestroyPlugInInterface(pluginInterface)
-        }
-        
-        found = true
-      } else {
-        // not capable
-        found = false
       }
     }
     
