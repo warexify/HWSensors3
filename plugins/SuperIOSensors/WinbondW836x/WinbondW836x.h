@@ -52,7 +52,7 @@
 #include <IOKit/IODeviceTreeSupport.h>
 #include <IOKit/IOKitKeys.h>
 
-#include "SuperIOFamily.h"
+#include "../SuperIOFamily/SuperIOFamily.h"
 
 const UInt8 WINBOND_HARDWARE_MONITOR_LDN		= 0x0B;
 
@@ -131,6 +131,8 @@ enum W836xModel {
   NCT6793D   = 0xD121,
   NCT6795D   = 0xD352,
   NCT6796D   = 0xD423,
+  NCT6798D   = 0xD428,
+  NCT679BD   = 0xD42B,
 };
 
 class W836x;
