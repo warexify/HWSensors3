@@ -65,6 +65,8 @@ let gPopOverFont : NSFont = NSFont(name: "Lucida Grande Bold", size: 9.0) ?? NSF
 let gLogFont     : NSFont = NSFont(name: "Lucida Grande", size: 10.0)     ?? NSFont.systemFont(ofSize: 10.0)
 
 let gHelperID : CFString = "org.slice.HWMonitorSMC2-Helper" as CFString
+let gShowBadSensors : Bool =
+  FileManager.default.fileExists(atPath: NSHomeDirectory() + "/Desktop/HWBadSensors")
 
 let gSMC = SMCKit.init()
 

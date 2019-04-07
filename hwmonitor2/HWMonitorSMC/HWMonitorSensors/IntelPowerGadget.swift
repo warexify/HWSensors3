@@ -144,27 +144,30 @@ func getIntelPowerGadgetCPUSensors() -> [HWMonitorSensor] {
                                title: "Frequency".locale(),
                                canPlot: AppSd.sensorsInited ? false : true)
   
+  if gShowBadSensors || (cpuFrequency > 0 && cpuFrequency <= 9000) {
+    sensor.logType = .cpuLog;
+    sensor.stringValue = String(format: "%.f", cpuFrequency)
+    sensor.doubleValue = cpuFrequency
+    sensor.favorite = UDs.bool(forKey: sensor.key)
+    sensors.append(sensor)
+  }
   
-  sensor.logType = .cpuLog;
-  sensor.stringValue = String(format: "%.f", cpuFrequency)
-  sensor.doubleValue = cpuFrequency
-  sensor.favorite = UDs.bool(forKey: sensor.key)
-  sensors.append(sensor)
-  
-  sensor = HWMonitorSensor(key: "Base Frequency",
-                           unit: .MHz,
-                           type: "IPG",
-                           sensorType: .intelCPUFrequency,
-                           title: "Base Frequency".locale(),
-                           canPlot: false)
-  
-  
-  sensor.isInformativeOnly = true
-  sensor.logType = .cpuLog;
-  sensor.stringValue = String(format: "%.f", baseFrequency)
-  sensor.doubleValue = baseFrequency
-  sensor.favorite = false
-  sensors.append(sensor)
+  if gShowBadSensors || (baseFrequency > 0 && baseFrequency <= 9000) {
+    sensor = HWMonitorSensor(key: "Base Frequency",
+                             unit: .MHz,
+                             type: "IPG",
+                             sensorType: .intelCPUFrequency,
+                             title: "Base Frequency".locale(),
+                             canPlot: false)
+    
+    
+    sensor.isInformativeOnly = true
+    sensor.logType = .cpuLog;
+    sensor.stringValue = String(format: "%.f", baseFrequency)
+    sensor.doubleValue = baseFrequency
+    sensor.favorite = false
+    sensors.append(sensor)
+  }
   
   
   sensor = HWMonitorSensor(key: "CPU Utilization",
@@ -181,19 +184,21 @@ func getIntelPowerGadgetCPUSensors() -> [HWMonitorSensor] {
   sensor.favorite = UDs.bool(forKey: sensor.key)
   sensors.append(sensor)
   
-  sensor = HWMonitorSensor(key: "Package Temp",
-                           unit: .C,
-                           type: "IPG",
-                           sensorType: .intelTemp,
-                           title: "Package Temperature".locale(),
-                           canPlot: AppSd.sensorsInited ? false : true)
-  
-  
-  sensor.logType = .cpuLog;
-  sensor.stringValue = String(format: "%.f", packageTemp)
-  sensor.doubleValue = packageTemp
-  sensor.favorite = UDs.bool(forKey: sensor.key)
-  sensors.append(sensor)
+  if gShowBadSensors || (packageTemp > -15 && packageTemp <= 125) {
+    sensor = HWMonitorSensor(key: "Package Temp",
+                             unit: .C,
+                             type: "IPG",
+                             sensorType: .intelTemp,
+                             title: "Package Temperature".locale(),
+                             canPlot: AppSd.sensorsInited ? false : true)
+    
+    
+    sensor.logType = .cpuLog;
+    sensor.stringValue = String(format: "%.f", packageTemp)
+    sensor.doubleValue = packageTemp
+    sensor.favorite = UDs.bool(forKey: sensor.key)
+    sensors.append(sensor)
+  }
   
   sensor = HWMonitorSensor(key: "Max Temperature",
                            unit: .C,
@@ -223,7 +228,7 @@ func getIntelPowerGadgetCPUSensors() -> [HWMonitorSensor] {
   sensor.favorite = false
   sensors.append(sensor)
   
-  if dramEnergy {
+  if dramEnergy && (gShowBadSensors || (processorPower > 0 && processorPower <= 1000)) {
     sensor = HWMonitorSensor(key: "Processor Power",
                              unit: .Watt,
                              type: "IPG",
@@ -268,20 +273,21 @@ func getIntelPowerGadgetCPUSensors() -> [HWMonitorSensor] {
     */
   }
   
-  
-  sensor = HWMonitorSensor(key: "Package Power Limit (TDP)",
-                           unit: .Watt,
-                           type: "IPG",
-                           sensorType: .intelWatt,
-                           title: "Package Power Limit (TDP)".locale(),
-                           canPlot: false)
-  
-  sensor.isInformativeOnly = true
-  sensor.logType = .cpuLog;
-  sensor.stringValue = String(format: "%.f", packagePowerLimit)
-  sensor.doubleValue = packagePowerLimit
-  sensor.favorite = false
-  sensors.append(sensor)
+  if gShowBadSensors || packagePowerLimit > 0 {
+    sensor = HWMonitorSensor(key: "Package Power Limit (TDP)",
+                             unit: .Watt,
+                             type: "IPG",
+                             sensorType: .intelWatt,
+                             title: "Package Power Limit (TDP)".locale(),
+                             canPlot: false)
+    
+    sensor.isInformativeOnly = true
+    sensor.logType = .cpuLog;
+    sensor.stringValue = String(format: "%.f", packagePowerLimit)
+    sensor.doubleValue = packagePowerLimit
+    sensor.favorite = false
+    sensors.append(sensor)
+  }
 
   return sensors
 }

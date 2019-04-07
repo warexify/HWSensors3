@@ -471,7 +471,6 @@ class HWSensorsScanner: NSObject {
                                       list: &arr)
     
     // voltages
-    // VBAT, @maoyeye has it but is it Apple stuff?
     let _ =  self.addSMCSensorIfValid(key: SMC_PRAM_BATTERY_VOLT,
                                       type: DataTypes.SP4B,
                                       unit: .Volt,
@@ -616,7 +615,11 @@ class HWSensorsScanner: NSObject {
     if (pb != nil) {
       let voltage = IOBatteryStatus.getBatteryVoltage(from: pb as? [AnyHashable : Any])
       let amperage = IOBatteryStatus.getBatteryAmperage(from: pb as? [AnyHashable : Any])
-      if voltage > -1 {
+      let maxmV : Int = 19000 // 19 V
+      let tolerance : Int = 500 // 0.5 V
+      let chargeDiffmV : Int = 3000 // during charge??
+      
+      if gShowBadSensors || (voltage > -1 && voltage <= (maxmV + tolerance + chargeDiffmV)) {
         let s = HWMonitorSensor(key: SMC_BATT0_VOLT,
                                 unit: HWUnit.mV,
                                 type: "BATT",
@@ -630,7 +633,7 @@ class HWSensorsScanner: NSObject {
         arr.append(s)
       }
       
-      if amperage > -1 {
+      if gShowBadSensors || (amperage > -1 && amperage <= 25000 /* a very high capacity battery Lol */) {
         let s = HWMonitorSensor(key: SMC_BATT0_AMP,
                                 unit: HWUnit.mA,
                                 type: "BATT",
@@ -655,10 +658,10 @@ class HWSensorsScanner: NSObject {
     var valid : Bool = false
     switch sensor.sensorType {
     case .temperature:
-      if v > -15 && v < 150 {
+      if gShowBadSensors || (v > -15 && v < 125) {
         /*
          -10 min temp + 5 to ensure no one start a pc this way.
-         150 (110 °C it is enough) to ensure reading is correct
+         125 (110 °C it is enough) to ensure reading is correct
          */
         sensor.stringValue = String(format: "%.f", v)
         sensor.doubleValue = v
@@ -669,7 +672,7 @@ class HWSensorsScanner: NSObject {
       var t: Int = 0
       (data as NSData).getBytes(&t, length: MemoryLayout<Int>.size)
 
-      if t >= 0 && t <= 100 {
+      if gShowBadSensors || (t >= 0 && t <= 100) {
         sensor.stringValue = String(format: "%ld", t)
         sensor.doubleValue = v
         valid = true
@@ -677,11 +680,13 @@ class HWSensorsScanner: NSObject {
     case .voltage:
       sensor.stringValue = String(format: "%.3f", v)
       sensor.doubleValue = v
-      valid = true // trusted?
+      // voltage sensors only refear to CPU and Motherboard's stuff
+      // since Battery voltages are read directly from the IO Registry in this app.
+      valid = gShowBadSensors || (v > -15 || v < 15)
     case .tachometer:
-      sensor.stringValue = String(format: "%.0f", v)
+      sensor.stringValue = String(format: "%d", v)
       sensor.doubleValue = v
-      valid = true // trusted?
+      valid = gShowBadSensors || (v > 0 && v <= 7000)
     case .frequencyCPU:  fallthrough
     case .frequencyGPU:  fallthrough
     case .frequencyOther:
@@ -693,17 +698,17 @@ class HWSensorsScanner: NSObject {
       }
       sensor.stringValue = String(format: "%d", MHZ)
       sensor.doubleValue = Double(MHZ)
-      valid = true // trusted?
+      valid = gShowBadSensors || (MHZ > 0 && MHZ < 9000) // OC record is 8794 (AMD FX-8350) on Nov 10 2012
     case .cpuPowerWatt:
       sensor.stringValue = String(format: "%.2f", v)
       sensor.doubleValue = v
-      valid = true // trusted?
+      valid = gShowBadSensors || (v > 0 && v < 1000) // reached from an Intel i9-7890XE in extreme OC
     case .multiplier:
       var m: UInt = 0
       bcopy((data as NSData).bytes, &m, 2)
       sensor.stringValue = String(format: "x%.f", Double(m) / 10)
       sensor.doubleValue = Double(m)
-      valid = true // trusted?
+      valid = gShowBadSensors || (m > 0 && m <= 50)
     default:
       break
     }

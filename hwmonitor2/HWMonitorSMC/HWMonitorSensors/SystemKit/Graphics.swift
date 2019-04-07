@@ -67,172 +67,181 @@ public struct Graphics {
                                                                               sensor: nil,
                                                                               isLeaf: false))
         let unique : String = "\(primaryMatch)\(i)"
-        if let coreclock : NSNumber = PerformanceStatistics.object(forKey: "Core Clock(MHz)﻿﻿") as? NSNumber {
+        if let coreclock = PerformanceStatistics.object(forKey: "Core Clock(MHz)﻿﻿") as? NSNumber {
           
-          let ccSensor = HWMonitorSensor(key: "Core Clock" + unique,
-                                         unit: HWUnit.GHz,
-                                         type: "IOAcc",
-                                         sensorType: .gpuIO_coreClock,
-                                         title: "Core Clock".locale(),
-                                         canPlot: false)
-          
-          ccSensor.favorite = UDs.bool(forKey: ccSensor.key)
-          ccSensor.characteristics = primaryMatch
-          ccSensor.logType = .gpuLog
-          ccSensor.doubleValue = Double(coreclock.doubleValue)
-          ccSensor.stringValue = coreclock.stringValue
-          ccSensor.vendor = vendorString
-          gpuNode.mutableChildren.add(HWTreeNode(representedObject: HWSensorData(group: model,
-                                                                                 sensor: ccSensor,
-                                                                                 isLeaf: true)))
-        }
-        
-        if let totalPower : NSNumber = PerformanceStatistics.object(forKey: "Total Power(W)") as? NSNumber {
-          
-          let tpSensor = HWMonitorSensor(key: "Total Power(W)" + unique,
-                                         unit: HWUnit.Watt,
-                                         type: "IOAcc",
-                                         sensorType: .gpuIO_Watts,
-                                         title: "Total Power".locale(),
-                                         canPlot: true)
-          tpSensor.favorite = UDs.bool(forKey: tpSensor.key)
-          tpSensor.characteristics = primaryMatch
-          tpSensor.logType = .gpuLog
-          tpSensor.doubleValue = totalPower.doubleValue
-          tpSensor.stringValue = totalPower.stringValue
-          tpSensor.vendor = vendorString
-          gpuNode.mutableChildren.add(HWTreeNode(representedObject: HWSensorData(group: model,
-                                                                                 sensor: tpSensor,
-                                                                                 isLeaf: true)))
-        }
-        
-        if let temperature : NSNumber = PerformanceStatistics.object(forKey: "Temperature(C)") as? NSNumber {
-          
-          let tempSensor = HWMonitorSensor(key: "Temperature" + unique,
-                                           unit: HWUnit.C,
+          if gShowBadSensors || (coreclock.intValue > 0 && coreclock.intValue < 3000) {
+            let ccSensor = HWMonitorSensor(key: "Core Clock" + unique,
+                                           unit: HWUnit.GHz,
                                            type: "IOAcc",
-                                           sensorType: .gpuIO_temp,
-                                           title: "Temperature".locale(),
-                                           canPlot: true)
-          tempSensor.favorite = UDs.bool(forKey: tempSensor.key)
-          tempSensor.characteristics = primaryMatch
-          tempSensor.logType = .gpuLog
-          tempSensor.doubleValue = temperature.doubleValue
-          tempSensor.stringValue = temperature.stringValue
-          tempSensor.vendor = vendorString
-          gpuNode.mutableChildren.add(HWTreeNode(representedObject: HWSensorData(group: model,
-                                                                                 sensor: tempSensor,
-                                                                                 isLeaf: true)))
-        }
-        
-        if let fanSpeed : NSNumber = PerformanceStatistics.object(forKey: "Fan Speed(RPM)") as? NSNumber {
-          
-          let fanSensor = HWMonitorSensor(key: "Fan/Pump Speed" + unique,
-                                          unit: HWUnit.RPM,
-                                          type: "IOAcc",
-                                          sensorType: .gpuIO_FanRPM,
-                                          title: "Fan/Pump speed".locale(),
-                                          canPlot: true)
-          
-          fanSensor.favorite = UDs.bool(forKey: fanSensor.key)
-          fanSensor.characteristics = primaryMatch
-          fanSensor.logType = .gpuLog
-          fanSensor.doubleValue = fanSpeed.doubleValue
-          fanSensor.stringValue = fanSpeed.stringValue
-          fanSensor.vendor = vendorString
-          gpuNode.mutableChildren.add(HWTreeNode(representedObject: HWSensorData(group: model,
-                                                                                 sensor: fanSensor,
-                                                                                 isLeaf: true)))
-        }
-        
-        if let fanSpeed100 : NSNumber = PerformanceStatistics.object(forKey: "Fan Speed(%)") as? NSNumber {
-          
-          let fan100Sensor = HWMonitorSensor(key: "Fan/Pump Speed rate" + unique,
-                                             unit: HWUnit.Percent,
-                                             type: "IOAcc",
-                                             sensorType: .gpuIO_percent,
-                                             title: "Fan/Pump speed rate".locale(),
-                                             canPlot: true)
-          
-          fan100Sensor.favorite = UDs.bool(forKey: fan100Sensor.key)
-          fan100Sensor.characteristics = primaryMatch
-          fan100Sensor.logType = .gpuLog
-          fan100Sensor.doubleValue = fanSpeed100.doubleValue
-          fan100Sensor.stringValue = fanSpeed100.stringValue
-          fan100Sensor.vendor = vendorString
-          gpuNode.mutableChildren.add(HWTreeNode(representedObject: HWSensorData(group: model,
-                                                                                 sensor: fan100Sensor,
-                                                                                 isLeaf: true)))
-        }
-        
-        if let deviceUtilization : NSNumber = PerformanceStatistics.object(forKey: "Device Utilization %") as? NSNumber {
-          //utilFound = true
-          let duSensor = HWMonitorSensor(key: "Device Utilization" + unique,
-                                         unit: HWUnit.Percent,
-                                         type: "IOAcc",
-                                         sensorType: .gpuIO_percent,
-                                         title: "Utilization".locale(),
-                                         canPlot: true)
-          
-          duSensor.favorite = UDs.bool(forKey: duSensor.key)
-          duSensor.characteristics = primaryMatch
-          duSensor.logType = .gpuLog
-          duSensor.doubleValue = deviceUtilization.doubleValue
-          duSensor.stringValue = deviceUtilization.stringValue
-          duSensor.vendor = vendorString
-          gpuNode.mutableChildren.add(HWTreeNode(representedObject: HWSensorData(group: model,
-                                                                                 sensor: duSensor,
-                                                                                 isLeaf: true)))
-        }
-        
-        if vendorID == NVidia_ID {
-          if let gpuCoreUtilization : NSNumber = PerformanceStatistics.object(forKey: "GPU Core Utilization") as? NSNumber {
-            var gcuInt = gpuCoreUtilization.intValue
-            if gcuInt >= 10000000 {
-              gcuInt = gcuInt / 10000000
-            }
+                                           sensorType: .gpuIO_coreClock,
+                                           title: "Core Clock".locale(),
+                                           canPlot: false)
             
-            let gcuSensor = HWMonitorSensor(key: "GPU Core Utilization" + unique,
-                                            unit: HWUnit.Percent,
-                                            type: "IOAcc",
-                                            sensorType: .gpuIO_percent,
-                                            title: "Core Utilization".locale(),
-                                            canPlot: true)
-            
-            gcuSensor.favorite = UDs.bool(forKey: gcuSensor.key)
-            gcuSensor.characteristics = primaryMatch
-            gcuSensor.logType = .gpuLog
-            gcuSensor.doubleValue = Double(gcuInt)
-            gcuSensor.stringValue = "\(gcuInt)"
-            gcuSensor.vendor = vendorString
+            ccSensor.favorite = UDs.bool(forKey: ccSensor.key)
+            ccSensor.characteristics = primaryMatch
+            ccSensor.logType = .gpuLog
+            ccSensor.doubleValue = Double(coreclock.doubleValue)
+            ccSensor.stringValue = coreclock.stringValue
+            ccSensor.vendor = vendorString
             gpuNode.mutableChildren.add(HWTreeNode(representedObject: HWSensorData(group: model,
-                                                                                   sensor: gcuSensor,
+                                                                                   sensor: ccSensor,
                                                                                    isLeaf: true)))
           }
         }
         
-        if let gpuActivity : NSNumber = PerformanceStatistics.object(forKey: "GPU Activity(%)") as? NSNumber {
-          
-          let gaSensor = HWMonitorSensor(key: "GPU Activity" + unique,
-                                         unit: HWUnit.Percent,
-                                         type: "IOAcc",
-                                         sensorType: .gpuIO_percent,
-                                         title: "Activity".locale(),
-                                         canPlot: true)
-          
-          gaSensor.favorite = UDs.bool(forKey: gaSensor.key)
-          gaSensor.characteristics = primaryMatch
-          gaSensor.logType = .gpuLog
-          gaSensor.doubleValue = gpuActivity.doubleValue
-          gaSensor.stringValue = gpuActivity.stringValue
-          gaSensor.vendor = vendorString
-          gpuNode.mutableChildren.add(HWTreeNode(representedObject: HWSensorData(group: model,
-                                                                                 sensor: gaSensor,
-                                                                                 isLeaf: true)))
+        if let totalPower = PerformanceStatistics.object(forKey: "Total Power(W)") as? NSNumber {
+          if gShowBadSensors || (totalPower.intValue > 0 && totalPower.intValue < 1000) {
+            let tpSensor = HWMonitorSensor(key: "Total Power(W)" + unique,
+                                           unit: HWUnit.Watt,
+                                           type: "IOAcc",
+                                           sensorType: .gpuIO_Watts,
+                                           title: "Total Power".locale(),
+                                           canPlot: true)
+            tpSensor.favorite = UDs.bool(forKey: tpSensor.key)
+            tpSensor.characteristics = primaryMatch
+            tpSensor.logType = .gpuLog
+            tpSensor.doubleValue = totalPower.doubleValue
+            tpSensor.stringValue = totalPower.stringValue
+            tpSensor.vendor = vendorString
+            gpuNode.mutableChildren.add(HWTreeNode(representedObject: HWSensorData(group: model,
+                                                                                   sensor: tpSensor,
+                                                                                   isLeaf: true)))
+          }
+        }
+        
+        if let temperature = PerformanceStatistics.object(forKey: "Temperature(C)") as? NSNumber {
+          if gShowBadSensors || (temperature.intValue >= -15 && temperature.intValue <= 125) {
+            let tempSensor = HWMonitorSensor(key: "Temperature" + unique,
+                                             unit: HWUnit.C,
+                                             type: "IOAcc",
+                                             sensorType: .gpuIO_temp,
+                                             title: "Temperature".locale(),
+                                             canPlot: true)
+            tempSensor.favorite = UDs.bool(forKey: tempSensor.key)
+            tempSensor.characteristics = primaryMatch
+            tempSensor.logType = .gpuLog
+            tempSensor.doubleValue = temperature.doubleValue
+            tempSensor.stringValue = temperature.stringValue
+            tempSensor.vendor = vendorString
+            gpuNode.mutableChildren.add(HWTreeNode(representedObject: HWSensorData(group: model,
+                                                                                   sensor: tempSensor,
+                                                                                   isLeaf: true)))
+          }
+        }
+        
+        if let fanSpeed = PerformanceStatistics.object(forKey: "Fan Speed(RPM)") as? NSNumber {
+          if gShowBadSensors || (fanSpeed.intValue > 0 && fanSpeed.intValue < 5000) {
+            let fanSensor = HWMonitorSensor(key: "Fan/Pump Speed" + unique,
+                                            unit: HWUnit.RPM,
+                                            type: "IOAcc",
+                                            sensorType: .gpuIO_FanRPM,
+                                            title: "Fan/Pump speed".locale(),
+                                            canPlot: true)
+            
+            fanSensor.favorite = UDs.bool(forKey: fanSensor.key)
+            fanSensor.characteristics = primaryMatch
+            fanSensor.logType = .gpuLog
+            fanSensor.doubleValue = fanSpeed.doubleValue
+            fanSensor.stringValue = fanSpeed.stringValue
+            fanSensor.vendor = vendorString
+            gpuNode.mutableChildren.add(HWTreeNode(representedObject: HWSensorData(group: model,
+                                                                                   sensor: fanSensor,
+                                                                                   isLeaf: true)))
+          }
+        }
+        
+        if let fanSpeed100 = PerformanceStatistics.object(forKey: "Fan Speed(%)") as? NSNumber {
+          if gShowBadSensors || (fanSpeed100.intValue > 0 && fanSpeed100.intValue <= 100) {
+            let fan100Sensor = HWMonitorSensor(key: "Fan/Pump Speed rate" + unique,
+                                               unit: HWUnit.Percent,
+                                               type: "IOAcc",
+                                               sensorType: .gpuIO_percent,
+                                               title: "Fan/Pump speed rate".locale(),
+                                               canPlot: true)
+            
+            fan100Sensor.favorite = UDs.bool(forKey: fan100Sensor.key)
+            fan100Sensor.characteristics = primaryMatch
+            fan100Sensor.logType = .gpuLog
+            fan100Sensor.doubleValue = fanSpeed100.doubleValue
+            fan100Sensor.stringValue = fanSpeed100.stringValue
+            fan100Sensor.vendor = vendorString
+            gpuNode.mutableChildren.add(HWTreeNode(representedObject: HWSensorData(group: model,
+                                                                                   sensor: fan100Sensor,
+                                                                                   isLeaf: true)))
+          }
+        }
+        
+        if let deviceUtilization = PerformanceStatistics.object(forKey: "Device Utilization %") as? NSNumber {
+          if gShowBadSensors || (deviceUtilization.intValue >= 0 && deviceUtilization.intValue <= 100) {
+            let duSensor = HWMonitorSensor(key: "Device Utilization" + unique,
+                                           unit: HWUnit.Percent,
+                                           type: "IOAcc",
+                                           sensorType: .gpuIO_percent,
+                                           title: "Utilization".locale(),
+                                           canPlot: true)
+            
+            duSensor.favorite = UDs.bool(forKey: duSensor.key)
+            duSensor.characteristics = primaryMatch
+            duSensor.logType = .gpuLog
+            duSensor.doubleValue = deviceUtilization.doubleValue
+            duSensor.stringValue = deviceUtilization.stringValue
+            duSensor.vendor = vendorString
+            gpuNode.mutableChildren.add(HWTreeNode(representedObject: HWSensorData(group: model,
+                                                                                   sensor: duSensor,
+                                                                                   isLeaf: true)))
+          }
+        }
+        
+        if vendorID == NVidia_ID {
+          if let gpuCoreUtilization = PerformanceStatistics.object(forKey: "GPU Core Utilization") as? NSNumber {
+            var gcuInt = gpuCoreUtilization.intValue
+            if gcuInt >= 10000000 {
+              gcuInt = gcuInt / 10000000
+            }
+            if gShowBadSensors || (gcuInt >= 0 && gcuInt <= 100) {
+              let gcuSensor = HWMonitorSensor(key: "GPU Core Utilization" + unique,
+                                              unit: HWUnit.Percent,
+                                              type: "IOAcc",
+                                              sensorType: .gpuIO_percent,
+                                              title: "Core Utilization".locale(),
+                                              canPlot: true)
+              
+              gcuSensor.favorite = UDs.bool(forKey: gcuSensor.key)
+              gcuSensor.characteristics = primaryMatch
+              gcuSensor.logType = .gpuLog
+              gcuSensor.doubleValue = Double(gcuInt)
+              gcuSensor.stringValue = "\(gcuInt)"
+              gcuSensor.vendor = vendorString
+              gpuNode.mutableChildren.add(HWTreeNode(representedObject: HWSensorData(group: model,
+                                                                                     sensor: gcuSensor,
+                                                                                     isLeaf: true)))
+            }
+          }
+        }
+        
+        if let gpuActivity = PerformanceStatistics.object(forKey: "GPU Activity(%)") as? NSNumber {
+          if gShowBadSensors || (gpuActivity.intValue >= 0 && gpuActivity.intValue <= 100) {
+            let gaSensor = HWMonitorSensor(key: "GPU Activity" + unique,
+                                           unit: HWUnit.Percent,
+                                           type: "IOAcc",
+                                           sensorType: .gpuIO_percent,
+                                           title: "Activity".locale(),
+                                           canPlot: true)
+            
+            gaSensor.favorite = UDs.bool(forKey: gaSensor.key)
+            gaSensor.characteristics = primaryMatch
+            gaSensor.logType = .gpuLog
+            gaSensor.doubleValue = gpuActivity.doubleValue
+            gaSensor.stringValue = gpuActivity.stringValue
+            gaSensor.vendor = vendorString
+            gpuNode.mutableChildren.add(HWTreeNode(representedObject: HWSensorData(group: model,
+                                                                                   sensor: gaSensor,
+                                                                                   isLeaf: true)))
+          }
         }
         /*
         for i in 0..<1 /*0x0A*/ { // limited to Device Unit 0 Utilization
-          if let deunUtilization : NSNumber = PerformanceStatistics.object(forKey: "Device Unit \(i) Utilization %") as? NSNumber {
+          if let deunUtilization = PerformanceStatistics.object(forKey: "Device Unit \(i) Utilization %") as? NSNumber {
             
             let dunuSensor = HWMonitorSensor(key: "Device Unit \(i) Utilization" + unique,
                                              unit: HWUnit.Percent,
@@ -254,24 +263,25 @@ public struct Graphics {
         }*/
         
         if vendorID == NVidia_ID {
-          if let gpuEngineUtilization : NSNumber = PerformanceStatistics.object(forKey: "GPU Video Engine Utilization") as? NSNumber {
-            
-            let gveuSensor = HWMonitorSensor(key: "GPU Video Engine Utilization" + unique,
-                                             unit: HWUnit.Percent,
-                                             type: "IOAcc",
-                                             sensorType: .gpuIO_percent,
-                                             title: "Video Engine Utilization".locale(),
-                                             canPlot: true)
-            
-            gveuSensor.favorite = UDs.bool(forKey: gveuSensor.key)
-            gveuSensor.characteristics = primaryMatch
-            gveuSensor.logType =  .gpuLog
-            gveuSensor.doubleValue = gpuEngineUtilization.doubleValue
-            gveuSensor.stringValue = gpuEngineUtilization.stringValue
-            gveuSensor.vendor = vendorString
-            gpuNode.mutableChildren.add(HWTreeNode(representedObject: HWSensorData(group: model,
-                                                                                   sensor: gveuSensor,
-                                                                                   isLeaf: true)))
+          if let gpuEngineUtilization = PerformanceStatistics.object(forKey: "GPU Video Engine Utilization") as? NSNumber {
+            if gShowBadSensors || (gpuEngineUtilization.intValue >= 0 && gpuEngineUtilization.intValue <= 100) {
+              let gveuSensor = HWMonitorSensor(key: "GPU Video Engine Utilization" + unique,
+                                               unit: HWUnit.Percent,
+                                               type: "IOAcc",
+                                               sensorType: .gpuIO_percent,
+                                               title: "Video Engine Utilization".locale(),
+                                               canPlot: true)
+              
+              gveuSensor.favorite = UDs.bool(forKey: gveuSensor.key)
+              gveuSensor.characteristics = primaryMatch
+              gveuSensor.logType =  .gpuLog
+              gveuSensor.doubleValue = gpuEngineUtilization.doubleValue
+              gveuSensor.stringValue = gpuEngineUtilization.stringValue
+              gveuSensor.vendor = vendorString
+              gpuNode.mutableChildren.add(HWTreeNode(representedObject: HWSensorData(group: model,
+                                                                                     sensor: gveuSensor,
+                                                                                     isLeaf: true)))
+            }
           }
         }
         
@@ -331,7 +341,7 @@ public struct Graphics {
       if free > 0 && used > 0 { valid = true }
     }
     
-    if valid {
+    if gShowBadSensors || valid {
       let freeS = HWMonitorSensor(key: "Free VRAM" + unique,
                                        unit: HWUnit.none,
                                        type: "IOAcc",
