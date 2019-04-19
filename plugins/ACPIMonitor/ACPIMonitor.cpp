@@ -368,7 +368,11 @@ IOReturn ACPIMonitor::callPlatformFunction(const OSSymbol *functionName, bool wa
 					val = 0;
 					
 					if (key->getChar(0) == 'V') {
-						val = encode_fp2e(value);
+            if  (key->getChar(3) <= '2' || key->getChar(3) == 'R')  {
+              val = encode_sp4b(value); //VSN 0 1 2 R
+            } else { 
+              val = encode_fp2e(value);
+            }
 					} else if (key->getChar(0) == 'F') {
 						if (key->getChar(1) == 'A') {
 							val = encode_fpe2(value);
