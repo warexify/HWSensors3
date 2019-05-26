@@ -23,7 +23,6 @@ ForXCode6/HWSensors.xcodeproj/xcshareddata/xcschemes/xcschememanagement.plist -t
 HWSensors.xcodeproj/project.pbxproj -text
 HWSensors.xcodeproj/project.xcworkspace svn_global_002dignores=xcuserdata%0A
 HWSensors.xcodeproj/project.xcworkspace/contents.xcworkspacedata -text
-HWSensors.xcodeproj/project.xcworkspace/xcuserdata/slice.xcuserdatad/UserInterfaceState.xcuserstate -text
 HWSensors.xcodeproj/xcshareddata/xcschemes/ACPIMonitor.xcscheme -text
 HWSensors.xcodeproj/xcshareddata/xcschemes/ADT7470.xcscheme -text
 HWSensors.xcodeproj/xcshareddata/xcschemes/AmdCPUMonitor.xcscheme -text
@@ -63,7 +62,6 @@ hwmonitor/HWMonitorSMC-Info.plist -text
 hwmonitor/HWMonitorSMC.xcodeproj/project.pbxproj -text
 hwmonitor/HWMonitorSMC.xcodeproj/project.xcworkspace svn_global_002dignores=xcuserdata%0A
 hwmonitor/HWMonitorSMC.xcodeproj/project.xcworkspace/contents.xcworkspacedata -text
-hwmonitor/HWMonitorSMC.xcodeproj/project.xcworkspace/xcuserdata/slice.xcuserdatad/UserInterfaceState.xcuserstate -text
 hwmonitor/HWMonitorSMC.xcodeproj/xcshareddata/xcschemes/HWMonitorSMC.xcscheme -text
 hwmonitor/HWMonitorSMC.xcodeproj/xcshareddata/xcschemes/xcschememanagement.plist -text
 hwmonitor/HWMonitorSMC_Prefix.pch -text
