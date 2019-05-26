@@ -78,7 +78,7 @@ bool FakeSMCKey::init(const char * aName, const char * aType, unsigned char aSiz
 		switch (size)
 		{
 			case 1:
-				copySymbol("ui8", type);
+				copySymbol("ui8 ", type);
 				break;
 			case 2:
 				copySymbol("ui16", type);

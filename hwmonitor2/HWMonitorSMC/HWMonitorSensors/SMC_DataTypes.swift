@@ -119,7 +119,7 @@ public struct DataType: Equatable {
 ///
 /// * Padding for struct alignment when passed over to C side
 /// * Size of struct must be 80 bytes
-/// * C array's are bridged as tuples
+/// * C array's are bridged as tuples 
 ///
 /// http://www.opensource.apple.com/source/PowerManagement/PowerManagement-211/
 public struct SMCParamStruct {

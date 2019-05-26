@@ -78,6 +78,7 @@
 		9598FC76204AFC9C00A6DA72 /* cpu_freq_small.png in Resources */ = {isa = PBXBuildFile; fileRef = 9598FC74204AFC9B00A6DA72 /* cpu_freq_small.png */; };
 		9598FC78204B0A7500A6DA72 /* HWTableRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9598FC77204B0A7500A6DA72 /* HWTableRowView.swift */; };
 		95B8BCAB216D435C007B56AD /* CPU.png in Resources */ = {isa = PBXBuildFile; fileRef = 95B8BCAA216D435C007B56AD /* CPU.png */; };
+		95BB578722886555004AEC00 /* smcwrite in CopyFiles */ = {isa = PBXBuildFile; fileRef = 9521BD65228710E600E8ACC8 /* smcwrite */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		95BC225121A565B000E4413F /* Themes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95BC225021A565B000E4413F /* Themes.swift */; };
 		95CE19C92043486E00E73446 /* Popover.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 95CE19CB2043486E00E73446 /* Popover.storyboard */; };
 		95CE19D3204356DF00E73446 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 95CE19D5204356DF00E73446 /* Main.storyboard */; };
@@ -90,9 +91,25 @@
 		95EC3B5521AACFB400EC70AE /* LightAppearance.png in Resources */ = {isa = PBXBuildFile; fileRef = 95EC3B5321AACFB300EC70AE /* LightAppearance.png */; };
 		95EC3B5621AACFB400EC70AE /* DarkAppearance.png in Resources */ = {isa = PBXBuildFile; fileRef = 95EC3B5421AACFB400EC70AE /* DarkAppearance.png */; };
 		95F300F0216E7AA2006F6E87 /* Light.png in Resources */ = {isa = PBXBuildFile; fileRef = 95F300EF216E7AA2006F6E87 /* Light.png */; };
+		95F4381D2284ACE300ADCF42 /* FanControl.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 95F4381C2284ACE300ADCF42 /* FanControl.storyboard */; };
+		95F4381F2284AD2A00ADCF42 /* FanControlVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95F4381E2284AD2A00ADCF42 /* FanControlVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		9521BD64228710E600E8ACC8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9521BD60228710E600E8ACC8 /* smcwrite.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 9521BD5622870DF500E8ACC8;
+			remoteInfo = smcwrite;
+		};
+		9521BD6B2287116500E8ACC8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9521BD60228710E600E8ACC8 /* smcwrite.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 9521BD5522870DF500E8ACC8;
+			remoteInfo = smcwrite;
+		};
 		9551F1A320B35C5600A69C50 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 9551F19F20B35C5500A69C50 /* HWMonitorSMC2 Helper.xcodeproj */;
@@ -119,6 +136,16 @@
 				9551F1A820B35CBF00A69C50 /* HWMonitorSMC2 Helper.app in Copy Helper */,
 			);
 			name = "Copy Helper";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		95BB578622886547004AEC00 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 6;
+			files = (
+				95BB578722886555004AEC00 /* smcwrite in CopyFiles */,
+			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		95D535FA216F68C800289BD7 /* CopyFiles */ = {
@@ -159,6 +186,7 @@
 		951C9DDB216A347A00CDAB92 /* Library */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Library; path = ../../../../../../Library; sourceTree = "<group>"; };
 		951C9DDD216A348D00CDAB92 /* IntelPowerGadget.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IntelPowerGadget.framework; path = ../../../../../../Library/Frameworks/IntelPowerGadget.framework; sourceTree = "<group>"; };
 		951C9DE0216A4A6D00CDAB92 /* IntelPowerGadget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntelPowerGadget.swift; sourceTree = "<group>"; };
+		9521BD60228710E600E8ACC8 /* smcwrite.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = smcwrite.xcodeproj; path = smcwrite/smcwrite.xcodeproj; sourceTree = "<group>"; };
 		952275D82184C5F700E12C3A /* freq_small_on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = freq_small_on.png; sourceTree = "<group>"; };
 		9524F93C2196035A004D8513 /* SMC_Keys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SMC_Keys.swift; sourceTree = "<group>"; };
 		95257966217B66BE008FEB8A /* HWMonitorSensor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HWMonitorSensor.swift; sourceTree = "<group>"; };
@@ -271,6 +299,8 @@
 		95EC3B5321AACFB300EC70AE /* LightAppearance.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LightAppearance.png; sourceTree = "<group>"; };
 		95EC3B5421AACFB400EC70AE /* DarkAppearance.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DarkAppearance.png; sourceTree = "<group>"; };
 		95F300EF216E7AA2006F6E87 /* Light.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Light.png; sourceTree = "<group>"; };
+		95F4381C2284ACE300ADCF42 /* FanControl.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = FanControl.storyboard; sourceTree = "<group>"; };
+		95F4381E2284AD2A00ADCF42 /* FanControlVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FanControlVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -310,6 +340,14 @@
 			path = SystemKit;
 			sourceTree = "<group>";
 		};
+		9521BD61228710E600E8ACC8 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				9521BD65228710E600E8ACC8 /* smcwrite */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		9524F93B2196032C004D8513 /* HWMonitorSensors */ = {
 			isa = PBXGroup;
 			children = (
@@ -330,6 +368,7 @@
 		9524F93E21960429004D8513 /* Interface */ = {
 			isa = PBXGroup;
 			children = (
+				95F4381B2284ACBB00ADCF42 /* FanControl */,
 				958E7971204193EE0007957E /* Assets.xcassets */,
 				952A2BD1219B5269001F78E9 /* License */,
 				958E797D204194500007957E /* Images */,
@@ -419,6 +458,7 @@
 		958E7961204193EE0007957E = {
 			isa = PBXGroup;
 			children = (
+				9521BD60228710E600E8ACC8 /* smcwrite.xcodeproj */,
 				9551F19F20B35C5500A69C50 /* HWMonitorSMC2 Helper.xcodeproj */,
 				958E796C204193EE0007957E /* HWMonitorSMC */,
 				9570DE2B20837FA0003CF4EA /* Frameworks */,
@@ -491,6 +531,15 @@
 			path = C;
 			sourceTree = "<group>";
 		};
+		95F4381B2284ACBB00ADCF42 /* FanControl */ = {
+			isa = PBXGroup;
+			children = (
+				95F4381C2284ACE300ADCF42 /* FanControl.storyboard */,
+				95F4381E2284AD2A00ADCF42 /* FanControlVC.swift */,
+			);
+			path = FanControl;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -503,10 +552,12 @@
 				958E7968204193EE0007957E /* Resources */,
 				9551F1A720B35C8900A69C50 /* Copy Helper */,
 				95D535FA216F68C800289BD7 /* CopyFiles */,
+				95BB578622886547004AEC00 /* CopyFiles */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				9521BD6C2287116500E8ACC8 /* PBXTargetDependency */,
 				9551F1A620B35C7A00A69C50 /* PBXTargetDependency */,
 			);
 			name = HWMonitorSMC2;
@@ -559,6 +610,10 @@
 					ProductGroup = 9551F1A020B35C5500A69C50 /* Products */;
 					ProjectRef = 9551F19F20B35C5500A69C50 /* HWMonitorSMC2 Helper.xcodeproj */;
 				},
+				{
+					ProductGroup = 9521BD61228710E600E8ACC8 /* Products */;
+					ProjectRef = 9521BD60228710E600E8ACC8 /* smcwrite.xcodeproj */;
+				},
 			);
 			projectRoot = "";
 			targets = (
@@ -568,6 +623,13 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		9521BD65228710E600E8ACC8 /* smcwrite */ = {
+			isa = PBXReferenceProxy;
+			fileType = "compiled.mach-o.executable";
+			path = smcwrite;
+			remoteRef = 9521BD64228710E600E8ACC8 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		9551F1A420B35C5600A69C50 /* HWMonitorSMC2 Helper.app */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.application;
@@ -584,6 +646,7 @@
 			files = (
 				958E79B52042EED10007957E /* ssd_small.png in Resources */,
 				9528011A20447910008EA219 /* pin.png in Resources */,
+				95F4381D2284ACE300ADCF42 /* FanControl.storyboard in Resources */,
 				95CE19C92043486E00E73446 /* Popover.storyboard in Resources */,
 				958E79B22042EED10007957E /* modern-battery-icon.png in Resources */,
 				9598FC76204AFC9C00A6DA72 /* cpu_freq_small.png in Resources */,
@@ -647,6 +710,7 @@
 				958E79832041996A0007957E /* HWWindowController.swift in Sources */,
 				9551F19320B355B500A69C50 /* NVMEController.swift in Sources */,
 				9551F19120B355B000A69C50 /* NET.swift in Sources */,
+				95F4381F2284AD2A00ADCF42 /* FanControlVC.swift in Sources */,
 				957EC0892188736900F0A457 /* GadgetWC.swift in Sources */,
 				9526EC11218346A1008595B2 /* HWSensorsUpdate.swift in Sources */,
 				9551F19720B355C000A69C50 /* SATAController.swift in Sources */,
@@ -672,6 +736,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		9521BD6C2287116500E8ACC8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = smcwrite;
+			targetProxy = 9521BD6B2287116500E8ACC8 /* PBXContainerItemProxy */;
+		};
 		9551F1A620B35C7A00A69C50 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = "HWMonitorSMC2 Helper";
@@ -813,7 +882,7 @@
 				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_IDENTITY = "-";
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 2.4.6;
+				CURRENT_PROJECT_VERSION = 2.4.7;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -832,7 +901,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
-				MODULE_VERSION = 2.4.6;
+				MODULE_VERSION = 2.4.7;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
@@ -878,7 +947,7 @@
 				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_IDENTITY = "-";
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 2.4.6;
+				CURRENT_PROJECT_VERSION = 2.4.7;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -891,7 +960,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
-				MODULE_VERSION = 2.4.6;
+				MODULE_VERSION = 2.4.7;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -907,7 +976,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 2.4.6;
+				CURRENT_PROJECT_VERSION = 2.4.7;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(LOCAL_LIBRARY_DIR)/Frameworks",
@@ -916,7 +985,7 @@
 				INFOPLIST_FILE = HWMonitorSMC/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
-				MODULE_VERSION = 2.4.6;
+				MODULE_VERSION = 2.4.7;
 				PRODUCT_BUNDLE_IDENTIFIER = org.slice.HWMonitorSMC2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
@@ -933,7 +1002,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 2.4.6;
+				CURRENT_PROJECT_VERSION = 2.4.7;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(LOCAL_LIBRARY_DIR)/Frameworks",
@@ -942,7 +1011,7 @@
 				INFOPLIST_FILE = HWMonitorSMC/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
-				MODULE_VERSION = 2.4.6;
+				MODULE_VERSION = 2.4.7;
 				PRODUCT_BUNDLE_IDENTIFIER = org.slice.HWMonitorSMC2;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;

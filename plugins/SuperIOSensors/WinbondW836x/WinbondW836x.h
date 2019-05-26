@@ -46,94 +46,22 @@
  
  */
 
-#include <IOKit/IOService.h>
+#include "../SuperIOFamily/SuperIOFamily.h"
 #include <IOKit/IORegistryEntry.h>
 #include <IOKit/IOPlatformExpert.h>
 #include <IOKit/IODeviceTreeSupport.h>
 #include <IOKit/IOKitKeys.h>
 
-#include "../SuperIOFamily/SuperIOFamily.h"
-
-const UInt8 WINBOND_HARDWARE_MONITOR_LDN		= 0x0B;
-
-const UInt16 WINBOND_VENDOR_ID              = 0x5CA3;
-const UInt8 WINBOND_HIGH_BYTE               = 0x80;
-
-// Winbond Hardware Monitor
-const UInt8 WINBOND_ADDRESS_REGISTER_OFFSET	= 0x05;
-const UInt8 WINBOND_DATA_REGISTER_OFFSET		= 0x06;
-
-// Winbond Hardware Monitor Registers
-const UInt8 WINBOND_BANK_SELECT_REGISTER		= 0x4E;
-const UInt8 WINBOND_VENDOR_ID_REGISTER      = 0x4F;
-const UInt8 WINBOND_TEMPERATURE_SOURCE_SELECT_REG	= 0x49;
-
-//private string[] TEMPERATURE_NAME = 
-//new string[] {"CPU", "Ambient", "System", "Memory"};
-const UInt16 WINBOND_TEMPERATURE[]           = { 0x150, 0x250, 0x27 };
-const UInt16 NUVOTON_TEMPERATURE[]           = { 0x150, 0x670, 0x27 };
-const UInt16 NUVOTON_NEW_TEMPERATURE1[]       = { 0x75, 0x77, 0x73, 0x79 };
-const UInt16 NUVOTON_NEW_TEMPERATURE2[]       = { 0x402, 0x401, 0x404, 0x405 };
 
 
-// Voltages                                    VCORE   AVSB   3VCC   AVCC  +12V1  -12V2  -5VIN3  3VSB   VBAT
-const UInt16 WINBOND_VOLTAGE_REG[]          = { 0x20,  0x21,  0x23,  0x22,  0x24,  0x25,  0x26,  0x550, 0x551 };
-const float  WINBOND_VOLTAGE_SCALE[]        = { 8,     8,     16,    16,    8,     8,     8,     16,    16 };
-const UInt16 WINBOND_VOLTAGE_VBAT_REG       = 0x0551;
-const UInt16 NUVOTON_VOLTAGE_REG[]          = { 0x480, 0x482, 0x483, 0x484, 0x485, 0x481, 0x486, 0x487, 0x488 };
+// Winbond/Nuvoton Hardware Monitor registers
+static const UInt8 HARDWARE_MONITOR_LDN     = 0x0B;
+static const UInt8 ADDRESS_REGISTER_OFFSET	= 0x05;
+static const UInt8 DATA_REGISTER_OFFSET		  = 0x06;
+static const UInt8 BANK_SELECT_REGISTER		  = 0x4E;
 
-
-const UInt8 WINBOND_TACHOMETER[]			= { 0x28, 0x29, 0x2A, 0x3F, 0x53 };
-const UInt8 WINBOND_TACHOMETER_BANK[]		= { 0, 0, 0, 0, 5 };
-
-//                                        SYSFAN, CPUFAN, AUXFAN
-const UInt16 NUVOTON_TACHOMETER[]			= { 0x4C0,  0x4C2,  0x4C4,  0x4C6, 0x4C8, 0x4CA};
-
-const UInt8 WINBOND_TACHOMETER_DIV0[]		= { 0x47, 0x47, 0x4B, 0x59, 0x59 };
-const UInt8 WINBOND_TACHOMETER_DIV0_BIT[]	= { 4,    6,    6,    0,    2 };
-const UInt8 WINBOND_TACHOMETER_DIV1[]		= { 0x47, 0x47, 0x4B, 0x59, 0x59 };
-const UInt8 WINBOND_TACHOMETER_DIV1_BIT[]	= { 5,    7,    7,    1,    3 };
-const UInt8 WINBOND_TACHOMETER_DIV2[]		= { 0x5D, 0x5D, 0x5D, 0x4C, 0x59 };
-const UInt8 WINBOND_TACHOMETER_DIV2_BIT[]	= { 5,    6,    7,    7,    7 };
-
-const UInt8 WINBOND_TACHOMETER_DIVISOR[]	= { 0x47, 0x4B, 0x4C, 0x59, 0x5D };
-const UInt8 WINBOND_TACHOMETER_DIVISOR0[]	= { 36, 38, 30, 8, 10 };
-const UInt8 WINBOND_TACHOMETER_DIVISOR1[]	= { 37, 39, 31, 9, 11 };
-const UInt8 WINBOND_TACHOMETER_DIVISOR2[]	= { 5, 6, 7, 23, 15 };
-
-// Fan Control
-const UInt8 WINBOND_FAN_CONFIG[]			  = { 0x04, 0x04, 0x12, 0x62 };
-const UInt8 WINBOND_FAN_CONTROL_BIT[]		= { 0x02, 0x04, 0x01, 0x04 };
-const UInt8 WINBOND_FAN_MODE_BIT[]			= { 0x00, 0x01, 0x00, 0x06 };
-const UInt8 WINBOND_FAN_OUTPUT[]			  = { 0x01, 0x03, 0x11, 0x61 };
-
-enum W836xModel {
-  W83627DHG  = 0xA020,
-  W83627UHG  = 0xA230,
-  W83627DHGP = 0xB070,
-  W83627EHF  = 0x8800,
-  W83627HF   = 0x5200,
-  W83627THF  = 0x8280,
-  W83627SF   = 0x5950,
-  W83637HF   = 0x7080,
-  W83667HG   = 0xA510,
-  W83667HGB  = 0xB350,
-  W83687THF  = 0x8541,
-  W83697HF   = 0x6010,
-  W83697SF   = 0x6810,
-  NCT6681    = 0xB270,
-  NCT6683    = 0xC730,
-  NCT6771F   = 0xB470,
-  NCT6776F   = 0xC330,
-  NCT6779D   = 0xC560,
-  NCT6791D   = 0xC803,
-  NCT6792D   = 0xC911,
-  NCT6793D   = 0xD121,
-  NCT6795D   = 0xD352,
-  NCT6796D   = 0xD423,
-  NCT6798D   = 0xD428,
-  NCT679BD   = 0xD42B,
-};
+static const int minFanRPM = (int)(1.35e6 / 0xFFFF); //min value RPM value with 16-bit fan counter //default value
+static const int maxFanRPM = 7000;
 
 class W836x;
 
@@ -145,9 +73,18 @@ public:
     static SuperIOSensor *withOwner(SuperIOMonitor *aOwner, const char* aKey, const char* aType, unsigned char aSize, SuperIOSensorGroup aGroup, unsigned long aIndex , long aRi=0, long aRf=1, long aVf=0);
     
     virtual long	getValue();
-//    virtual void    setValue(UInt16 value);
+    virtual void  setValue(UInt16 value);
 };
 
+enum FanCalibrationStatus {
+  doNothing       = 0,
+  initiate        = 1,
+  minCalibration  = 2,
+  maxCalibration  = 3,
+  conluded        = 4
+};
+
+static const int maxFanAllowed = 7;
 
 class W836x : public SuperIOMonitor
 {
@@ -161,12 +98,40 @@ public:
 	virtual void		free(void);
 
 private:
+  UInt8           nvram_data[44];
+  IOLock          * lock = NULL;
+  bool            safeToWrite = false;
+  IOTimerEventSource * timer = NULL;
+  IOWorkLoop      * workLoop = NULL;
   char            vendor[40];
   char            product[40];
-    
+  bool            isNuvoton = false;
+  
+  int             voltagesCount = 9;
+  
+  UInt16        * voltageRegisters;
+  UInt16          voltageVBatRegister;
+  UInt16          vBatMonitorControlRegister;
+  
+  UInt16        * temperatureRegisters;
+  
+  UInt32          nvramTimeOutms = kFanControlInitialInterval;
+  
+  FanCalibrationStatus fanCalibrationStatus = doNothing;
 	UInt8           fanLimit;
-	UInt16          fanValue[5];
-	bool            fanValueObsolete[5];
+	UInt16          fanValue[maxFanAllowed];
+	bool            fanValueObsolete[maxFanAllowed];
+  
+  UInt16          fanRpmBaseRegister;
+  UInt16        * fanControlMode = NULL;
+  UInt16        * fanControlPWMCommand = NULL;
+  UInt16        * fanControlPWMOut = NULL;
+  int             fanMaxCount = 3;
+  UInt8           fanControlsCount = 0;
+  
+  bool            restoreDefaultFanControlRequired[maxFanAllowed];
+  UInt8           initialFanControlMode[maxFanAllowed];
+  UInt8           initialFanPwmCommand[maxFanAllowed];
 	
 	void            writeByte(UInt8 bank, UInt8 reg, UInt8 value);
 	UInt8           readByte(UInt8 bank, UInt8 reg);
@@ -175,19 +140,38 @@ private:
 	virtual bool		probePort();
     //  virtual bool			startPlugin();
 	virtual void		enter();
+  void            disableIOSpaceLock();
 	virtual void		exit();
+  
+  void            logAddresses();
+  bool            dumplogged = false;
     
 	virtual long		readTemperature(unsigned long index);
+  long            readNuvotonTemperature(UInt16 temperatureRegister);
 	virtual long		readVoltage(unsigned long index);
+  
 	void            updateTachometers();
-	virtual long		readTachometer(unsigned long index);
+  UInt8           readTachometerControlPercent(unsigned long index);
+  virtual long		readTachometerControl(unsigned long index);
+  virtual long		readTachometer(unsigned long index);
+  virtual long		readTachometerMin(unsigned long index);
+  virtual long		readTachometerMax(unsigned long index);
+  virtual long		readTachometerTarget(unsigned long index);
+  void            saveDefaultFanControl(unsigned long index);
+  void            restoreDefaultFanControl(unsigned long index);
+
+  void            readNVRAMFansControl();
+  void            enableNVRAMFansControl();
+  void            writeKeyToNVRAM(const OSSymbol *key, OSData *data);
+  void            deleteNVRAMKey(const OSSymbol *key);
 	
 	virtual const char*	getModelName();
 	
 public:
-    SuperIOSensor *		addSensor(const char* key, const char* type, unsigned int size, SuperIOSensorGroup group, unsigned long index, long aRi=0, long aRf=1, long aVf=0);
-    
-    virtual IOReturn callPlatformFunction(const OSSymbol *functionName, bool waitForFunction, void *param1, void *param2, void *param3, void *param4 );
-
-
+  SuperIOSensor *		addSensor(const char* key, const char* type, unsigned int size, SuperIOSensorGroup group, unsigned long index, long aRi=0, long aRf=1, long aVf=0);
+  
+  virtual IOReturn callPlatformFunction(const OSSymbol *functionName, bool waitForFunction, void *param1, void *param2, void *param3, void *param4 );
+  
+  void setControl(unsigned long index, UInt16 rpm);
+  virtual IOReturn  setPowerState(unsigned long powerStateOrdinal, IOService *whatDevice);
 };

@@ -56,6 +56,10 @@ class PreferencesVC: NSViewController, NSTextFieldDelegate, NSFontChanging, NSTa
   @IBOutlet var sliderFieldGPU          : NSTextField!
   @IBOutlet var sliderFieldMoBo         : NSTextField!
   @IBOutlet var sliderFieldFans         : NSTextField!
+  @IBOutlet var enableFanControlBtn     : NSButton!
+  @IBOutlet var showFanMinMaxBtn        : NSButton!
+  
+  
   @IBOutlet var sliderFieldRam          : NSTextField!
   @IBOutlet var sliderFieldMedia        : NSTextField!
   @IBOutlet var sliderFieldBattery      : NSTextField!
@@ -90,23 +94,23 @@ class PreferencesVC: NSViewController, NSTextFieldDelegate, NSFontChanging, NSTa
     }
     
     self.viewSizePop.removeAllItems()
-    self.viewSizePop.addItem(withTitle: MainViewSize.normal.rawValue.locale())
+    self.viewSizePop.addItem(withTitle: MainViewSize.normal.rawValue.locale)
     self.viewSizePop.lastItem?.representedObject = MainViewSize.normal.rawValue
-    self.viewSizePop.addItem(withTitle: MainViewSize.medium.rawValue.locale())
+    self.viewSizePop.addItem(withTitle: MainViewSize.medium.rawValue.locale)
     self.viewSizePop.lastItem?.representedObject = MainViewSize.medium.rawValue
-    self.viewSizePop.addItem(withTitle: MainViewSize.large.rawValue.locale())
+    self.viewSizePop.addItem(withTitle: MainViewSize.large.rawValue.locale)
     self.viewSizePop.lastItem?.representedObject = MainViewSize.large.rawValue
     
     self.themesPop.removeAllItems()
-    self.themesPop.addItem(withTitle: Theme.Default.rawValue.locale())
+    self.themesPop.addItem(withTitle: Theme.Default.rawValue.locale)
     self.themesPop.lastItem?.representedObject = Theme.Default.rawValue
-    self.themesPop.addItem(withTitle: Theme.Classic.rawValue.locale())
+    self.themesPop.addItem(withTitle: Theme.Classic.rawValue.locale)
     self.themesPop.lastItem?.representedObject = Theme.Classic.rawValue
-    self.themesPop.addItem(withTitle: Theme.DashedH.rawValue.locale())
+    self.themesPop.addItem(withTitle: Theme.DashedH.rawValue.locale)
     self.themesPop.lastItem?.representedObject = Theme.DashedH.rawValue
-    self.themesPop.addItem(withTitle: Theme.NoGrid.rawValue.locale())
+    self.themesPop.addItem(withTitle: Theme.NoGrid.rawValue.locale)
     self.themesPop.lastItem?.representedObject = Theme.NoGrid.rawValue
-    self.themesPop.addItem(withTitle: Theme.GridClear.rawValue.locale())
+    self.themesPop.addItem(withTitle: Theme.GridClear.rawValue.locale)
     self.themesPop.lastItem?.representedObject = Theme.GridClear.rawValue
     
     if #available(OSX 10.11, *) {} else {
@@ -338,6 +342,13 @@ class PreferencesVC: NSViewController, NSTextFieldDelegate, NSFontChanging, NSTa
     self.showFansSensorsBtn.state = UDs.bool(forKey: kShowFansSensors) ? .on : .off
     self.sliderFans.isEnabled = (self.showFansSensorsBtn.state == .on)
     
+    self.enableFanControlBtn.state = UDs.bool(forKey: kEnableFansControl) ? .on : .off
+    self.enableFanControlBtn.isEnabled = (self.showFansSensorsBtn.state == .on)
+    
+    self.showFanMinMaxBtn.state = UDs.bool(forKey: kShowFansMinMaxSensors) ? .on : .off
+    self.showFanMinMaxBtn.isEnabled = (self.showFansSensorsBtn.state == .on)
+    
+    
     if (UDs.object(forKey: kShowRAMSensors) == nil) {
       UDs.set(true, forKey: kShowRAMSensors)
     }
@@ -395,8 +406,8 @@ class PreferencesVC: NSViewController, NSTextFieldDelegate, NSFontChanging, NSTa
 
     self.hideScrollerBtn.state = UDs.bool(forKey: kHideVerticalScroller) ? .on : .off
     
-    self.viewSizePop.selectItem(withTitle: (UDs.string(forKey: kViewSize) ?? MainViewSize.normal.rawValue).locale())
-    self.themesPop.selectItem(withTitle: (UDs.string(forKey: kTheme) ?? Theme.Default.rawValue).locale())
+    self.viewSizePop.selectItem(withTitle: (UDs.string(forKey: kViewSize) ?? MainViewSize.normal.rawValue).locale)
+    self.themesPop.selectItem(withTitle: (UDs.string(forKey: kTheme) ?? Theme.Default.rawValue).locale)
     
     
     self.synchronize()
@@ -460,6 +471,18 @@ class PreferencesVC: NSViewController, NSTextFieldDelegate, NSFontChanging, NSTa
   @IBAction func showFansSensors(_ sender: NSButton) {
     UDs.set(sender.state == NSControl.StateValue.on, forKey: kShowFansSensors)
     self.sliderFans.isEnabled = (sender.state == .on)
+    self.enableFanControlBtn.isEnabled = (sender.state == .on)
+    self.showFanMinMaxBtn.isEnabled = (sender.state == .on)
+    self.synchronize()
+  }
+  
+  @IBAction func enableFansControl(_ sender: NSButton) {
+    UDs.set(sender.state == NSControl.StateValue.on, forKey: kEnableFansControl)
+    self.synchronize()
+  }
+  
+  @IBAction func showFansMinMaxSensors(_ sender: NSButton) {
+    UDs.set(sender.state == NSControl.StateValue.on, forKey: kShowFansMinMaxSensors)
     self.synchronize()
   }
   
@@ -722,7 +745,7 @@ class PreferencesVC: NSViewController, NSTextFieldDelegate, NSFontChanging, NSTa
     self.fontManager.action = #selector(self.changeTopBarFont)
     
     let panel = self.fontManager.fontPanel(true)
-    panel?.title = "Top Bar Font Manager".locale() + " - HWMonitorSMC2"
+    panel?.title = "Top Bar Font Manager".locale + " - HWMonitorSMC2"
     panel?.makeKeyAndOrderFront(self)
   }
   

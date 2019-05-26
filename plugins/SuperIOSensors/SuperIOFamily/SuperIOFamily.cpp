@@ -14,6 +14,7 @@
 #include "FakeSMC.h"
 #include "utils.h"
 
+
 //#define Debug FALSE
 
 #define LogPrefix "SuperIOFamily: "
@@ -39,6 +40,7 @@
  return swap_value(value << 2);
  }
  */
+
 OSString * vendorID(OSString * smbios_manufacturer)
 {
   if (smbios_manufacturer) {
@@ -197,6 +199,18 @@ long SuperIOSensor::getValue()
 		case kSuperIOTachometerSensor:
 			value = owner->readTachometer(index);
 			break;
+    case kSuperIOTachometerControlSensor:
+      value = owner->readTachometerControl(index);
+      break;
+    case kSuperIOTachometerMinSensor:
+      value = owner->readTachometerMin(index);
+      break;
+    case kSuperIOTachometerMaxSensor:
+      value = owner->readTachometerMax(index);
+      break;
+    case kSuperIOTachometerTargetSensor:
+      value = owner->readTachometerTarget(index);
+      break;
 		default:
 			break;
 	}
@@ -252,9 +266,13 @@ bool SuperIOSensor::initWithOwner(SuperIOMonitor *aOwner, const char* aKey, cons
   switch (group) {
     case kSuperIOTemperatureSensor:
     case kSuperIOTachometerSensor:
+    case kSuperIOTachometerMinSensor:
+    case kSuperIOTachometerMaxSensor:
+    case kSuperIOTachometerTargetSensor:
       scale = 1000;
       break;
     case kSuperIOVoltageSensor:
+    case kSuperIOTachometerControlSensor:
       scale = 1;
       break;
     case kSuperIOFrequency:
@@ -334,9 +352,29 @@ long SuperIOMonitor::readVoltage(unsigned long index)
 	return 0;
 }
 
+ long SuperIOMonitor::readTachometerControl(unsigned long index)
+{
+  return 0;
+}
+
 long SuperIOMonitor::readTachometer(unsigned long index)
 {
 	return 0;
+}
+
+long SuperIOMonitor::readTachometerMin(unsigned long index)
+{
+  return 0;
+}
+
+long SuperIOMonitor::readTachometerMax(unsigned long index)
+{
+  return 0;
+}
+
+long SuperIOMonitor::readTachometerTarget(unsigned long index)
+{
+  return 0;
 }
 
 long SuperIOMonitor::readTemperature(unsigned long index)
@@ -367,7 +405,15 @@ bool SuperIOMonitor::updateSensor(const char *key, const char *type, unsigned in
 			break;
 		case kSuperIOTachometerSensor:
 			value = readTachometer(index);
-			break;
+    case kSuperIOTachometerMinSensor:
+      value = readTachometerMin(index);
+      break;
+    case kSuperIOTachometerMaxSensor:
+      value = readTachometerMax(index);
+      break;
+    case kSuperIOTachometerTargetSensor:
+      value = readTachometerTarget(index);
+      break;
 		default:
 			break;
 	}
@@ -430,6 +476,35 @@ SuperIOSensor *SuperIOMonitor::addTachometer(unsigned long index, const char* id
         if (kIOReturnSuccess != fakeSMC->callPlatformFunction(kFakeSMCAddKeyValue, false, (void *)name, (void *)TYPE_FDESC, (void *)((UInt64)sizeof(fds)), (void *)&fds)) {
           
 					WarningLog("error adding tachometer id value");
+        } else {
+          char key[5];
+          
+          if (useFanForceNewKeys < 0)
+          {
+            // legacy fans control method
+            if (!addSensor(KEY_FAN_FORCE, TYPE_FPE2, 2, kSuperIOTachometerControlSensor, 0))
+              WarningLog("error adding tachometer control sensor");
+            useFanForceNewKeys = 0; // doing this only once
+          }
+          else if (useFanForceNewKeys == 1)
+          {
+            // 2018+ fans control method
+            snprintf(key, 5, KEY_FAN_FORCE_NEW, (unsigned int)index);
+            if (!addSensor(key, TYPE_UI8, 1, kSuperIOTachometerControlSensor, index))
+              WarningLog("error adding tachometer control sensor");
+          }
+          
+          snprintf(key, 5, KEY_FORMAT_FAN_MIN_SPEED, (unsigned int)index);
+          if (!addSensor(key, TYPE_FPE2, 2, kSuperIOTachometerMinSensor, index))
+            WarningLog("error adding tachometer min sensor");
+          
+          snprintf(key, 5, KEY_FORMAT_FAN_MAX_SPEED, (unsigned int)index);
+          if (!addSensor(key, TYPE_FPE2, 2, kSuperIOTachometerMaxSensor, index))
+            WarningLog("error adding tachometer max sensor");
+          
+          snprintf(key, 5, KEY_FORMAT_FAN_TARGET_SPEED, (unsigned int)index);
+          if (!addSensor(key, TYPE_FPE2, 2, kSuperIOTachometerTargetSensor, index))
+            WarningLog("error adding tachometer target sensor");
         }
 			}
 			
@@ -515,6 +590,9 @@ bool SuperIOMonitor::start(IOService *provider)
 		return false;
 	}
 	
+  if (PE_parse_boot_argn(kFanLegacyKeysFlag, gArgBuf, sizeof(gArgBuf))) {
+    useFanForceNewKeys = -1;
+  }
 	return true;
 }
 

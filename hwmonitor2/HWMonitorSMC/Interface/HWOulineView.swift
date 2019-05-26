@@ -119,10 +119,11 @@ class HWOulineView: NSOutlineView, NSPopoverDelegate {
   private var appearanceObserver: NSKeyValueObservation?
   weak var appearanceDelegate: AppearanceChangeDelegate?
   enum InfoViewSize : Int {
-    case small  = 1
-    case normal = 2
-    case medium = 3
-    case big    = 4
+    case small      = 1
+    case normal     = 2
+    case medium     = 3
+    case big        = 4
+    case fanControl = 5
   }
   
   override init(frame frameRect: NSRect) {
@@ -279,10 +280,10 @@ class HWOulineView: NSOutlineView, NSPopoverDelegate {
     var log : String? = nil
     var size : InfoViewSize = .normal
     if ((node.sensorData?.sensor?.sensorType) != nil) {
-      let logType : LogType = (node.sensorData?.sensor?.logType)!
+      let actionType : ActionType = (node.sensorData?.sensor?.actionType)!
       
-      switch logType {
-      case .noLog: break
+      switch actionType {
+      case .nothing: break
       case .systemLog:
         size = .big
         log = self.getSystemInfo()
@@ -294,7 +295,7 @@ class HWOulineView: NSOutlineView, NSPopoverDelegate {
         let parent : HWTreeNode? = node.parent?.parent as? HWTreeNode
         
         if (parent != nil) {
-          if parent?.sensorData?.group == "GPUs".locale() {
+          if parent?.sensorData?.group == "GPUs".locale {
             let index : Int = (node.parent?.mutableChildren.index(of: node))!
             log = Graphics.init().getGraphicsInfo(acpiPathOrPrimaryMatch: node.sensorData?.sensor?.characteristics, index: index)
           }
@@ -310,6 +311,27 @@ class HWOulineView: NSOutlineView, NSPopoverDelegate {
       case .batteryLog:
         size = .normal
         log = self.getBatteryInfo()
+      case .fanControl:
+        if AppSd.fanControlEnabled {
+          
+          let pop = NSPopover()
+          pop.behavior = .transient
+          pop.animates = true
+          pop.delegate = self
+          pop.contentSize = NSMakeSize(200, 83)
+          let rpm : Int32 = Int32(node.sensorData!.sensor!.doubleValue)
+          let fc = FanControlVC.loadFromNib(key: node.sensorData!.sensor!.key,
+                                            index: node.sensorData!.sensor!.index,
+                                            target: rpm)
+          //fc.view.setFrameSize(pop.contentSize)
+          pop.contentViewController = fc
+          rowView = self.view(atColumn: 0, row: row, makeIfNecessary: false)
+          
+          return pop
+        } else {
+          size = .big
+          log = self.getSystemInfo()
+        }
       default:
         break
       }
@@ -317,26 +339,26 @@ class HWOulineView: NSOutlineView, NSPopoverDelegate {
       //we are on a parent
       if let groupString = node.sensorData?.group {
         switch groupString {
-        case "Core Temperatures".locale(): fallthrough
-        case "Core Frequencies".locale():  fallthrough
-        case "CPU".locale():
+        case "Core Temperatures".locale: fallthrough
+        case "Core Frequencies".locale:  fallthrough
+        case "CPU".locale:
           size = .medium
           log = self.getCPUInfo()
-        case "RAM".locale():
+        case "RAM".locale:
           size = .normal
           log = self.getMemoryInfo()
-        case "GPUs".locale():
+        case "GPUs".locale:
           size = .medium
           log = self.getGPUInfo()
-        case "Batteries".locale():
+        case "Batteries".locale:
           size = .normal
           log = self.getBatteryInfo()
-        case "System".locale(): fallthrough
-        case "Fans or Pumps".locale(): fallthrough
-        case "Motherboard".locale():
+        case "System".locale: fallthrough
+        case "Fans or Pumps".locale: fallthrough
+        case "Motherboard".locale:
           size = .big
           log = self.getSystemStatus()
-        case "Media health".locale():
+        case "Media health".locale:
           var allDrivesInfo : String = ""
           for diskNode in node.children! {
             if let disk : HWTreeNode = diskNode as? HWTreeNode {
@@ -353,7 +375,7 @@ class HWOulineView: NSOutlineView, NSPopoverDelegate {
         default:
           let parent : HWTreeNode? = node.parent as? HWTreeNode
           if (parent != nil) {
-            if parent?.sensorData?.group == "GPUs".locale() {
+            if parent?.sensorData?.group == "GPUs".locale {
               for n in node.mutableChildren {
                 size = .big
                 log = Graphics.init().getGraphicsInfo(acpiPathOrPrimaryMatch: (n as? HWTreeNode)?.sensorData?.sensor?.characteristics, index: 0)
@@ -368,6 +390,9 @@ class HWOulineView: NSOutlineView, NSPopoverDelegate {
     }
     if (log != nil && log!.count > 0) {
       let pop = NSPopover()
+      pop.behavior = .transient
+      pop.animates = true
+      
       pop.delegate = self
       if size == .small {
         pop.contentSize = NSMakeSize(250, 100)
@@ -379,8 +404,7 @@ class HWOulineView: NSOutlineView, NSPopoverDelegate {
         pop.contentSize = NSMakeSize(400, 450)
       }
       
-      pop.behavior = .transient
-      pop.animates = true
+      
       let vc = RightClickViewController.loadFromNib(node: node, outline: self)
       vc.view.setFrameSize(pop.contentSize)
       let attrLog = NSMutableAttributedString(string: log!)

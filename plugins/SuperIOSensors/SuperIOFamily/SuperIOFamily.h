@@ -14,6 +14,21 @@
 #include <libkern/c++/OSArray.h>
 #include <IOKit/IOService.h>
 
+// nvram
+#define kNVRAMPath "/options"
+#define kFanControlKey "HW_fanControl"
+#define kFanControlData "HW_fanControlData"
+
+// fan control timing
+#define kFanControlInitialInterval 1000
+#define kFanControlInterval 3000
+#define kFanControlCalibrationInterval (kFanControlInterval * 2)
+#define kFanControlDisabledInterval (kFanControlInterval * 10)
+
+// fan's boot arguments
+#define kFanLegacyKeysFlag "-legacyFan"
+#define kFanControlFlag    "-fanCtrl"
+
 OSString * vendorID(OSString * smbios_manufacturer);
 
 // Ports
@@ -31,11 +46,18 @@ const UInt8 FINTEK_CHIP_IPD_REGISTER            = 0x25; //Software Power Down
 
 
 enum SuperIOSensorGroup {
-	kSuperIOTemperatureSensor,
-	kSuperIOTachometerSensor,
+  kSuperIOTemperatureSensor,
+  kSuperIOTachometerSensor,
 	kSuperIOVoltageSensor,
-  kSuperIOFrequency
+  kSuperIOFrequency,
+  /* added to the end to not break retro compatibility */
+  kSuperIOTachometerControlSensor,
+  kSuperIOTachometerMinSensor,
+  kSuperIOTachometerMaxSensor,
+  kSuperIOTachometerTargetSensor
 };
+
+static char gArgBuf[256]; // boot arguments
 
 class SuperIOMonitor;
 
@@ -103,9 +125,15 @@ protected:
 	virtual bool      updateSensor(const char *key, const char *type, unsigned int size, SuperIOSensorGroup group, unsigned long index);
 		
 public:
+  bool              fanControl = false;
+  int               useFanForceNewKeys = 1; // default is on
 	virtual long			readTemperature(unsigned long index);
 	virtual long			readVoltage(unsigned long index);
-	virtual long			readTachometer(unsigned long index);
+  virtual long      readTachometerControl(unsigned long index);
+  virtual long			readTachometer(unsigned long index);
+  virtual long			readTachometerMin(unsigned long index);
+  virtual long			readTachometerMax(unsigned long index);
+  virtual long			readTachometerTarget(unsigned long index);
 	
 	virtual bool			init(OSDictionary *properties=0);
 	virtual IOService*		probe(IOService *provider, SInt32 *score);
@@ -113,7 +141,7 @@ public:
 	virtual void			stop(IOService *provider);
 	virtual void			free(void);
 	
-	virtual IOReturn		callPlatformFunction(const OSSymbol *functionName, bool waitForFunction, void *param1, void *param2, void *param3, void *param4 ); 
+	virtual IOReturn		callPlatformFunction(const OSSymbol *functionName, bool waitForFunction, void *param1, void *param2, void *param3, void *param4 );
 	
 };
 

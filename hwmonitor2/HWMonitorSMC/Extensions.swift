@@ -9,12 +9,14 @@
 import Cocoa
 
 extension String {
-  public func locale() -> String {
-    return NSLocalizedString(self, comment: "")
+  var locale: String {
+    get {
+      return NSLocalizedString(self, comment: "")
+    }
   }
   
   public func locale(_ localized: Bool) -> String {
-    return (localized ? self.locale() : self)
+    return (localized ? self.locale : self)
   }
   
   public func noSpaces() -> String {

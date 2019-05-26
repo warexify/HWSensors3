@@ -9,8 +9,8 @@
 import Cocoa
 
 //MARK: - log type
-enum LogType : Int {
-  case noLog      = 0
+enum ActionType : Int {
+  case nothing    = 0
   case systemLog  = 1
   case cpuLog     = 2
   case gpuLog     = 3
@@ -18,6 +18,7 @@ enum LogType : Int {
   case mediaLog   = 5
   case batteryLog = 6
   case usbLog     = 7
+  case fanControl = 8
 }
 
 //MARK: - Units of measurement
@@ -87,6 +88,7 @@ enum HWSensorType : Int {
 
 //MARK: - HWMonitorSensor
 class HWMonitorSensor: NSObject {
+  private var isFavoriteSensor : Bool = false
   var prefix : String = ""
   var key : String
   var type : String
@@ -94,10 +96,12 @@ class HWMonitorSensor: NSObject {
   var sensorType : HWSensorType
   var outLine: HWOulineView?
   var favorite: Bool = false
-  var logType : LogType = .noLog
+  
+  var actionType : ActionType = .nothing
   var unit : HWUnit
   var doubleValue : Double = 0
   var str : String = ""
+  var index : Int = -1
   
   var isInformativeOnly: Bool = false
   

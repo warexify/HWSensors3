@@ -14,7 +14,7 @@ import Foundation
  
  SMC stand for SMC key
  Aaa stand for the hardware involved (e.g. DIMM for memory DIMM on the Main Logic Board)
- BBB stand for the type (linke TEMP for temperature, FREQ for frequency, VOLT for voltage and so on)
+ BBB(...) stand for the type (linke TEMP for temperature, FREQ for frequency, VOLT for voltage and so on)
  
  An additional suffix like _F (i.e. SMC_Aaa_Bbb_F) to let understand this is a fake key
  that doesn't exist in the Apple World... maybe added by a third party driver.
@@ -60,10 +60,13 @@ let SMC_AMBIENT_TEMP            = "TA0P"
 
 // Fans
 let SMC_FAN_NUM_INT             = "FNum"
+let SMC_FAN_MANUAL              = "FS! "
+let SMC_FAN_MANUAL_NEW          = "F%@Md"
 let SMC_FAN_ID_STR              = "F%@ID"
 let SMC_FAN_CURR_RPM            = "F%@Ac"
 let SMC_FAN_MIN_RPM             = "F%@Mn"
 let SMC_FAN_MAX_RPM             = "F%@Mx"
+let SMC_FAN_CTRL                = "F%@Tg"
 
 // Laptop's battery
 let SMC_BATT0_VOLT              = "B0AV"

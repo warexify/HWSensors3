@@ -165,7 +165,7 @@ extension PopoverViewController {
                                                 title: serial,
                                                 canPlot: false)
         
-        smartSensorParent.logType = .mediaLog
+        smartSensorParent.actionType = .mediaLog
         smartSensorParent.characteristics = log
         let smartSensorParentNode = HWTreeNode(representedObject: HWSensorData(group: productName,
                                                                                sensor: smartSensorParent,
@@ -328,10 +328,18 @@ extension PopoverViewController {
         AppSd.statusItem.button?.title = statusString
       }
  
-      let intrinsic : CGFloat = AppSd.statusItem.button!.intrinsicContentSize.width
-      if AppSd.statusItemLen == 0 {
-        AppSd.statusItemLen = intrinsic + 15
-        AppSd.statusItem.length = AppSd.statusItemLen
+      if statusString.count == 0 {
+        AppSd.statusItem.length = AppSd.statusItemLenBackup
+        AppSd.statusItem.button?.alignment = .center
+        AppSd.statusItem.button?.imagePosition = .imageOnly
+      } else {
+        AppSd.statusItem.button?.alignment = .left
+        AppSd.statusItem.button?.imagePosition = .imageLeft
+        let intrinsic : CGFloat = AppSd.statusItem.button!.intrinsicContentSize.width
+        if AppSd.statusItemLen == 0 {
+          AppSd.statusItemLen = intrinsic + 15
+          AppSd.statusItem.length = AppSd.statusItemLen
+        }
       }
     }
     self.statusIsUpdating  = false

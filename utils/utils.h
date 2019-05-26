@@ -79,6 +79,35 @@ inline UInt16 decode_fpe2(UInt16 value)
 	return (swap_value(value) >> 2);
 }
 
+// https://stackoverflow.com/questions/8377412/ceil-function-how-can-we-implement-it-ourselves
+inline float hw_ceil(float f)
+{
+  unsigned input;
+  memcpy(&input, &f, 4);
+  int exponent = ((input >> 23) & 255) - 127;
+  if (exponent < 0) return (f > 0);
+  // small numbers get rounded to 0 or 1, depending on their sign
+  
+  int fractional_bits = 23 - exponent;
+  if (fractional_bits <= 0) return f;
+  // numbers without fractional bits are mapped to themselves
+  
+  unsigned integral_mask = 0xffffffff << fractional_bits;
+  unsigned output = input & integral_mask;
+  // round the number down by masking out the fractional bits
+  
+  memcpy(&f, &output, 4);
+  if (f > 0 && output != input) ++f;
+  // positive numbers need to be rounded up, not down
+  
+  return f;
+}
+
+inline int hw_round(float fl)
+{
+  return fl < 0 ? fl - 0.5 : fl + 0.5;
+}
+
 inline bool process_sensor_entry(OSObject *object, OSString **name, long *Ri, long *Rf, long *Vf)
 {
   *Rf=1;

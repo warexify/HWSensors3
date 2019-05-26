@@ -16,7 +16,6 @@
 		12B160981A3F01D8007C7B84 /* TigerAdditionals.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 12B160931A3F01D8007C7B84 /* TigerAdditionals.cpp */; };
 		12B1609D1A3F02FC007C7B84 /* AmdCPUMonitor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 12B1609B1A3F02FC007C7B84 /* AmdCPUMonitor.cpp */; };
 		12B160A61A3F033E007C7B84 /* PC8739x.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 12B160A41A3F033E007C7B84 /* PC8739x.cpp */; };
-		12B160AE1A3F0364007C7B84 /* WinbondW836x.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 12B160AC1A3F0364007C7B84 /* WinbondW836x.cpp */; };
 		12B160B61A3F0386007C7B84 /* ITEIT87x.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 12B160B41A3F0386007C7B84 /* ITEIT87x.cpp */; };
 		12B160BB1A3F039C007C7B84 /* F718x.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 12B160B91A3F039C007C7B84 /* F718x.cpp */; };
 		12B160C01A3F03B1007C7B84 /* IntelCPUMonitor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 12B160BE1A3F03B1007C7B84 /* IntelCPUMonitor.cpp */; };
@@ -90,6 +89,7 @@
 		12B161B11A3F2966007C7B84 /* gm100.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 12B161AF1A3F2966007C7B84 /* gm100.cpp */; };
 		12E31F231E126A14003BD663 /* gp100.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 12E31F221E126A14003BD663 /* gp100.cpp */; };
 		2C7719BC14EA483A0005C3C7 /* SuperIOFamily.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AED9E582125FC23900736A5A /* SuperIOFamily.cpp */; };
+		95261E0C226B2D8D000894A5 /* WinbondW836x.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 95261E0B226B2D8D000894A5 /* WinbondW836x.cpp */; };
 		A522F6761F706E0F005F81B8 /* VoodooBattery.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A55E169A1F7041CF0049A107 /* VoodooBattery.cpp */; };
 		A522F6771F706E50005F81B8 /* Support.h in Headers */ = {isa = PBXBuildFile; fileRef = A55E16991F7041CF0049A107 /* Support.h */; };
 		A522F6781F706E52005F81B8 /* VoodooBattery.h in Headers */ = {isa = PBXBuildFile; fileRef = A55E169B1F7041CF0049A107 /* VoodooBattery.h */; };
@@ -218,7 +218,6 @@
 		12B160A91A3F0364007C7B84 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = InfoPlist.strings; sourceTree = "<group>"; };
 		12B160AA1A3F0364007C7B84 /* WinbondW836x-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "WinbondW836x-Info.plist"; path = "plugins/SuperIOSensors/WinbondW836x/WinbondW836x-Info.plist"; sourceTree = SOURCE_ROOT; };
 		12B160AB1A3F0364007C7B84 /* WinbondW836x-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "WinbondW836x-Prefix.pch"; path = "plugins/SuperIOSensors/WinbondW836x/WinbondW836x-Prefix.pch"; sourceTree = SOURCE_ROOT; };
-		12B160AC1A3F0364007C7B84 /* WinbondW836x.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = WinbondW836x.cpp; path = plugins/SuperIOSensors/WinbondW836x/WinbondW836x.cpp; sourceTree = SOURCE_ROOT; };
 		12B160AD1A3F0364007C7B84 /* WinbondW836x.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WinbondW836x.h; path = plugins/SuperIOSensors/WinbondW836x/WinbondW836x.h; sourceTree = SOURCE_ROOT; };
 		12B160B11A3F0386007C7B84 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = InfoPlist.strings; sourceTree = "<group>"; };
 		12B160B21A3F0386007C7B84 /* ITEIT87x-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "ITEIT87x-Info.plist"; path = "plugins/SuperIOSensors/ITE87x/ITEIT87x-Info.plist"; sourceTree = SOURCE_ROOT; };
@@ -369,6 +368,10 @@
 		12D78B1E12BFDCFD002C61EA /* RadeonMonitor.kext */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RadeonMonitor.kext; sourceTree = BUILT_PRODUCTS_DIR; };
 		12E31F221E126A14003BD663 /* gp100.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = gp100.cpp; path = plugins/GPUSensors/GeforceSensors/gp100.cpp; sourceTree = SOURCE_ROOT; };
 		12E31F251E126A24003BD663 /* gp100.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = gp100.h; path = plugins/GPUSensors/GeforceSensors/gp100.h; sourceTree = SOURCE_ROOT; };
+		95261E08226B1918000894A5 /* WindbondConf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WindbondConf.h; path = plugins/SuperIOSensors/WinbondW836x/WindbondConf.h; sourceTree = SOURCE_ROOT; };
+		95261E0A226B1CA8000894A5 /* Chips.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Chips.h; path = plugins/SuperIOSensors/WinbondW836x/Chips.h; sourceTree = SOURCE_ROOT; };
+		95261E0B226B2D8D000894A5 /* WinbondW836x.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = WinbondW836x.cpp; path = plugins/SuperIOSensors/WinbondW836x/WinbondW836x.cpp; sourceTree = SOURCE_ROOT; };
+		9567F04E2267BDE800C9A5BE /* NuvotonConf.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NuvotonConf.h; path = plugins/SuperIOSensors/WinbondW836x/NuvotonConf.h; sourceTree = SOURCE_ROOT; };
 		A55E16871F7041A50049A107 /* VoodooBatterySMC.kext */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = VoodooBatterySMC.kext; sourceTree = BUILT_PRODUCTS_DIR; };
 		A55E16961F7041CF0049A107 /* English */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		A55E16981F7041CF0049A107 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -639,8 +642,11 @@
 				12B160A71A3F0364007C7B84 /* en.lproj */,
 				12B160AA1A3F0364007C7B84 /* WinbondW836x-Info.plist */,
 				12B160AB1A3F0364007C7B84 /* WinbondW836x-Prefix.pch */,
-				12B160AC1A3F0364007C7B84 /* WinbondW836x.cpp */,
+				95261E0B226B2D8D000894A5 /* WinbondW836x.cpp */,
 				12B160AD1A3F0364007C7B84 /* WinbondW836x.h */,
+				9567F04E2267BDE800C9A5BE /* NuvotonConf.h */,
+				95261E08226B1918000894A5 /* WindbondConf.h */,
+				95261E0A226B1CA8000894A5 /* Chips.h */,
 			);
 			path = WinbondW836x;
 			sourceTree = "<group>";
@@ -1371,14 +1377,15 @@
 			};
 			buildConfigurationList = AEABE456125F8E7400F08235 /* Build configuration list for PBXProject "HWSensors" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				English,
-				Japanese,
-				French,
-				German,
 				en,
+				Base,
+				ja,
+				fr,
+				de,
 			);
 			mainGroup = AEABE451125F8E7400F08235;
 			productRefGroup = AEABE461125F8E9300F08235 /* Products */;
@@ -1636,7 +1643,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				12B160AE1A3F0364007C7B84 /* WinbondW836x.cpp in Sources */,
+				95261E0C226B2D8D000894A5 /* WinbondW836x.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2735,6 +2742,7 @@
 		12D78B2112BFDCFF002C61EA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
@@ -2759,6 +2767,7 @@
 		12D78B2212BFDCFF002C61EA /* Release 10.6 */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_MODEL_TUNING = "";
@@ -2779,6 +2788,7 @@
 		12D78B2312BFDCFF002C61EA /* Release 10.5 */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_AUTO_VECTORIZATION = YES;
@@ -2801,6 +2811,7 @@
 		12D78B2412BFDCFF002C61EA /* Release 10.4 */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
@@ -3576,6 +3587,7 @@
 		AEF4C80712602EE700297B2B /* Release 10.6 */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = YES;
@@ -3585,7 +3597,7 @@
 				INFOPLIST_FILE = "fakesmc/FakeSMC-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				MODULE_NAME = org.netkas.FakeSMC;
-				MODULE_VERSION = 3.5.1;
+				MODULE_VERSION = 3.5.2;
 				OTHER_CFLAGS = "-DDebug=0";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.netkas.${PRODUCT_NAME}";
 				PRODUCT_NAME = FakeSMC;
@@ -3665,6 +3677,7 @@
 		AEF4C83B1260304100297B2B /* Release 10.5 */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = YES;
@@ -3756,6 +3769,7 @@
 		AEF4C83F1260304900297B2B /* Release 10.4 */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				CODE_SIGN_IDENTITY = "-";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = YES;
