@@ -17,11 +17,11 @@
 OSString * vendorID(OSString * smbios_manufacturer);
 
 // Ports
-const UInt8 SUPERIO_STANDART_PORT[]					= { 0x2e, 0x4e };
+const UInt8 SUPERIO_STANDART_PORT[]					    = { 0x2e, 0x4e };
 
 // Registers
 const UInt8 SUPERIO_CONFIGURATION_CONTROL_REGISTER	= 0x02;
-const UInt8 SUPERIO_DEVICE_SELECT_REGISTER			= 0x07;
+const UInt8 SUPERIO_DEVICE_SELECT_REGISTER      = 0x07;
 const UInt8 SUPERIO_CHIP_ID_REGISTER            = 0x20;
 const UInt8 SUPERIO_CHIP_REVISION_REGISTER			= 0x21;
 const UInt8 SUPERIO_BASE_ADDRESS_REGISTER       = 0x60;
@@ -56,7 +56,15 @@ protected:
   
 	
 public:
-	static SuperIOSensor *withOwner(SuperIOMonitor *aOwner, const char* aKey, const char* aType, unsigned char aSize, SuperIOSensorGroup aGroup, unsigned long aIndex, long aRi=0, long aRf=1, long aVf=0);
+	static SuperIOSensor *withOwner(SuperIOMonitor *aOwner,
+                                  const char* aKey,
+                                  const char* aType,
+                                  unsigned char aSize,
+                                  SuperIOSensorGroup aGroup,
+                                  unsigned long aIndex,
+                                  long aRi=0,
+                                  long aRf=1,
+                                  long aVf=0);
 	
 	const char *        getName();
 	const char *        getType();
@@ -65,7 +73,16 @@ public:
 	unsigned long       getIndex();
   long                encodeValue(UInt32 value, int scale);
 	
-	virtual bool		initWithOwner(SuperIOMonitor *aOwner, const char* aKey, const char* aType, unsigned char aSize, SuperIOSensorGroup aGroup, unsigned long aIndex, long aRi, long aRf, long aVf);
+	virtual bool		initWithOwner(SuperIOMonitor *aOwner,
+                                const char* aKey,
+                                const char* aType,
+                                unsigned char aSize,
+                                SuperIOSensorGroup aGroup,
+                                unsigned long aIndex,
+                                long aRi,
+                                long aRf,
+                                long aVf);
+  
 	virtual long        getValue();
 	virtual void        free();
 };
@@ -95,26 +112,44 @@ protected:
 	virtual void			enter();
 	virtual void			exit();
 	
-	virtual const char *	getModelName();
+	virtual const char *getModelName();
 	
-	SuperIOSensor *		addSensor(const char* key, const char* type, unsigned int size, SuperIOSensorGroup group, unsigned long index, long aRi=0, long aRf=1, long aVf=0);
-	SuperIOSensor *		addTachometer(unsigned long index, const char* id = 0);
-	SuperIOSensor *		getSensor(const char* key);
-	virtual bool      updateSensor(const char *key, const char *type, unsigned int size, SuperIOSensorGroup group, unsigned long index);
+	SuperIOSensor *addSensor(const char* key,
+                           const char* type,
+                           unsigned int size,
+                           SuperIOSensorGroup group,
+                           unsigned long index,
+                           long aRi=0,
+                           long aRf=1,
+                           long aVf=0);
+  
+	SuperIOSensor *addTachometer(unsigned long index, const char* id = 0);
+  
+	SuperIOSensor *getSensor(const char* key);
+  
+	virtual bool  updateSensor(const char *key,
+                             const char *type,
+                             unsigned int size,
+                             SuperIOSensorGroup group,
+                             unsigned long index);
 		
 public:
-	virtual long			readTemperature(unsigned long index);
-	virtual long			readVoltage(unsigned long index);
-	virtual long			readTachometer(unsigned long index);
+	virtual long    readTemperature(unsigned long index);
+	virtual long    readVoltage(unsigned long index);
+	virtual long    readTachometer(unsigned long index);
 	
-	virtual bool			init(OSDictionary *properties=0);
-	virtual IOService*		probe(IOService *provider, SInt32 *score);
-  virtual bool			start(IOService *provider);
-	virtual void			stop(IOService *provider);
-	virtual void			free(void);
+	virtual bool    init(OSDictionary *properties=0);
+	virtual IOService*  probe(IOService *provider, SInt32 *score);
+  virtual bool    start(IOService *provider);
+	virtual void  stop(IOService *provider);
+	virtual void  free(void);
 	
-	virtual IOReturn		callPlatformFunction(const OSSymbol *functionName, bool waitForFunction, void *param1, void *param2, void *param3, void *param4 ); 
-	
+	virtual IOReturn  callPlatformFunction(const OSSymbol *functionName,
+                                         bool waitForFunction,
+                                         void *param1,
+                                         void *param2,
+                                         void *param3,
+                                         void *param4); 
 };
 
 #endif

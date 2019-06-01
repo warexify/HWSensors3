@@ -100,5 +100,10 @@ public:
 	virtual void		free(void);
 	virtual void		stop(IOService *provider);
 	
-	virtual IOReturn	callPlatformFunction(const OSSymbol *functionName, bool waitForFunction, void *param1, void *param2, void *param3, void *param4 );
+	virtual IOReturn	callPlatformFunction(const OSSymbol *functionName,
+                                         bool waitForFunction,
+                                         void *param1,
+                                         void *param2,
+                                         void *param3,
+                                         void *param4);
 };

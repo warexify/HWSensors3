@@ -70,30 +70,30 @@ const UInt8 WINBOND_TEMPERATURE_SOURCE_SELECT_REG	= 0x49;
 
 //private string[] TEMPERATURE_NAME = 
 //new string[] {"CPU", "Ambient", "System", "Memory"};
-const UInt16 WINBOND_TEMPERATURE[]           = { 0x150, 0x250, 0x27 };
-const UInt16 NUVOTON_TEMPERATURE[]           = { 0x150, 0x670, 0x27 };
-const UInt16 NUVOTON_NEW_TEMPERATURE1[]       = { 0x75, 0x77, 0x73, 0x79 };
-const UInt16 NUVOTON_NEW_TEMPERATURE2[]       = { 0x402, 0x401, 0x404, 0x405 };
+const UInt16 WINBOND_TEMPERATURE[]      = { 0x150, 0x250, 0x27 };
+const UInt16 NUVOTON_TEMPERATURE[]      = { 0x150, 0x670, 0x27 };
+const UInt16 NUVOTON_NEW_TEMPERATURE1[] = { 0x75, 0x77, 0x73, 0x79 };
+const UInt16 NUVOTON_NEW_TEMPERATURE2[] = { 0x402, 0x401, 0x404, 0x405 };
 
 
-// Voltages                                    VCORE   AVSB   3VCC   AVCC  +12V1  -12V2  -5VIN3  3VSB   VBAT
-const UInt16 WINBOND_VOLTAGE_REG[]          = { 0x20,  0x21,  0x23,  0x22,  0x24,  0x25,  0x26,  0x550, 0x551 };
-const float  WINBOND_VOLTAGE_SCALE[]        = { 8,     8,     16,    16,    8,     8,     8,     16,    16 };
-const UInt16 WINBOND_VOLTAGE_VBAT_REG       = 0x0551;
-const UInt16 NUVOTON_VOLTAGE_REG[]          = { 0x480, 0x482, 0x483, 0x484, 0x485, 0x481, 0x486, 0x487, 0x488 };
+// Voltages                               VCORE   AVSB   3VCC   AVCC  +12V1  -12V2  -5VIN3  3VSB   VBAT
+const UInt16 WINBOND_VOLTAGE_REG[]    = { 0x20,  0x21,  0x23,  0x22,  0x24,  0x25,  0x26,  0x550, 0x551 };
+const float  WINBOND_VOLTAGE_SCALE[]  = { 8,     8,     16,    16,    8,     8,     8,     16,    16 };
+const UInt16 WINBOND_VOLTAGE_VBAT_REG = 0x0551;
+const UInt16 NUVOTON_VOLTAGE_REG[]    = { 0x480, 0x482, 0x483, 0x484, 0x485, 0x481, 0x486, 0x487, 0x488 };
 
 
 const UInt8 WINBOND_TACHOMETER[]			= { 0x28, 0x29, 0x2A, 0x3F, 0x53 };
-const UInt8 WINBOND_TACHOMETER_BANK[]		= { 0, 0, 0, 0, 5 };
+const UInt8 WINBOND_TACHOMETER_BANK[] = { 0, 0, 0, 0, 5 };
 
 //                                        SYSFAN, CPUFAN, AUXFAN
-const UInt16 NUVOTON_TACHOMETER[]			= { 0x4C0,  0x4C2,  0x4C4,  0x4C6, 0x4C8, 0x4CA};
+const UInt16 NUVOTON_TACHOMETER[]     = { 0x4C0,  0x4C2,  0x4C4,  0x4C6, 0x4C8, 0x4CA};
 
-const UInt8 WINBOND_TACHOMETER_DIV0[]		= { 0x47, 0x47, 0x4B, 0x59, 0x59 };
+const UInt8 WINBOND_TACHOMETER_DIV0[]		  = { 0x47, 0x47, 0x4B, 0x59, 0x59 };
 const UInt8 WINBOND_TACHOMETER_DIV0_BIT[]	= { 4,    6,    6,    0,    2 };
-const UInt8 WINBOND_TACHOMETER_DIV1[]		= { 0x47, 0x47, 0x4B, 0x59, 0x59 };
+const UInt8 WINBOND_TACHOMETER_DIV1[]		  = { 0x47, 0x47, 0x4B, 0x59, 0x59 };
 const UInt8 WINBOND_TACHOMETER_DIV1_BIT[]	= { 5,    7,    7,    1,    3 };
-const UInt8 WINBOND_TACHOMETER_DIV2[]		= { 0x5D, 0x5D, 0x5D, 0x4C, 0x59 };
+const UInt8 WINBOND_TACHOMETER_DIV2[]		  = { 0x5D, 0x5D, 0x5D, 0x4C, 0x59 };
 const UInt8 WINBOND_TACHOMETER_DIV2_BIT[]	= { 5,    6,    7,    7,    7 };
 
 const UInt8 WINBOND_TACHOMETER_DIVISOR[]	= { 0x47, 0x4B, 0x4C, 0x59, 0x5D };
@@ -137,21 +137,27 @@ enum W836xModel {
 
 class W836x;
 
-class W836xSensor : public SuperIOSensor
-{
+class W836xSensor : public SuperIOSensor {
     OSDeclareDefaultStructors(W836xSensor)
     
 public:
-    static SuperIOSensor *withOwner(SuperIOMonitor *aOwner, const char* aKey, const char* aType, unsigned char aSize, SuperIOSensorGroup aGroup, unsigned long aIndex , long aRi=0, long aRf=1, long aVf=0);
+    static SuperIOSensor *withOwner(SuperIOMonitor *aOwner,
+                                    const char* aKey,
+                                    const char* aType,
+                                    unsigned char aSize,
+                                    SuperIOSensorGroup aGroup,
+                                    unsigned long aIndex,
+                                    long aRi = 0,
+                                    long aRf = 1,
+                                    long aVf = 0);
     
     virtual long	getValue();
 //    virtual void    setValue(UInt16 value);
 };
 
 
-class W836x : public SuperIOMonitor
-{
-    OSDeclareDefaultStructors(W836x)
+class W836x : public SuperIOMonitor {
+  OSDeclareDefaultStructors(W836x)
     
 public:
 	virtual bool		init(OSDictionary *properties=0);
@@ -182,12 +188,22 @@ private:
 	void            updateTachometers();
 	virtual long		readTachometer(unsigned long index);
 	
-	virtual const char*	getModelName();
+	virtual const char *	getModelName();
 	
 public:
-    SuperIOSensor *		addSensor(const char* key, const char* type, unsigned int size, SuperIOSensorGroup group, unsigned long index, long aRi=0, long aRf=1, long aVf=0);
+    SuperIOSensor * addSensor(const char* key,
+                              const char* type,
+                              unsigned int size,
+                              SuperIOSensorGroup group,
+                              unsigned long index,
+                              long aRi = 0,
+                              long aRf = 1,
+                              long aVf = 0);
     
-    virtual IOReturn callPlatformFunction(const OSSymbol *functionName, bool waitForFunction, void *param1, void *param2, void *param3, void *param4 );
-
-
+    virtual IOReturn callPlatformFunction(const OSSymbol *functionName,
+                                          bool waitForFunction,
+                                          void *param1,
+                                          void *param2,
+                                          void *param3,
+                                          void *param4);
 };

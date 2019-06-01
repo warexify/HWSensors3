@@ -16,19 +16,18 @@
 //NVClock nvclock;
 //NVCard* nv_card;
 
-class NVClockX : public IOService
-{
+class NVClockX : public IOService {
     OSDeclareDefaultStructors(NVClockX)    
 	
 private:
 	IOService *     fakeSMC;
-	OSDictionary *	sensors;
+	OSDictionary *  sensors;
 	
-	IOMemoryMap *	nvio;
+	IOMemoryMap *	  nvio;
 	
-	int				probeDevices();
-	bool			addSensor(const char* key, const char* type, unsigned int size, int index);
-	int				addTachometer(int index);
+	int				      probeDevices();
+	bool			      addSensor(const char* key, const char* type, unsigned int size, int index);
+	int				      addTachometer(int index);
 	
 public:
 	virtual bool        init(OSDictionary *properties=0);
@@ -37,6 +36,11 @@ public:
 	virtual void        stop(IOService *provider);
 	virtual void        free(void);
 	
-	virtual IOReturn    callPlatformFunction(const OSSymbol *functionName, bool waitForFunction, void *param1, void *param2, void *param3, void *param4 ); 
+	virtual IOReturn    callPlatformFunction(const OSSymbol *functionName,
+                                           bool waitForFunction,
+                                           void *param1,
+                                           void *param2,
+                                           void *param3,
+                                           void *param4); 
 	
 };

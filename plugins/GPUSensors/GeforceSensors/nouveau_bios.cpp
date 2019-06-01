@@ -35,135 +35,130 @@
 #include "nouveau_definitions.h"
 #include "nouveau.h"
 
-u8 nv_ro08(struct nouveau_device *device, u32 addr)
-{
+u8 nv_ro08(struct nouveau_device *device, u32 addr) {
 	return device->bios.data[addr];
 }
 
-u16 nv_ro16(struct nouveau_device *device, u32 addr)
-{
+u16 nv_ro16(struct nouveau_device *device, u32 addr) {
 	return *(u16 *)&device->bios.data[addr];
 }
 
-u32 nv_ro32(struct nouveau_device *device, u32 addr)
-{
+u32 nv_ro32(struct nouveau_device *device, u32 addr) {
 	return *(u32 *)&device->bios.data[addr];
 }
 
-void nv_wo08(struct nouveau_device *device, u32 addr, u8 data)
-{
+void nv_wo08(struct nouveau_device *device, u32 addr, u8 data) {
 	device->bios.data[addr] = data;
 }
 
-void nv_wo16(struct nouveau_device *device, u32 addr, u16 data)
-{
+void nv_wo16(struct nouveau_device *device, u32 addr, u16 data) {
 	*(u16 *)&device->bios.data[addr] = data;
 }
 
-void nv_wo32(struct nouveau_device *device, u32 addr, u32 data)
-{
+void nv_wo32(struct nouveau_device *device, u32 addr, u32 data) {
 	*(u16 *)&device->bios.data[addr] = data;
 }
 
-static inline int nv_memcmp(struct nouveau_device *device, u32 addr, const char *str, u32 len)
-{
+static inline int nv_memcmp(struct nouveau_device *device, u32 addr, const char *str, u32 len) {
 	unsigned char c1, c2;
   
 	while (len--) {
 		c1 = nv_ro08(device, addr++);
 		c2 = *(str++);
-		if (c1 != c2)
+    if (c1 != c2) {
 			return c1 - c2;
+    }
 	}
 	return 0;
 }
 
-u16 nouveau_dcb_table(struct nouveau_device *device, u8 *ver, u8 *hdr, u8 *cnt, u8 *len)
-{
-	u16 dcb = 0x0000;
+u16 nouveau_dcb_table(struct nouveau_device *device, u8 *ver, u8 *hdr, u8 *cnt, u8 *len) {
+  u16 dcb = 0x0000;
   
-	if (device->card_type > NV_04)
-		dcb = nv_ro16(device, 0x36);
-	if (!dcb) {
-		nv_warn(device, "DCB table not found\n");
-		return dcb;
-	}
+  if (device->card_type > NV_04) {
+    dcb = nv_ro16(device, 0x36);
+  }
   
-	*ver = nv_ro08(device, dcb);
+  if (!dcb) {
+    nv_warn(device, "DCB table not found\n");
+    return dcb;
+  }
   
-	if (*ver >= 0x42) {
-		nv_warn(device, "DCB *ver 0x%02x unknown\n", *ver);
-		return 0x0000;
-	} else
-    if (*ver >= 0x30) {
-      if (nv_ro32(device, dcb + 6) == 0x4edcbdcb) {
-        *hdr = nv_ro08(device, dcb + 1);
-        *cnt = nv_ro08(device, dcb + 2);
-        *len = nv_ro08(device, dcb + 3);
-        return dcb;
-      }
-    } else
-      if (*ver >= 0x20) {
-        if (nv_ro32(device, dcb + 4) == 0x4edcbdcb) {
-          u16 i2c = nv_ro16(device, dcb + 2);
-          *hdr = 8;
-          *cnt = (i2c - dcb) / 8;
-          *len = 8;
-          return dcb;
-        }
-      } else
-        if (*ver >= 0x15) {
-          if (!nv_memcmp(device, dcb - 7, "DEV_REC", 7)) {
-            u16 i2c = nv_ro16(device, dcb + 2);
-            *hdr = 4;
-            *cnt = (i2c - dcb) / 10;
-            *len = 10;
-            return dcb;
-          }
-        } else {
-          /*
-           * v1.4 (some NV15/16, NV11+) seems the same as v1.5, but
-           * always has the same single (crt) entry, even when tv-out
-           * present, so the conclusion is this version cannot really
-           * be used.
-           *
-           * v1.2 tables (some NV6/10, and NV15+) normally have the
-           * same 5 entries, which are not specific to the card and so
-           * no use.
-           *
-           * v1.2 does have an I2C table that read_dcb_i2c_table can
-           * handle, but cards exist (nv11 in #14821) with a bad i2c
-           * table pointer, so use the indices parsed in
-           * parse_bmp_structure.
-           *
-           * v1.1 (NV5+, maybe some NV4) is entirely unhelpful
-           */
-          nv_warn(device, "DCB contains no useful data\n");
-          return 0x0000;
-        }
+  *ver = nv_ro08(device, dcb);
   
-	nv_warn(device, "DCB header validation failed\n");
-	return 0x0000;
+  if (*ver >= 0x42) {
+    nv_warn(device, "DCB *ver 0x%02x unknown\n", *ver);
+    return 0x0000;
+  } else if (*ver >= 0x30) {
+    if (nv_ro32(device, dcb + 6) == 0x4edcbdcb) {
+      *hdr = nv_ro08(device, dcb + 1);
+      *cnt = nv_ro08(device, dcb + 2);
+      *len = nv_ro08(device, dcb + 3);
+      return dcb;
+    }
+  } else if (*ver >= 0x20) {
+    if (nv_ro32(device, dcb + 4) == 0x4edcbdcb) {
+      u16 i2c = nv_ro16(device, dcb + 2);
+      *hdr = 8;
+      *cnt = (i2c - dcb) / 8;
+      *len = 8;
+      return dcb;
+    }
+  } else if (*ver >= 0x15) {
+    if (!nv_memcmp(device, dcb - 7, "DEV_REC", 7)) {
+      u16 i2c = nv_ro16(device, dcb + 2);
+      *hdr = 4;
+      *cnt = (i2c - dcb) / 10;
+      *len = 10;
+      return dcb;
+    }
+  } else {
+    /*
+     * v1.4 (some NV15/16, NV11+) seems the same as v1.5, but
+     * always has the same single (crt) entry, even when tv-out
+     * present, so the conclusion is this version cannot really
+     * be used.
+     *
+     * v1.2 tables (some NV6/10, and NV15+) normally have the
+     * same 5 entries, which are not specific to the card and so
+     * no use.
+     *
+     * v1.2 does have an I2C table that read_dcb_i2c_table can
+     * handle, but cards exist (nv11 in #14821) with a bad i2c
+     * table pointer, so use the indices parsed in
+     * parse_bmp_structure.
+     *
+     * v1.1 (NV5+, maybe some NV4) is entirely unhelpful
+     */
+    nv_warn(device, "DCB contains no useful data\n");
+    return 0x0000;
+  }
+  
+  nv_warn(device, "DCB header validation failed\n");
+  return 0x0000;
 }
 
-static u8 nvbios_checksum(const u8 *data, int size)
-{
+static u8 nvbios_checksum(const u8 *data, int size) {
 	u8 sum = 0;
-	while (size--)
+  while (size--) {
 		sum += *data++;
+  }
 	return sum;
 }
 
-static u16 nvbios_findstr(const u8 *data, int size, const char *str, int len)
-{
+static u16 nvbios_findstr(const u8 *data, int size, const char *str, int len) {
 	int i, j;
   
 	for (i = 0; i <= (size - len); i++) {
-		for (j = 0; j < len; j++)
-			if ((char)data[i + j] != str[j])
-				break;
-		if (j == len)
+    for (j = 0; j < len; j++) {
+      if ((char)data[i + j] != str[j]) {
+        break;
+      }
+    }
+    
+    if (j == len) {
 			return i;
+    }
 	}
   
 	return 0;

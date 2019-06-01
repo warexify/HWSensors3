@@ -7,8 +7,7 @@
 using namespace I2COperations;
 OSDefineMetaClassAndStructors(I2CDevice, IOService)
 
-bool I2CDevice::init (OSDictionary* dict)
-{
+bool I2CDevice::init (OSDictionary* dict) {
   bool res = super::init(dict);
   DbgPrint("init\n");
   
@@ -20,8 +19,7 @@ bool I2CDevice::init (OSDictionary* dict)
 }
 
 
-void I2CDevice::free(void)
-{
+void I2CDevice::free(void) {
   DbgPrint("free\n");
   
   if (Lock.holder) {
@@ -31,9 +29,10 @@ void I2CDevice::free(void)
     /*IOSimpleLockUnlock(I2C_Lock);*/ IORWLockFree(I2C_Lock);
   }
   
-  if (fInterruptSrc && MyWorkLoop)
+  if (fInterruptSrc && MyWorkLoop) {
     MyWorkLoop->removeEventSource(fInterruptSrc);
-  if (fInterruptSrc) fInterruptSrc->release();
+  }
+  if (fInterruptSrc) { fInterruptSrc->release(); }
   
   fPCIDevice->close(this);
   fPCIDevice->release();
@@ -41,25 +40,22 @@ void I2CDevice::free(void)
   super::free();
 }
 
-bool I2CDevice::createWorkLoop(void)
-{
+bool I2CDevice::createWorkLoop(void) {
   MyWorkLoop = IOWorkLoop::workLoop();
   
   return (MyWorkLoop != 0);
 }
-IOWorkLoop *I2CDevice::getWorkLoop(void) const
-{
+
+IOWorkLoop *I2CDevice::getWorkLoop(void) const {
   return MyWorkLoop;
 }
 
-UInt8 I2CDevice::GetStatus(void)
-{
+UInt8 I2CDevice::GetStatus(void) {
   return fSt;
 }
 
 
-IOService *I2CDevice::probe (IOService* provider, SInt32* score)
-{
+IOService *I2CDevice::probe (IOService* provider, SInt32* score) {
   DbgPrint("probe\n");
   
   *score = 5000;
@@ -68,14 +64,12 @@ IOService *I2CDevice::probe (IOService* provider, SInt32* score)
 
 IOInterruptEventSource *I2CDevice::CreateDeviceInterrupt(IOInterruptEventSource::Action action,
                                                          IOFilterInterruptEventSource::Filter filter,
-                                                         IOService *provider)
-{
+                                                         IOService *provider) {
   return IOFilterInterruptEventSource::filterInterruptEventSource(this, action, filter, provider);
 }
 
 
-bool I2CDevice::interruptFilter(OSObject *owner, IOFilterInterruptEventSource *sender)
-{
+bool I2CDevice::interruptFilter(OSObject *owner, IOFilterInterruptEventSource *sender) {
   I2CDevice *obj = OSDynamicCast(I2CDevice, owner);
   if (!obj) return true;
   
@@ -92,8 +86,7 @@ bool I2CDevice::interruptFilter(OSObject *owner, IOFilterInterruptEventSource *s
   return true;
 }
 
-void I2CDevice::interruptHandler(OSObject *owner, IOInterruptEventSource *src, int count)
-{
+void I2CDevice::interruptHandler(OSObject *owner, IOInterruptEventSource *src, int count) {
 //  I2CDevice *obj = (I2CDevice *) owner;
   I2CDevice *obj = OSDynamicCast(I2CDevice, owner);
   UInt8 *Bp; size_t len;
@@ -117,15 +110,19 @@ void I2CDevice::interruptHandler(OSObject *owner, IOInterruptEventSource *src, i
   
   
   if (obj->fSt & ICH_SMB_HS_INTR) {
-    if (obj->I2C_Transfer.op == I2CWriteOp)
+    if (obj->I2C_Transfer.op == I2CWriteOp) {
       goto done;
+    }
     
     Bp = (UInt8 *) obj->I2C_Transfer.buffer;
     len = obj->I2C_Transfer.length;
-    if (len > 0)
+    if (len > 0) {
       Bp[0] = obj->fPCIDevice->ioRead8(obj->fBase + ICH_SMB_HD0);
-    if (len > 1)
+    }
+    
+    if (len > 1) {
       Bp[1] = obj->fPCIDevice->ioRead8(obj->fBase + ICH_SMB_HD1);
+    }
   }
   
 done:
@@ -136,8 +133,7 @@ done:
   return;
 }
 
-bool I2CDevice::start(IOService *provider)
-{
+bool I2CDevice::start(IOService *provider) {
   bool res;
   uint32_t hostc;
   
@@ -171,8 +167,10 @@ bool I2CDevice::start(IOService *provider)
   
   I2C_Transfer.op = I2CNoOp;
   createWorkLoop();
-  if (!(MyWorkLoop = (IOWorkLoop *) getWorkLoop()))
+  if (!(MyWorkLoop = (IOWorkLoop *) getWorkLoop())) {
     return false;
+  }
+  
   /* Interrupt support exists on chips starting from 82801EB */
   if (!(fInterruptSrc = CreateDeviceInterrupt(&I2CDevice::interruptHandler,
                                               &I2CDevice::interruptFilter,
@@ -196,8 +194,7 @@ bool I2CDevice::start(IOService *provider)
   return res;
 }
 
-void I2CDevice::stop(IOService *provider)
-{
+void I2CDevice::stop(IOService *provider) {
   if (fInterruptSrc) {
     fInterruptSrc->disable();
   }
@@ -215,12 +212,10 @@ void I2CDevice::stop(IOService *provider)
 }
 
 /* Export methods */
-void I2CDevice::LockI2CBus()
-{
+void I2CDevice::LockI2CBus() {
   IORWLockWrite(I2C_Lock);
 }
-void I2CDevice::UnlockI2CBus()
-{
+void I2CDevice::UnlockI2CBus() {
   IORWLockUnlock(I2C_Lock);
 }
 
@@ -228,8 +223,7 @@ void I2CDevice::UnlockI2CBus()
 //#undef clock_interval_to_deadline
 #endif
 
-int I2CDevice::I2CExec(I2COp op, UInt16 addr, void *cmdbuf, size_t cmdlen, void *buf, size_t len)
-{
+int I2CDevice::I2CExec(I2COp op, UInt16 addr, void *cmdbuf, size_t cmdlen, void *buf, size_t len) {
   int ret;
   UInt8 St, ctl;
   //    AbsoluteTime deadline;
@@ -245,8 +239,9 @@ int I2CDevice::I2CExec(I2COp op, UInt16 addr, void *cmdbuf, size_t cmdlen, void 
     fPCIDevice->ioWrite8(fBase + ICH_SMB_HS, 0xC0);
     IODelay(ICHSMBUS_DELAY);
     St = fPCIDevice->ioRead8(fBase + ICH_SMB_HS);
-    if ((St & ICH_SMB_HS_INUSE) == 0)
+    if ((St & ICH_SMB_HS_INUSE) == 0) {
       break;
+    }
     IODelay(ICHSMBUS_DELAY);
   }
   DbgPrint("exec: St 0x%x\n", St);
@@ -262,15 +257,18 @@ int I2CDevice::I2CExec(I2COp op, UInt16 addr, void *cmdbuf, size_t cmdlen, void 
   }  
   DbgPrint("exec: St 0x%x\n", St);
  */
-  if (St & ICH_SMB_HS_BUSY)
+  if (St & ICH_SMB_HS_BUSY) {
     return 1;
+  }
   
   if (/* Limited to 2-byte data */
-      cmdlen > 1 || len > 2)
+      cmdlen > 1 || len > 2) {
     return 1;
+  }
   
-  if (cmdlen > 0)
+  if (cmdlen > 0) {
     fPCIDevice->ioWrite8(fBase + ICH_SMB_HCMD, ((UInt8 *) cmdbuf)[0]);
+  }
   
   fPCIDevice->ioWrite8(fBase + ICH_SMB_TXSLVA, ICH_SMB_TXSLVA_ADDR(addr) |
                        (op == I2CReadOp ? ICH_SMB_TXSLVA_READ : 0));
@@ -281,18 +279,22 @@ int I2CDevice::I2CExec(I2COp op, UInt16 addr, void *cmdbuf, size_t cmdlen, void 
     I2C_Transfer.buffer = buf;
     I2C_Transfer.length = len;
   } else {
-    if (len > 0)
+    if (len > 0) {
       fPCIDevice->ioWrite8(fBase + ICH_SMB_HD0, ((UInt8 *) buf)[0]);
-    if (len > 1)
+    }
+    
+    if (len > 1) {
       fPCIDevice->ioWrite8(fBase + ICH_SMB_HD1, ((UInt8 *) buf)[1]);
+    }
   }
   
-  if (!len)
+  if (!len) {
     ctl = ICH_SMB_HC_CMD_BYTE;
-  else if (len == 1)
+  } else if (len == 1) {
     ctl = ICH_SMB_HC_CMD_BDATA;
-  else if (len == 2)
+  } else if (len == 2) {
     ctl = ICH_SMB_HC_CMD_WDATA;
+  }
   
   ctl |= ICH_SMB_HC_INTREN | ICH_SMB_HC_START;
   DbgPrint("exec: Ctl 0x%x\n", ctl);
@@ -324,16 +326,18 @@ done:
   
   return 0;
 }
-/*int I2CDevice::StopI2CBus()
- {
- return I2CExec(I2CStopOp, 0, NULL, 0, NULL, 0);
- }*/
-int I2CDevice::ReadI2CBus(UInt16 addr, void *cmdbuf, size_t cmdlen, void *buf, size_t len)
-{
+
+/*
+int I2CDevice::StopI2CBus() {
+  return I2CExec(I2CStopOp, 0, NULL, 0, NULL, 0);
+}
+*/
+
+int I2CDevice::ReadI2CBus(UInt16 addr, void *cmdbuf, size_t cmdlen, void *buf, size_t len) {
   return I2CExec(I2CReadOp, addr, cmdbuf, cmdlen, buf, len);
 }
-int I2CDevice::WriteI2CBus(UInt16 addr, void *cmdbuf, size_t cmdlen, void *buf, size_t len)
-{
+
+int I2CDevice::WriteI2CBus(UInt16 addr, void *cmdbuf, size_t cmdlen, void *buf, size_t len) {
   return I2CExec(I2CWriteOp, addr, cmdbuf, cmdlen, buf, len);
 }
 /* */

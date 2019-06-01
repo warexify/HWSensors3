@@ -15,32 +15,32 @@
 
 // Constants
 
-const UInt8	MaxBatteriesSupported = 4;
-const UInt8 MaxAcAdaptersSupported = 2;
-const UInt8	AverageBoundPercent = 25;
+const UInt8	MaxBatteriesSupported   = 4;
+const UInt8 MaxAcAdaptersSupported  = 2;
+const UInt8	AverageBoundPercent     = 25;
 
-const UInt32	QuickPollInterval =		  1000;
-const UInt32	NormalPollInterval =	 60000;
-const UInt32	QuickPollPeriod =		 60000;
-const UInt32	QuickPollCount = QuickPollPeriod / QuickPollInterval;
+const UInt32	QuickPollInterval   = 1000;
+const UInt32	NormalPollInterval  = 60000;
+const UInt32	QuickPollPeriod     = 60000;
+const UInt32	QuickPollCount      = QuickPollPeriod / QuickPollInterval;
 
-const UInt32	AcpiUnknown =		0xFFFFFFFF;
-const UInt32	AcpiMax =			0x80000000;
+const UInt32	AcpiUnknown  = 0xFFFFFFFF;
+const UInt32	AcpiMax      = 0x80000000;
 
-const UInt32	DummyVoltage =			 12000;
+const UInt32	DummyVoltage = 12000;
 
 
 const UInt32	StartLocation = kIOPMPSLocationLeft;
 
 // String constants
 
-const char *	PnpDeviceIdBattery		= "PNP0C0A";
-const char *	PnpDeviceIdAcAdapter	= "ACPI0003";
-const char *	AcpiStatus				= "_STA";
-const char *	AcpiPowerSource			= "_PSR";
-const char *	AcpiBatteryInformation	= "_BIF";
-const char *	AcpiBatteryInformationEx	= "_BIX";
-const char *	AcpiBatteryStatus		= "_BST";
+const char *	PnpDeviceIdBattery		    = "PNP0C0A";
+const char *	PnpDeviceIdAcAdapter	    = "ACPI0003";
+const char *	AcpiStatus				        = "_STA";
+const char *	AcpiPowerSource			      = "_PSR";
+const char *	AcpiBatteryInformation	  = "_BIF";
+const char *	AcpiBatteryInformationEx  = "_BIX";
+const char *	AcpiBatteryStatus		      = "_BST";
 /*
 // _BIF
 Package {
@@ -85,14 +85,14 @@ Package {
 }
 */
 
-static const OSSymbol * unknownObjectKey		= OSSymbol::withCString("");
-static const OSSymbol * designCapacityKey		= OSSymbol::withCString(kIOPMPSDesignCapacityKey);
-static const OSSymbol * deviceNameKey			= OSSymbol::withCString(kIOPMDeviceNameKey);
-static const OSSymbol * fullyChargedKey			= OSSymbol::withCString(kIOPMFullyChargedKey);
+static const OSSymbol * unknownObjectKey		  = OSSymbol::withCString("");
+static const OSSymbol * designCapacityKey		  = OSSymbol::withCString(kIOPMPSDesignCapacityKey);
+static const OSSymbol * deviceNameKey			    = OSSymbol::withCString(kIOPMDeviceNameKey);
+static const OSSymbol * fullyChargedKey			  = OSSymbol::withCString(kIOPMFullyChargedKey);
 static const OSSymbol * instantAmperageKey		= OSSymbol::withCString("InstantAmperage");
 static const OSSymbol * instantTimeToEmptyKey	= OSSymbol::withCString("InstantTimeToEmpty");
-static const OSSymbol * softwareSerialKey		= OSSymbol::withCString("BatterySerialNumber");
-static const OSSymbol * chargeStatusKey			= OSSymbol::withCString(kIOPMPSBatteryChargeStatusKey);
+static const OSSymbol * softwareSerialKey		  = OSSymbol::withCString("BatterySerialNumber");
+static const OSSymbol * chargeStatusKey			  = OSSymbol::withCString(kIOPMPSBatteryChargeStatusKey);
 static const OSSymbol * permanentFailureKey		= OSSymbol::withCString("Permanent Battery Failure");
 //
 static const OSSymbol * batteryTypeKey  = OSSymbol::withCString("BatteryType");
@@ -229,22 +229,27 @@ public:
 	virtual IOReturn	setPowerState(unsigned long state, IOService * device);
 	virtual IOReturn	message(UInt32 type, IOService * provider, void * argument);
   
-  virtual IOReturn	callPlatformFunction(const OSSymbol *functionName, bool waitForFunction, void *param1, void *param2, void *param3, void *param4 );
+  virtual IOReturn	callPlatformFunction(const OSSymbol *functionName,
+                                         bool waitForFunction,
+                                         void *param1,
+                                         void *param2,
+                                         void *param3,
+                                         void *param4);
 
 };
 
-UInt32
-GetValueFromArray(OSArray * array, UInt8 index) {
+UInt32 GetValueFromArray(OSArray * array, UInt8 index) {
 	OSObject * object = array->getObject(index);
 	if (object && (OSTypeIDInst(object) == OSTypeID(OSNumber))) {
 		OSNumber * number = OSDynamicCast(OSNumber, object);
-		if (number) return number->unsigned32BitValue();
+    if (number) {
+      return number->unsigned32BitValue();
+    }
 	}
 	return -1;
 }
 
-OSSymbol *
-GetSymbolFromArray(OSArray * array, UInt8 index) {
+OSSymbol * GetSymbolFromArray(OSArray * array, UInt8 index) {
 	OSObject * object = array->getObject(index);
 	if (object && (OSTypeIDInst(object) == OSTypeID(OSData))) {
 		OSData * data = OSDynamicCast(OSData, object);
@@ -252,9 +257,12 @@ GetSymbolFromArray(OSArray * array, UInt8 index) {
 			return (OSSymbol *) OSSymbol::withCString((const char *) data->getBytesNoCopy());
 		}
 	}
+  
 	if (object && (OSTypeIDInst(object) == OSTypeID(OSString))) {
 		OSString * string = OSDynamicCast(OSString, object);
-		if (string) return OSDynamicCast(OSSymbol, string);
+    if (string) {
+      return OSDynamicCast(OSSymbol, string);
+    }
 	}
 	return (OSSymbol *) unknownObjectKey;
 }

@@ -26,8 +26,7 @@
  * Adapter lock must be held when calling this function. No debug logging
  * takes place. adap->algo->master_xfer existence isn't checked.
  */
-int __i2c_transfer(struct i2c_adapter *adap, struct i2c_msg *msgs, int num)
-{
+int __i2c_transfer(struct i2c_adapter *adap, struct i2c_msg *msgs, int num) {
   int ret, try1;
   
 	/* Retry automatically on arbitration loss */
@@ -40,11 +39,13 @@ int __i2c_transfer(struct i2c_adapter *adap, struct i2c_msg *msgs, int num)
     
     IOLog("GeforceSensors: _i2c_transfer=%d\n", ret);
     
-		if (ret != -EAGAIN)
+    if (ret != -EAGAIN) {
 			break;
+    }
     
-		if (end - ptimer_read() <= 0)
+    if (end - ptimer_read() <= 0) {
 			break;
+    }
 	}
   
 	return ret;
@@ -62,9 +63,7 @@ int __i2c_transfer(struct i2c_adapter *adap, struct i2c_msg *msgs, int num)
  * Note that there is no requirement that each message be sent to
  * the same slave address, although that is the most common model.
  */
-int i2c_transfer(struct i2c_adapter *adap, struct i2c_msg *msgs, int num)
-{
-  
+int i2c_transfer(struct i2c_adapter *adap, struct i2c_msg *msgs, int num) {
 	/* REVISIT the fault reporting model here is weak:
 	 *
 	 *  - When we get an error after receiving N bytes from a slave,

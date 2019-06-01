@@ -27,31 +27,31 @@
 #include "atombios.h"
 
 /* trinity */
-#define TN_SMC_IND_INDEX_0                              0x200
-#define TN_SMC_IND_DATA_0                               0x204
+#define TN_SMC_IND_INDEX_0 0x200
+#define TN_SMC_IND_DATA_0 0x204
 
-#define	CG_MULT_THERMAL_STATUS			0x740
-#define		ASIC_TM(x)			        ((x) << 16)
-#define		ASIC_TM_MASK			    0x3FF0000
-#define		ASIC_TM_SHIFT			    16
-#define	CG_THERMAL_STATUS				0x7F4
-#define		ASIC_T(x)			        ((x) << 0)
-#define		ASIC_T_MASK			        0x1FF
-#define		ASIC_T_SHIFT			        0
-#define  CG_SI_THERMAL_STATUS           0x714
-#define		CTF_TEMP(x)					((x) << 9)
-#define		CTF_TEMP_MASK				0x0003fe00
-#define		CTF_TEMP_SHIFT				9
+#define	CG_MULT_THERMAL_STATUS  0x740
+#define ASIC_TM(x) ((x) << 16)
+#define ASIC_TM_MASK 0x3FF0000
+#define ASIC_TM_SHIFT 16
+#define CG_THERMAL_STATUS 0x7F4
+#define ASIC_T(x) ((x) << 0)
+#define ASIC_T_MASK 0x1FF
+#define ASIC_T_SHIFT 0
+#define CG_SI_THERMAL_STATUS 0x714
+#define CTF_TEMP(x) ((x) << 9)
+#define CTF_TEMP_MASK 0x0003fe00
+#define CTF_TEMP_SHIFT 9
 
-#define	CG_CI_MULT_THERMAL_STATUS		0xC0300014
-#define		CI_ASIC_MAX_TEMP(x)			((x) << 0)
-#define		CI_ASIC_MAX_TEMP_MASK		0x000001ff
-#define		CI_ASIC_MAX_TEMP_SHIFT		0
-#define		CI_CTF_TEMP(x)				((x) << 9)
-#define		CI_CTF_TEMP_MASK			0x0003fe00
-#define		CI_CTF_TEMP_SHIFT			9
+#define	CG_CI_MULT_THERMAL_STATUS 0xC0300014
+#define		CI_ASIC_MAX_TEMP(x) ((x) << 0)
+#define		CI_ASIC_MAX_TEMP_MASK 0x000001ff
+#define		CI_ASIC_MAX_TEMP_SHIFT 0
+#define		CI_CTF_TEMP(x) ((x) << 9)
+#define		CI_CTF_TEMP_MASK 0x0003fe00
+#define		CI_CTF_TEMP_SHIFT 9
 
-#define	CG_KV_MULT_THERMAL_STATUS		0xC0300E0C
+#define	CG_KV_MULT_THERMAL_STATUS 0xC0300E0C
 //actual_temp = (temp / 8) - 49;
 
 //for Polaris
@@ -67,23 +67,23 @@
 
 //linux 4.14
 //using byte addressing instead of Linux u32 addressing
-#define mmSMC_IND_INDEX_11                            (0x1AC * 4)
-#define mmSMC_IND_DATA_11                             (0x1AD * 4)
-#define mmSMC_MSG_ARG_0                               (0xA4 * 4)
-//#define mmSMC_MESSAGE_0                               (0x008B * 4) //smu_6
-#define mmSMC_MESSAGE_0                               (0x94 * 4) /* SMU_7 */
-#define mmSMC_RESP_0                                  (0x95 * 4) /* SMU_7 */
+#define mmSMC_IND_INDEX_11  (0x1AC * 4)
+#define mmSMC_IND_DATA_11   (0x1AD * 4)
+#define mmSMC_MSG_ARG_0     (0xA4 * 4)
+//#define mmSMC_MESSAGE_0     (0x008B * 4) //smu_6
+#define mmSMC_MESSAGE_0     (0x94 * 4) /* SMU_7 */
+#define mmSMC_RESP_0        (0x95 * 4) /* SMU_7 */
 
 //SeaIsland+
-#define SMC_IND_INDEX_0             0x200
-#define SMC_IND_DATA_0              0x204
+#define SMC_IND_INDEX_0 0x200
+#define SMC_IND_DATA_0  0x204
 
-#define mmPCIE_INDEX                                  (0x000C * 4)
-#define mmPCIE_DATA                                   (0x000D * 4)
+#define mmPCIE_INDEX    (0x000C * 4)
+#define mmPCIE_DATA     (0x000D * 4)
 
 //VEGA10
-#define mmTHM_TCON_CUR_TMP                    0x59800
-#define THM_TCON_CUR_TMP__CUR_TEMP__SHIFT     24
+#define mmTHM_TCON_CUR_TMP 0x59800
+#define THM_TCON_CUR_TMP__CUR_TEMP__SHIFT 24
 
 
 typedef struct {

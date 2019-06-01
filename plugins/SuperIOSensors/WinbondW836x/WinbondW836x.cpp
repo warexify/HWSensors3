@@ -67,78 +67,77 @@ OSDefineMetaClassAndStructors(W836xSensor, SuperIOSensor)
 
 #pragma mark W836xSensor implementation
 
-SuperIOSensor * W836xSensor::withOwner(SuperIOMonitor *aOwner, const char* aKey, const char* aType, unsigned char aSize, SuperIOSensorGroup aGroup, unsigned long aIndex, long aRi, long aRf, long aVf)
-{
-	SuperIOSensor *me = new W836xSensor;
-    //  DebugLog("with owner mults = %ld", aRi);
-    if (me && !me->initWithOwner(aOwner, aKey, aType, aSize, aGroup, aIndex ,aRi,aRf,aVf)) {
-        me->release();
-        return 0;
-    }
-	
-    return me;
+SuperIOSensor * W836xSensor::withOwner(SuperIOMonitor *aOwner,
+                                       const char* aKey,
+                                       const char* aType,
+                                       unsigned char aSize,
+                                       SuperIOSensorGroup aGroup,
+                                       unsigned long aIndex,
+                                       long aRi,
+                                       long aRf,
+                                       long aVf) {
+  SuperIOSensor *me = new W836xSensor;
+  //  DebugLog("with owner mults = %ld", aRi);
+  if (me && !me->initWithOwner(aOwner, aKey, aType, aSize, aGroup, aIndex ,aRi,aRf,aVf)) {
+    me->release();
+    return 0;
+  }
+  
+  return me;
 }
 
-long W836xSensor::getValue()
-{
-	UInt16 value = 0;
-	switch (group) {
-		case kSuperIOTemperatureSensor:
-			value = owner->readTemperature(index);
-			break;
-		case kSuperIOVoltageSensor:
-			value = owner->readVoltage(index);
-			break;
-		case kSuperIOTachometerSensor:
-			value = owner->readTachometer(index);
-			break;
-        default:
-            break;
-    }
-    if (Rf == 0) {
-      Rf = 1;
-      Ri = 0;
-      Vf = 0;
-      WarningLog("Rf == 0 when getValue index=%d value=%04x", (int)index, value);
-    }
-    //  DebugLog("value = %ld Ri=%ld Rf=%ld", (long)value, Ri, Rf);
-    value =  value + ((value - Vf) * Ri)/Rf;
-    
-	if (*((uint32_t*)type) == *((uint32_t*)TYPE_FP2E)) {
-		value = encode_fp2e(value);
-	}
-    else if (*((uint32_t*)type) == *((uint32_t*)TYPE_SP4B)) {
-		value = encode_sp4b(value);
-	}
-	else if (*((uint32_t*)type) == *((uint32_t*)TYPE_FPE2)) {
-		value = encode_fpe2(value);
-	}
-
-	return value;
-}
-    
-
-
-UInt8 W836x::readByte(UInt8 bank, UInt8 reg)
-{
-	outb((UInt16)(address + WINBOND_ADDRESS_REGISTER_OFFSET), WINBOND_BANK_SELECT_REGISTER);
-	outb((UInt16)(address + WINBOND_DATA_REGISTER_OFFSET), bank);
-	outb((UInt16)(address + WINBOND_ADDRESS_REGISTER_OFFSET), reg);
-	return inb((UInt16)(address + WINBOND_DATA_REGISTER_OFFSET));
+long W836xSensor::getValue() {
+  UInt16 value = 0;
+  switch (group) {
+    case kSuperIOTemperatureSensor:
+      value = owner->readTemperature(index);
+      break;
+    case kSuperIOVoltageSensor:
+      value = owner->readVoltage(index);
+      break;
+    case kSuperIOTachometerSensor:
+      value = owner->readTachometer(index);
+      break;
+    default:
+      break;
+  }
+  
+  if (Rf == 0) {
+    Rf = 1;
+    Ri = 0;
+    Vf = 0;
+    WarningLog("Rf == 0 when getValue index=%d value=%04x", (int)index, value);
+  }
+  //  DebugLog("value = %ld Ri=%ld Rf=%ld", (long)value, Ri, Rf);
+  value =  value + ((value - Vf) * Ri)/Rf;
+  
+  if (*((uint32_t*)type) == *((uint32_t*)TYPE_FP2E)) {
+    value = encode_fp2e(value);
+  } else if (*((uint32_t*)type) == *((uint32_t*)TYPE_SP4B)) {
+    value = encode_sp4b(value);
+  } else if (*((uint32_t*)type) == *((uint32_t*)TYPE_FPE2)) {
+    value = encode_fpe2(value);
+  }
+  
+  return value;
 }
 
-void W836x::writeByte(UInt8 bank, UInt8 reg, UInt8 value)
-{
+UInt8 W836x::readByte(UInt8 bank, UInt8 reg) {
+  outb((UInt16)(address + WINBOND_ADDRESS_REGISTER_OFFSET), WINBOND_BANK_SELECT_REGISTER);
+  outb((UInt16)(address + WINBOND_DATA_REGISTER_OFFSET), bank);
+  outb((UInt16)(address + WINBOND_ADDRESS_REGISTER_OFFSET), reg);
+  return inb((UInt16)(address + WINBOND_DATA_REGISTER_OFFSET));
+}
+
+void W836x::writeByte(UInt8 bank, UInt8 reg, UInt8 value) {
 	outb((UInt16)(address + WINBOND_ADDRESS_REGISTER_OFFSET), WINBOND_BANK_SELECT_REGISTER);
 	outb((UInt16)(address + WINBOND_DATA_REGISTER_OFFSET), bank);
 	outb((UInt16)(address + WINBOND_ADDRESS_REGISTER_OFFSET), reg);
 	outb((UInt16)(address + WINBOND_DATA_REGISTER_OFFSET), value);
 }
 
-UInt64 W836x::setBit(UInt64 target, UInt16 bit, UInt32 value)
-{
-	if (((value & 1) == value) && bit <= 63)
-	{
+UInt64 W836x::setBit(UInt64 target, UInt16 bit, UInt32 value) {
+	if (((value & 1) == value) && bit <= 63) {
 		UInt64 mask = (((UInt64)1) << bit);
 		return value > 0 ? target | mask : target & ~mask;
 	}
@@ -146,8 +145,7 @@ UInt64 W836x::setBit(UInt64 target, UInt16 bit, UInt32 value)
 	return value;
 }
 
-long W836x::readTemperature(unsigned long index)
-{
+long W836x::readTemperature(unsigned long index) {
   UInt32 bank, reg;
   UInt32 value;
   if (model >= NCT6681) {
@@ -157,19 +155,20 @@ long W836x::readTemperature(unsigned long index)
     bank = WINBOND_TEMPERATURE[index] >> 8;
     reg = WINBOND_TEMPERATURE[index] & 0xFF;
   }
-	value = readByte(bank, reg) << 1;
-	
-	if (bank > 0)
-		value |= (readByte(bank, (UInt8)(reg + 1)) >> 7) & 1;
-	
-	float temperature = (float)value / 2.0f;
-	
-	return (temperature <= 125 && temperature >= -55) ? temperature : 0;
+  value = readByte(bank, reg) << 1;
+  
+  if (bank > 0) {
+    value |= (readByte(bank, (UInt8)(reg + 1)) >> 7) & 1;
+  }
+  
+  float temperature = (float)value / 2.0f;
+  
+  return (temperature <= 125 && temperature >= -55) ? temperature : 0;
 }
 
-long W836x::readVoltage(unsigned long index)
-{
+long W836x::readVoltage(unsigned long index) {
   UInt32 scale, reg, bank;
+  
   if (model >= NCT6791D) {
     scale = 8;
     reg = NUVOTON_VOLTAGE_REG[index] & 0xFF;
@@ -179,10 +178,9 @@ long W836x::readVoltage(unsigned long index)
     reg = WINBOND_VOLTAGE_REG[index] & 0xFF;
     bank = WINBOND_VOLTAGE_REG[index] >> 8;
   }
+  
   if (index < 9) {
-    
     float value = readByte(bank, reg) * scale;
-    
     bool valid = value > 0;
     
     // check if battery voltage monitor is enabled
@@ -196,8 +194,7 @@ long W836x::readVoltage(unsigned long index)
   return 0;
 }
 
-void W836x::updateTachometers()
-{
+void W836x::updateTachometers() {
   if (model >= NCT6681) {
     for (int i = 0; i < fanLimit; i++) {
       int bank = NUVOTON_TACHOMETER[i] >> 8;
@@ -212,15 +209,13 @@ void W836x::updateTachometers()
 
 	UInt64 bits = 0;
 	
-	for (int i = 0; i < 5; i++)
-	{
+	for (int i = 0; i < 5; i++) {
 		bits = (bits << 8) | readByte(0, WINBOND_TACHOMETER_DIVISOR[i]);
 	}
 	
 	UInt64 newBits = bits;
 	
-	for (int i = 0; i < fanLimit; i++)
-	{
+	for (int i = 0; i < fanLimit; i++) {
 		// assemble fan divisor
 		UInt8 offset =	(((bits >> WINBOND_TACHOMETER_DIVISOR2[i]) & 1) << 2) |
 		(((bits >> WINBOND_TACHOMETER_DIVISOR1[i]) & 1) << 1) |
@@ -230,12 +225,9 @@ void W836x::updateTachometers()
 		UInt8 count = readByte(WINBOND_TACHOMETER_BANK[i], WINBOND_TACHOMETER[i]);
 		
 		// update fan divisor
-		if (count > 192 && offset < 7)
-		{
+		if (count > 192 && offset < 7) {
 			offset++;
-		}
-		else if (count < 96 && offset > 0)
-		{
+		} else if (count < 96 && offset > 0) {
 			offset--;
 		}
 		
@@ -248,13 +240,11 @@ void W836x::updateTachometers()
 	}
 	
 	// write new fan divisors
-	for (int i = 4; i >= 0; i--)
-	{
+	for (int i = 4; i >= 0; i--) {
 		UInt8 oldByte = bits & 0xff;
 		UInt8 newByte = newBits & 0xff;
 		
-		if (oldByte != newByte)
-		{
+		if (oldByte != newByte) {
 			writeByte(0, WINBOND_TACHOMETER_DIVISOR[i], newByte);
 		}
 		
@@ -264,50 +254,43 @@ void W836x::updateTachometers()
 }
 
 
-long W836x::readTachometer(unsigned long index)
-{
-	if (fanValueObsolete[index])
+long W836x::readTachometer(unsigned long index) {
+  if (fanValueObsolete[index]) {
 		updateTachometers();
-	
+  }
 	fanValueObsolete[index] = true;
 	
 	return fanValue[index];
 }
 
-void W836x::enter()
-{
+void W836x::enter() {
 	outb(registerPort, 0x87);
 	outb(registerPort, 0x87);
 }
 
-void W836x::exit()
-{
+void W836x::exit() {
 	outb(registerPort, 0xAA);
 	//outb(registerPort, SUPERIO_CONFIGURATION_CONTROL_REGISTER);
 	//outb(valuePort, 0x02);
 }
 
-bool W836x::probePort()
-{
+bool W836x::probePort() {
   model = 0;
-  
 	UInt8 id =listenPortByte(SUPERIO_CHIP_ID_REGISTER);
   
   IOSleep(50);
   
 	UInt8 revision = listenPortByte(SUPERIO_CHIP_REVISION_REGISTER);
 	
-	if (id == 0 || id == 0xff || revision == 0 || revision == 0xff)
-		return false;
+  if (id == 0 || id == 0xff || revision == 0 || revision == 0xff) {
+    return false;
+  }
 	
 	fanLimit = 6;
 	
-  switch (id)
-  {
-    case 0x52:
-    {
-      switch (revision & 0xf0)
-      {
+  switch (id) {
+    case 0x52: {
+      switch (revision & 0xf0) {
         case 0x10:
         case 0x30:
         case 0x40:
@@ -315,19 +298,18 @@ bool W836x::probePort()
           model = W83627HF;
           fanLimit = 3;
           break;
-          /*case 0x70:
-           model = W83977CTF;
-           break;
-           case 0xf0:
-           model = W83977EF;
-           break;*/
-
+        /*
+        case 0x70:
+          model = W83977CTF;
+          break;
+        case 0xf0:
+          model = W83977EF;
+          break;
+        */
       }
     }
-    case 0x59:
-    {
-      switch (revision & 0xf0)
-      {
+    case 0x59: {
+      switch (revision & 0xf0) {
         case 0x50:
           model = W83627SF;
           fanLimit = 3;
@@ -335,11 +317,8 @@ bool W836x::probePort()
       }
       break;
     }
-
-    case 0x60:
-    {
-      switch (revision & 0xf0)
-      {
+    case 0x60: {
+      switch (revision & 0xf0) {
         case 0x10:
           model = W83697HF;
           fanLimit = 2;
@@ -347,22 +326,20 @@ bool W836x::probePort()
       }
       break;
     }
-
-      /*case 0x61:
-       {
-       switch (revision & 0xf0)
-       {
-       case 0x00:
-       model = W83L517D;
-       break;
-       }
-       break;
-       }*/
-
-    case 0x68:
+    /*
+    case 0x61:
     {
       switch (revision & 0xf0)
       {
+        case 0x00:
+          model = W83L517D;
+          break;
+      }
+      break;
+    }
+    */
+    case 0x68: {
+      switch (revision & 0xf0) {
         case 0x10:
           model = W83697SF;
           fanLimit = 2;
@@ -370,11 +347,8 @@ bool W836x::probePort()
       }
       break;
     }
-
-    case 0x70:
-    {
-      switch (revision & 0xf0)
-      {
+    case 0x70: {
+      switch (revision & 0xf0) {
         case 0x80:
           model = W83637HF;
           fanLimit = 5;
@@ -382,12 +356,8 @@ bool W836x::probePort()
       }
       break;
     }
-
-
-    case 0x82:
-    {
-      switch (revision & 0xF0)
-      {
+    case 0x82: {
+      switch (revision & 0xF0) {
         case 0x80:
           model = W83627THF;
           fanLimit = 3;
@@ -395,11 +365,8 @@ bool W836x::probePort()
       }
       break;
     }
-
-    case 0x85:
-    {
-      switch (revision)
-      {
+    case 0x85: {
+      switch (revision) {
         case 0x41:
           model = W83687THF;
           fanLimit = 3;
@@ -408,11 +375,8 @@ bool W836x::probePort()
       }
       break;
     }
-
-    case 0x88:
-    {
-      switch (revision & 0xF0)
-      {
+    case 0x88: {
+      switch (revision & 0xF0) {
         case 0x50:
         case 0x60:
           model = W83627EHF;
@@ -421,31 +385,29 @@ bool W836x::probePort()
       }
       break;
     }
-
-      /*case 0x97:
-       {
-       switch (revision)
-       {
-       case 0x71:
-       model = W83977FA;
-       break;
-       case 0x73:
-       model = W83977TF;
-       break;
-       case 0x74:
-       model = W83977ATF;
-       break;
-       case 0x77:
-       model = W83977AF;
-       break;
-       }
-       break;
-       }*/
-
-    case 0xA0:
+    /*
+    case 0x97:
     {
-      switch (revision & 0xF0)
+      switch (revision)
       {
+        case 0x71:
+          model = W83977FA;
+          break;
+        case 0x73:
+          model = W83977TF;
+          break;
+        case 0x74:
+          model = W83977ATF;
+          break;
+        case 0x77:
+          model = W83977AF;
+          break;
+      }
+      break;
+    }
+    */
+    case 0xA0: {
+      switch (revision & 0xF0) {
         case 0x20:
           model = W83627DHG;
           fanLimit = 5;
@@ -453,11 +415,8 @@ bool W836x::probePort()
       }
       break;
     }
-
-    case 0xA2:
-    {
-      switch (revision & 0xF0)
-      {
+    case 0xA2: {
+      switch (revision & 0xF0) {
         case 0x30:
           model = W83627UHG;
           fanLimit = 2;
@@ -465,11 +424,8 @@ bool W836x::probePort()
       }
       break;
     }
-
-    case 0xA5:
-    {
-      switch (revision & 0xF0)
-      {
+    case 0xA5: {
+      switch (revision & 0xF0) {
         case 0x10:
           model = W83667HG;
           fanLimit = 2;
@@ -477,11 +433,8 @@ bool W836x::probePort()
       }
       break;
     }
-
-    case 0xB0:
-    {
-      switch (revision & 0xF0)
-      {
+    case 0xB0: {
+      switch (revision & 0xF0) {
         case 0x70:
           model = W83627DHGP;
           fanLimit = 5;
@@ -489,11 +442,8 @@ bool W836x::probePort()
       }
       break;
     }
-
-    case 0xB3:
-    {
-      switch (revision & 0xF0)
-      {
+    case 0xB3: {
+      switch (revision & 0xF0) {
         case 0x50:
           model = W83667HGB;
           fanLimit = 4;
@@ -505,36 +455,36 @@ bool W836x::probePort()
       model = NCT6681;
       fanLimit = 5;
       break;
-
-
     case 0xB4:
       switch (revision & 0xF0) {
         case 0x70:
           model = NCT6771F;
-          //          minFanRPM = (int)(1.35e6 / 0xFFFF);
+          //minFanRPM = (int)(1.35e6 / 0xFFFF);
           break;
-      } break;
+      }
+      break;
     case 0xC3:
       switch (revision & 0xF0) {
         case 0x30:
           model = NCT6776F;
-          //          minFanRPM = (int)(1.35e6 / 0x1FFF);
+          //minFanRPM = (int)(1.35e6 / 0x1FFF);
           break;
-      } break;
+      }
+      break;
     case 0xC5:
       switch (revision & 0xF0) {
         case 0x60:
           model = NCT6779D;
-          //          minFanRPM = (int)(1.35e6 / 0x1FFF);
+          //minFanRPM = (int)(1.35e6 / 0x1FFF);
           break;
-      } break;
+      }
+      break;
     case 0xC7:
       model = NCT6683;
       break;
-
     case 0xC8:
       model = NCT6791D;
-      //      minFanRPM = (int)(1.35e6 / 0x1FFF);
+      //minFanRPM = (int)(1.35e6 / 0x1FFF);
       break;
     case 0xC9:
       model = NCT6792D;
@@ -564,8 +514,7 @@ bool W836x::probePort()
       break;
   }
 
-	if (!model)
-	{
+	if (!model) {
 		WarningLog("found unsupported chip ID=0x%x REVISION=0x%x", id, revision);
 		return false;
 	}
@@ -597,6 +546,7 @@ bool W836x::probePort()
   InfoLog("-  75: %02x", readByte(0, 0x75));
   InfoLog("-  77: %02x", readByte(0, 0x77));
   InfoLog("-  79: %02x", readByte(0, 0x79));
+  
   for (int i = 0; i<4; i++) {
     int reg;
     int bank, index;
@@ -617,63 +567,64 @@ bool W836x::probePort()
     InfoLog("-  %x: %02x", reg, readByte(bank, index));
   }
 
-  
 	return true;
 }
 
-bool W836x::init(OSDictionary *properties)
-{
+bool W836x::init(OSDictionary *properties) {
 	DebugLog("initialising...");
   
-  if (!super::init(properties))
-		return false;
+  if (!super::init(properties)) {
+    return false;
+  }
   
 	return true;
 }
 
-IOService* W836x::probe(IOService *provider, SInt32 *score)
-{
+IOService* W836x::probe(IOService *provider, SInt32 *score) {
 	DebugLog("probing...");
   
-	if (super::probe(provider, score) != this)
-		return 0;
+  if (super::probe(provider, score) != this) {
+    return 0;
+  }
   
 	return this;
 }
 
-void W836x::stop (IOService* provider)
-{
-	DebugLog("stoping...");
-    if (kIOReturnSuccess != fakeSMC->callPlatformFunction(kFakeSMCRemoveKeyHandler, true, this, NULL, NULL, NULL)) {
-        WarningLog("Can't remove key handler");
-        IOSleep(500);
-    }
-    
-	super::stop(provider);
+void W836x::stop (IOService* provider) {
+  DebugLog("stoping...");
+  if (kIOReturnSuccess != fakeSMC->callPlatformFunction(kFakeSMCRemoveKeyHandler,
+                                                        true,
+                                                        this,
+                                                        NULL,
+                                                        NULL,
+                                                        NULL)) {
+    WarningLog("Can't remove key handler");
+    IOSleep(500);
+  }
+  
+  super::stop(provider);
 }
 
-void W836x::free ()
-{
+void W836x::free() {
 	DebugLog("freeing...");
-  
 	super::free();
 }
 
-bool W836x::start(IOService * provider)
-{
+bool W836x::start(IOService * provider) {
   DebugLog("starting ...");
-
-  if (!super::start(provider))
+  
+  if (!super::start(provider)) {
     return false;
-
+  }
+  
   InfoLog("found %s", getModelName());
   OSDictionary* list = OSDynamicCast(OSDictionary, getProperty("Sensors Configuration"));
   OSDictionary *configuration=NULL;
   IORegistryEntry * rootNode;
-
+  
   rootNode = fromPath("/efi/platform", gIODTPlane);
-
-  if(rootNode) {
+  
+  if (rootNode) {
     OSData *data = OSDynamicCast(OSData, rootNode->getProperty("OEMVendor"));
     if (data) {
       bcopy(data->getBytesNoCopy(), vendor, data->getLength());
@@ -687,7 +638,7 @@ bool W836x::start(IOService * provider)
         if (data) {
           bcopy(data->getBytesNoCopy(), product, data->getLength());
           OSDictionary *link = OSDynamicCast(OSDictionary, list->getObject(VendorNick));
-          if (link){
+          if (link) {
             configuration = OSDynamicCast(OSDictionary, link->getObject(OSString::withCString(product)));
             InfoLog(" mother vendor=%s product=%s", vendor, product);
           }
@@ -699,26 +650,26 @@ bool W836x::start(IOService * provider)
       WarningLog("no OEMVendor");
     }
   }
-
+  
   if (list && !configuration) {
     configuration = OSDynamicCast(OSDictionary, list->getObject("Default"));
     WarningLog("set default configuration");
   }
-
-  if(configuration) {
+  
+  if (configuration) {
     this->setProperty("Current Configuration", configuration);
   }
-
+  
   OSBoolean* tempin0forced = configuration ? OSDynamicCast(OSBoolean, configuration->getObject("TEMPIN0FORCED")) : 0;
   OSBoolean* tempin1forced = configuration ? OSDynamicCast(OSBoolean, configuration->getObject("TEMPIN1FORCED")) : 0;
-
+  
   if (OSNumber* fanlimit = configuration ? OSDynamicCast(OSNumber, configuration->getObject("FANINLIMIT")) : 0)
     fanLimit = fanlimit->unsigned8BitValue();
-
+  
   //  cpuid_update_generic_info();
-
+  
   bool isCpuCore_i = false;
-
+  
   /*  if (strcmp(cpuid_info()->cpuid_vendor, CPUID_VID_INTEL) == 0)
    {
    switch (cpuid_info()->cpuid_family)
@@ -738,95 +689,88 @@ bool W836x::start(IOService * provider)
    }
    isCpuCore_i = (cpuid_info()->cpuid_model >= 0x1A);
    } */
-
-  if (isCpuCore_i)
-  {
+  
+  if (isCpuCore_i) {
     // Heatsink
-    if (!addSensor(KEY_CPU_HEATSINK_TEMPERATURE, TYPE_SP78, 2, kSuperIOTemperatureSensor, 2))
+    if (!addSensor(KEY_CPU_HEATSINK_TEMPERATURE, TYPE_SP78, 2, kSuperIOTemperatureSensor, 2)) {
       return false;
-  }
-  else
-  {
-    switch (model)
-    {
+    }
+  } else {
+    switch (model) {
       case W83667HG:
-      case W83667HGB:
-      {
+      case W83667HGB: {
         // do not add temperature sensor registers that read PECI
         UInt8 flag = readByte(0, WINBOND_TEMPERATURE_SOURCE_SELECT_REG);
-
-        if ((flag & 0x04) == 0 || (tempin0forced && tempin0forced->getValue()))
-        {
+        
+        if ((flag & 0x04) == 0 || (tempin0forced && tempin0forced->getValue())) {
           // Heatsink
-          if (!addSensor(KEY_CPU_HEATSINK_TEMPERATURE, TYPE_SP78, 2, kSuperIOTemperatureSensor, 0))
+          if (!addSensor(KEY_CPU_HEATSINK_TEMPERATURE, TYPE_SP78, 2, kSuperIOTemperatureSensor, 0)) {
             WarningLog("error adding heatsink temperature sensor");
-        }
-        else if ((flag & 0x40) == 0 || (tempin1forced && tempin1forced->getValue()))
-        {
+          }
+        } else if ((flag & 0x40) == 0 || (tempin1forced && tempin1forced->getValue())) {
           // Ambient
-          if (!addSensor(KEY_AMBIENT_TEMPERATURE, TYPE_SP78, 2, kSuperIOTemperatureSensor, 1))
+          if (!addSensor(KEY_AMBIENT_TEMPERATURE, TYPE_SP78, 2, kSuperIOTemperatureSensor, 1)) {
             WarningLog("error adding ambient temperature sensor");
+          }
         }
-
+        
         // Northbridge
-        if (!addSensor(KEY_NORTHBRIDGE_TEMPERATURE, TYPE_SP78, 2, kSuperIOTemperatureSensor, 2))
+        if (!addSensor(KEY_NORTHBRIDGE_TEMPERATURE, TYPE_SP78, 2, kSuperIOTemperatureSensor, 2)) {
           WarningLog("error adding system temperature sensor");
-
+        }
         break;
       }
-
       case W83627DHG:
-      case W83627DHGP:
-      {
+      case W83627DHGP: {
         // do not add temperature sensor registers that read PECI
         UInt8 sel = readByte(0, WINBOND_TEMPERATURE_SOURCE_SELECT_REG);
-
-        if ((sel & 0x07) == 0 || (tempin0forced && tempin0forced->getValue()))
-        {
+        
+        if ((sel & 0x07) == 0 || (tempin0forced && tempin0forced->getValue())) {
           // Heatsink
-          if (!addSensor(KEY_CPU_HEATSINK_TEMPERATURE, TYPE_SP78, 2, kSuperIOTemperatureSensor, 0))
+          if (!addSensor(KEY_CPU_HEATSINK_TEMPERATURE, TYPE_SP78, 2, kSuperIOTemperatureSensor, 0)) {
             WarningLog("error adding heatsink temperature sensor");
-        }
-        else if ((sel & 0x70) == 0 || (tempin1forced && tempin1forced->getValue()))
-        {
+          }
+        } else if ((sel & 0x70) == 0 || (tempin1forced && tempin1forced->getValue())) {
           // Ambient
-          if (!addSensor(KEY_AMBIENT_TEMPERATURE, TYPE_SP78, 2, kSuperIOTemperatureSensor, 1))
+          if (!addSensor(KEY_AMBIENT_TEMPERATURE, TYPE_SP78, 2, kSuperIOTemperatureSensor, 1)) {
             WarningLog("error adding ambient temperature sensor");
+          }
         }
-
+        
         // Northbridge
-        if (!addSensor(KEY_NORTHBRIDGE_TEMPERATURE, TYPE_SP78, 2, kSuperIOTemperatureSensor, 2))
+        if (!addSensor(KEY_NORTHBRIDGE_TEMPERATURE, TYPE_SP78, 2, kSuperIOTemperatureSensor, 2)) {
           WarningLog("error adding system temperature sensor");
-
+        }
         break;
       }
-
-      default:
-      {
+      default: {
         // no PECI support, add all sensors
-
+        
         // Heatsink
-        if (!addSensor(KEY_CPU_HEATSINK_TEMPERATURE, TYPE_SP78, 2, kSuperIOTemperatureSensor, 0))
+        if (!addSensor(KEY_CPU_HEATSINK_TEMPERATURE, TYPE_SP78, 2, kSuperIOTemperatureSensor, 0)) {
           WarningLog("error adding heatsink temperature sensor");
-
-        // Ambient
-        if (!addSensor(KEY_AMBIENT_TEMPERATURE, TYPE_SP78, 2, kSuperIOTemperatureSensor, 1))
-          WarningLog("error adding ambient temperature sensor");
-
-        // Northbridge
-        if (!addSensor(KEY_NORTHBRIDGE_TEMPERATURE, TYPE_SP78, 2, kSuperIOTemperatureSensor, 2))
-          WarningLog("error adding system temperature sensor");
-
-        if (model >= NCT6771F) {
-          if (!addSensor(KEY_DIMM_TEMPERATURE, TYPE_SP78, 2, kSuperIOTemperatureSensor, 3))
-            WarningLog("error adding system temperature sensor");
         }
-
+        
+        // Ambient
+        if (!addSensor(KEY_AMBIENT_TEMPERATURE, TYPE_SP78, 2, kSuperIOTemperatureSensor, 1)) {
+          WarningLog("error adding ambient temperature sensor");
+        }
+        
+        // Northbridge
+        if (!addSensor(KEY_NORTHBRIDGE_TEMPERATURE, TYPE_SP78, 2, kSuperIOTemperatureSensor, 2)) {
+          WarningLog("error adding system temperature sensor");
+        }
+        
+        if (model >= NCT6771F) {
+          if (!addSensor(KEY_DIMM_TEMPERATURE, TYPE_SP78, 2, kSuperIOTemperatureSensor, 3)) {
+            WarningLog("error adding system temperature sensor");
+          }
+        }
         break;
       }
     }
   }
-
+  
   // Voltage
   if (configuration) {
     for (int i = 0; i < 9; i++) {
@@ -835,19 +779,19 @@ bool W836x::start(IOService * provider)
       long Rf=1;
       long Vf=0;
       OSString * name;
-
+      
       snprintf(key, 5, "VIN%X", i);
-
+      
       if (process_sensor_entry(configuration->getObject(key), &name, &Ri, &Rf, &Vf)) {
         if (name->isEqualTo("CPU")) {
-          if (!addSensor(KEY_CPU_VRM_SUPPLY0, TYPE_FP2E, 2, kSuperIOVoltageSensor, i,Ri,Rf,Vf))
+          if (!addSensor(KEY_CPU_VRM_SUPPLY0, TYPE_FP2E, 2, kSuperIOVoltageSensor, i,Ri,Rf,Vf)) {
             WarningLog("error adding CPU voltage sensor");
-        }
-        else if (name->isEqualTo("Memory")) {
-          if (!addSensor(KEY_MEMORY_VOLTAGE, TYPE_FP2E, 2, kSuperIOVoltageSensor, i, Ri, Rf, Vf))
+          }
+        } else if (name->isEqualTo("Memory")) {
+          if (!addSensor(KEY_MEMORY_VOLTAGE, TYPE_FP2E, 2, kSuperIOVoltageSensor, i, Ri, Rf, Vf)) {
             WarningLog("error adding memory voltage sensor");
-        }
-        else if (name->isEqualTo("+5VC")) {
+          }
+        } else if (name->isEqualTo("+5VC")) {
           if (Ri == 0) {
             Ri = 20; //Rodion
             Rf = 10;
@@ -855,17 +799,16 @@ bool W836x::start(IOService * provider)
           if (!addSensor(KEY_5VC_VOLTAGE, TYPE_SP4B, 2, kSuperIOVoltageSensor, i, Ri, Rf, Vf)) {
             WarningLog("ERROR Adding AVCC Voltage Sensor!");
           }
-        }
-        else if (name->isEqualTo("+5VSB")) {
+        } else if (name->isEqualTo("+5VSB")) {
           if (Ri == 0) {
             Ri = 20; //Rodion
             Rf = 10;
           }
+          
           if (!addSensor(KEY_5VSB_VOLTAGE, TYPE_SP4B, 2, kSuperIOVoltageSensor, i, Ri, Rf, Vf)) {
             WarningLog("ERROR Adding AVCC Voltage Sensor!");
           }
-        }
-        else if (name->isEqualTo("+12VC")) {
+        } else if (name->isEqualTo("+12VC")) {
           if (Ri == 0) {
             Ri = 60;  //Rodion - 60, Datasheet 56 (?)
             Rf = 10;
@@ -873,49 +816,44 @@ bool W836x::start(IOService * provider)
           if (!addSensor(KEY_12V_VOLTAGE, TYPE_SP4B, 2, kSuperIOVoltageSensor, i, Ri, Rf, Vf)) {
             WarningLog("ERROR Adding 12V Voltage Sensor!");
           }
-        }
-        else if (name->isEqualTo("-12VC")) {
+        } else if (name->isEqualTo("-12VC")) {
           if (Ri == 0) {
             Ri = 232; // Rodion - у меня нет такого. в datasheet 232 (?)
             Rf = 10;
             Vf = 2048;
           }
+          
           if (!addSensor(KEY_N12VC_VOLTAGE, TYPE_SP4B, 2, kSuperIOVoltageSensor, i, Ri, Rf, Vf)) {
             WarningLog("ERROR Adding 12V Voltage Sensor!");
           }
-        }
-        else if (name->isEqualTo("3VCC")) {
+        } else if (name->isEqualTo("3VCC")) {
           if (Ri == 0) {
-//            Ri = 34; Rodion
-//            Rf = 34;  оно уже посчитано здесь { 8,     8,     16,    16,    8,     8,     8,     16,    16 };
+            //            Ri = 34; Rodion
+            //            Rf = 34;  оно уже посчитано здесь { 8,     8,     16,    16,    8,     8,     8,     16,    16 };
           }
           if (!addSensor(KEY_3VCC_VOLTAGE, TYPE_FP2E, 2, kSuperIOVoltageSensor, i, Ri, Rf, Vf)) {
             WarningLog("ERROR Adding 3VCC Voltage Sensor!");
           }
-        }
-
-        else if (name->isEqualTo("3VSB")) {
+        } else if (name->isEqualTo("3VSB")) {
           if (Ri == 0) {
-//            Ri = 34;
-//            Rf = 34;
+            //            Ri = 34;
+            //            Rf = 34;
           }
           if (!addSensor(KEY_3VSB_VOLTAGE, TYPE_FP2E, 2, kSuperIOVoltageSensor, i, Ri, Rf, Vf)) {
             WarningLog("ERROR Adding 3VSB Voltage Sensor!");
           }
-        }
-        else if (name->isEqualTo("VBAT")) {
+        } else if (name->isEqualTo("VBAT")) {
           if (Ri == 0) {
-//            Ri = 34; Rodion - проверить не могу...но, по аналогии ))
-//            Rf = 34;
+            //            Ri = 34; Rodion - проверить не могу...но, по аналогии ))
+            //            Rf = 34;
           }
           if (!addSensor(KEY_VBAT_VOLTAGE, TYPE_FP2E, 2, kSuperIOVoltageSensor, i, Ri, Rf, Vf)) {
             WarningLog("ERROR Adding VBAT Voltage Sensor!");
           }
-        }
-        else if (name->isEqualTo("AVCC")) {
+        } else if (name->isEqualTo("AVCC")) {
           if (Ri == 0) {
-//            Ri = 34;
-//            Rf = 34;
+            //            Ri = 34;
+            //            Rf = 34;
           }
           if (!addSensor(KEY_AVCC_VOLTAGE, TYPE_FP2E, 2, kSuperIOVoltageSensor, i, Ri, Rf, Vf)) {
             WarningLog("ERROR Adding AVCC Voltage Sensor!");
@@ -924,36 +862,37 @@ bool W836x::start(IOService * provider)
       }
     }
   }
-
+  
   // FANs
-  for (int i = 0; i < fanLimit; i++)
+  for (int i = 0; i < fanLimit; i++) {
     fanValueObsolete[i] = true;
-
+  }
+  
   updateTachometers();
-
+  
   for (int i = 0; i < fanLimit; i++) {
     OSString* name = 0;
-
+    
     if (configuration) {
       char key[7];
       snprintf(key, 7, "FANIN%X", i);
       name = OSDynamicCast(OSString, configuration->getObject(key));
     }
-
+    
     UInt64 nameLength = name ? name->getLength() : 0;
-
-    if (readTachometer(i) > 10 || nameLength > 0)
-      if (!addTachometer(i, (nameLength > 0 ? name->getCStringNoCopy() : 0)))
+    
+    if (readTachometer(i) > 10 || nameLength > 0) {
+      if (!addTachometer(i, (nameLength > 0 ? name->getCStringNoCopy() : 0))) {
         WarningLog("error adding tachometer sensor %d", i);
+      }
+    }
   }
-
+  
   return true;
 }
 
-const char *W836x::getModelName()
-{
-  switch (model)
-  {
+const char *W836x::getModelName() {
+  switch (model) {
     case W83627DHG:     return "W83627DHG";
     case W83627DHGP:    return "W83627DHG-P";
     case W83627EHF:     return "W83627EHF";
@@ -979,28 +918,53 @@ const char *W836x::getModelName()
     case NCT6796D:      return "NCT6796D";
     case NCT6798D:      return "NCT6798D";
     case NCT679BD:      return "NCT679BD";
-
   }
 
   return "unknown";
 }
 
-SuperIOSensor * W836x::addSensor(const char* name, const char* type, unsigned int size, SuperIOSensorGroup group, unsigned long index, long aRi, long aRf, long aVf)
-{
-	if (NULL != getSensor(name))
-		return 0;
+SuperIOSensor * W836x::addSensor(const char* name,
+                                 const char* type,
+                                 unsigned int size,
+                                 SuperIOSensorGroup group,
+                                 unsigned long index,
+                                 long aRi,
+                                 long aRf,
+                                 long aVf) {
+  if (NULL != getSensor(name)) {
+    return 0;
+  }
   DebugLog("mults = %ld, %ld", aRi, aRf);
-  SuperIOSensor *sensor = W836xSensor::withOwner(this, name, type, size, group, index, aRi, aRf, aVf);
+  SuperIOSensor *sensor = W836xSensor::withOwner(this,
+                                                 name,
+                                                 type,
+                                                 size,
+                                                 group,
+                                                 index,
+                                                 aRi,
+                                                 aRf,
+                                                 aVf);
     
-	if (sensor && sensors->setObject(sensor))
-		if(kIOReturnSuccess == fakeSMC->callPlatformFunction(kFakeSMCAddKeyHandler, false, (void *)name, (void *)type, (void *)(long long)size, (void *)this))
-            return sensor;
+  if (sensor && sensors->setObject(sensor)) {
+    if (kIOReturnSuccess == fakeSMC->callPlatformFunction(kFakeSMCAddKeyHandler,
+                                                         false,
+                                                         (void *)name,
+                                                         (void *)type,
+                                                         (void *)(long long)size,
+                                                         (void *)this)) {
+      return sensor;
+    }
+  }
 	
 	return 0;
 }
 
-IOReturn W836x::callPlatformFunction(const OSSymbol *functionName, bool waitForFunction, void *param1, void *param2, void *param3, void *param4 )
-{
+IOReturn W836x::callPlatformFunction(const OSSymbol *functionName,
+                                     bool waitForFunction,
+                                     void *param1,
+                                     void *param2,
+                                     void *param3,
+                                     void *param4) {
   if (functionName->isEqualTo(kFakeSMCGetValueCallback)) {
     const char* name = (const char*)param1;
     void * data = param2;

@@ -62,9 +62,8 @@
 #define ADT7470_V12       0x24
 
 
-
-class Analog: public IOService //FakeSMCPlugin
-{
+//FakeSMCPlugin
+class Analog: public IOService {
     OSDeclareDefaultStructors(Analog)
 private:
   IOService*				fakeSMC;
@@ -84,11 +83,13 @@ private:
         SInt64 value;
         bool obsoleted;
     } Measures[NUM_SENSORS];
+  
     struct PList {
         UInt8 reg[2];
         UInt8 value;
         SInt8 duty;
     } Pwm[NUM_PWM];
+  
     struct {
         UInt16 pwm_mode;
         char start_fan;
@@ -116,6 +117,10 @@ protected:
     virtual bool    start (IOService* provider);
     virtual void    stop (IOService* provider);
     
-    virtual IOReturn	callPlatformFunction(const OSSymbol *functionName, bool waitForFunction,
-                                             void *param1, void *param2, void *param3, void *param4 );
+    virtual IOReturn	callPlatformFunction(const OSSymbol *functionName,
+                                           bool waitForFunction,
+                                           void *param1,
+                                           void *param2,
+                                           void *param3,
+                                           void *param4);
 };

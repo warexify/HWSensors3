@@ -91,21 +91,20 @@ __asm__ __volatile__("rdtsc" : "=a" (low), "=d" (high))
 //typedef UInt8 uint8_t;
 
 /** Read one byte from the intel i2c, used for reading SPD on intel chipsets only. */
-unsigned char smb_read_byte_intel(uint32_t base, uint8_t adr, uint8_t cmd)
-{
+unsigned char smb_read_byte_intel(uint32_t base, uint8_t adr, uint8_t cmd) {
   int l1, h1, l2, h2;
   unsigned long long t;
 	
-  outb(base + SMBHSTSTS, 0x1f);					// reset SMBus Controller
+  outb(base + SMBHSTSTS, 0x1f); // reset SMBus Controller
   outb(base + SMBHSTDAT, 0xff);
 	
   rdtsc(l1, h1);
-  while ( inb(base + SMBHSTSTS) & 0x01)    // wait until read
-  {  
+  while ( inb(base + SMBHSTSTS) & 0x01) {  // wait until read
     rdtsc(l2, h2);
     t = ((h2 - h1) * 0xffffffff + (l2 - l1)) / (Platform.CPU.TSCFrequency / 100);
-    if (t > 5)
-      return 0xFF;                  // break
+    if (t > 5) {
+      return 0xFF; // break
+    }
   }
 	
   outb(base + SMBHSTCMD, cmd);
@@ -114,12 +113,12 @@ unsigned char smb_read_byte_intel(uint32_t base, uint8_t adr, uint8_t cmd)
 	
   rdtsc(l1, h1);
 	
- 	while (!( inb(base + SMBHSTSTS) & 0x02))		// wait til command finished
-	{	
+  while (!( inb(base + SMBHSTSTS) & 0x02)) { // wait til command finished
 		rdtsc(l2, h2);
 		t = ((h2 - h1) * 0xffffffff + (l2 - l1)) / (Platform.CPU.TSCFrequency / 100);
-		if (t > 5)
-			break;									// break after 5ms
+    if (t > 5) {
+			break; // break after 5ms
+    }
   }
   return inb(base + SMBHSTDAT);
 }
@@ -128,8 +127,7 @@ unsigned char smb_read_byte_intel(uint32_t base, uint8_t adr, uint8_t cmd)
 //#define READ_SPD(spd, base, slot, x) spd[x] = smb_read_byte_intel(base, 0x50 + slot, x)
 
 /*
-static void read_smb_intel(pci_dt_t *smbus_dev)
-{ 
+static void read_smb_intel(pci_dt_t *smbus_dev) { 
 //  int        i, speed;
 //  uint8_t    spd_size, spd_type;
   uint32_t   base, mmio, hostc;

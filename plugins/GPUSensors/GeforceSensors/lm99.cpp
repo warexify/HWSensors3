@@ -36,8 +36,8 @@
 #define MAX6696_REG_R_STATUS2		0x12
 #define LM99_REG_CHIP_ID        0xff
 #define LM90_REG_R_CONFIG1      0x03
-#define LM90_REG_R_CONFIG2		0xBF
-#define LM90_REG_R_CONVRATE		0x04
+#define LM90_REG_R_CONFIG2		  0xBF
+#define LM90_REG_R_CONVRATE		  0x04
 
 /* This function should return the chip type .. */
 int lm99_detect(I2CDevPtr dev)

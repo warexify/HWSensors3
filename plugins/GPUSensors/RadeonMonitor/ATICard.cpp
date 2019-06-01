@@ -12,8 +12,7 @@
 //#include "Sensor.h"
 OSDefineMetaClassAndStructors(ATICard, OSObject)
 
-bool ATICard::initialize()
-{
+bool ATICard::initialize() {
   IOMemoryMap *   mmio5 = NULL;
 	rinfo = (RADEONCardInfo*)IOMalloc(sizeof(RADEONCardInfo));
 	VCard->setMemoryEnable(true);
@@ -21,8 +20,8 @@ bool ATICard::initialize()
   IOPhysicalAddress bar = (IOPhysicalAddress)((VCard->configRead32(kIOPCIConfigBaseAddress5)) & ~0x3f);
   InfoLog("register space5=%08lx\n", (long unsigned int)bar);
   theDescriptor = IOMemoryDescriptor::withPhysicalAddress (bar, 0x80000, kIODirectionOutIn); // | kIOMapInhibitCache);
-  if(theDescriptor != NULL)
-  {
+  
+  if(theDescriptor != NULL) {
     mmio5 = theDescriptor->map();
   }
 
@@ -54,14 +53,12 @@ bool ATICard::initialize()
 	if (mmio)	{
 		mmio_base = (volatile UInt8 *)mmio->getVirtualAddress();
     InfoLog("mmio_base=0x%llx\n", mmio->getPhysicalAddress());
-	} 
-	else {
+	} else {
 		InfoLog(" have no mmio\n ");
 		return false;
 	}
 	
-	if(!getRadeonInfo())
-		return false;
+  if(!getRadeonInfo()) { return false; }
   
   if (!mmio_base || rinfo->ChipFamily >= CHIP_FAMILY_HAWAII) {
 //    IOMemoryMap *   mmio5;
@@ -112,7 +109,7 @@ bool ATICard::initialize()
     case   CHIP_FAMILY_VEGA:
       tempFamily = RVEx;
       break;
-
+      
     default:
       InfoLog("sorry, but your card %04lx is not supported!\n", (long unsigned int)(rinfo->device_id));
       return false;
@@ -121,8 +118,7 @@ bool ATICard::initialize()
 	return true;
 }
 
-bool ATICard::getRadeonInfo()
-{
+bool ATICard::getRadeonInfo() {
   UInt16 devID = chipID & 0xffff;
 
   RADEONCardInfo *devices = radeon_device_list;
@@ -144,8 +140,7 @@ bool ATICard::getRadeonInfo()
   }
 
   //Vega
-  if (
-      ((devID >= 0x6860) && (devID <= 0x687F))) {  //Vega
+  if (((devID >= 0x6860) && (devID <= 0x687F))) {  //Vega
     rinfo->device_id = devID;
     rinfo->ChipFamily = CHIP_FAMILY_VEGA;
     family = CHIP_FAMILY_VEGA;
@@ -179,7 +174,7 @@ bool ATICard::getRadeonInfo()
     InfoLog(" Common ATI Radeon SeaIsland DID=%04lx\n", (long unsigned int)devID);
     return true;
     //SouthernIsland HD7xxx
-  } else   if (((devID >= 0x6780) && (devID <= 0x679F)) ||  //Tahiti
+  } else if (((devID >= 0x6780) && (devID <= 0x679F)) ||  //Tahiti
                ((devID >= 0x6800) && (devID <= 0x683F))) {  //Pitcairn, Verde
 
     rinfo->device_id = devID;
@@ -205,8 +200,7 @@ bool ATICard::getRadeonInfo()
   return false;
 }
 /*
-void ATICard::setup_R6xx()
-{
+void ATICard::setup_R6xx() {
 	char key[5];
 	int id = GetNextUnusedKey(KEY_FORMAT_GPU_DIODE_TEMPERATURE, key);
 	if (id == -1) {
@@ -218,8 +212,7 @@ void ATICard::setup_R6xx()
 	Caps = GPU_TEMP_MONITORING;	
 }
 
-void ATICard::setup_R7xx()
-{
+void ATICard::setup_R7xx() {
 	char key[5];
 	int id = GetNextUnusedKey(KEY_FORMAT_GPU_DIODE_TEMPERATURE, key);
 	if (id == -1) {
@@ -231,8 +224,7 @@ void ATICard::setup_R7xx()
 	Caps = GPU_TEMP_MONITORING;
 }
 
-void ATICard::setup_Evergreen()
-{
+void ATICard::setup_Evergreen() {
 	char key[5];
 	int id = GetNextUnusedKey(KEY_FORMAT_GPU_DIODE_TEMPERATURE, key);
 	if (id == -1) {
@@ -244,13 +236,11 @@ void ATICard::setup_Evergreen()
 	Caps = GPU_TEMP_MONITORING;
 }
 */
-UInt32 ATICard::read32(UInt32 reg)
-{
+UInt32 ATICard::read32(UInt32 reg) {
 	return INVID(reg);
 }
 
-void ATICard::write32(UInt32 reg, UInt32 val)
-{
+void ATICard::write32(UInt32 reg, UInt32 val) {
 	return OUTVID(reg, val);
 }
 
@@ -263,78 +253,77 @@ r = RREG32(mmPCIE_DATA);
 
 //GetClock
 /*
-PPSMC_Result amdgpu_ci_send_msg_to_smc(struct amdgpu_device *adev, PPSMC_Msg msg)
-{
+PPSMC_Result amdgpu_ci_send_msg_to_smc(struct amdgpu_device *adev, PPSMC_Msg msg) {
   u32 tmp;
   int i;
-
-  if (!amdgpu_ci_is_smc_running(adev))
+  
+  if (!amdgpu_ci_is_smc_running(adev)) {
     return PPSMC_Result_Failed;
-
+  }
+  
   WREG32(mmSMC_MESSAGE_0, msg);
-
+  
   for (i = 0; i < adev->usec_timeout; i++) {
     tmp = RREG32(mmSMC_RESP_0);
-    if (tmp != 0)
+    if (tmp != 0) {
       break;
+    }
     udelay(1);
   }
   tmp = RREG32(mmSMC_RESP_0);
-
+  
   return (PPSMC_Result)tmp;
 }
 
- amdgpu_ci_send_msg_to_smc(adev, PPSMC_MSG_API_GetSclkFrequency); //SCLK
- amdgpu_ci_send_msg_to_smc(adev, PPSMC_MSG_API_GetMclkFrequency); //MCLK
- clock = RREG32(mmSMC_MSG_ARG_0); units=100MHz
+amdgpu_ci_send_msg_to_smc(adev, PPSMC_MSG_API_GetSclkFrequency); //SCLK
+amdgpu_ci_send_msg_to_smc(adev, PPSMC_MSG_API_GetMclkFrequency); //MCLK
+clock = RREG32(mmSMC_MSG_ARG_0); units=100MHz
 
 //get FAN
- #define  CG_THERMAL_STATUS      0xC0300008
- #define    FDO_PWM_DUTY(x)        ((x) << 9)
- #define    FDO_PWM_DUTY_MASK      (0xff << 9)
- #define    FDO_PWM_DUTY_SHIFT      9
- #define  CG_FDO_CTRL1          0xC0300068
- #define    FMAX_DUTY100(x)        ((x) << 0)
- #define    FMAX_DUTY100_MASK      0x000000FF
- #define    FMAX_DUTY100_SHIFT      0
+#define  CG_THERMAL_STATUS      0xC0300008
+#define    FDO_PWM_DUTY(x)        ((x) << 9)
+#define    FDO_PWM_DUTY_MASK      (0xff << 9)
+#define    FDO_PWM_DUTY_SHIFT      9
+#define  CG_FDO_CTRL1          0xC0300068
+#define    FMAX_DUTY100(x)        ((x) << 0)
+#define    FMAX_DUTY100_MASK      0x000000FF
+#define    FMAX_DUTY100_SHIFT      0
 RREG32_SMC based on 0x200
- cik -> mmSMC_IND_INDEX_0             0x200
- si  -> SMC_IND_INDEX_0               0x200
- vi  -> mmSMC_IND_INDEX_11   0x1AC => 0x6b0
- ni  -> TN_SMC_IND_INDEX_0            0x200
- cz  ->
- #define mmMP0PUB_IND_INDEX  0x180 => 0x600
- #define mmMP0PUB_IND_DATA   0x181
+cik -> mmSMC_IND_INDEX_0             0x200
+si  -> SMC_IND_INDEX_0               0x200
+vi  -> mmSMC_IND_INDEX_11   0x1AC => 0x6b0
+ni  -> TN_SMC_IND_INDEX_0            0x200
+cz  ->
+#define mmMP0PUB_IND_INDEX  0x180 => 0x600
+#define mmMP0PUB_IND_DATA   0x181
 
 
-int ci_fan_ctrl_get_fan_speed_percent(struct radeon_device *rdev,
-                                      u32 *speed)
-{
+int ci_fan_ctrl_get_fan_speed_percent(struct radeon_device *rdev, u32 *speed) {
   u32 duty, duty100;
   u64 tmp64;
-
+  
   if (rdev->pm.no_fan)
     return -ENOENT;
-
+  
   duty100 = (RREG32_SMC(CG_FDO_CTRL1) & FMAX_DUTY100_MASK) >> FMAX_DUTY100_SHIFT;
   duty = (RREG32_SMC(CG_THERMAL_STATUS) & FDO_PWM_DUTY_MASK) >> FDO_PWM_DUTY_SHIFT;
-
+  
   if (duty100 == 0)
     return -EINVAL;
-
+  
   tmp64 = (u64)duty * 100;
   do_div(tmp64, duty100);
   *speed = (u32)tmp64;
-
-  if (*speed > 100)
+  
+  if (*speed > 100) {
     *speed = 100;
-
+  }
+  
   return 0;
 }
 */
 
-UInt32 ATICard::read_smc(UInt32 reg)
-{
+UInt32 ATICard::read_smc(UInt32 reg) {
   UInt32 r;
   OUTVID(SMC_IND_INDEX_0, (reg));
   r = INVID(SMC_IND_DATA_0);
@@ -342,65 +331,60 @@ UInt32 ATICard::read_smc(UInt32 reg)
 }
 
 
-UInt32 ATICard::read_ind(UInt32 reg)
-{
-    //	unsigned long flags;
-	UInt32 r;
-    //	spin_lock_irqsave(&rdev->smc_idx_lock, flags);
+UInt32 ATICard::read_ind(UInt32 reg) {
+  //unsigned long flags;
+  UInt32 r;
+  //spin_lock_irqsave(&rdev->smc_idx_lock, flags);
   OUTVID(mmSMC_IND_INDEX_11, (reg));
   r = INVID(mmSMC_IND_DATA_11);
-    //	spin_unlock_irqrestore(&rdev->smc_idx_lock, flags);
-	return r;
+  //spin_unlock_irqrestore(&rdev->smc_idx_lock, flags);
+  return r;
 }
 
-IOReturn ATICard::R6xxTemperatureSensor(UInt16* data)
-{
-	UInt32 temp, actual_temp = 0;
-	for (int i=0; i<1000; i++) {  //attempts to ready
-		temp = (read32(CG_THERMAL_STATUS) & ASIC_T_MASK) >> ASIC_T_SHIFT;	
-		if ((temp >> 7) & 1)
-			actual_temp = 0;
-		else {
-			actual_temp = temp & 0xff; //(temp >> 1)
-			break;
-		}
-		IOSleep(10);
-	}
-	*data = (UInt16)(actual_temp & 0x1ff);
-	//data[1] = 0;
-	return kIOReturnSuccess; 
-	
+IOReturn ATICard::R6xxTemperatureSensor(UInt16* data) {
+  UInt32 temp, actual_temp = 0;
+  for (int i=0; i<1000; i++) {  //attempts to ready
+    temp = (read32(CG_THERMAL_STATUS) & ASIC_T_MASK) >> ASIC_T_SHIFT;
+    if ((temp >> 7) & 1) {
+      actual_temp = 0;
+    } else {
+      actual_temp = temp & 0xff; //(temp >> 1)
+      break;
+    }
+    IOSleep(10);
+  }
+  *data = (UInt16)(actual_temp & 0x1ff);
+  //data[1] = 0;
+  return kIOReturnSuccess;
 }
 
-IOReturn ATICard::R7xxTemperatureSensor(UInt16* data)
-{
-	UInt32 temp, actual_temp = 0;
-	for (int i=0; i<1000; i++) {  //attempts to ready
-		temp = (read32(CG_MULT_THERMAL_STATUS) & ASIC_TM_MASK) >> ASIC_TM_SHIFT;	
-		if ((temp >> 9) & 1)
-			actual_temp = 0;
-		else {
-			actual_temp = (temp >> 1) & 0xff;
-			break;
-		}
-		IOSleep(10);
-	}
-	
-	*data = (UInt16)(actual_temp & 0x1ff);
-	//data[1] = 0;
-	return kIOReturnSuccess;
+IOReturn ATICard::R7xxTemperatureSensor(UInt16* data) {
+  UInt32 temp, actual_temp = 0;
+  for (int i=0; i<1000; i++) {  //attempts to ready
+    temp = (read32(CG_MULT_THERMAL_STATUS) & ASIC_TM_MASK) >> ASIC_TM_SHIFT;
+    if ((temp >> 9) & 1) {
+      actual_temp = 0;
+    } else {
+      actual_temp = (temp >> 1) & 0xff;
+      break;
+    }
+    IOSleep(10);
+  }
+  
+  *data = (UInt16)(actual_temp & 0x1ff);
+  //data[1] = 0;
+  return kIOReturnSuccess;
 }
 
-IOReturn ATICard::EverTemperatureSensor(UInt16* data)
-{
+IOReturn ATICard::EverTemperatureSensor(UInt16* data) {
 	UInt32 temp, actual_temp = 0;
 	for (int i=0; i<1000; i++) {  //attempts to ready
 		temp = (read32(CG_MULT_THERMAL_STATUS) & ASIC_TM_MASK) >> ASIC_TM_SHIFT;	
-		if ((temp >> 10) & 1)
+    if ((temp >> 10) & 1) {
 			actual_temp = 0;
-		else if ((temp >> 9) & 1)
+    } else if ((temp >> 9) & 1) {
 			actual_temp = 255;
-		else {
+    } else {
 			actual_temp = (temp >> 1) & 0xff;
 			break;
 		}
@@ -412,16 +396,15 @@ IOReturn ATICard::EverTemperatureSensor(UInt16* data)
 	return kIOReturnSuccess;
 }
 
-IOReturn ATICard::TahitiTemperatureSensor(UInt16* data)
-{
+IOReturn ATICard::TahitiTemperatureSensor(UInt16* data) {
 	UInt32 temp, actual_temp = 0;
 	for (int i=0; i<1000; i++) {  //attempts to ready
 		temp = (read32(CG_SI_THERMAL_STATUS) & CTF_TEMP_MASK) >> CTF_TEMP_SHIFT;
-		if ((temp >> 10) & 1)
+    if ((temp >> 10) & 1) {
 			actual_temp = 0;
-		else if ((temp >> 9) & 1)
+    } else if ((temp >> 9) & 1){
 			actual_temp = 255;
-		else {
+    } else {
 			actual_temp = temp; //(temp >> 1) & 0xff;
 			break;
 		}
@@ -433,16 +416,15 @@ IOReturn ATICard::TahitiTemperatureSensor(UInt16* data)
 	return kIOReturnSuccess;
 }
 
-IOReturn ATICard::HawaiiTemperatureSensor(UInt16* data)
-{
+IOReturn ATICard::HawaiiTemperatureSensor(UInt16* data) {
 	UInt32 temp, actual_temp = 0;
 	for (int i=0; i<1000; i++) {  //attempts to ready
 		temp = (read_smc(CG_CI_MULT_THERMAL_STATUS) & CI_CTF_TEMP_MASK) >> CI_CTF_TEMP_SHIFT;
-		if ((temp >> 10) & 1)
+    if ((temp >> 10) & 1) {
 			actual_temp = 0;
-		else if ((temp >> 9) & 1)
+    } else if ((temp >> 9) & 1) {
 			actual_temp = 255;
-		else {
+    } else {
 			actual_temp = temp & 0x1ff; //(temp >> 1) & 0xff;
 			break;
 		}
@@ -454,16 +436,15 @@ IOReturn ATICard::HawaiiTemperatureSensor(UInt16* data)
 	return kIOReturnSuccess;
 }
 
-IOReturn ATICard::ArcticTemperatureSensor(UInt16* data)
-{
+IOReturn ATICard::ArcticTemperatureSensor(UInt16* data) {
   UInt32 temp, actual_temp = 0;
   for (int i=0; i<1000; i++) {  //attempts to ready
     temp = (read_ind(CG_CI_MULT_THERMAL_STATUS) & CI_CTF_TEMP_MASK) >> CI_CTF_TEMP_SHIFT;
-    if ((temp >> 10) & 1)
+    if ((temp >> 10) & 1) {
       actual_temp = 0;
-    else if ((temp >> 9) & 1)
+    } else if ((temp >> 9) & 1) {
       actual_temp = 255;
-    else {
+    } else {
       actual_temp = temp & 0x1ff; //(temp >> 1) & 0xff;
       break;
     }
@@ -478,8 +459,7 @@ IOReturn ATICard::ArcticTemperatureSensor(UInt16* data)
 //#define mmTHM_TCON_CUR_TMP                    0x59800
 //#define THM_TCON_CUR_TMP__CUR_TEMP__SHIFT     24
 
-IOReturn ATICard::VegaTemperatureSensor(UInt16* data)
-{
+IOReturn ATICard::VegaTemperatureSensor(UInt16* data) {
   UInt32 temp, actual_temp = 0;
 
   temp = read32(mmTHM_TCON_CUR_TMP) >> THM_TCON_CUR_TMP__CUR_TEMP__SHIFT;

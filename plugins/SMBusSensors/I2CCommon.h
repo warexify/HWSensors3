@@ -5,15 +5,14 @@
 #include <IOKit/IOFilterInterruptEventSource.h>
 
 namespace I2COperations {
-typedef enum {
+  typedef enum {
     I2CReadOp = 1,
     I2CWriteOp,
     //I2CStopOp
-} I2COp;
+  } I2COp;
 }
 
-class I2CDevice: public IOService
-{
+class I2CDevice: public IOService {
     OSDeclareDefaultStructors(I2CDevice)
 private:
     IOWorkLoop *MyWorkLoop;

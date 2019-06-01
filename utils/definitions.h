@@ -264,25 +264,25 @@
 #define kFakeSMCKeyPropertyPrefix               "fakesmc-key"
 
 
-typedef enum { LEFT_LOWER_FRONT, CENTER_LOWER_FRONT, RIGHT_LOWER_FRONT,
+typedef enum {
+  LEFT_LOWER_FRONT, CENTER_LOWER_FRONT, RIGHT_LOWER_FRONT,
   LEFT_MID_FRONT,   CENTER_MID_FRONT,   RIGHT_MID_FRONT,
   LEFT_UPPER_FRONT, CENTER_UPPER_FRONT, RIGHT_UPPER_FRONT,
   LEFT_LOWER_REAR,  CENTER_LOWER_REAR,  RIGHT_LOWER_REAR,
   LEFT_MID_REAR,    CENTER_MID_REAR,    RIGHT_MID_REAR,
-  LEFT_UPPER_REAR,  CENTER_UPPER_REAR,  RIGHT_UPPER_REAR } LocationType;
+  LEFT_UPPER_REAR,  CENTER_UPPER_REAR,  RIGHT_UPPER_REAR
+} LocationType;
 
 typedef enum { FAN_PWM_TACH, FAN_RPM, PUMP_PWM, PUMP_RPM, FAN_PWM_NOTACH, EMPTY_PLACEHOLDER } FanType;
 
 #define DIAG_FUNCTION_STR_LEN 12
 
 typedef struct fanTypeDescStruct {
-  UInt8       type;
-  UInt8         ui8Zone;
-  UInt8  location;
-  UInt8         rsvd;   // padding to get us to 16 bytes
-  char          strFunction[DIAG_FUNCTION_STR_LEN];
+  UInt8 type;
+  UInt8 ui8Zone;
+  UInt8 location;
+  UInt8 rsvd; // padding to get us to 16 bytes
+  char  strFunction[DIAG_FUNCTION_STR_LEN];
 } FanTypeDescStruct;
-
-
 
 #endif

@@ -20,9 +20,12 @@
 #define super IOService
 OSDefineMetaClassAndStructors(SMIMonitor, IOService)
 
-bool SMIMonitor::addSensor(const char* key, const char* type, unsigned int size)
-{
-  if (kIOReturnSuccess != fakeSMC->callPlatformFunction(kFakeSMCAddKeyHandler, false, (void *)key, (void *)type, (void *)size, (void *)this)) {
+bool SMIMonitor::addSensor(const char* key, const char* type, unsigned int size) {
+  if (kIOReturnSuccess != fakeSMC->callPlatformFunction(kFakeSMCAddKeyHandler,
+                                                        false, (void *)key,
+                                                        (void *)type,
+                                                        (void *)size,
+                                                        (void *)this)) {
     WarningLog("Can't add key %s to fake SMC device, kext will not load", key);
     return false;
   }
@@ -30,12 +33,16 @@ bool SMIMonitor::addSensor(const char* key, const char* type, unsigned int size)
 }
 
 // for example addTachometer(0, "System Fan");
-bool SMIMonitor::addTachometer(int index, const char* id)
-{
+bool SMIMonitor::addTachometer(int index, const char* id) {
 	UInt8 length = 0;
 	void * data = 0;
 	
-	if (kIOReturnSuccess == fakeSMC->callPlatformFunction(kFakeSMCGetKeyValue, true, (void *)KEY_FAN_NUMBER, (void *)&length, (void *)&data, 0)) {
+	if (kIOReturnSuccess == fakeSMC->callPlatformFunction(kFakeSMCGetKeyValue,
+                                                        true,
+                                                        (void *)KEY_FAN_NUMBER,
+                                                        (void *)&length,
+                                                        (void *)&data,
+                                                        0)) {
 		char key[5];
 		length = 0;
 		
@@ -52,7 +59,12 @@ bool SMIMonitor::addTachometer(int index, const char* id)
         fds.location = LEFT_LOWER_FRONT;
         strncpy(fds.strFunction, id, DIAG_FUNCTION_STR_LEN);
         
-        if (kIOReturnSuccess != fakeSMC->callPlatformFunction(kFakeSMCAddKeyValue, false, (void *)key, (void *)TYPE_FDESC, (void *)((UInt64)sizeof(fds)), (void *)&fds)) {
+        if (kIOReturnSuccess != fakeSMC->callPlatformFunction(kFakeSMCAddKeyValue,
+                                                              false,
+                                                              (void *)key,
+                                                              (void *)TYPE_FDESC,
+                                                              (void *)((UInt64)sizeof(fds)),
+                                                              (void *)&fds)) {
           
 					WarningLog("error adding tachometer id value");
         }
@@ -60,14 +72,20 @@ bool SMIMonitor::addTachometer(int index, const char* id)
 			
 			length++;
 			
-			if (kIOReturnSuccess != fakeSMC->callPlatformFunction(kFakeSMCSetKeyValue, true, (void *)KEY_FAN_NUMBER, (void *)1, (void *)&length, 0))
+			if (kIOReturnSuccess != fakeSMC->callPlatformFunction(kFakeSMCSetKeyValue,
+                                                            true,
+                                                            (void *)KEY_FAN_NUMBER,
+                                                            (void *)1,
+                                                            (void *)&length,
+                                                            0)) {
 				WarningLog("error updating FNum value");
-			
+      }
 			return true;
 		}
-	}
-	else WarningLog("error reading FNum value");
-	
+  } else {
+    WarningLog("error reading FNum value");
+  }
+  
 	return false;
 }
 /*
@@ -91,8 +109,7 @@ Method (SMI, 2, NotSerialized)
 }
 */
 
-inline int i8k_smm(SMMRegisters *regs)
-{
+inline int i8k_smm(SMMRegisters *regs) {
   
   int rc;
   int eax = regs->eax;
@@ -133,8 +150,7 @@ inline int i8k_smm(SMMRegisters *regs)
   return 0;
 }
 
-int SMIMonitor::i8k_get_bios_version(void)
-{
+int SMIMonitor::i8k_get_bios_version(void) {
   INIT_REGS;
   int rc;
   
@@ -149,8 +165,7 @@ int SMIMonitor::i8k_get_bios_version(void)
 /*
  * Read the CPU temperature in Celcius.
  */
-int SMIMonitor::i8k_get_cpu_temp(void)
-{
+int SMIMonitor::i8k_get_cpu_temp(void) {
   INIT_REGS;
   int rc;
   int temp;
@@ -164,8 +179,7 @@ int SMIMonitor::i8k_get_cpu_temp(void)
   return temp;
 }
 
-bool SMIMonitor::i8k_get_dell_sig_aux(int fn)
-{
+bool SMIMonitor::i8k_get_dell_sig_aux(int fn) {
   INIT_REGS;
 //  int rc;
   
@@ -177,8 +191,7 @@ bool SMIMonitor::i8k_get_dell_sig_aux(int fn)
   return ((regs.eax == 1145651527) && (regs.edx == 1145392204));
 }
 
-bool SMIMonitor::i8k_get_dell_signature(void)
-{
+bool SMIMonitor::i8k_get_dell_signature(void) {
   
   return (i8k_get_dell_sig_aux(I8K_SMM_GET_DELL_SIG1) &&
           i8k_get_dell_sig_aux(I8K_SMM_GET_DELL_SIG2));
@@ -188,8 +201,7 @@ bool SMIMonitor::i8k_get_dell_signature(void)
 /*
  * Read the power status.
  */
-int SMIMonitor::i8k_get_power_status(void)
-{
+int SMIMonitor::i8k_get_power_status(void) {
   INIT_REGS;
   int rc;
   
@@ -204,8 +216,7 @@ int SMIMonitor::i8k_get_power_status(void)
 /*
  * Read the fan speed in RPM.
  */
-int SMIMonitor::i8k_get_fan_speed(int fan)
-{
+int SMIMonitor::i8k_get_fan_speed(int fan) {
   INIT_REGS;
   int rc;
   
@@ -231,8 +242,7 @@ int SMIMonitor::i8k_get_fan1_speed(void)
 /*
  * Read the fan status.
  */
-int SMIMonitor::i8k_get_fan_status(int fan)
-{
+int SMIMonitor::i8k_get_fan_status(int fan) {
   INIT_REGS;
   int rc;
   
@@ -257,9 +267,8 @@ int SMIMonitor::i8k_get_fan1_status(void)
 */
 
 
-IOService* SMIMonitor::probe(IOService *provider, SInt32 *score)
-{
-	if (super::probe(provider, score) != this) return 0;
+IOService* SMIMonitor::probe(IOService *provider, SInt32 *score) {
+  if (super::probe(provider, score) != this) { return 0; }
   
   if (!i8k_get_dell_signature()) {
     WarningLog("Unable to get Dell SMM signature!");
@@ -272,100 +281,105 @@ IOService* SMIMonitor::probe(IOService *provider, SInt32 *score)
 	return this;
 }
 
-bool SMIMonitor::start(IOService * provider)
-{
-	if (!provider || !super::start(provider)) return false;
-	
-	if (!(fakeSMC = waitForService(serviceMatching(kFakeSMCDeviceService)))) {
-		WarningLog("Can't locate fake SMC device, kext will not load");
-		return false;
-	}
-	
-//	acpiDevice = (IOACPIPlatformDevice *)provider;
-	
-	char key[5];
-	
-	//Here is Fan in ACPI
-	OSArray* fanNames = OSDynamicCast(OSArray, getProperty("FanNames"));
-	
-	for (int i=0; i<3; i++)
-	{
-		snprintf(key, 5, "FAN%X", i);
-		
-		OSString* name = NULL;
-			
-		if (fanNames )
-			name = OSDynamicCast(OSString, fanNames->getObject(i));
-			
-      if (!addTachometer(i, name ? name->getCStringNoCopy() : 0)) {
-			WarningLog("Can't add tachometer sensor, key %s", key);
-      }
-	}
-
-    addSensor(KEY_CPU_PROXIMITY_TEMPERATURE, TYPE_SP78, 2);  //TC0P
-	registerService(0);
+bool SMIMonitor::start(IOService * provider) {
+  if (!provider || !super::start(provider)) { return false; }
   
-	return true;
+  if (!(fakeSMC = waitForService(serviceMatching(kFakeSMCDeviceService)))) {
+    WarningLog("Can't locate fake SMC device, kext will not load");
+    return false;
+  }
+  
+  //  acpiDevice = (IOACPIPlatformDevice *)provider;
+  
+  char key[5];
+  
+  //Here is Fan in ACPI
+  OSArray* fanNames = OSDynamicCast(OSArray, getProperty("FanNames"));
+  
+  for (int i=0; i<3; i++) {
+    snprintf(key, 5, "FAN%X", i);
+    
+    OSString* name = NULL;
+    
+    if (fanNames) {
+      name = OSDynamicCast(OSString, fanNames->getObject(i));
+    }
+    
+    if (!addTachometer(i, name ? name->getCStringNoCopy() : 0)) {
+      WarningLog("Can't add tachometer sensor, key %s", key);
+    }
+  }
+  
+  addSensor(KEY_CPU_PROXIMITY_TEMPERATURE, TYPE_SP78, 2);  //TC0P
+  registerService(0);
+  
+  return true;
 }
 
-
-bool SMIMonitor::init(OSDictionary *properties)
-{
-  if (!super::init(properties))
-		return false;
-	
-	if (!(sensors = OSDictionary::withCapacity(0)))
-		return false;
-	
-	return true;
+bool SMIMonitor::init(OSDictionary *properties) {
+  if (!super::init(properties)) {
+    return false;
+  }
+  
+  if (!(sensors = OSDictionary::withCapacity(0))) {
+    return false;
+  }
+  
+  return true;
 }
 
-void SMIMonitor::stop (IOService* provider)
-{
-	sensors->flushCollection();
-  if (kIOReturnSuccess != fakeSMC->callPlatformFunction(kFakeSMCRemoveKeyHandler, true, this, NULL, NULL, NULL)) {
+void SMIMonitor::stop(IOService* provider) {
+  sensors->flushCollection();
+  if (kIOReturnSuccess != fakeSMC->callPlatformFunction(kFakeSMCRemoveKeyHandler,
+                                                        true,
+                                                        this,
+                                                        NULL,
+                                                        NULL,
+                                                        NULL)) {
     WarningLog("Can't remove key handler");
     IOSleep(500);
   }
-	
-	super::stop(provider);
+  
+  super::stop(provider);
 }
 
-void SMIMonitor::free ()
-{
-	sensors->release();
-	
-	super::free();
+void SMIMonitor::free() {
+  sensors->release();
+  super::free();
 }
 
 #define MEGA10 10000000ull
-IOReturn SMIMonitor::callPlatformFunction(const OSSymbol *functionName, bool waitForFunction, void *param1, void *param2, void *param3, void *param4 )
-{
-	const char* name = (const char*)param1;
-	void * data = param2;
-  //	UInt64 size = (UInt64)param3;
-	OSString* key;
+IOReturn SMIMonitor::callPlatformFunction(const OSSymbol *functionName,
+                                          bool waitForFunction,
+                                          void *param1,
+                                          void *param2,
+                                          void *param3,
+                                          void *param4) {
+  const char* name = (const char*)param1;
+  void * data = param2;
+  //  UInt64 size = (UInt64)param3;
+  OSString* key;
 #if __LP64__
-	UInt64 value;
+  UInt64 value;
 #else
-	UInt32 value;
+  UInt32 value;
 #endif
-	UInt16 val;
-
-	if (functionName->isEqualTo(kFakeSMCSetValueCallback)) {
-		if (name && data) {
+  UInt16 val;
+  
+  if (functionName->isEqualTo(kFakeSMCSetValueCallback)) {
+    if (name && data) {
       key = OSDynamicCast(OSString, sensors->getObject(name));
-			if (key) {
-				InfoLog("Writing key=%s by method=%s value=%x", name, key->getCStringNoCopy(), *(UInt16*)data);
-				OSObject * params[1];
-				if (key->getChar(0) == 'F') {
-					val = decode_fpe2(*(UInt16*)data);
-				} else {
-					val = *(UInt16*)data;
-				}
-				params[0] = OSDynamicCast(OSObject, OSNumber::withNumber((unsigned long long)val, 32));
-				return kIOReturnBadArgument; //acpiDevice->evaluateInteger(key->getCStringNoCopy(), &value, params, 1);
-				
+      if (key) {
+        InfoLog("Writing key=%s by method=%s value=%x", name, key->getCStringNoCopy(), *(UInt16*)data);
+        OSObject * params[1];
+        if (key->getChar(0) == 'F') {
+          val = decode_fpe2(*(UInt16*)data);
+        } else {
+          val = *(UInt16*)data;
+        }
+        params[0] = OSDynamicCast(OSObject, OSNumber::withNumber((unsigned long long)val, 32));
+        return kIOReturnBadArgument; //acpiDevice->evaluateInteger(key->getCStringNoCopy(), &value, params, 1);
+        
         /*
          virtual IOReturn evaluateInteger( const OSSymbol * objectName,
          UInt32 *         resultInt32,
@@ -373,47 +387,47 @@ IOReturn SMIMonitor::callPlatformFunction(const OSSymbol *functionName, bool wai
          IOItemCount      paramCount = 0,
          IOOptionBits     options    = 0 );
          flags_num = OSNumber::withNumber((unsigned long long)flags, 32);
-        */
-				
-			}
-			return kIOReturnBadArgument;
-		}
-		return kIOReturnBadArgument;
-		
-	}
+         */
+        
+      }
+      return kIOReturnBadArgument;
+    }
+    return kIOReturnBadArgument;
+    
+  }
   
-//#define KEY_FORMAT_FAN_ID                       "F%XID"
-//#define KEY_FORMAT_FAN_SPEED                    "F%XAc"
-//#define KEY_CPU_PROXIMITY_TEMPERATURE           "TC0P"
-
-	if (functionName->isEqualTo(kFakeSMCGetValueCallback)) {
-		
-		if (name && data) {
+  //#define KEY_FORMAT_FAN_ID                       "F%XID"
+  //#define KEY_FORMAT_FAN_SPEED                    "F%XAc"
+  //#define KEY_CPU_PROXIMITY_TEMPERATURE           "TC0P"
+  
+  if (functionName->isEqualTo(kFakeSMCGetValueCallback)) {
+    
+    if (name && data) {
       key = OSDynamicCast(OSString, sensors->getObject(name));
-			if (key) {        
-					val = 0;
-					
-					if (key->getChar(0) == 'F') {
-						if ((key->getChar(2) == 'A') && (key->getChar(3) == 'c')) {
-              int fan = (int)(key->getChar(1) - '0');
-              value = i8k_get_fan_speed(fan);
-							val = encode_fpe2(value);
-						}
-					} else if (key->getChar(0) == 'T') {
-            val = i8k_get_cpu_temp();
+      if (key) {
+        val = 0;
+        
+        if (key->getChar(0) == 'F') {
+          if ((key->getChar(2) == 'A') && (key->getChar(3) == 'c')) {
+            int fan = (int)(key->getChar(1) - '0');
+            value = i8k_get_fan_speed(fan);
+            val = encode_fpe2(value);
           }
-          
-          bcopy(&val, data, 2);
-          return kIOReturnSuccess;
-			}
-			
-			return kIOReturnBadArgument;
-		}
-		
-		//DebugLog("bad argument key name or data");
-		
-		return kIOReturnBadArgument;
-	}
-	
-	return super::callPlatformFunction(functionName, waitForFunction, param1, param2, param3, param4);
+        } else if (key->getChar(0) == 'T') {
+          val = i8k_get_cpu_temp();
+        }
+        
+        bcopy(&val, data, 2);
+        return kIOReturnSuccess;
+      }
+      
+      return kIOReturnBadArgument;
+    }
+    
+    //DebugLog("bad argument key name or data");
+    
+    return kIOReturnBadArgument;
+  }
+  
+  return super::callPlatformFunction(functionName, waitForFunction, param1, param2, param3, param4);
 }
