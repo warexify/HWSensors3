@@ -7,21 +7,18 @@
  *
  */
 
-inline UInt16 swap_value(UInt16 value)
-{
+inline UInt16 swap_value(UInt16 value) {
 	return ((value & 0xff00) >> 8) | ((value & 0xff) << 8);
 }
 //we will use fpNM for voltages taking into account that input data in milliVolts while output in Volts
-inline UInt16 encode_fp2e(UInt16 value)
-{
+inline UInt16 encode_fp2e(UInt16 value) {
     UInt32 tmp = value;
     tmp = (tmp << 14) / 1000;
     value = (UInt16)(tmp & 0xffff);
     return swap_value(value);
 }
 
-inline UInt16 encode_sp4b(UInt16 value)
-{
+inline UInt16 encode_sp4b(UInt16 value) {
   UInt32 tmp = (value < 0x8000)?value:(~value);
   tmp = (tmp << 11) / 1000;
   value = (UInt16)(tmp & 0xffff);
@@ -30,33 +27,28 @@ inline UInt16 encode_sp4b(UInt16 value)
 
 
 /*
-inline UInt16 encode_fp3d(UInt16 value)
-{
+inline UInt16 encode_fp3d(UInt16 value) {
   UInt32 tmp = value;
   tmp = (tmp << 13) / 1000;
   value = (UInt16)(tmp & 0xffff);
   return swap_value(value);
 }
 
-inline UInt16 encode_fp4c(UInt16 value)
-{
-	
+inline UInt16 encode_fp4c(UInt16 value) {
     UInt32 tmp = value;
     tmp = (tmp << 12) / 1000;
     value = (UInt16)(tmp & 0xffff);
     return swap_value(value);
 }
 
-inline UInt16 encode_fp5b(UInt16 value)
-{
+inline UInt16 encode_fp5b(UInt16 value) {
   UInt32 tmp = value;
   tmp = (tmp << 11) / 1000;
   value = (UInt16)(tmp & 0xffff);
   return swap_value(value);
 }
 
-inline UInt16 encode_sp5a(UInt16 value)
-{
+inline UInt16 encode_sp5a(UInt16 value) {
   UInt32 tmp = (value < 0x8000)?value:(~value);
   tmp = (tmp << 10) / 1000;
   tmp = tmp & 0x7fff;
@@ -69,19 +61,16 @@ inline UInt16 encode_sp5a(UInt16 value)
   return swap_value(value);
 }
 */
-inline UInt16 encode_fpe2(UInt16 value)
-{
+inline UInt16 encode_fpe2(UInt16 value) {
 	return swap_value(value << 2);
 }
 
-inline UInt16 decode_fpe2(UInt16 value)
-{
+inline UInt16 decode_fpe2(UInt16 value) {
 	return (swap_value(value) >> 2);
 }
 
 // https://stackoverflow.com/questions/8377412/ceil-function-how-can-we-implement-it-ourselves
-inline float hw_ceil(float f)
-{
+inline float hw_ceil(float f) {
   unsigned input;
   memcpy(&input, &f, 4);
   int exponent = ((input >> 23) & 255) - 127;
@@ -103,26 +92,29 @@ inline float hw_ceil(float f)
   return f;
 }
 
-inline int hw_round(float fl)
-{
+inline int hw_round(float fl) {
   return fl < 0 ? fl - 0.5 : fl + 0.5;
 }
 
-inline bool process_sensor_entry(OSObject *object, OSString **name, long *Ri, long *Rf, long *Vf)
-{
+inline bool process_sensor_entry(OSObject *object,
+                                 OSString **name,
+                                 long *Ri,
+                                 long *Rf,
+                                 long *Vf) {
   *Rf=1;
   *Ri=0;
   *Vf=0;
   if ((*name = OSDynamicCast(OSString, object))) {
     return true;
-  }
-  else if (OSDictionary *dictionary = OSDynamicCast(OSDictionary, object))
+  } else if (OSDictionary *dictionary = OSDynamicCast(OSDictionary, object)) {
     if ((*name = OSDynamicCast(OSString, dictionary->getObject("Name")))) {
-      if (OSNumber *number = OSDynamicCast(OSNumber, dictionary->getObject("VRef")))
-        *Vf = (long)number->unsigned64BitValue() ;
+      if (OSNumber *number = OSDynamicCast(OSNumber, dictionary->getObject("VRef"))) {
+        *Vf = (long)number->unsigned64BitValue();
+      }
       
-      if (OSNumber *number = OSDynamicCast(OSNumber, dictionary->getObject("Ri")))
+      if (OSNumber *number = OSDynamicCast(OSNumber, dictionary->getObject("Ri"))) {
         *Ri = (long)number->unsigned64BitValue();
+      }
       
       if (OSNumber *number = OSDynamicCast(OSNumber, dictionary->getObject("Rf"))) {
         *Rf = (long)number->unsigned64BitValue() ;
@@ -133,6 +125,6 @@ inline bool process_sensor_entry(OSObject *object, OSString **name, long *Ri, lo
       
       return true;
     }
-  
+  }
   return false;
 }

@@ -7,13 +7,13 @@
 
 OSDefineMetaClassAndStructors(TSOD, IOService)
 
-bool TSOD::init (OSDictionary* dict)
-{
+bool TSOD::init (OSDictionary* dict) {
   bool res = super::init(dict);
   DbgPrint("init\n");
   
-	if (!(sensors = OSDictionary::withCapacity(0)))
+  if (!(sensors = OSDictionary::withCapacity(0))) {
 		return false;
+  }
   
 //  DIMMaddr = 0x18;
     DIMMaddr = 0x40;
@@ -22,8 +22,7 @@ bool TSOD::init (OSDictionary* dict)
 }
 
 
-void TSOD::free(void)
-{
+void TSOD::free(void) {
   DbgPrint("free\n");
   
   i2cNub->close(this);
@@ -34,8 +33,7 @@ void TSOD::free(void)
   super::free();
 }
 
-IOService *TSOD::probe (IOService* provider, SInt32* score)
-{
+IOService *TSOD::probe(IOService* provider, SInt32* score) {
   IOService *res = super::probe(provider, score);
   DbgPrint("probe\n");
   return res;
@@ -51,9 +49,8 @@ Jan 29 14:56:49 Sergeys-iMac kernel[0]: [ICHSMBus] Register decoded: 0x44<BUSY=0
 Jan 29 14:56:49 Sergeys-iMac kernel[0]: [ICHSMBus] marker = 1
 */
 
-bool TSOD::start(IOService *provider)
-{
-  if (!provider || !super::start(provider)) return false;
+bool TSOD::start(IOService *provider) {
+  if (!provider || !super::start(provider)) { return false; }
   int i, s;
   bool found = false;
   UInt8 cmd, St;
@@ -165,12 +162,16 @@ bool TSOD::start(IOService *provider)
   return true;
 }
 
-void TSOD::stop(IOService *provider)
-{
+void TSOD::stop(IOService *provider) {
   DbgPrint("stop\n");
   
   sensors->flushCollection();
-  if (kIOReturnSuccess != fakeSMC->callPlatformFunction(kFakeSMCRemoveKeyHandler, true, this, NULL, NULL, NULL)) {
+  if (kIOReturnSuccess != fakeSMC->callPlatformFunction(kFakeSMCRemoveKeyHandler,
+                                                        true,
+                                                        this,
+                                                        NULL,
+                                                        NULL,
+                                                        NULL)) {
     IOLog("Can't remove key handler");
     IOSleep(500);
   }
@@ -183,8 +184,7 @@ void TSOD::stop(IOService *provider)
 }
 
 /* Temp: update 'em all et once */
-void TSOD::updateSensors()
-{
+void TSOD::updateSensors() {
 //	UInt8 hdata, ldata;
   UInt16 data;
   
@@ -210,19 +210,22 @@ void TSOD::updateSensors()
   i2cNub->UnlockI2CBus();
 }
 
-void TSOD::readSensor(int idx)
-{
-  if (Measures[idx].obsoleted)
+void TSOD::readSensor(int idx) {
+  if (Measures[idx].obsoleted) {
     updateSensors();
+  }
   
   Measures[idx].obsoleted = true;
 }
 
 /* FakeSMC dependend methods */
-bool TSOD::addSensor(const char* key, const char* type, unsigned int size, int index)
-{
-	if (kIOReturnSuccess == fakeSMC->callPlatformFunction(kFakeSMCAddKeyHandler, true, (void *)key,
-                                                        (void *)type, (void *)(long long)size, (void *)this)) {
+bool TSOD::addSensor(const char* key, const char* type, unsigned int size, int index) {
+	if (kIOReturnSuccess == fakeSMC->callPlatformFunction(kFakeSMCAddKeyHandler,
+                                                        true,
+                                                        (void *)key,
+                                                        (void *)type,
+                                                        (void *)(long long)size,
+                                                        (void *)this)) {
 		if (sensors->setObject(key, OSNumber::withNumber(index, 32))) {
       return true;
     } else {
@@ -238,27 +241,31 @@ bool TSOD::addSensor(const char* key, const char* type, unsigned int size, int i
 
 
 /* Exports for HWSensors3 */
-IOReturn TSOD::callPlatformFunction(const OSSymbol *functionName, bool waitForFunction,
-                                      void *param1, void *param2, void *param3, void *param4 )
-{
+IOReturn TSOD::callPlatformFunction(const OSSymbol *functionName,
+                                    bool waitForFunction,
+                                    void *param1,
+                                    void *param2,
+                                    void *param3,
+                                    void *param4) {
   int i, idx = -1;
-//  char fan = -1;
+  //  char fan = -1;
   
   if (functionName->isEqualTo(kFakeSMCGetValueCallback)) {
     const char* key = (const char*)param1;
-		char * data = (char*)param2;
+    char * data = (char*)param2;
     
     if (key && data) {
       if (key[0] == 'T') {
-        for (i = 0; i < NUM_SENSORS; i++)
+        for (i = 0; i < NUM_SENSORS; i++) {
           if (Measures[i].present) {
-              idx = i; break;
+            idx = i; break;
           }
+        }
         
         if (idx > -1) {
           readSensor(idx);
-          //      Measures[idx].value = Measures[idx].hwsensor->encodeValue(Measures[idx].value);
-      //    Measures[idx].value = encode_fpe2(Measures[idx].value); //?
+          //Measures[idx].value = Measures[idx].hwsensor->encodeValue(Measures[idx].value);
+          //Measures[idx].value = encode_fpe2(Measures[idx].value); //?
           memcpy(data, &Measures[idx].value, Measures[idx].hwsensor.size);
           return kIOReturnSuccess;
         }
@@ -266,7 +273,7 @@ IOReturn TSOD::callPlatformFunction(const OSSymbol *functionName, bool waitForFu
     }
     return kIOReturnBadArgument;
   }
-
+  
   return super::callPlatformFunction(functionName, waitForFunction, param1, param2, param3, param4);
 }
-/* */
+

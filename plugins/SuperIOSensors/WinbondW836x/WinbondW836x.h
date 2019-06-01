@@ -65,12 +65,19 @@ static const int maxFanRPM = 7000;
 
 class W836x;
 
-class W836xSensor : public SuperIOSensor
-{
+class W836xSensor : public SuperIOSensor {
     OSDeclareDefaultStructors(W836xSensor)
     
 public:
-    static SuperIOSensor *withOwner(SuperIOMonitor *aOwner, const char* aKey, const char* aType, unsigned char aSize, SuperIOSensorGroup aGroup, unsigned long aIndex , long aRi=0, long aRf=1, long aVf=0);
+    static SuperIOSensor *withOwner(SuperIOMonitor *aOwner,
+                                    const char* aKey,
+                                    const char* aType,
+                                    unsigned char aSize,
+                                    SuperIOSensorGroup aGroup,
+                                    unsigned long aIndex,
+                                    long aRi = 0,
+                                    long aRf = 1,
+                                    long aVf = 0);
     
     virtual long	getValue();
     virtual void  setValue(UInt16 value);
@@ -86,8 +93,7 @@ enum FanCalibrationStatus {
 
 static const int maxFanAllowed = 7;
 
-class W836x : public SuperIOMonitor
-{
+class W836x : public SuperIOMonitor {
     OSDeclareDefaultStructors(W836x)
     
 public:
@@ -168,9 +174,21 @@ private:
 	virtual const char*	getModelName();
 	
 public:
-  SuperIOSensor *		addSensor(const char* key, const char* type, unsigned int size, SuperIOSensorGroup group, unsigned long index, long aRi=0, long aRf=1, long aVf=0);
+  SuperIOSensor * addSensor(const char* key,
+                            const char* type,
+                            unsigned int size,
+                            SuperIOSensorGroup group,
+                            unsigned long index,
+                            long aRi = 0,
+                            long aRf = 1,
+                            long aVf = 0);
   
-  virtual IOReturn callPlatformFunction(const OSSymbol *functionName, bool waitForFunction, void *param1, void *param2, void *param3, void *param4 );
+  virtual IOReturn callPlatformFunction(const OSSymbol *functionName,
+                                        bool waitForFunction,
+                                        void *param1,
+                                        void *param2,
+                                        void *param3,
+                                        void *param4);
   
   void setControl(unsigned long index, UInt16 rpm);
   virtual IOReturn  setPowerState(unsigned long powerStateOrdinal, IOService *whatDevice);

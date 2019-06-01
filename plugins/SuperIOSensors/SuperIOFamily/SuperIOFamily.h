@@ -78,7 +78,15 @@ protected:
   
 	
 public:
-	static SuperIOSensor *withOwner(SuperIOMonitor *aOwner, const char* aKey, const char* aType, unsigned char aSize, SuperIOSensorGroup aGroup, unsigned long aIndex, long aRi=0, long aRf=1, long aVf=0);
+	static SuperIOSensor *withOwner(SuperIOMonitor *aOwner,
+                                  const char* aKey,
+                                  const char* aType,
+                                  unsigned char aSize,
+                                  SuperIOSensorGroup aGroup,
+                                  unsigned long aIndex,
+                                  long aRi = 0,
+                                  long aRf = 1,
+                                  long aVf = 0);
 	
 	const char *        getName();
 	const char *        getType();
@@ -87,7 +95,15 @@ public:
 	unsigned long       getIndex();
   long                encodeValue(UInt32 value, int scale);
 	
-	virtual bool		initWithOwner(SuperIOMonitor *aOwner, const char* aKey, const char* aType, unsigned char aSize, SuperIOSensorGroup aGroup, unsigned long aIndex, long aRi, long aRf, long aVf);
+  virtual bool        initWithOwner(SuperIOMonitor *aOwner,
+                                    const char* aKey,
+                                    const char* aType,
+                                    unsigned char aSize,
+                                    SuperIOSensorGroup aGroup,
+                                    unsigned long aIndex,
+                                    long aRi,
+                                    long aRf,
+                                    long aVf);
 	virtual long        getValue();
 	virtual void        free();
 };
@@ -136,12 +152,17 @@ public:
   virtual long			readTachometerTarget(unsigned long index);
 	
 	virtual bool			init(OSDictionary *properties=0);
-	virtual IOService*		probe(IOService *provider, SInt32 *score);
+	virtual IOService* probe(IOService *provider, SInt32 *score);
   virtual bool			start(IOService *provider);
 	virtual void			stop(IOService *provider);
 	virtual void			free(void);
 	
-	virtual IOReturn		callPlatformFunction(const OSSymbol *functionName, bool waitForFunction, void *param1, void *param2, void *param3, void *param4 );
+	virtual IOReturn  callPlatformFunction(const OSSymbol *functionName,
+                                         bool waitForFunction,
+                                         void *param1,
+                                         void *param2,
+                                         void *param3,
+                                         void *param4);
 	
 };
 

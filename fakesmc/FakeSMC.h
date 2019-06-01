@@ -10,8 +10,7 @@
 #include "definitions.h"
 
 
-class FakeSMC : public IOService
-{
+class FakeSMC : public IOService {
 	OSDeclareDefaultStructors(FakeSMC)
 	
 private:

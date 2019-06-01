@@ -12,18 +12,18 @@
 #define super IOService
 OSDefineMetaClassAndStructors (FakeSMC, IOService)
 
-bool FakeSMC::init(OSDictionary *dictionary)
-{
-	if (!super::init(dictionary))
-		return false;
+bool FakeSMC::init(OSDictionary *dictionary) {
+  if (!super::init(dictionary)) {
+    return false;
+  }
   
-	return true;
+  return true;
 }
 
-IOService *FakeSMC::probe(IOService *provider, SInt32 *score)
-{
-  if (!super::probe(provider, score))
+IOService *FakeSMC::probe(IOService *provider, SInt32 *score) {
+  if (!super::probe(provider, score)) {
 		return 0;
+  }
 	
 	InfoLog("opensource SMC device emulator by netkas (C) 2009");
 	InfoLog("plugins & plugins support modifications by mozodojo, usr-sse2, slice (C) 2010");
@@ -31,9 +31,10 @@ IOService *FakeSMC::probe(IOService *provider, SInt32 *score)
 	return this;
 }
 
-bool FakeSMC::start(IOService *provider)
-{
-	if (!super::start(provider)) return false;
+bool FakeSMC::start(IOService *provider) {
+  if (!super::start(provider)) {
+    return false;
+  }
   
 	if (!(smcDevice = new FakeSMCDevice)) {
 		InfoLog("failed to create smcDevice");
@@ -51,12 +52,10 @@ bool FakeSMC::start(IOService *provider)
 	return true;
 }
 
-void FakeSMC::stop(IOService *provider)
-{
+void FakeSMC::stop(IOService *provider) {
   super::stop(provider);
 }
 
-void FakeSMC::free()
-{
+void FakeSMC::free() {
   super::free();
 }

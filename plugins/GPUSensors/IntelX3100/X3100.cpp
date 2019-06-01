@@ -43,21 +43,24 @@
 #define super IOService
 OSDefineMetaClassAndStructors(X3100monitor, IOService)
 
-bool X3100monitor::addSensor(const char* key, const char* type, unsigned int size, int index)
-{
-	if (kIOReturnSuccess == fakeSMC->callPlatformFunction(kFakeSMCAddKeyHandler, false, (void *)key, (void *)type, (void *)(long long)size, (void *)this))
-		return sensors->setObject(key, OSNumber::withNumber(index, 32));	
+bool X3100monitor::addSensor(const char* key, const char* type, unsigned int size, int index) {
+  if (kIOReturnSuccess == fakeSMC->callPlatformFunction(kFakeSMCAddKeyHandler,
+                                                        false,
+                                                        (void *)key,
+                                                        (void *)type,
+                                                        (void *)(long long)size,
+                                                        (void *)this)) {
+    return sensors->setObject(key, OSNumber::withNumber(index, 32));
+  }
 	return false;
 }
 
-IOService* X3100monitor::probe(IOService *provider, SInt32 *score)
-{
+IOService* X3100monitor::probe(IOService *provider, SInt32 *score) {
 	if (super::probe(provider, score) != this) return 0;
 	UInt32 vendor_id = 0, device_id = 0;
   VCard = NULL;
 	if (OSDictionary * dictionary = serviceMatching(kGenericPCIDevice)) {
 		if (OSIterator * iterator = getMatchingServices(dictionary)) {
-			
 			IOPCIDevice* device = 0;
 			do {
         device = OSDynamicCast(IOPCIDevice, iterator->getNextObject());
@@ -65,21 +68,24 @@ IOService* X3100monitor::probe(IOService *provider, SInt32 *score)
           break;
         }
 				OSData *data = OSDynamicCast(OSData, device->getProperty("vendor-id"));
-				if (data)
+        if (data) {
 					vendor_id = *(UInt32*)data->getBytesNoCopy();
-				
+        }
+        
 				data = OSDynamicCast(OSData, device->getProperty("device-id"));				
-				if (data)
+        if (data) {
 					device_id = *(UInt32*)data->getBytesNoCopy();
-				
-				if ((vendor_id==0x8086) && (device_id==0x2a00)){
+        }
+        
+				if ((vendor_id==0x8086) && (device_id==0x2a00)) {
 					InfoLog("found %lx chip", (long unsigned int)device_id);
 					VCard = device;
           break;
 				}
 			} while(TRUE);
 		}
-	}	
+	}
+  
   if (!VCard) {
     WarningLog("no ICH8M found");
 //    return NULL; // no return NULL here because on repeating attempts to probe
@@ -87,9 +93,8 @@ IOService* X3100monitor::probe(IOService *provider, SInt32 *score)
 	return this;
 }
 
-bool X3100monitor::start(IOService * provider)
-{
-	if (!provider || !super::start(provider)) return false;
+bool X3100monitor::start(IOService * provider) {
+  if (!provider || !super::start(provider)) { return false; }
 	
 	if (!(fakeSMC = waitForService(serviceMatching(kFakeSMCDeviceService)))) {
 		WarningLog("Can't locate fake SMC device, kext will not load");
@@ -104,11 +109,10 @@ bool X3100monitor::start(IOService * provider)
 	IOPhysicalAddress bar = (IOPhysicalAddress)((VCard->configRead32(kMCHBAR)) & ~0xf);
 	DebugLog("Fx3100: register space=%08lx\n", (long unsigned int)bar);
 	theDescriptor = IOMemoryDescriptor::withPhysicalAddress (bar, 0x2000, kIODirectionOutIn); // | kIOMapInhibitCache);
-	if(theDescriptor != NULL)
-	{
+  
+	if (theDescriptor != NULL) {
 		mmio = theDescriptor->map();
-		if(mmio != NULL)
-		{
+		if (mmio != NULL) {
 			mmio_base = (volatile UInt8 *)mmio->getVirtualAddress();
 #if DEBUG				
 			DebugLog(" MCHBAR mapped\n");
@@ -120,9 +124,7 @@ bool X3100monitor::start(IOService * provider)
 				DebugLog("\n");
 			}
 #endif				
-		}
-		else
-		{
+		} else {
 			InfoLog(" MCHBAR failed to map\n");
 			return -1;
 		}			
@@ -148,7 +150,12 @@ bool X3100monitor::start(IOService * provider)
 		}
 	}
 		
-	if (kIOReturnSuccess != fakeSMC->callPlatformFunction(kFakeSMCAddKeyHandler, false, (void *)name, (void *)TYPE_SP78, (void *)2, this)) {
+	if (kIOReturnSuccess != fakeSMC->callPlatformFunction(kFakeSMCAddKeyHandler,
+                                                        false,
+                                                        (void *)name,
+                                                        (void *)TYPE_SP78,
+                                                        (void *)2,
+                                                        this)) {
 		WarningLog("Can't add key to fake SMC device, kext will not load");
 		return false; 
 	}
@@ -156,22 +163,27 @@ bool X3100monitor::start(IOService * provider)
 	return true;	
 }
 
-
-bool X3100monitor::init(OSDictionary *properties)
-{
-    if (!super::init(properties))
-		return false;
-	
-	if (!(sensors = OSDictionary::withCapacity(0)))
-		return false;
-	
-	return true;
+bool X3100monitor::init(OSDictionary *properties) {
+  if (!super::init(properties)) {
+    return false;
+  }
+  
+  if (!(sensors = OSDictionary::withCapacity(0))) {
+    return false;
+  }
+  
+  return true;
 }
 
-void X3100monitor::stop (IOService* provider)
-{
+
+void X3100monitor::stop (IOService* provider) {
 	sensors->flushCollection();
-  if (kIOReturnSuccess != fakeSMC->callPlatformFunction(kFakeSMCRemoveKeyHandler, true, this, NULL, NULL, NULL)) {
+  if (kIOReturnSuccess != fakeSMC->callPlatformFunction(kFakeSMCRemoveKeyHandler,
+                                                        true,
+                                                        this,
+                                                        NULL,
+                                                        NULL,
+                                                        NULL)) {
     WarningLog("Can't remove key handler");
     IOSleep(500);
   }
@@ -179,15 +191,17 @@ void X3100monitor::stop (IOService* provider)
 	super::stop(provider);
 }
 
-void X3100monitor::free ()
-{
+void X3100monitor::free () {
 	sensors->release();
-	
 	super::free();
 }
 
-IOReturn X3100monitor::callPlatformFunction(const OSSymbol *functionName, bool waitForFunction, void *param1, void *param2, void *param3, void *param4 )
-{
+IOReturn X3100monitor::callPlatformFunction(const OSSymbol *functionName,
+                                            bool waitForFunction,
+                                            void *param1,
+                                            void *param2,
+                                            void *param3,
+                                            void *param4) {
 	UInt16 t;
 
 	if (functionName->isEqualTo(kFakeSMCGetValueCallback)) {
@@ -206,7 +220,6 @@ IOReturn X3100monitor::callPlatformFunction(const OSSymbol *functionName, bool w
 				OUTVID(TIC1, 3);
 				//		if ((INVID16(TSC1) & (1<<15)) && !(INVID16(TSC1) & (1<<8)))//enabled and ready
 				for (int i=0; i<1000; i++) {  //attempts to ready
-					
 					if (INVID16(TSS1) & (1<<10))   //valid?
 						break;
 					IOSleep(10);

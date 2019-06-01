@@ -35,9 +35,8 @@
 #define ICH_SMB_HS_INUSE	(1 << 6)	/* bus semaphore */
 #define ICH_SMB_HS_BDONE	(1 << 7)	/* byte received/transmitted */
 
-
-class TSOD: public IOService //FakeSMCPlugin
-{
+//FakeSMCPlugin
+class TSOD: public IOService {
   OSDeclareDefaultStructors(TSOD)
 private:
   IOService     *fakeSMC;
@@ -70,6 +69,10 @@ protected:
   virtual bool        start (IOService* provider);
   virtual void        stop (IOService* provider);
   
-  virtual IOReturn    callPlatformFunction(const OSSymbol *functionName, bool waitForFunction,
-                                         void *param1, void *param2, void *param3, void *param4 );
+  virtual IOReturn    callPlatformFunction(const OSSymbol *functionName,
+                                           bool waitForFunction,
+                                           void *param1,
+                                           void *param2,
+                                           void *param3,
+                                           void *param4);
 };

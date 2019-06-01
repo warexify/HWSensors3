@@ -26,25 +26,19 @@
 #include <libkern/libkern.h>
 
 int
-vprintf_vhda(const char *fmt, va_list ap)
-{
+vprintf_vhda(const char *fmt, va_list ap) {
 	char tmp[65536]; /* Should be enough, right? */
-
 	vsnprintf(tmp, sizeof(tmp), fmt, ap);
 	printf("%s", tmp);
-
 	return 0;
 }
 
-int snprintf_vhda(char *text, size_t maxlen, const char *fmt, ...)
-{
+int snprintf_vhda(char *text, size_t maxlen, const char *fmt, ...) {
     va_list ap;
     int retval;
-	
     va_start(ap, fmt);
     retval = vsnprintf(text, maxlen, fmt, ap);
     va_end(ap);
-	
     return retval;
 }
 

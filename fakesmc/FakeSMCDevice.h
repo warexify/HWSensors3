@@ -15,17 +15,17 @@
 #include <IOKit/IONVRAM.h>
 #include "FakeSMCKey.h"
 
-#define APPLESMC_DATA_PORT				0x300
+#define APPLESMC_DATA_PORT				    0x300
 
-#define APPLESMC_CMD_PORT				0x304
-#define APPLESMC_ERROR_CODE_PORT		0x31e
-#define APPLESMC_NR_PORTS				32 /* 0x300-0x31f */
-#define APPLESMC_MAX_DATA_LENGTH		32
+#define APPLESMC_CMD_PORT				      0x304
+#define APPLESMC_ERROR_CODE_PORT		  0x31e
+#define APPLESMC_NR_PORTS				      32 /* 0x300-0x31f */
+#define APPLESMC_MAX_DATA_LENGTH      32
 
-#define APPLESMC_READ_CMD				0x10
-#define APPLESMC_WRITE_CMD				0x11
-#define APPLESMC_GET_KEY_BY_INDEX_CMD	0x12
-#define APPLESMC_GET_KEY_TYPE_CMD		0x13
+#define APPLESMC_READ_CMD				      0x10
+#define APPLESMC_WRITE_CMD				    0x11
+#define APPLESMC_GET_KEY_BY_INDEX_CMD 0x12
+#define APPLESMC_GET_KEY_TYPE_CMD		  0x13
 
 struct AppleSMCStatus {
 	uint8_t cmd;
@@ -41,8 +41,7 @@ struct AppleSMCStatus {
 	uint8_t key_info[6];
 };
 
-class FakeSMCDevice : public IOACPIPlatformDevice
-{
+class FakeSMCDevice : public IOACPIPlatformDevice {
     OSDeclareDefaultStructors( FakeSMCDevice )
 	
 private:
@@ -93,16 +92,21 @@ public:
 	//virtual FakeSMCKey	*addKey(const char *name, const char *type, unsigned char size);
 	virtual FakeSMCKey	*addKeyWithValue(const char *name, const char *type, unsigned char size, const void *value);
 	virtual FakeSMCKey	*addKeyWithHandler(const char *name, const char *type, unsigned char size, IOService *handler);
-  virtual void  saveKeyToNVRAM(FakeSMCKey *key);
-	virtual FakeSMCKey	*getKey(const char *name);
-	virtual FakeSMCKey	*getKey(unsigned int index);
-	virtual UInt32      getCount(void);
+  virtual void      saveKeyToNVRAM(FakeSMCKey *key);
+	virtual FakeSMCKey *getKey(const char *name);
+	virtual FakeSMCKey *getKey(unsigned int index);
+	virtual UInt32     getCount(void);
 	
-	virtual void        updateSharpKey(void);
+	virtual void       updateSharpKey(void);
 	
-	virtual void        setDebug(bool debug_val);
+	virtual void       setDebug(bool debug_val);
     
-  virtual IOReturn    callPlatformFunction(const OSSymbol *functionName, bool waitForFunction, void *param1, void *param2, void *param3, void *param4 ); 
+  virtual IOReturn    callPlatformFunction(const OSSymbol *functionName,
+                                           bool waitForFunction,
+                                           void *param1,
+                                           void *param2,
+                                           void *param3,
+                                           void *param4); 
 };
 
 #endif

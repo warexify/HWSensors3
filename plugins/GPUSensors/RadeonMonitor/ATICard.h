@@ -90,7 +90,6 @@ public:
   IOReturn    HawaiiTemperatureSensor(UInt16* data);
   IOReturn    ArcticTemperatureSensor(UInt16* data);
   IOReturn    VegaTemperatureSensor(UInt16* data);
-
 };
 
 

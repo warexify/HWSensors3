@@ -21,12 +21,12 @@
 
 #include "cpuid.h"
 
-#define MSR_IA32_THERM_STATUS		0x019C
-#define MSR_IA32_PERF_STATUS		0x0198;
+#define MSR_IA32_THERM_STATUS		    0x019C
+#define MSR_IA32_PERF_STATUS		    0x0198;
 #define MSR_IA32_TEMPERATURE_TARGET	0x01A2
-#define MSR_PERF_FIXED_CTR_CTRL  (0x38d)
-#define MSR_PERF_GLOBAL_CTRL            (0x38f)
-//#define MSR_PLATFORM_INFO			0xCE;
+#define MSR_PERF_FIXED_CTR_CTRL     (0x38d)
+#define MSR_PERF_GLOBAL_CTRL        (0x38f)
+//#define MSR_PLATFORM_INFO			      0xCE;
 
 #define MaxCpuCount 128
 #define MaxPStateCount	32
@@ -36,12 +36,10 @@ extern "C" {
   int cpu_number(void);
 };
 
-struct PState 
-{
+struct PState  {
 	union {
 		UInt16 Control;
-		struct 
-		{
+		struct  {
 			UInt8 VID;	// Voltage ID
 			UInt8 FID;	// Frequency ID
 		};
@@ -52,13 +50,12 @@ struct PState
 //  UInt32 Max;
 };
 
-class IntelCPUMonitor : public IOService
-{
+class IntelCPUMonitor : public IOService {
     OSDeclareDefaultStructors(IntelCPUMonitor)   
 public:
 	UInt32					Frequency[MaxCpuCount];
 	UInt32					Voltage;    //in millivolts
-    UInt32          BaseFreqRatio;
+  UInt32          BaseFreqRatio;
   
 private:
 	bool				  	Active;	
@@ -76,24 +73,29 @@ private:
 	char*					  key[MaxCpuCount];
 	char					  Platform[4];
 	bool					  nehalemArch;
-    bool            SandyArch;
+  bool            SandyArch;
 	IOService*			fakeSMC;
 	void					  Activate(void);
 	void					  Deactivate(void);
 	UInt32					IntelGetFrequency(UInt8 fid);
 	UInt32					IntelGetVoltage(UInt16 vid);
   
-    IOWorkLoop *		WorkLoop;
+  IOWorkLoop *		WorkLoop;
 	IOTimerEventSource *	TimerEventSource;
 
 	
 public:
 	virtual bool		    init(OSDictionary *properties=0);
 	virtual IOService*	probe(IOService *provider, SInt32 *score);
-    virtual bool		    start(IOService *provider);
+  virtual bool        start(IOService *provider);
 	virtual void		    stop(IOService *provider);
 	virtual void		    free(void);
 	virtual IOReturn setPowerState(unsigned long which, IOService *whom);
-	virtual IOReturn	callPlatformFunction(const OSSymbol *functionName, bool waitForFunction, void *param1, void *param2, void *param3, void *param4 ); 
+	virtual IOReturn	callPlatformFunction(const OSSymbol *functionName,
+                                         bool waitForFunction,
+                                         void *param1,
+                                         void *param2,
+                                         void *param3,
+                                         void *param4); 
 	virtual IOReturn	loopTimerEvent(void);
 };
