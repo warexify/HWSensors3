@@ -19,7 +19,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
   var licensed : Bool = false
   var translateUnits : Bool = true
   var useIPG : Bool = false
-  var ipgInited : Bool = false
+  var ipgStatus : IPG = IPG()
   let useIOAcceleratorForGPUs : Bool = UDs.bool(forKey: kUseGPUIOAccelerator)
   var sensorScanner : HWSensorsScanner = HWSensorsScanner()
   var debugGraphics: Bool = true
@@ -88,7 +88,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
   
   func applicationWillTerminate(_ aNotification: Notification) {
     // Insert code here to tear down your application
-    if self.ipgInited {
+    if self.ipgStatus.inited {
       IntelEnergyLibShutdown()
     }
     NotificationCenter.default.post(name: .terminate, object: nil)

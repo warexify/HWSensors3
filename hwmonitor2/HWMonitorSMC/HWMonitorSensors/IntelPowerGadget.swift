@@ -8,6 +8,12 @@
 
 import Cocoa
 
+struct IPG {
+  var inited       : Bool = false
+  var packageCore  : Bool = false
+  var packageTotal : Bool = false
+}
+
 func getIntelPowerGadgetGPUSensors() -> [HWMonitorSensor] {
   var sensors : [HWMonitorSensor] = [HWMonitorSensor]()
   
@@ -73,9 +79,6 @@ func getIntelPowerGadgetGPUSensors() -> [HWMonitorSensor] {
 func getIntelPowerGadgetCPUSensors() -> [HWMonitorSensor] {
   var sensors : [HWMonitorSensor] = [HWMonitorSensor]()
   var cpuFrequency      : Double = 0
-  var processorPower    : Double = 0
-  //var processorEnergy1  : Double = 0
-  //var processorEnergy2  : Double = 0
   var packageTemp       : Double = 0
   var packagePowerLimit : Double = 0
   
@@ -86,7 +89,7 @@ func getIntelPowerGadgetCPUSensors() -> [HWMonitorSensor] {
   // Returns true if we have platform energy MSRs available
   bool IsDramEnergyAvailable();
   */
-  let dramEnergy : Bool = IsDramEnergyAvailable() || IsPlatformEnergyAvailable()
+  //let dramEnergy : Bool = IsDramEnergyAvailable() || IsPlatformEnergyAvailable()
   
   var numMsrs : Int32 = 0
   
@@ -104,10 +107,33 @@ func getIntelPowerGadgetCPUSensors() -> [HWMonitorSensor] {
     
     if funcID == MSR_FUNC_FREQ {
       cpuFrequency = data[0]
-    } else if (funcID == MSR_FUNC_POWER && dramEnergy) {
-      processorPower = data[0]
-      //processorEnergy1 = data[1]
-      //processorEnergy2 = data[2]
+    } else if (funcID == MSR_FUNC_POWER /*&& dramEnergy*/) {
+      var name : String = String(format: "%s", szName)
+      let power : Double = data[0]
+    
+      if name == "Processor" {
+        name = "Package Total"
+        AppSd.ipgStatus.packageTotal = true
+      } else if name == "IA" {
+        name = "Package Core"
+        AppSd.ipgStatus.packageCore = true
+      }
+      
+      if gShowBadSensors || (power > 0 && power <= 1000) {
+        let sensor = HWMonitorSensor(key: name,
+                                     unit: .Watt,
+                                     type: "IPG",
+                                     sensorType: .intelWatt,
+                                     title: name.locale,
+                                     canPlot: AppSd.sensorsInited ? false : true)
+        
+        
+        sensor.actionType = .cpuLog;
+        sensor.stringValue = String(format: "%.2f", power)
+        sensor.doubleValue = power
+        sensor.favorite = UDs.bool(forKey: sensor.key)
+        sensors.append(sensor)
+      }
     } else if funcID == MSR_FUNC_TEMP {
       packageTemp = data[0]
     } else if funcID == MSR_FUNC_LIMIT {
@@ -117,6 +143,7 @@ func getIntelPowerGadgetCPUSensors() -> [HWMonitorSensor] {
     szName.deallocate()
     data.deallocate()
   }
+
   /*
    var TDP : Double = 0
    GetTDP(0, &TDP)*/
@@ -227,51 +254,6 @@ func getIntelPowerGadgetCPUSensors() -> [HWMonitorSensor] {
   sensor.doubleValue = Double(degree2C)
   sensor.favorite = false
   sensors.append(sensor)
-  
-  if dramEnergy && (gShowBadSensors || (processorPower > 0 && processorPower <= 1000)) {
-    sensor = HWMonitorSensor(key: "Processor Power",
-                             unit: .Watt,
-                             type: "IPG",
-                             sensorType: .intelWatt,
-                             title: "DRAM".locale,
-                             canPlot: AppSd.sensorsInited ? false : true)
-    
-    
-    sensor.actionType = .cpuLog;
-    sensor.stringValue = String(format: "%.2f", processorPower)
-    sensor.doubleValue = processorPower
-    sensor.favorite = UDs.bool(forKey: sensor.key)
-    sensors.append(sensor)
-    /*
-    sensor = HWMonitorSensor(key: "Processor Energy1",
-                             unit: .Joule,
-                             type: "IPG",
-                             sensorType: .intelJoule,
-                             title: "DRAM".locale,
-                             canPlot: false)
-    
-    
-    sensor.logType = .cpuLog;
-    sensor.stringValue = String(format: "%.2f", processorEnergy1) + sensor.unit.rawValue.locale
-    sensor.doubleValue = processorEnergy1
-    sensor.favorite = UDs.bool(forKey: sensor.key)
-    sensors.append(sensor)
-    
-    sensor = HWMonitorSensor(key: "Processor Energy2",
-                             unit: .mWh,
-                             type: "IPG",
-                             sensorType: .intelmWh,
-                             title: "DRAM".locale,
-                             canPlot: false)
-    
-    
-    sensor.logType = .cpuLog;
-    sensor.stringValue = String(format: "%.2f", processorEnergy2) + sensor.unit.rawValue.locale
-    sensor.doubleValue = processorEnergy2
-    sensor.favorite = UDs.bool(forKey: sensor.key)
-    sensors.append(sensor)
-    */
-  }
   
   if gShowBadSensors || packagePowerLimit > 0 {
     sensor = HWMonitorSensor(key: "Package Power Limit (TDP)",

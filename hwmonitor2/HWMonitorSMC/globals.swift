@@ -8,7 +8,7 @@
 
 import Cocoa
 
-let kTestVersion            = "fan control"
+let kTestVersion            = ""
 
 let kLinceseAccepted        = "LinceseAcceptedWithWarning"
 let kRunAtLogin             = "runAtLogin"

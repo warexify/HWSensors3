@@ -68,3 +68,9 @@
 
 /* Class = "NSButtonCell"; title = "Reset"; ObjectID = "wsU-ie-0D9"; */
 "wsU-ie-0D9.title" = "Сброс";
+
+/* Class = "NSButtonCell"; title = "Fan Control"; ObjectID = "Ure-9y-2ms"; */
+"Ure-9y-2ms.title" = "Управление вентиляторами и помпами";
+
+/* Class = "NSButtonCell"; title = "Show Min/Max speed"; ObjectID = "70t-8Y-u8v"; */
+"70t-8Y-u8v.title" = "Показывать мин. и макс. обороты";

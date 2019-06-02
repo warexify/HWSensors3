@@ -72,17 +72,18 @@ enum HWSensorType : Int {
   case genericBattery       = 19
 
   case gpuIO_coreClock      = 20
-  case gpuIO_temp           = 21
-  case gpuIO_FanRPM         = 22
-  case gpuIO_percent        = 23
-  case gpuIO_RamBytes       = 24
-  case gpuIO_Watts          = 25
+  case gpuIO_memoryClock    = 21
+  case gpuIO_temp           = 22
+  case gpuIO_FanRPM         = 23
+  case gpuIO_percent        = 24
+  case gpuIO_RamBytes       = 25
+  case gpuIO_Watts          = 26
   
   
   // RAM. Taken from the System
-  case memory               = 26
+  case memory               = 27
   // usb, taken from the driver. used only in logs
-  case usb                  = 27
+  case usb                  = 28
 }
 
 

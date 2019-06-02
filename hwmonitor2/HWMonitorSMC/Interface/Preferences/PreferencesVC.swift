@@ -251,7 +251,7 @@ class PreferencesVC: NSViewController, NSTextFieldDelegate, NSFontChanging, NSTa
       if field == self.cpuTDPOverrideField {
         var tdp : Double = Double(field.stringValue) ?? 0
         if tdp < 7 || tdp > 1000 {
-          if AppSd.ipgInited {
+          if AppSd.ipgStatus.inited {
             GetTDP(0, &tdp)
           } else {
             tdp = 100
@@ -298,7 +298,7 @@ class PreferencesVC: NSViewController, NSTextFieldDelegate, NSFontChanging, NSTa
     var tdp : Double = UDs.double(forKey: kCPU_TDP_MAX)
 
     if (tdp < 7 || tdp >= 1000) {
-      if AppSd.ipgInited {
+      if AppSd.ipgStatus.inited {
         GetTDP(0, &tdp)
       } else {
         tdp = 100

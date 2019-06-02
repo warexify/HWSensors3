@@ -183,7 +183,7 @@ class PopoverViewController: NSViewController, USBWatcherDelegate {
         if family == 6 && model >= 42 /* Xeon supported: && model != 44 && model != 46 && model != 47 */ {
           if FileManager.default.fileExists(atPath: "/Library/Frameworks/IntelPowerGadget.framework/Versions/A/Headers/EnergyLib.h") {
             self.useIntelPowerGadget = IntelEnergyLibInitialize()
-            AppSd.ipgInited = self.useIntelPowerGadget
+            AppSd.ipgStatus.inited = self.useIntelPowerGadget
           }
         }
       }
@@ -443,7 +443,7 @@ class PopoverViewController: NSViewController, USBWatcherDelegate {
           self.GPUNode?.mutableChildren.add(IGPUPackage)
         }
         
-        if AppSd.ipgInited {
+        if AppSd.ipgStatus.inited {
           for s in getIntelPowerGadgetGPUSensors() {
             let sensor = HWTreeNode(representedObject: HWSensorData(group: (self.GPUNode?.sensorData?.group)!,
                                                                     sensor: s,

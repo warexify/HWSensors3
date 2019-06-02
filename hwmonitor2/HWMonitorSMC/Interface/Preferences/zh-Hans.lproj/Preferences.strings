@@ -1,12 +1,12 @@
 
 /* Class = "NSTabViewItem"; label = "Sensors"; ObjectID = "Tam-QO-tbG"; */
-"Tam-QO-tbG.label" = "Sensors";
+"Tam-QO-tbG.label" = "传感器";
 
 /* Class = "NSTabViewItem"; label = "View"; ObjectID = "wQH-9z-ULe"; */
-"wQH-9z-ULe.label" = "View";
+"wQH-9z-ULe.label" = "视图";
 
 /* Class = "NSTabViewItem"; label = "Other"; ObjectID = "YC5-C6-UHP"; */
-"YC5-C6-UHP.label" = "Other";
+"YC5-C6-UHP.label" = "其他";
 
 /* Class = "NSButtonCell"; title = "use percentage to display memory usage"; ObjectID = "1ou-TV-z1H"; */
 "F5h-4I-FHU.title" = "使用百分比显示内存使用情况";
@@ -33,19 +33,19 @@
 "AHz-v5-cAO.title" = "主题:";
 
 /* Class = "NSTexfieldCell"; title = "View size"; ObjectID = "PZk-7X-P2q"; */
-"PZk-7X-P2q.title" = "View size";
+"PZk-7X-P2q.title" = "查看大小";
 
 /* Class = "NSTexfieldCell"; title = "Grid Color:"; ObjectID = "7rV-gv-BVk"; */
-"7rV-gv-BVk.title" = "Grid Color:";
+"7rV-gv-BVk.title" = "网格颜色:";
 
 /* Class = "NSTexfieldCell"; title = "Plot Color:"; ObjectID = "ovp-5x-7r3"; */
-"ovp-5x-7r3.title" = "Plot Color:";
+"ovp-5x-7r3.title" = "绘图颜色:";
 
 /* Class = "NSTexfieldCell"; title = "Top bar font:"; ObjectID = "58Y-P2-lbm"; */
-"58Y-P2-lbm.title" = "Top bar font:";
+"58Y-P2-lbm.title" = "顶栏字体:";
 
 /* Class = "NSButtonCell"; title = "Translate units of measurements"; ObjectID = "kwG-Mh-ogc"; */
-"kwG-Mh-ogc.title" = "Translate units of measurements";
+"kwG-Mh-ogc.title" = "转换本国语度量单位";
 
 /* Class = "NSButtonCell"; title = "force to use dark appearance"; ObjectID = "fYJ-2d-nMJ"; */
 "fYJ-2d-nMJ.title" = "使用黑色外观显示";
@@ -67,4 +67,10 @@
 "jea-Yr-Q5W.title" = "使用加速器监测GPU";
 
 /* Class = "NSButtonCell"; title = "Reset"; ObjectID = "wsU-ie-0D9"; */
-"wsU-ie-0D9.title" = "Reset";
+"wsU-ie-0D9.title" = "恢复默认";
+
+/* Class = "NSButtonCell"; title = "Fan Control"; ObjectID = "Ure-9y-2ms"; */
+"Ure-9y-2ms.title" = "风扇和泵控制";
+
+/* Class = "NSButtonCell"; title = "Show Min/Max speed"; ObjectID = "70t-8Y-u8v"; */
+"70t-8Y-u8v.title" = "显示最小/最大速度";

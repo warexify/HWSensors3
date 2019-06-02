@@ -8,8 +8,8 @@
 
 // translated by Amble
 
-"Core Frequencies" = "Ytimien kellotaajuudet";   // CPU temperature sub group
-"Core Temperatures" = "Ytimien lämpötilat"; // CPU frequencies sub group
+"Core Frequencies" = "Ytimien kellotaajuudet"; // CPU or GPU sub group
+"Core Temperatures" = "Ytimien lämpötilat"; // CPU or GPU sub group
 "Temperature" = "Lämpötila";   // singular
 "Temperatures" = "Lämpötilat"; // plural
 "Frequency"   = "Kellotaajuus";     // singular
@@ -42,6 +42,7 @@
 // GPU, when taken from PerformanceStatistics
 "GPUs" = "Näytönohjaimet";
 "Core Clock" = "Ytimen kellotaajuus";
+"Memory Clock" = "Memory Clock";
 "Fan/Pump speed" = "Tuulettimen/Pumpun nopeus";
 "Fan/Pump speed rate" = "Tuulettimen/Pumpun nopeustaso";
 "Utilization" = "Käyttö";

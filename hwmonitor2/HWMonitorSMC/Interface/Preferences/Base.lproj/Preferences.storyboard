@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="14490.64" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14490.64"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14490.70"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -215,7 +215,7 @@ MgA3AEEARwBQAFcAXABkAHkAewB9AH8AgQCJAJAAlQCgAKMApQCnAKkArgC5AMIAygDNANYA2wDoAOwA
                                                         <slider verticalHuggingPriority="750" id="Ya9-5g-pGn">
                                                             <rect key="frame" x="99" y="284" width="239" height="15"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                            <sliderCell key="cell" controlSize="mini" state="on" alignment="left" minValue="100" maxValue="10000" doubleValue="1500" tickMarkPosition="above" numberOfTickMarks="100" sliderType="linear" id="7Pa-AZ-KZo"/>
+                                                            <sliderCell key="cell" controlSize="mini" state="on" alignment="left" minValue="100" maxValue="10000" doubleValue="1500" tickMarkPosition="above" numberOfTickMarks="100" allowsTickMarkValuesOnly="YES" sliderType="linear" id="7Pa-AZ-KZo"/>
                                                             <connections>
                                                                 <action selector="sliderCPUMoved:" target="xPF-f4-5kE" id="o8Z-kU-4yD"/>
                                                             </connections>
@@ -223,7 +223,7 @@ MgA3AEEARwBQAFcAXABkAHkAewB9AH8AgQCJAJAAlQCgAKMApQCnAKkArgC5AMIAygDNANYA2wDoAOwA
                                                         <slider verticalHuggingPriority="750" allowsExpansionToolTips="YES" id="Jvj-dz-vvo">
                                                             <rect key="frame" x="99" y="227" width="239" height="15"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                            <sliderCell key="cell" controlSize="mini" state="on" alignment="left" minValue="100" maxValue="10000" doubleValue="3000" tickMarkPosition="above" numberOfTickMarks="100" sliderType="linear" id="4cF-8M-0P7"/>
+                                                            <sliderCell key="cell" controlSize="mini" state="on" alignment="left" minValue="100" maxValue="10000" doubleValue="3000" tickMarkPosition="above" numberOfTickMarks="100" allowsTickMarkValuesOnly="YES" sliderType="linear" id="4cF-8M-0P7"/>
                                                             <connections>
                                                                 <action selector="sliderGPUMoved:" target="xPF-f4-5kE" id="QMM-ri-ebU"/>
                                                             </connections>
@@ -231,7 +231,7 @@ MgA3AEEARwBQAFcAXABkAHkAewB9AH8AgQCJAJAAlQCgAKMApQCnAKkArgC5AMIAygDNANYA2wDoAOwA
                                                         <slider verticalHuggingPriority="750" allowsExpansionToolTips="YES" id="TjH-t0-0wu">
                                                             <rect key="frame" x="99" y="197" width="239" height="15"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                            <sliderCell key="cell" controlSize="mini" state="on" alignment="left" minValue="100" maxValue="10000" doubleValue="3000" tickMarkPosition="above" numberOfTickMarks="100" sliderType="linear" id="fQQ-ts-qQw"/>
+                                                            <sliderCell key="cell" controlSize="mini" state="on" alignment="left" minValue="100" maxValue="10000" doubleValue="3000" tickMarkPosition="above" numberOfTickMarks="100" allowsTickMarkValuesOnly="YES" sliderType="linear" id="fQQ-ts-qQw"/>
                                                             <connections>
                                                                 <action selector="sliderMoBoMoved:" target="xPF-f4-5kE" id="1zi-fd-AGf"/>
                                                             </connections>
@@ -247,7 +247,7 @@ MgA3AEEARwBQAFcAXABkAHkAewB9AH8AgQCJAJAAlQCgAKMApQCnAKkArgC5AMIAygDNANYA2wDoAOwA
                                                         <slider verticalHuggingPriority="750" allowsExpansionToolTips="YES" id="6Ci-WU-bhL">
                                                             <rect key="frame" x="99" y="99" width="239" height="15"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                            <sliderCell key="cell" controlSize="mini" state="on" alignment="left" minValue="100" maxValue="10000" doubleValue="3000" tickMarkPosition="above" numberOfTickMarks="100" sliderType="linear" id="fCa-ct-5UU"/>
+                                                            <sliderCell key="cell" controlSize="mini" state="on" alignment="left" minValue="100" maxValue="10000" doubleValue="3000" tickMarkPosition="above" numberOfTickMarks="100" allowsTickMarkValuesOnly="YES" sliderType="linear" id="fCa-ct-5UU"/>
                                                             <connections>
                                                                 <action selector="sliderRAMMoved:" target="xPF-f4-5kE" id="eqT-J9-9pq"/>
                                                             </connections>
@@ -263,7 +263,7 @@ MgA3AEEARwBQAFcAXABkAHkAewB9AH8AgQCJAJAAlQCgAKMApQCnAKkArgC5AMIAygDNANYA2wDoAOwA
                                                         <slider verticalHuggingPriority="750" allowsExpansionToolTips="YES" id="ubf-fq-Fq3">
                                                             <rect key="frame" x="99" y="32" width="239" height="15"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                            <sliderCell key="cell" controlSize="mini" state="on" alignment="left" minValue="100" maxValue="10000" doubleValue="3000" tickMarkPosition="above" numberOfTickMarks="100" sliderType="linear" id="dwQ-Lh-EZa"/>
+                                                            <sliderCell key="cell" controlSize="mini" state="on" alignment="left" minValue="100" maxValue="10000" doubleValue="3000" tickMarkPosition="above" numberOfTickMarks="100" allowsTickMarkValuesOnly="YES" sliderType="linear" id="dwQ-Lh-EZa"/>
                                                             <connections>
                                                                 <action selector="sliderBatteryMoved:" target="xPF-f4-5kE" id="CvE-QM-hbS"/>
                                                             </connections>

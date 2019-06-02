@@ -193,6 +193,7 @@ class PlotView: NSView, CPTPlotDataSource, CPTPlotDelegate {
             // TB (Tutbo boost) is the Max (100 : TB = x : value). But how get it?? ... from the user!
             conformedVal = (value * 100) / AppSd.cpuFrequencyMax
           case .frequencyGPU:       fallthrough // 1500 MHz max?? (100 : 1500 = x : value)
+          case .gpuIO_memoryClock:  fallthrough
           case .intelGPUFrequency:  conformedVal = (value * 100) / 1500
           case .intelmWh:           fallthrough
           case .intelJoule:         fallthrough

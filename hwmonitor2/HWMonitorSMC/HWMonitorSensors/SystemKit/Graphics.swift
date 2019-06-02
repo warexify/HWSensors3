@@ -67,11 +67,11 @@ public struct Graphics {
                                                                               sensor: nil,
                                                                               isLeaf: false))
         let unique : String = "\(primaryMatch)\(i)"
-        if let coreclock = PerformanceStatistics.object(forKey: "Core Clock(MHz)﻿﻿") as? NSNumber {
+        if let coreclock = PerformanceStatistics.object(forKey: "Core Clock(MHz)") as? NSNumber {
           
           if gShowBadSensors || (coreclock.intValue > 0 && coreclock.intValue < 3000) {
             let ccSensor = HWMonitorSensor(key: "Core Clock" + unique,
-                                           unit: HWUnit.GHz,
+                                           unit: HWUnit.MHz,
                                            type: "IOAcc",
                                            sensorType: .gpuIO_coreClock,
                                            title: "Core Clock".locale,
@@ -80,11 +80,33 @@ public struct Graphics {
             ccSensor.favorite = UDs.bool(forKey: ccSensor.key)
             ccSensor.characteristics = primaryMatch
             ccSensor.actionType = .gpuLog
-            ccSensor.doubleValue = Double(coreclock.doubleValue)
+            ccSensor.doubleValue = coreclock.doubleValue
             ccSensor.stringValue = coreclock.stringValue
             ccSensor.vendor = vendorString
             gpuNode.mutableChildren.add(HWTreeNode(representedObject: HWSensorData(group: model,
                                                                                    sensor: ccSensor,
+                                                                                   isLeaf: true)))
+          }
+        }
+        
+        if let memclock = PerformanceStatistics.object(forKey: "Memory Clock(MHz)") as? NSNumber {
+          
+          if gShowBadSensors || (memclock.intValue > 0 && memclock.intValue < 3000) {
+            let mcSensor = HWMonitorSensor(key: "Memory Clock" + unique,
+                                           unit: HWUnit.MHz,
+                                           type: "IOAcc",
+                                           sensorType: .gpuIO_memoryClock,
+                                           title: "Memory Clock".locale,
+                                           canPlot: false)
+            
+            mcSensor.favorite = UDs.bool(forKey: mcSensor.key)
+            mcSensor.characteristics = primaryMatch
+            mcSensor.actionType = .gpuLog
+            mcSensor.doubleValue = memclock.doubleValue
+            mcSensor.stringValue = memclock.stringValue
+            mcSensor.vendor = vendorString
+            gpuNode.mutableChildren.add(HWTreeNode(representedObject: HWSensorData(group: model,
+                                                                                   sensor: mcSensor,
                                                                                    isLeaf: true)))
           }
         }
@@ -303,7 +325,7 @@ public struct Graphics {
             gpuNode.mutableChildren.add(IGPUPackage)
           }
           
-          if AppSd.ipgInited {
+          if AppSd.ipgStatus.inited {
             for s in getIntelPowerGadgetGPUSensors() {
               let ipgSensor = HWTreeNode(representedObject: HWSensorData(group: model,
                                                                          sensor: s,

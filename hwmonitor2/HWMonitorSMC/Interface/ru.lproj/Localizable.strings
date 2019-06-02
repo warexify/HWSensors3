@@ -8,8 +8,8 @@
 
 // translated by Andrey1970
 
-"Core Frequencies" = "Частоты ядер﻿";      // CPU frequencies sub group
-"Core Temperatures" = "Температуры ядер"; // CPU temperature sub group
+"Core Frequencies" = "Частоты ядер﻿";      // CPU or GPU sub group
+"Core Temperatures" = "Температуры ядер"; // CPU or GPU sub group
 "Temperature" = "Температура"; // singular
 "Temperatures" = "Темературы"; // plural
 "Frequency"   = "Частота";     // singular
@@ -42,6 +42,7 @@
 // GPU, when taken from PerformanceStatistics
 "GPUs" = "Графика";
 "Core Clock" = "Частота ядра";
+"Memory Clock" = "Частота памяти";
 "Fan/Pump speed" = "Скорость вентилятора";
 "Fan/Pump speed rate" = "Использование вентилятора";
 "Utilization" = "Использование";

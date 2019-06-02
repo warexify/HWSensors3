@@ -238,10 +238,8 @@ class HWSensorsScanner: NSObject {
     let actionType : ActionType = .cpuLog
     let cpuCount = gCountPhisycalCores()
     
-    let igp : Bool = AppSd.ipgInited
-    
     // CPU Power
-    if igp {
+    if AppSd.ipgStatus.inited {
       arr.append(contentsOf: getIntelPowerGadgetCPUSensors())
     }
     
@@ -255,26 +253,29 @@ class HWSensorsScanner: NSObject {
                                       index: -1,
                                       list: &arr)
     
-    let _ =  self.addSMCSensorIfValid(key: SMC_CPU_PACKAGE_CORE_WATT,
-                                      type: DataTypes.SP78,
-                                      unit: .Watt,
-                                      sensorType: .cpuPowerWatt,
-                                      title: "Package Core".locale,
-                                      actionType: actionType,
-                                      canPlot: AppSd.sensorsInited ? false : true,
-                                      index: -1,
-                                      list: &arr)
+    if !AppSd.ipgStatus.packageTotal {
+      let _ =  self.addSMCSensorIfValid(key: SMC_CPU_PACKAGE_TOTAL_WATT,
+                                        type: DataTypes.SP78,
+                                        unit: .Watt,
+                                        sensorType: .cpuPowerWatt,
+                                        title: "Package Total".locale,
+                                        actionType: actionType,
+                                        canPlot: AppSd.sensorsInited ? false : true,
+                                        index: -1,
+                                        list: &arr)
+    }
     
-    let _ =  self.addSMCSensorIfValid(key: SMC_CPU_PACKAGE_TOTAL_WATT,
-                                      type: DataTypes.SP78,
-                                      unit: .Watt,
-                                      sensorType: .cpuPowerWatt,
-                                      title: "Package Total".locale,
-                                      actionType: actionType,
-                                      canPlot: AppSd.sensorsInited ? false : true,
-                                      index: -1,
-                                      list: &arr)
-    
+    if !AppSd.ipgStatus.packageCore {
+      let _ =  self.addSMCSensorIfValid(key: SMC_CPU_PACKAGE_CORE_WATT,
+                                        type: DataTypes.SP78,
+                                        unit: .Watt,
+                                        sensorType: .cpuPowerWatt,
+                                        title: "Package Core".locale,
+                                        actionType: actionType,
+                                        canPlot: AppSd.sensorsInited ? false : true,
+                                        index: -1,
+                                        list: &arr)
+    }
     
     let _ =  self.addSMCSensorIfValid(key: SMC_CPU_HEATSINK_TEMP,
                                       type: DataTypes.SP78,
@@ -753,7 +754,11 @@ class HWSensorsScanner: NSObject {
     case .cpuPowerWatt:
       sensor.stringValue = String(format: "%.2f", v)
       sensor.doubleValue = v
-      valid = gShowBadSensors || (v > 0 && v < 1000) // reached from an Intel i9-7890XE in extreme OC
+      if sensor.key == SMC_IGPU_PACKAGE_WATT {
+        valid = gShowBadSensors || (v >= 0 && v < 150) // 30 W max?
+      } else {
+        valid = gShowBadSensors || (v > 0 && v < 1000) // reached from an Intel i9-7890XE in extreme OC
+      }
     case .multiplier:
       var m: UInt = 0
       bcopy((data as NSData).bytes, &m, 2)

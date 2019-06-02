@@ -8,8 +8,8 @@
 
 // translated by ???
 
-"Core Frequencies" = "Core Frequencies";   // CPU temperature sub group
-"Core Temperatures" = "Core Temperatures"; // CPU frequencies sub group
+"Core Frequencies" = "Core Frequencies";   // CPU or GPU sub group
+"Core Temperatures" = "Core Temperatures"; // CPU or GPU sub group
 "Temperature" = "Temperature";   // singular
 "Temperatures" = "Temperatures"; // plural
 "Frequency"   = "Frequency";     // singular
@@ -42,6 +42,7 @@
 // GPU, when taken from PerformanceStatistics
 "GPUs" = "GPUs";
 "Core Clock" = "Core Clock";
+"Memory Clock" = "Memory Clock";
 "Fan/Pump speed" = "Fan/Pump speed";
 "Fan/Pump speed rate" = "Fan/Pump speed rate";
 "Utilization" = "Utilization";
