@@ -262,7 +262,7 @@ class HWSmartDataScanner: NSObject {
         tempSensor.stringValue = "\(temp.intValue)"
         tempSensor.favorite = UDs.bool(forKey: tempSensor.key)
         tempSensor.doubleValue = temp.doubleValue
-        tempSensor.logType = .mediaLog
+        tempSensor.actionType = .mediaLog
         sensors.append(tempSensor)
         
         
@@ -280,7 +280,7 @@ class HWSmartDataScanner: NSObject {
         lifeSensor.stringValue = "\(life.intValue)"
         lifeSensor.favorite = UDs.bool(forKey: lifeSensor.key)
         lifeSensor.doubleValue = life.doubleValue
-        lifeSensor.logType = .mediaLog
+        lifeSensor.actionType = .mediaLog
         sensors.append(lifeSensor)
         
         let cw: NSNumber = attributes.object(forKey: kNVMeSMARTCriticalWarningKey) as! NSNumber
@@ -313,7 +313,7 @@ class HWSmartDataScanner: NSObject {
           tempSensor.stringValue = "\(temperature)"
           tempSensor.favorite = UDs.bool(forKey: tempSensor.key)
           tempSensor.doubleValue = Double(temperature)
-          tempSensor.logType = .mediaLog
+          tempSensor.actionType = .mediaLog
           sensors.append(tempSensor)
         }
         
@@ -343,7 +343,7 @@ class HWSmartDataScanner: NSObject {
               lifeSensor.stringValue = "\(life.intValue)"
               lifeSensor.favorite = UDs.bool(forKey: lifeSensor.key)
               lifeSensor.doubleValue = life.doubleValue
-              lifeSensor.logType = .mediaLog
+              lifeSensor.actionType = .mediaLog
               sensors.append(lifeSensor)
             }
           }

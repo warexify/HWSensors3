@@ -19,12 +19,16 @@ class AppDelegate: NSObject, NSApplicationDelegate {
   var licensed : Bool = false
   var translateUnits : Bool = true
   var useIPG : Bool = false
-  var ipgInited : Bool = false
+  var ipgStatus : IPG = IPG()
   let useIOAcceleratorForGPUs : Bool = UDs.bool(forKey: kUseGPUIOAccelerator)
   var sensorScanner : HWSensorsScanner = HWSensorsScanner()
   var debugGraphics: Bool = true
   
+  let fanControlEnabled : Bool = UDs.bool(forKey: kEnableFansControl)
+  let showFanMinMaxSpeed : Bool = UDs.bool(forKey: kShowFansMinMaxSensors)
+  
   let statusItem = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
+  var statusItemLenBackup : CGFloat = 0
   var statusItemLen : CGFloat = 0
   var hwWC : HWWindowController?
 
@@ -34,8 +38,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
   var licenseWC : LicenseWC?
   
   func applicationWillFinishLaunching(_ notification: Notification) {
-    self.statusItem.button?.alignment = .left
-    self.statusItem.button?.imagePosition = .imageLeft
+    self.statusItemLenBackup = self.statusItem.length
     let pid = NSRunningApplication.current.processIdentifier
     for app in NSRunningApplication.runningApplications(withBundleIdentifier: Bundle.main.bundleIdentifier!) {
       if app.processIdentifier != pid {
@@ -85,7 +88,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
   
   func applicationWillTerminate(_ aNotification: Notification) {
     // Insert code here to tear down your application
-    if self.ipgInited {
+    if self.ipgStatus.inited {
       IntelEnergyLibShutdown()
     }
     NotificationCenter.default.post(name: .terminate, object: nil)

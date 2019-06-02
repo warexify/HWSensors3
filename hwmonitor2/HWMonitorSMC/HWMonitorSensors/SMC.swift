@@ -275,7 +275,7 @@ public struct SMCKit {
       case (kIOReturnSuccess, SMCParamStruct.Result.kSMCKeyNotFound.rawValue):
         break
       case (kIOReturnNotPrivileged, _):
-        print(SMCError.notPrivileged)
+        print("\(inputStruct.key.toString()): \(SMCError.notPrivileged)")
       default:
         break
       }
@@ -378,7 +378,6 @@ public struct SMCKit {
           let info : String = "key: \(key), size: \(String(format: "%02d", k.info.size)), type: \(type), attr: \(String(format: "%02X", k.info.attribute)), value: \(data as NSData)\(prvt)\n"
           dump += info
         }
-        
       }
     }
 

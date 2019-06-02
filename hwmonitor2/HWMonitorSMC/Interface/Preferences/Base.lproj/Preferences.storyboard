@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14460.31"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="14490.70"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -37,7 +37,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="566" height="631"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <visualEffectView wantsLayer="YES" blendingMode="behindWindow" state="followsWindowActiveState" id="rVh-nU-KcG">
+                            <visualEffectView wantsLayer="YES" blendingMode="behindWindow" material="appearanceBased" state="followsWindowActiveState" id="rVh-nU-KcG">
                                 <rect key="frame" x="0.0" y="0.0" width="566" height="631"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <subviews>
@@ -76,7 +76,7 @@ MgA3AEEARwBQAFcAXABkAHkAewB9AH8AgQCJAJAAlQCgAKMApQCnAKkArgC5AMIAygDNANYA2wDoAOwA
                                                             </connections>
                                                         </button>
                                                         <button verticalHuggingPriority="750" id="OzO-ID-osB">
-                                                            <rect key="frame" x="29" y="425" width="476" height="18"/>
+                                                            <rect key="frame" x="29" y="435" width="476" height="18"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                             <buttonCell key="cell" type="check" title="expand all groups" bezelStyle="regularSquare" imagePosition="left" inset="2" id="1ou-TV-z1H">
                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -87,7 +87,7 @@ MgA3AEEARwBQAFcAXABkAHkAewB9AH8AgQCJAJAAlQCgAKMApQCnAKkArgC5AMIAygDNANYA2wDoAOwA
                                                             </connections>
                                                         </button>
                                                         <button verticalHuggingPriority="750" id="YTv-4X-456">
-                                                            <rect key="frame" x="29" y="450" width="476" height="18"/>
+                                                            <rect key="frame" x="29" y="455" width="476" height="18"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                             <buttonCell key="cell" type="check" title="expand CPU Temperatures group" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="Uuk-nv-v6V">
                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -98,7 +98,7 @@ MgA3AEEARwBQAFcAXABkAHkAewB9AH8AgQCJAJAAlQCgAKMApQCnAKkArgC5AMIAygDNANYA2wDoAOwA
                                                             </connections>
                                                         </button>
                                                         <button verticalHuggingPriority="750" id="WeH-bd-fQA">
-                                                            <rect key="frame" x="29" y="400" width="476" height="18"/>
+                                                            <rect key="frame" x="29" y="415" width="476" height="18"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                             <buttonCell key="cell" type="check" title="don't show empty groups" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="VSp-PT-02b">
                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -124,7 +124,7 @@ MgA3AEEARwBQAFcAXABkAHkAewB9AH8AgQCJAJAAlQCgAKMApQCnAKkArgC5AMIAygDNANYA2wDoAOwA
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         </box>
                                                         <button verticalHuggingPriority="750" id="mgE-Fa-Utu">
-                                                            <rect key="frame" x="29" y="362" width="476" height="18"/>
+                                                            <rect key="frame" x="29" y="383" width="476" height="18"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                             <buttonCell key="cell" type="check" title="use the IOAccelerator's monitoring for GPUs" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="jea-Yr-Q5W">
                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -135,7 +135,7 @@ MgA3AEEARwBQAFcAXABkAHkAewB9AH8AgQCJAJAAlQCgAKMApQCnAKkArgC5AMIAygDNANYA2wDoAOwA
                                                             </connections>
                                                         </button>
                                                         <box verticalHuggingPriority="750" boxType="separator" id="2i2-E0-7fT">
-                                                            <rect key="frame" x="31" y="384" width="96" height="5"/>
+                                                            <rect key="frame" x="31" y="405" width="96" height="5"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         </box>
                                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="Vb8-lY-tso">
@@ -148,7 +148,7 @@ MgA3AEEARwBQAFcAXABkAHkAewB9AH8AgQCJAJAAlQCgAKMApQCnAKkArgC5AMIAygDNANYA2wDoAOwA
                                                             </textFieldCell>
                                                         </textField>
                                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="qva-AL-ROm">
-                                                            <rect key="frame" x="8" y="450" width="17" height="17"/>
+                                                            <rect key="frame" x="8" y="455" width="17" height="17"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="*" id="dlj-Qt-Aec">
                                                                 <font key="font" metaFont="system"/>
@@ -157,7 +157,7 @@ MgA3AEEARwBQAFcAXABkAHkAewB9AH8AgQCJAJAAlQCgAKMApQCnAKkArgC5AMIAygDNANYA2wDoAOwA
                                                             </textFieldCell>
                                                         </textField>
                                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="EHy-07-voo">
-                                                            <rect key="frame" x="8" y="425" width="17" height="17"/>
+                                                            <rect key="frame" x="8" y="435" width="17" height="17"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="*" id="xW0-Yl-1tq">
                                                                 <font key="font" metaFont="system"/>
@@ -166,7 +166,7 @@ MgA3AEEARwBQAFcAXABkAHkAewB9AH8AgQCJAJAAlQCgAKMApQCnAKkArgC5AMIAygDNANYA2wDoAOwA
                                                             </textFieldCell>
                                                         </textField>
                                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="Y93-4f-X3G">
-                                                            <rect key="frame" x="8" y="400" width="17" height="17"/>
+                                                            <rect key="frame" x="8" y="415" width="17" height="17"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="*" id="2Mf-xX-7xl">
                                                                 <font key="font" metaFont="system"/>
@@ -175,7 +175,7 @@ MgA3AEEARwBQAFcAXABkAHkAewB9AH8AgQCJAJAAlQCgAKMApQCnAKkArgC5AMIAygDNANYA2wDoAOwA
                                                             </textFieldCell>
                                                         </textField>
                                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="kor-1K-rpc">
-                                                            <rect key="frame" x="8" y="362" width="17" height="17"/>
+                                                            <rect key="frame" x="8" y="383" width="17" height="17"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="*" id="R6Z-IO-lPf">
                                                                 <font key="font" metaFont="system"/>
@@ -184,7 +184,7 @@ MgA3AEEARwBQAFcAXABkAHkAewB9AH8AgQCJAJAAlQCgAKMApQCnAKkArgC5AMIAygDNANYA2wDoAOwA
                                                             </textFieldCell>
                                                         </textField>
                                                         <button verticalHuggingPriority="750" id="FI9-35-qYY">
-                                                            <rect key="frame" x="29" y="316" width="476" height="18"/>
+                                                            <rect key="frame" x="29" y="353" width="476" height="18"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                             <buttonCell key="cell" type="check" title="Intel® Power Gadget" bezelStyle="regularSquare" imagePosition="left" inset="2" id="KAT-d1-HWg">
                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -195,7 +195,7 @@ MgA3AEEARwBQAFcAXABkAHkAewB9AH8AgQCJAJAAlQCgAKMApQCnAKkArgC5AMIAygDNANYA2wDoAOwA
                                                             </connections>
                                                         </button>
                                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="p4c-XS-gWr">
-                                                            <rect key="frame" x="8" y="316" width="17" height="17"/>
+                                                            <rect key="frame" x="8" y="353" width="17" height="17"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="*" id="BI2-cN-fF0">
                                                                 <font key="font" metaFont="system"/>
@@ -204,7 +204,7 @@ MgA3AEEARwBQAFcAXABkAHkAewB9AH8AgQCJAJAAlQCgAKMApQCnAKkArgC5AMIAygDNANYA2wDoAOwA
                                                             </textFieldCell>
                                                         </textField>
                                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="UwX-gx-Asa">
-                                                            <rect key="frame" x="63" y="277" width="328" height="17"/>
+                                                            <rect key="frame" x="63" y="311" width="328" height="17"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                             <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Sensors update interval in seconds:" id="i4D-QB-sGd">
                                                                 <font key="font" metaFont="system"/>
@@ -213,31 +213,31 @@ MgA3AEEARwBQAFcAXABkAHkAewB9AH8AgQCJAJAAlQCgAKMApQCnAKkArgC5AMIAygDNANYA2wDoAOwA
                                                             </textFieldCell>
                                                         </textField>
                                                         <slider verticalHuggingPriority="750" id="Ya9-5g-pGn">
-                                                            <rect key="frame" x="99" y="250" width="239" height="15"/>
+                                                            <rect key="frame" x="99" y="284" width="239" height="15"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                            <sliderCell key="cell" controlSize="mini" state="on" alignment="left" minValue="100" maxValue="10000" doubleValue="1500" tickMarkPosition="above" numberOfTickMarks="100" sliderType="linear" id="7Pa-AZ-KZo"/>
+                                                            <sliderCell key="cell" controlSize="mini" state="on" alignment="left" minValue="100" maxValue="10000" doubleValue="1500" tickMarkPosition="above" numberOfTickMarks="100" allowsTickMarkValuesOnly="YES" sliderType="linear" id="7Pa-AZ-KZo"/>
                                                             <connections>
                                                                 <action selector="sliderCPUMoved:" target="xPF-f4-5kE" id="o8Z-kU-4yD"/>
                                                             </connections>
                                                         </slider>
                                                         <slider verticalHuggingPriority="750" allowsExpansionToolTips="YES" id="Jvj-dz-vvo">
-                                                            <rect key="frame" x="99" y="193" width="239" height="15"/>
+                                                            <rect key="frame" x="99" y="227" width="239" height="15"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                            <sliderCell key="cell" controlSize="mini" state="on" alignment="left" minValue="100" maxValue="10000" doubleValue="3000" tickMarkPosition="above" numberOfTickMarks="100" sliderType="linear" id="4cF-8M-0P7"/>
+                                                            <sliderCell key="cell" controlSize="mini" state="on" alignment="left" minValue="100" maxValue="10000" doubleValue="3000" tickMarkPosition="above" numberOfTickMarks="100" allowsTickMarkValuesOnly="YES" sliderType="linear" id="4cF-8M-0P7"/>
                                                             <connections>
                                                                 <action selector="sliderGPUMoved:" target="xPF-f4-5kE" id="QMM-ri-ebU"/>
                                                             </connections>
                                                         </slider>
                                                         <slider verticalHuggingPriority="750" allowsExpansionToolTips="YES" id="TjH-t0-0wu">
-                                                            <rect key="frame" x="99" y="163" width="239" height="15"/>
+                                                            <rect key="frame" x="99" y="197" width="239" height="15"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                            <sliderCell key="cell" controlSize="mini" state="on" alignment="left" minValue="100" maxValue="10000" doubleValue="3000" tickMarkPosition="above" numberOfTickMarks="100" sliderType="linear" id="fQQ-ts-qQw"/>
+                                                            <sliderCell key="cell" controlSize="mini" state="on" alignment="left" minValue="100" maxValue="10000" doubleValue="3000" tickMarkPosition="above" numberOfTickMarks="100" allowsTickMarkValuesOnly="YES" sliderType="linear" id="fQQ-ts-qQw"/>
                                                             <connections>
                                                                 <action selector="sliderMoBoMoved:" target="xPF-f4-5kE" id="1zi-fd-AGf"/>
                                                             </connections>
                                                         </slider>
                                                         <slider verticalHuggingPriority="750" allowsExpansionToolTips="YES" id="o8v-Ie-b7Y">
-                                                            <rect key="frame" x="99" y="131" width="239" height="15"/>
+                                                            <rect key="frame" x="99" y="165" width="239" height="15"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                             <sliderCell key="cell" controlSize="mini" state="on" alignment="left" minValue="100" maxValue="10000" doubleValue="3000" tickMarkPosition="above" numberOfTickMarks="100" allowsTickMarkValuesOnly="YES" sliderType="linear" id="WY9-ti-K5i"/>
                                                             <connections>
@@ -247,7 +247,7 @@ MgA3AEEARwBQAFcAXABkAHkAewB9AH8AgQCJAJAAlQCgAKMApQCnAKkArgC5AMIAygDNANYA2wDoAOwA
                                                         <slider verticalHuggingPriority="750" allowsExpansionToolTips="YES" id="6Ci-WU-bhL">
                                                             <rect key="frame" x="99" y="99" width="239" height="15"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                            <sliderCell key="cell" controlSize="mini" state="on" alignment="left" minValue="100" maxValue="10000" doubleValue="3000" tickMarkPosition="above" numberOfTickMarks="100" sliderType="linear" id="fCa-ct-5UU"/>
+                                                            <sliderCell key="cell" controlSize="mini" state="on" alignment="left" minValue="100" maxValue="10000" doubleValue="3000" tickMarkPosition="above" numberOfTickMarks="100" allowsTickMarkValuesOnly="YES" sliderType="linear" id="fCa-ct-5UU"/>
                                                             <connections>
                                                                 <action selector="sliderRAMMoved:" target="xPF-f4-5kE" id="eqT-J9-9pq"/>
                                                             </connections>
@@ -263,28 +263,28 @@ MgA3AEEARwBQAFcAXABkAHkAewB9AH8AgQCJAJAAlQCgAKMApQCnAKkArgC5AMIAygDNANYA2wDoAOwA
                                                         <slider verticalHuggingPriority="750" allowsExpansionToolTips="YES" id="ubf-fq-Fq3">
                                                             <rect key="frame" x="99" y="32" width="239" height="15"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                                            <sliderCell key="cell" controlSize="mini" state="on" alignment="left" minValue="100" maxValue="10000" doubleValue="3000" tickMarkPosition="above" numberOfTickMarks="100" sliderType="linear" id="dwQ-Lh-EZa"/>
+                                                            <sliderCell key="cell" controlSize="mini" state="on" alignment="left" minValue="100" maxValue="10000" doubleValue="3000" tickMarkPosition="above" numberOfTickMarks="100" allowsTickMarkValuesOnly="YES" sliderType="linear" id="dwQ-Lh-EZa"/>
                                                             <connections>
                                                                 <action selector="sliderBatteryMoved:" target="xPF-f4-5kE" id="CvE-QM-hbS"/>
                                                             </connections>
                                                         </slider>
                                                         <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" id="AnY-9k-rc0" customClass="TemplateImageView" customModule="HWMonitorSMC2" customModuleProvider="target">
-                                                            <rect key="frame" x="65" y="250" width="15" height="15"/>
+                                                            <rect key="frame" x="65" y="284" width="15" height="15"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                             <imageCell key="cell" controlSize="small" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="CPU" id="Uk7-ks-TGl"/>
                                                         </imageView>
                                                         <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" id="3Td-uz-gKk" customClass="TemplateImageView" customModule="HWMonitorSMC2" customModuleProvider="target">
-                                                            <rect key="frame" x="65" y="193" width="15" height="15"/>
+                                                            <rect key="frame" x="65" y="227" width="15" height="15"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                             <imageCell key="cell" controlSize="small" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="GPU" id="IZY-1l-Qha"/>
                                                         </imageView>
                                                         <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" id="dCo-Kb-pQh" customClass="TemplateImageView" customModule="HWMonitorSMC2" customModuleProvider="target">
-                                                            <rect key="frame" x="65" y="163" width="15" height="15"/>
+                                                            <rect key="frame" x="65" y="197" width="15" height="15"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                             <imageCell key="cell" controlSize="small" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="Motherboard" id="8Nj-8r-SpW"/>
                                                         </imageView>
                                                         <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" id="o9W-Z0-tBX" customClass="TemplateImageView" customModule="HWMonitorSMC2" customModuleProvider="target">
-                                                            <rect key="frame" x="65" y="131" width="15" height="15"/>
+                                                            <rect key="frame" x="65" y="165" width="15" height="15"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                             <imageCell key="cell" controlSize="small" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="fan_small" id="oOH-mB-LUj"/>
                                                         </imageView>
@@ -304,7 +304,7 @@ MgA3AEEARwBQAFcAXABkAHkAewB9AH8AgQCJAJAAlQCgAKMApQCnAKkArgC5AMIAygDNANYA2wDoAOwA
                                                             <imageCell key="cell" controlSize="small" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="modern-battery-icon" id="SXa-jo-aFY"/>
                                                         </imageView>
                                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="Ir2-GS-NcY">
-                                                            <rect key="frame" x="336" y="250" width="55" height="14"/>
+                                                            <rect key="frame" x="336" y="284" width="55" height="14"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <textFieldCell key="cell" controlSize="small" lineBreakMode="clipping" alignment="right" title="0.00" id="zE7-PL-zoY">
                                                                 <font key="font" metaFont="smallSystem"/>
@@ -313,7 +313,7 @@ MgA3AEEARwBQAFcAXABkAHkAewB9AH8AgQCJAJAAlQCgAKMApQCnAKkArgC5AMIAygDNANYA2wDoAOwA
                                                             </textFieldCell>
                                                         </textField>
                                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="utt-dM-fy0">
-                                                            <rect key="frame" x="336" y="194" width="55" height="14"/>
+                                                            <rect key="frame" x="336" y="228" width="55" height="14"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <textFieldCell key="cell" controlSize="small" lineBreakMode="clipping" alignment="right" title="0.00" id="GQX-5n-azf">
                                                                 <font key="font" metaFont="smallSystem"/>
@@ -322,7 +322,7 @@ MgA3AEEARwBQAFcAXABkAHkAewB9AH8AgQCJAJAAlQCgAKMApQCnAKkArgC5AMIAygDNANYA2wDoAOwA
                                                             </textFieldCell>
                                                         </textField>
                                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="jWd-LO-ady">
-                                                            <rect key="frame" x="336" y="164" width="55" height="14"/>
+                                                            <rect key="frame" x="336" y="198" width="55" height="14"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <textFieldCell key="cell" controlSize="small" lineBreakMode="clipping" alignment="right" title="0.00" id="JjH-4T-wZ8">
                                                                 <font key="font" metaFont="smallSystem"/>
@@ -331,7 +331,7 @@ MgA3AEEARwBQAFcAXABkAHkAewB9AH8AgQCJAJAAlQCgAKMApQCnAKkArgC5AMIAygDNANYA2wDoAOwA
                                                             </textFieldCell>
                                                         </textField>
                                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="W9Z-Vj-0Q1">
-                                                            <rect key="frame" x="336" y="132" width="55" height="14"/>
+                                                            <rect key="frame" x="336" y="166" width="55" height="14"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <textFieldCell key="cell" controlSize="small" lineBreakMode="clipping" alignment="right" title="0.00" id="Ad8-DW-eNT">
                                                                 <font key="font" metaFont="smallSystem"/>
@@ -367,7 +367,7 @@ MgA3AEEARwBQAFcAXABkAHkAewB9AH8AgQCJAJAAlQCgAKMApQCnAKkArgC5AMIAygDNANYA2wDoAOwA
                                                             </textFieldCell>
                                                         </textField>
                                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="F8F-Gk-ANY">
-                                                            <rect key="frame" x="97" y="227" width="64" height="14"/>
+                                                            <rect key="frame" x="97" y="261" width="64" height="14"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <textFieldCell key="cell" controlSize="small" lineBreakMode="clipping" title="* TDP (W):" id="TZC-Th-bqR">
                                                                 <font key="font" metaFont="smallSystem"/>
@@ -376,7 +376,7 @@ MgA3AEEARwBQAFcAXABkAHkAewB9AH8AgQCJAJAAlQCgAKMApQCnAKkArgC5AMIAygDNANYA2wDoAOwA
                                                             </textFieldCell>
                                                         </textField>
                                                         <textField focusRingType="none" verticalHuggingPriority="750" id="8PY-K7-tOv">
-                                                            <rect key="frame" x="163" y="226" width="41" height="16"/>
+                                                            <rect key="frame" x="163" y="260" width="41" height="16"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <textFieldCell key="cell" controlSize="mini" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" focusRingType="none" drawsBackground="YES" id="XZP-cn-zVm">
                                                                 <font key="font" metaFont="miniSystem"/>
@@ -388,7 +388,7 @@ MgA3AEEARwBQAFcAXABkAHkAewB9AH8AgQCJAJAAlQCgAKMApQCnAKkArgC5AMIAygDNANYA2wDoAOwA
                                                             </connections>
                                                         </textField>
                                                         <textField focusRingType="none" verticalHuggingPriority="750" id="MJr-mH-b3h">
-                                                            <rect key="frame" x="275" y="226" width="63" height="16"/>
+                                                            <rect key="frame" x="275" y="260" width="63" height="16"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <textFieldCell key="cell" controlSize="mini" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" focusRingType="none" drawsBackground="YES" id="1cf-VN-PDk">
                                                                 <font key="font" metaFont="miniSystem"/>
@@ -400,7 +400,7 @@ MgA3AEEARwBQAFcAXABkAHkAewB9AH8AgQCJAJAAlQCgAKMApQCnAKkArgC5AMIAygDNANYA2wDoAOwA
                                                             </connections>
                                                         </textField>
                                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="9PG-vA-1c4">
-                                                            <rect key="frame" x="224" y="227" width="45" height="14"/>
+                                                            <rect key="frame" x="224" y="261" width="45" height="14"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <textFieldCell key="cell" controlSize="small" lineBreakMode="clipping" title="* MHz:" id="XdC-fu-mXM">
                                                                 <font key="font" metaFont="smallSystem"/>
@@ -409,11 +409,11 @@ MgA3AEEARwBQAFcAXABkAHkAewB9AH8AgQCJAJAAlQCgAKMApQCnAKkArgC5AMIAygDNANYA2wDoAOwA
                                                             </textFieldCell>
                                                         </textField>
                                                         <box verticalHuggingPriority="750" boxType="separator" id="nzg-SD-lY5">
-                                                            <rect key="frame" x="31" y="301" width="96" height="5"/>
+                                                            <rect key="frame" x="31" y="335" width="96" height="5"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         </box>
                                                         <button verticalHuggingPriority="750" id="mzF-Od-ENW">
-                                                            <rect key="frame" x="29" y="248" width="18" height="18"/>
+                                                            <rect key="frame" x="29" y="282" width="18" height="18"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                             <buttonCell key="cell" type="check" bezelStyle="regularSquare" imagePosition="overlaps" inset="2" id="aOc-6m-dMw">
                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -424,7 +424,7 @@ MgA3AEEARwBQAFcAXABkAHkAewB9AH8AgQCJAJAAlQCgAKMApQCnAKkArgC5AMIAygDNANYA2wDoAOwA
                                                             </connections>
                                                         </button>
                                                         <button verticalHuggingPriority="750" id="ena-Cn-uuu">
-                                                            <rect key="frame" x="29" y="192" width="18" height="18"/>
+                                                            <rect key="frame" x="29" y="226" width="18" height="18"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                             <buttonCell key="cell" type="check" bezelStyle="regularSquare" imagePosition="overlaps" inset="2" id="i1f-Th-K3f">
                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -435,7 +435,7 @@ MgA3AEEARwBQAFcAXABkAHkAewB9AH8AgQCJAJAAlQCgAKMApQCnAKkArgC5AMIAygDNANYA2wDoAOwA
                                                             </connections>
                                                         </button>
                                                         <button verticalHuggingPriority="750" id="Zzc-0r-9YA">
-                                                            <rect key="frame" x="29" y="162" width="18" height="18"/>
+                                                            <rect key="frame" x="29" y="196" width="18" height="18"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                             <buttonCell key="cell" type="check" bezelStyle="regularSquare" imagePosition="overlaps" inset="2" id="fNf-HT-nGF">
                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -446,7 +446,7 @@ MgA3AEEARwBQAFcAXABkAHkAewB9AH8AgQCJAJAAlQCgAKMApQCnAKkArgC5AMIAygDNANYA2wDoAOwA
                                                             </connections>
                                                         </button>
                                                         <button verticalHuggingPriority="750" id="c2N-gW-7Vb">
-                                                            <rect key="frame" x="29" y="130" width="18" height="18"/>
+                                                            <rect key="frame" x="29" y="164" width="18" height="18"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                             <buttonCell key="cell" type="check" bezelStyle="regularSquare" imagePosition="overlaps" inset="2" id="e1r-fW-pFR">
                                                                 <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -490,7 +490,7 @@ MgA3AEEARwBQAFcAXABkAHkAewB9AH8AgQCJAJAAlQCgAKMApQCnAKkArgC5AMIAygDNANYA2wDoAOwA
                                                             </connections>
                                                         </button>
                                                         <box verticalHuggingPriority="750" boxType="separator" id="LM3-Av-8qK">
-                                                            <rect key="frame" x="31" y="344" width="96" height="5"/>
+                                                            <rect key="frame" x="31" y="372" width="96" height="5"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                         </box>
                                                         <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" id="JSj-hP-2pb" customClass="GenericImageView" customModule="HWMonitorSMC2" customModuleProvider="target">
@@ -511,6 +511,46 @@ MgA3AEEARwBQAFcAXABkAHkAewB9AH8AgQCJAJAAlQCgAKMApQCnAKkArgC5AMIAygDNANYA2wDoAOwA
                                                             <rect key="frame" x="8" y="0.0" width="17" height="17"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="*" id="9ug-Mx-O4H">
+                                                                <font key="font" metaFont="system"/>
+                                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                            </textFieldCell>
+                                                        </textField>
+                                                        <button verticalHuggingPriority="750" id="hfo-Ig-iJ8">
+                                                            <rect key="frame" x="100" y="126" width="240" height="20"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                            <buttonCell key="cell" type="check" title="Show Min/Max speed" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="70t-8Y-u8v">
+                                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                                <font key="font" metaFont="smallSystem"/>
+                                                            </buttonCell>
+                                                            <connections>
+                                                                <action selector="showFansMinMaxSensors:" target="xPF-f4-5kE" id="NLA-AB-HsE"/>
+                                                            </connections>
+                                                        </button>
+                                                        <button verticalHuggingPriority="750" id="NPB-0I-nJh">
+                                                            <rect key="frame" x="100" y="145" width="240" height="20"/>
+                                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                            <buttonCell key="cell" type="check" title="Fan Control" bezelStyle="regularSquare" imagePosition="left" controlSize="small" inset="2" id="Ure-9y-2ms">
+                                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                                <font key="font" metaFont="smallSystem"/>
+                                                            </buttonCell>
+                                                            <connections>
+                                                                <action selector="enableFansControl:" target="xPF-f4-5kE" id="cmi-kM-TCL"/>
+                                                            </connections>
+                                                        </button>
+                                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="YY2-12-6i2">
+                                                            <rect key="frame" x="71" y="128" width="17" height="17"/>
+                                                            <autoresizingMask key="autoresizingMask"/>
+                                                            <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="*" id="Nud-2C-gWg">
+                                                                <font key="font" metaFont="system"/>
+                                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                            </textFieldCell>
+                                                        </textField>
+                                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" id="u94-2B-KlI">
+                                                            <rect key="frame" x="71" y="147" width="17" height="17"/>
+                                                            <autoresizingMask key="autoresizingMask"/>
+                                                            <textFieldCell key="cell" lineBreakMode="clipping" alignment="right" title="*" id="sIG-xc-Qa8">
                                                                 <font key="font" metaFont="system"/>
                                                                 <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
                                                                 <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -865,6 +905,7 @@ MgA3AEEARwBQAFcAXABkAHkAewB9AH8AgQCJAJAAlQCgAKMApQCnAKkArgC5AMIAygDNANYA2wDoAOwA
                         <outlet property="darkPlotColorWell" destination="Kvl-Lj-J0B" id="Y4n-V5-6e8"/>
                         <outlet property="dontShowEmptyBtn" destination="WeH-bd-fQA" id="YsA-Ku-nle"/>
                         <outlet property="effectView" destination="rVh-nU-KcG" id="QxZ-yJ-yaT"/>
+                        <outlet property="enableFanControlBtn" destination="NPB-0I-nJh" id="xaR-2z-fBP"/>
                         <outlet property="expandAllBtn" destination="OzO-ID-osB" id="a2C-qS-RHz"/>
                         <outlet property="expandCPUFrequenciesBtn" destination="mqc-iN-VaE" id="k9r-fa-0z7"/>
                         <outlet property="expandCPUTemperatureBtn" destination="YTv-4X-456" id="rrH-E6-S7M"/>
@@ -875,6 +916,7 @@ MgA3AEEARwBQAFcAXABkAHkAewB9AH8AgQCJAJAAlQCgAKMApQCnAKkArgC5AMIAygDNANYA2wDoAOwA
                         <outlet property="runAtLoginBtn" destination="tx6-AT-DKU" id="K5D-en-rEM"/>
                         <outlet property="showBatterySensorsBtn" destination="mE5-aw-NE2" id="HSX-Fa-xta"/>
                         <outlet property="showCPUSensorsBtn" destination="mzF-Od-ENW" id="JU3-LM-HQ8"/>
+                        <outlet property="showFanMinMaxBtn" destination="hfo-Ig-iJ8" id="39X-Xc-APt"/>
                         <outlet property="showFansSensorsBtn" destination="c2N-gW-7Vb" id="OTu-rQ-SHc"/>
                         <outlet property="showGPUSensorsBtn" destination="ena-Cn-uuu" id="LwM-m7-t2k"/>
                         <outlet property="showMediaSensorsBtn" destination="iib-Cr-G7S" id="rN2-Jb-NMr"/>

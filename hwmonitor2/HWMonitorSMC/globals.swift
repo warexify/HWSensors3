@@ -10,7 +10,7 @@ import Cocoa
 
 let kTestVersion            = ""
 
-let kLinceseAccepted        = "LinceseAccepted"
+let kLinceseAccepted        = "LinceseAcceptedWithWarning"
 let kRunAtLogin             = "runAtLogin"
 let kUseIPG                 = "UseIPG"
 let kShowGadget             = "ShowGadget"
@@ -27,7 +27,11 @@ let kCPU_Frequency_MAX      = "CPU_Frequency_MAX"
 let kShowCPUSensors         = "ShowCPUSensors"
 let kShowGPUSensors         = "ShowGPUSensors"
 let kShowMoBoSensors        = "ShowMoBoSensors"
+
 let kShowFansSensors        = "ShowFansSensors"
+let kShowFansMinMaxSensors  = "ShowFansMinMaxSensors"
+let kEnableFansControl      = "EnableFansControl"
+
 let kShowRAMSensors         = "ShowRAMSensors"
 let kShowMediaSensors       = "ShowMediaSensors"
 let kShowBatterySensors     = "ShowBatterySensors"
@@ -55,6 +59,8 @@ let kViewSize               = "ViewSize"
 
 let kIOPerformanceStatistics : String = "PerformanceStatistics"
 let kMetalDevice : String = "MetalDevice"
+
+let asAdmin : String        = "with administrator privileges"
 
 let AppSd = NSApplication.shared.delegate as! AppDelegate
 let UDs = UserDefaults.standard
@@ -148,4 +154,19 @@ public struct BytesFormatter {
       return "\(bytes) " + "bytes".locale(AppSd.translateUnits)
     }
   }
+}
+
+func amIaPowerUser() -> Bool {
+  let user_id: uid_t = getuid()
+  let pwuid = UnsafeMutablePointer<passwd>(getpwuid(user_id)).pointee
+  let pw_name = String(cString: pwuid.pw_name!)
+  let admin_group = UnsafeMutablePointer<group>(getgrnam("admin")).pointee
+  var i : Int = 0
+  while admin_group.gr_mem[i] != nil {
+    if String(cString: admin_group.gr_mem[i]!) == pw_name {
+      return true
+    }
+    i+=1
+  }
+  return false
 }

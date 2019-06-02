@@ -94,7 +94,7 @@ class PopoverViewController: NSViewController, USBWatcherDelegate {
                                     title: name!,
                                     canPlot: false)
             s.stringValue = usbVidPid
-            s.logType = .usbLog
+            s.actionType = .usbLog
             s.characteristics = device.log()
             let sensor = HWTreeNode(representedObject: HWSensorData(group: (self.usbNode?.sensorData?.group)!,
                                                                     sensor: s,
@@ -183,7 +183,7 @@ class PopoverViewController: NSViewController, USBWatcherDelegate {
         if family == 6 && model >= 42 /* Xeon supported: && model != 44 && model != 46 && model != 47 */ {
           if FileManager.default.fileExists(atPath: "/Library/Frameworks/IntelPowerGadget.framework/Versions/A/Headers/EnergyLib.h") {
             self.useIntelPowerGadget = IntelEnergyLibInitialize()
-            AppSd.ipgInited = self.useIntelPowerGadget
+            AppSd.ipgStatus.inited = self.useIntelPowerGadget
           }
         }
       }
@@ -338,7 +338,7 @@ class PopoverViewController: NSViewController, USBWatcherDelegate {
     // ------
     if UDs.bool(forKey: kShowCPUSensors) {
       var igpInfoSensors : [HWMonitorSensor] = [HWMonitorSensor]()
-      self.CPUNode = HWTreeNode(representedObject: HWSensorData(group: "CPU".locale(),
+      self.CPUNode = HWTreeNode(representedObject: HWSensorData(group: "CPU".locale,
                                                                 sensor: nil,
                                                                 isLeaf: false))
       
@@ -354,7 +354,7 @@ class PopoverViewController: NSViewController, USBWatcherDelegate {
       }
       // ------
       self.CPUFrequenciesNode = HWTreeNode(representedObject:
-        HWSensorData(group: "Core Frequencies".locale(), sensor: nil, isLeaf: false))
+        HWSensorData(group: "Core Frequencies".locale, sensor: nil, isLeaf: false))
       for s in AppSd.sensorScanner.getSMC_SingleCPUFrequencies() {
         let sensor = HWTreeNode(representedObject: HWSensorData(group: (self.CPUFrequenciesNode?.sensorData?.group)!,
                                                                 sensor: s,
@@ -373,7 +373,7 @@ class PopoverViewController: NSViewController, USBWatcherDelegate {
         }
       }
       // ------
-      self.CPUTemperaturesNode = HWTreeNode(representedObject: HWSensorData(group: "Core Temperatures".locale(),
+      self.CPUTemperaturesNode = HWTreeNode(representedObject: HWSensorData(group: "Core Temperatures".locale,
                                                                             sensor: nil,
                                                                             isLeaf: false))
       for s in AppSd.sensorScanner.getSMC_SingleCPUTemperatures() {
@@ -424,7 +424,7 @@ class PopoverViewController: NSViewController, USBWatcherDelegate {
     }
     // ------
     if UDs.bool(forKey: kShowGPUSensors) {
-      self.GPUNode = HWTreeNode(representedObject: HWSensorData(group: "GPUs".locale(),
+      self.GPUNode = HWTreeNode(representedObject: HWSensorData(group: "GPUs".locale,
                                                                 sensor: nil,
                                                                 isLeaf: false))
       
@@ -443,7 +443,7 @@ class PopoverViewController: NSViewController, USBWatcherDelegate {
           self.GPUNode?.mutableChildren.add(IGPUPackage)
         }
         
-        if AppSd.ipgInited {
+        if AppSd.ipgStatus.inited {
           for s in getIntelPowerGadgetGPUSensors() {
             let sensor = HWTreeNode(representedObject: HWSensorData(group: (self.GPUNode?.sensorData?.group)!,
                                                                     sensor: s,
@@ -474,7 +474,7 @@ class PopoverViewController: NSViewController, USBWatcherDelegate {
     }
     // ------
     if UDs.bool(forKey: kShowMoBoSensors) {
-      self.MOBONode = HWTreeNode(representedObject: HWSensorData(group: "Motherboard".locale(),
+      self.MOBONode = HWTreeNode(representedObject: HWSensorData(group: "Motherboard".locale,
                                                                  sensor: nil,
                                                                  isLeaf: false))
       for s in AppSd.sensorScanner.getMotherboard() {
@@ -497,7 +497,7 @@ class PopoverViewController: NSViewController, USBWatcherDelegate {
     }
     // ------ FansNode
     if UDs.bool(forKey: kShowFansSensors) {
-      self.FansNode = HWTreeNode(representedObject: HWSensorData(group: "Fans or Pumps".locale(),
+      self.FansNode = HWTreeNode(representedObject: HWSensorData(group: "Fans or Pumps".locale,
                                                                  sensor: nil,
                                                                  isLeaf: false))
       for s in AppSd.sensorScanner.getFans() {
@@ -520,7 +520,7 @@ class PopoverViewController: NSViewController, USBWatcherDelegate {
     }
     // ------
     if UDs.bool(forKey: kShowRAMSensors) {
-      self.RAMNode = HWTreeNode(representedObject: HWSensorData(group: "RAM".locale(),
+      self.RAMNode = HWTreeNode(representedObject: HWSensorData(group: "RAM".locale,
                                                                 sensor: nil,
                                                                 isLeaf: false))
       for s in AppSd.sensorScanner.getMemory() {
@@ -543,7 +543,7 @@ class PopoverViewController: NSViewController, USBWatcherDelegate {
     }
     // ------
     if UDs.bool(forKey: kShowMediaSensors) {
-      self.mediaNode =  HWTreeNode(representedObject: HWSensorData(group: "Media health".locale(),
+      self.mediaNode =  HWTreeNode(representedObject: HWSensorData(group: "Media health".locale,
                                                                    sensor: nil,
                                                                    isLeaf: false))
       
@@ -561,7 +561,7 @@ class PopoverViewController: NSViewController, USBWatcherDelegate {
                                                 title: serial,
                                                 canPlot: false)
         
-        smartSensorParent.logType = .mediaLog
+        smartSensorParent.actionType = .mediaLog
         smartSensorParent.characteristics = log
         let smartSensorParentNode = HWTreeNode(representedObject: HWSensorData(group: productName,
                                                                                sensor: smartSensorParent,
@@ -594,7 +594,7 @@ class PopoverViewController: NSViewController, USBWatcherDelegate {
     }
     //----------------------
     if UDs.bool(forKey: kShowBatterySensors) {
-      self.batteriesNode =  HWTreeNode(representedObject: HWSensorData(group: "Batteries".locale(),
+      self.batteriesNode =  HWTreeNode(representedObject: HWSensorData(group: "Batteries".locale,
                                                                        sensor: nil,
                                                                        isLeaf: false))
       for s in AppSd.sensorScanner.getBattery() {
@@ -616,7 +616,7 @@ class PopoverViewController: NSViewController, USBWatcherDelegate {
       }
     }
     
-    self.usbNode = HWTreeNode(representedObject: HWSensorData(group: "USB".locale(),
+    self.usbNode = HWTreeNode(representedObject: HWSensorData(group: "USB".locale,
                                                               sensor: nil,
                                                               isLeaf: false))
     // populate it by adding the watcher
@@ -857,9 +857,9 @@ extension PopoverViewController: NSOutlineViewDataSource {
             view?.textField?.textColor = (getAppearance().name == NSAppearance.Name.vibrantDark) ? NSColor.green : NSColor.controlTextColor
           } else {
             if node.sensorData?.sensor?.sensorType == .hdSmartLife {
-              view?.textField?.stringValue = "Life".locale()
+              view?.textField?.stringValue = "Life".locale
             } else if node.sensorData?.sensor?.sensorType == .hdSmartTemp {
-              view?.textField?.stringValue = "Temperature".locale()
+              view?.textField?.stringValue = "Temperature".locale
             } else {
               view?.textField?.stringValue = node.sensorData!.sensor!.title
             }
@@ -913,46 +913,46 @@ extension PopoverViewController: NSOutlineViewDataSource {
       }
     } else {
       switch group {
-      case "RAM".locale():
+      case "RAM".locale:
         image = NSImage(named: "ram_small")
         break
-      case "Core Temperatures".locale():
+      case "Core Temperatures".locale:
         image = NSImage(named: "temp_alt_small")
         break
-      case "CPU Power".locale():
+      case "CPU Power".locale:
         image = NSImage(named: "Light")
         break
       case "CPU":
         image = NSImage(named: "CPU")
         break
-      case "Core Frequencies".locale():
+      case "Core Frequencies".locale:
         image = NSImage(named: "freq_small")
         break
-      case "Temperatures".locale():
+      case "Temperatures".locale:
         image = NSImage(named: "temp_alt_small")
         break
-      case "GPUs".locale():
+      case "GPUs".locale:
         image = NSImage(named: "GPU")
         break
-      case "Fans or Pumps".locale():
+      case "Fans or Pumps".locale:
         image = NSImage(named: "fan_small")
         break
-      case "Frequencies".locale():
+      case "Frequencies".locale:
         image = NSImage(named: "freq_small")
         break
-      case "Motherboard".locale():
+      case "Motherboard".locale:
         image = NSImage(named: "Motherboard")
         break
-      case "Multipliers".locale():
+      case "Multipliers".locale:
         image = NSImage(named: "multiply_small")
         break
-      case "Voltages".locale():
+      case "Voltages".locale:
         image = NSImage(named: "voltage_small")
         break
-      case "Batteries".locale():
+      case "Batteries".locale:
         image = NSImage(named: "modern-battery-icon")
         break
-      case "Media health".locale():
+      case "Media health".locale:
         image = NSImage(named: "hd_small.png")
         break
       case "System":

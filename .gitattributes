@@ -238,6 +238,8 @@ hwmonitor2/HWMonitorSMC/Interface/Assets.xcassets/Contents.json -text
 hwmonitor2/HWMonitorSMC/Interface/Base.lproj/Info.storyboard -text
 hwmonitor2/HWMonitorSMC/Interface/Base.lproj/Main.storyboard -text
 hwmonitor2/HWMonitorSMC/Interface/Base.lproj/Popover.storyboard -text
+hwmonitor2/HWMonitorSMC/Interface/FanControl/FanControl.storyboard -text
+hwmonitor2/HWMonitorSMC/Interface/FanControl/FanControlVC.swift -text
 hwmonitor2/HWMonitorSMC/Interface/Gadget/Gadget.storyboard -text
 hwmonitor2/HWMonitorSMC/Interface/Gadget/GadgetVC.swift -text
 hwmonitor2/HWMonitorSMC/Interface/Gadget/GadgetWC.swift -text
@@ -402,6 +404,11 @@ hwmonitor2/HWMonitorSMC2[!!-~]Helper/HWMonitorSMC2[!!-~]Helper/Info.plist -text
 hwmonitor2/HWMonitorSMC2[!!-~]Helper/HWMonitorSMC2[!!-~]Helper/ViewController.h -text
 hwmonitor2/HWMonitorSMC2[!!-~]Helper/HWMonitorSMC2[!!-~]Helper/ViewController.m -text
 hwmonitor2/HWMonitorSMC2[!!-~]Helper/HWMonitorSMC2[!!-~]Helper/main.m -text
+hwmonitor2/smcwrite/smcwrite.xcodeproj/project.pbxproj -text
+hwmonitor2/smcwrite/smcwrite.xcodeproj/project.xcworkspace/contents.xcworkspacedata -text
+hwmonitor2/smcwrite/smcwrite.xcodeproj/project.xcworkspace/xcshareddata/IDEWorkspaceChecks.plist -text
+hwmonitor2/smcwrite/smcwrite.xcodeproj/xcshareddata/xcschemes/smcwrite.xcscheme -text
+hwmonitor2/smcwrite/smcwrite/main.c -text
 plugins/ACPIMonitor/ACPIMonitor-Info.plist -text
 plugins/ACPIMonitor/ACPIMonitor-pre106-Info.plist -text
 plugins/ACPIMonitor/ACPIMonitor.cpp -text

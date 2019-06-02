@@ -8,14 +8,14 @@
 
 // zh-Hans (simplified Chinese) by maoyeye
 
-"Core Frequencies" = "核心频率";   // CPU temperature sub group
-"Core Temperatures" = "核心温度"; // CPU frequencies sub group
+"Core Frequencies" = "核心频率";  // CPU or GPU sub group
+"Core Temperatures" = "核心温度"; // CPU or GPU  sub group
 "Temperature" = "温度";   // singular
 "Temperatures" = "温度"; // plural
 "Frequency"   = "频率";     // singular
 "Frequencies" = "频率";   // plural
-"Package Core" = "封装核心";
-"Package Total" = "纯处理器功率";
+"Package Core" = "核心功率"; // CPU or GPU
+"Package Total" = "整体功率"; // CPU or GPU
 "Package IGPU" = "核芯显卡功率";
 "Multipliers" = "倍频";
 "Voltage" = "核心电压";   // singular
@@ -31,8 +31,8 @@
 
 // Intel Power Gadget
 "Intel® Power Gadget info" = "Intel® Power Gadget info";
-"DRAM" = "内存功耗";
-"Package Temperature" = "整体温度";
+"DRAM" = "内存控制器功率";
+"Package Temperature" = "内部温度";
 "Package Power Limit (TDP)" = "封装功率极限";
 "Max Temperature"  = "最高温度";
 "Thresholds"       = "阈值";
@@ -42,6 +42,7 @@
 // GPU, when taken from PerformanceStatistics
 "GPUs" = "显卡";
 "Core Clock" = "核心时钟频率";
+"Memory Clock" = "显存时钟频率";
 "Fan/Pump speed" = "风扇/泵速";
 "Fan/Pump speed rate" = "风扇/泵速率";
 "Utilization" = "利用率";
@@ -64,8 +65,8 @@
 "Wired" = "系统内核内存";
 
 "CPU" = "CPU";
-"Proximity" = "CPU表面温度"; // CPU or GPU
-"Heatsink" = "散热器";  // CPU or GPU
+"Proximity" = "表面温度"; // CPU or GPU
+"Heatsink" = "表面温度";  // CPU or GPU
 "DIMM 0" = "DIMM 0"; // RAM
 "DIMM 1" = "DIMM 1"; // RAM
 "Ambient" = "环境"; // Motherboard
@@ -119,13 +120,13 @@
 "log copied to clip board!" = "日志复制到剪贴板!";
 
 // Themes
-"Default" = "Default"; // View Size as well
-"Classic" = "Classic";
-"Dashed Horizontally" = "Dashed Horizontally";
-"No Grid" = "No Grid";
-"With Grid, clear background" = "With Grid, clear background";
+"Default" = "默认"; // View Size as well
+"Classic" = "经典";
+"Dashed Horizontally" = "水平虚线";
+"No Grid" = "没网格";
+"With Grid, clear background" = "有网格，背景清晰";
 
 // View Size
-"Medium" = "Medium";
-"Large"  = "Large";
+"Medium" = "中等";
+"Large"  = "大号";
 

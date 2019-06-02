@@ -67,24 +67,46 @@ public struct Graphics {
                                                                               sensor: nil,
                                                                               isLeaf: false))
         let unique : String = "\(primaryMatch)\(i)"
-        if let coreclock = PerformanceStatistics.object(forKey: "Core Clock(MHz)﻿﻿") as? NSNumber {
+        if let coreclock = PerformanceStatistics.object(forKey: "Core Clock(MHz)") as? NSNumber {
           
           if gShowBadSensors || (coreclock.intValue > 0 && coreclock.intValue < 3000) {
             let ccSensor = HWMonitorSensor(key: "Core Clock" + unique,
-                                           unit: HWUnit.GHz,
+                                           unit: HWUnit.MHz,
                                            type: "IOAcc",
                                            sensorType: .gpuIO_coreClock,
-                                           title: "Core Clock".locale(),
+                                           title: "Core Clock".locale,
                                            canPlot: false)
             
             ccSensor.favorite = UDs.bool(forKey: ccSensor.key)
             ccSensor.characteristics = primaryMatch
-            ccSensor.logType = .gpuLog
-            ccSensor.doubleValue = Double(coreclock.doubleValue)
+            ccSensor.actionType = .gpuLog
+            ccSensor.doubleValue = coreclock.doubleValue
             ccSensor.stringValue = coreclock.stringValue
             ccSensor.vendor = vendorString
             gpuNode.mutableChildren.add(HWTreeNode(representedObject: HWSensorData(group: model,
                                                                                    sensor: ccSensor,
+                                                                                   isLeaf: true)))
+          }
+        }
+        
+        if let memclock = PerformanceStatistics.object(forKey: "Memory Clock(MHz)") as? NSNumber {
+          
+          if gShowBadSensors || (memclock.intValue > 0 && memclock.intValue < 3000) {
+            let mcSensor = HWMonitorSensor(key: "Memory Clock" + unique,
+                                           unit: HWUnit.MHz,
+                                           type: "IOAcc",
+                                           sensorType: .gpuIO_memoryClock,
+                                           title: "Memory Clock".locale,
+                                           canPlot: false)
+            
+            mcSensor.favorite = UDs.bool(forKey: mcSensor.key)
+            mcSensor.characteristics = primaryMatch
+            mcSensor.actionType = .gpuLog
+            mcSensor.doubleValue = memclock.doubleValue
+            mcSensor.stringValue = memclock.stringValue
+            mcSensor.vendor = vendorString
+            gpuNode.mutableChildren.add(HWTreeNode(representedObject: HWSensorData(group: model,
+                                                                                   sensor: mcSensor,
                                                                                    isLeaf: true)))
           }
         }
@@ -95,11 +117,11 @@ public struct Graphics {
                                            unit: HWUnit.Watt,
                                            type: "IOAcc",
                                            sensorType: .gpuIO_Watts,
-                                           title: "Total Power".locale(),
+                                           title: "Total Power".locale,
                                            canPlot: true)
             tpSensor.favorite = UDs.bool(forKey: tpSensor.key)
             tpSensor.characteristics = primaryMatch
-            tpSensor.logType = .gpuLog
+            tpSensor.actionType = .gpuLog
             tpSensor.doubleValue = totalPower.doubleValue
             tpSensor.stringValue = totalPower.stringValue
             tpSensor.vendor = vendorString
@@ -115,11 +137,11 @@ public struct Graphics {
                                              unit: HWUnit.C,
                                              type: "IOAcc",
                                              sensorType: .gpuIO_temp,
-                                             title: "Temperature".locale(),
+                                             title: "Temperature".locale,
                                              canPlot: true)
             tempSensor.favorite = UDs.bool(forKey: tempSensor.key)
             tempSensor.characteristics = primaryMatch
-            tempSensor.logType = .gpuLog
+            tempSensor.actionType = .gpuLog
             tempSensor.doubleValue = temperature.doubleValue
             tempSensor.stringValue = temperature.stringValue
             tempSensor.vendor = vendorString
@@ -130,45 +152,45 @@ public struct Graphics {
         }
         
         if let fanSpeed = PerformanceStatistics.object(forKey: "Fan Speed(RPM)") as? NSNumber {
-          if gShowBadSensors || (fanSpeed.intValue > 0 && fanSpeed.intValue < 5000) {
+          //if gShowBadSensors || (fanSpeed.intValue > 0 && fanSpeed.intValue < 7000) {
             let fanSensor = HWMonitorSensor(key: "Fan/Pump Speed" + unique,
                                             unit: HWUnit.RPM,
                                             type: "IOAcc",
                                             sensorType: .gpuIO_FanRPM,
-                                            title: "Fan/Pump speed".locale(),
+                                            title: "Fan/Pump speed".locale,
                                             canPlot: true)
             
             fanSensor.favorite = UDs.bool(forKey: fanSensor.key)
             fanSensor.characteristics = primaryMatch
-            fanSensor.logType = .gpuLog
+            fanSensor.actionType = .gpuLog
             fanSensor.doubleValue = fanSpeed.doubleValue
             fanSensor.stringValue = fanSpeed.stringValue
             fanSensor.vendor = vendorString
             gpuNode.mutableChildren.add(HWTreeNode(representedObject: HWSensorData(group: model,
                                                                                    sensor: fanSensor,
                                                                                    isLeaf: true)))
-          }
+          //}
         }
         
         if let fanSpeed100 = PerformanceStatistics.object(forKey: "Fan Speed(%)") as? NSNumber {
-          if gShowBadSensors || (fanSpeed100.intValue > 0 && fanSpeed100.intValue <= 100) {
+          //if gShowBadSensors || (fanSpeed100.intValue > 0 && fanSpeed100.intValue <= 100) {
             let fan100Sensor = HWMonitorSensor(key: "Fan/Pump Speed rate" + unique,
                                                unit: HWUnit.Percent,
                                                type: "IOAcc",
                                                sensorType: .gpuIO_percent,
-                                               title: "Fan/Pump speed rate".locale(),
+                                               title: "Fan/Pump speed rate".locale,
                                                canPlot: true)
             
             fan100Sensor.favorite = UDs.bool(forKey: fan100Sensor.key)
             fan100Sensor.characteristics = primaryMatch
-            fan100Sensor.logType = .gpuLog
+            fan100Sensor.actionType = .gpuLog
             fan100Sensor.doubleValue = fanSpeed100.doubleValue
             fan100Sensor.stringValue = fanSpeed100.stringValue
             fan100Sensor.vendor = vendorString
             gpuNode.mutableChildren.add(HWTreeNode(representedObject: HWSensorData(group: model,
                                                                                    sensor: fan100Sensor,
                                                                                    isLeaf: true)))
-          }
+          //}
         }
         
         if let deviceUtilization = PerformanceStatistics.object(forKey: "Device Utilization %") as? NSNumber {
@@ -177,12 +199,12 @@ public struct Graphics {
                                            unit: HWUnit.Percent,
                                            type: "IOAcc",
                                            sensorType: .gpuIO_percent,
-                                           title: "Utilization".locale(),
+                                           title: "Utilization".locale,
                                            canPlot: true)
             
             duSensor.favorite = UDs.bool(forKey: duSensor.key)
             duSensor.characteristics = primaryMatch
-            duSensor.logType = .gpuLog
+            duSensor.actionType = .gpuLog
             duSensor.doubleValue = deviceUtilization.doubleValue
             duSensor.stringValue = deviceUtilization.stringValue
             duSensor.vendor = vendorString
@@ -203,12 +225,12 @@ public struct Graphics {
                                               unit: HWUnit.Percent,
                                               type: "IOAcc",
                                               sensorType: .gpuIO_percent,
-                                              title: "Core Utilization".locale(),
+                                              title: "Core Utilization".locale,
                                               canPlot: true)
               
               gcuSensor.favorite = UDs.bool(forKey: gcuSensor.key)
               gcuSensor.characteristics = primaryMatch
-              gcuSensor.logType = .gpuLog
+              gcuSensor.actionType = .gpuLog
               gcuSensor.doubleValue = Double(gcuInt)
               gcuSensor.stringValue = "\(gcuInt)"
               gcuSensor.vendor = vendorString
@@ -225,12 +247,12 @@ public struct Graphics {
                                            unit: HWUnit.Percent,
                                            type: "IOAcc",
                                            sensorType: .gpuIO_percent,
-                                           title: "Activity".locale(),
+                                           title: "Activity".locale,
                                            canPlot: true)
             
             gaSensor.favorite = UDs.bool(forKey: gaSensor.key)
             gaSensor.characteristics = primaryMatch
-            gaSensor.logType = .gpuLog
+            gaSensor.actionType = .gpuLog
             gaSensor.doubleValue = gpuActivity.doubleValue
             gaSensor.stringValue = gpuActivity.stringValue
             gaSensor.vendor = vendorString
@@ -269,12 +291,12 @@ public struct Graphics {
                                                unit: HWUnit.Percent,
                                                type: "IOAcc",
                                                sensorType: .gpuIO_percent,
-                                               title: "Video Engine Utilization".locale(),
+                                               title: "Video Engine Utilization".locale,
                                                canPlot: true)
               
               gveuSensor.favorite = UDs.bool(forKey: gveuSensor.key)
               gveuSensor.characteristics = primaryMatch
-              gveuSensor.logType =  .gpuLog
+              gveuSensor.actionType =  .gpuLog
               gveuSensor.doubleValue = gpuEngineUtilization.doubleValue
               gveuSensor.stringValue = gpuEngineUtilization.stringValue
               gveuSensor.vendor = vendorString
@@ -303,7 +325,7 @@ public struct Graphics {
             gpuNode.mutableChildren.add(IGPUPackage)
           }
           
-          if AppSd.ipgInited {
+          if AppSd.ipgStatus.inited {
             for s in getIntelPowerGadgetGPUSensors() {
               let ipgSensor = HWTreeNode(representedObject: HWSensorData(group: model,
                                                                          sensor: s,
@@ -346,12 +368,12 @@ public struct Graphics {
                                        unit: HWUnit.none,
                                        type: "IOAcc",
                                        sensorType: .gpuIO_RamBytes,
-                                       title: "Free VRAM".locale(),
+                                       title: "Free VRAM".locale,
                                        canPlot: false)
       
       freeS.favorite = UDs.bool(forKey: freeS.key)
       freeS.characteristics = unique
-      freeS.logType = .gpuLog
+      freeS.actionType = .gpuLog
       freeS.doubleValue = Double(free)
       freeS.stringValue = BytesFormatter.init(bytes: free, countStyle: 1024).stringValue()
       freeS.vendor = vendor
@@ -360,12 +382,12 @@ public struct Graphics {
                                   unit: HWUnit.none,
                                   type: "IOAcc",
                                   sensorType: .gpuIO_RamBytes,
-                                  title: "Used VRAM".locale(),
+                                  title: "Used VRAM".locale,
                                   canPlot: false)
       
       usedS.favorite = UDs.bool(forKey: usedS.key)
       usedS.characteristics = unique
-      usedS.logType = .gpuLog
+      usedS.actionType = .gpuLog
       usedS.doubleValue = Double(used)
       usedS.stringValue = BytesFormatter.init(bytes: used, countStyle: 1024).stringValue()
       usedS.vendor = vendor
