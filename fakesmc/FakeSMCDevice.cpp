@@ -9,6 +9,7 @@
 
 #include "FakeSMCDevice.h"
 #include "definitions.h"
+#include "utils.h"
 
 #include <IOKit/IODeviceTreeSupport.h>
 #include <IOKit/IORegistryEntry.h>
@@ -378,6 +379,18 @@ bool FakeSMCDevice::init(IOService *platform, OSDictionary *properties) {
   dtNvram = 0;
   
   //platformFunctionLock = IOLockAlloc();
+  IORegistryEntry * rootNode = IORegistryEntry::fromPath("/efi/platform", gIODTPlane);
+  if (rootNode) {
+    OSData *data = OSDynamicCast(OSData, rootNode->getProperty("Model"));
+    OSData *model = OSData::withCapacity(64);
+    const unsigned char* raw = static_cast<const unsigned char*>(data->getBytesNoCopy());
+    
+    for (int i = 0; i < data->getLength(); i += 2) {
+      model->appendByte(raw[i], 1);
+    }
+    
+    rev3 = isModelREVLess((const char *)model->getBytesNoCopy());
+  }
   
   keys = OSArray::withCapacity(0);
   values = OSDictionary::withCapacity(0);
@@ -523,7 +536,7 @@ IOReturn FakeSMCDevice::setProperties(OSObject * properties) {
   return kIOReturnUnsupported;
 }
 
-void  FakeSMCDevice::loadKeysFromClover(IOService *platform) {
+void FakeSMCDevice::loadKeysFromClover(IOService *platform) {
   IORegistryEntry * rootNode;
   OSData *data;
   
@@ -537,35 +550,61 @@ void  FakeSMCDevice::loadKeysFromClover(IOService *platform) {
   
   rootNode = fromPath("/efi/platform", gIODTPlane);
   if (rootNode) {
+    /*
+     don't REV RBr (and RPlt) if for these models and newer:
+     MacBookPro15,1
+     MacBookPro15,2
+     MacBookAir8,1
+     Macmini8,1
+     iMacPro1,1
+     // the list is going to increase?
+     */
+    
     data = OSDynamicCast(OSData, rootNode->getProperty("RPlt"));
     if (data) {
-      bcopy(data->getBytesNoCopy(), Platform, 8);
-      InfoLog("SMC Platform: %s", Platform);
-      this->addKeyWithValue("RPlt", "ch8*", 8, Platform);
+      if (rev3) {
+        rootNode->removeProperty("RPlt");
+      } else {
+        bcopy(data->getBytesNoCopy(), Platform, 8);
+        InfoLog("SMC Platform: %s", Platform);
+        this->addKeyWithValue("RPlt", "ch8*", 8, Platform);
+      }
     }
     
     //we propose that RBr always follow RPlt and no additional check
     data = OSDynamicCast(OSData, rootNode->getProperty("RBr"));
     if (data) {
-      bcopy(data->getBytesNoCopy(), PlatformB, 8);
-      InfoLog("SMC Branch: %s", PlatformB);
-      this->addKeyWithValue("RBr ", "ch8*", 8, PlatformB);
+      if (rev3) {
+        rootNode->removeProperty("RBr");
+      } else {
+        bcopy(data->getBytesNoCopy(), PlatformB, 8);
+        InfoLog("SMC Branch: %s", PlatformB);
+        this->addKeyWithValue("RBr ", "ch8*", 8, PlatformB);
+      }
     }
     data = OSDynamicCast(OSData, rootNode->getProperty("REV"));
     if (data) {
-      bcopy(data->getBytesNoCopy(), SMCRevision, 6);
-      InfoLog("SMC Revision set to: %01x.%02xf%02x", SMCRevision[0], SMCRevision[1], SMCRevision[5]);
-      this->addKeyWithValue("REV ", "{rev", 6, SMCRevision);
+      if (rev3) {
+        rootNode->removeProperty("REV");
+      } else {
+        bcopy(data->getBytesNoCopy(), SMCRevision, 6);
+        InfoLog("SMC Revision set to: %01x.%02xf%02x", SMCRevision[0], SMCRevision[1], SMCRevision[5]);
+        this->addKeyWithValue("REV ", "{rev", 6, SMCRevision);
+      }
     }
     data = OSDynamicCast(OSData, rootNode->getProperty("EPCI"));
-    if (data) {
-      SMCConfig = *(UInt32*)data->getBytesNoCopy();
-      InfoLog("SMC ConfigID set to: %02x %02x %02x %02x",
-              (unsigned int)SMCConfig & 0xFF,
-              (unsigned int)(SMCConfig >> 8) & 0xFF,
-              (unsigned int)(SMCConfig >> 16) & 0xFF,
-              (unsigned int)(SMCConfig >> 24) & 0xFF);
-      this->addKeyWithValue("EPCI", "ui32", 4, data->getBytesNoCopy());
+    if (data) {/*
+      if (rev3) {
+        rootNode->removeProperty("EPCI");
+      } else {*/
+        SMCConfig = *(UInt32*)data->getBytesNoCopy();
+        InfoLog("SMC ConfigID set to: %02x %02x %02x %02x",
+                (unsigned int)SMCConfig & 0xFF,
+                (unsigned int)(SMCConfig >> 8) & 0xFF,
+                (unsigned int)(SMCConfig >> 16) & 0xFF,
+                (unsigned int)(SMCConfig >> 24) & 0xFF);
+        this->addKeyWithValue("EPCI", "ui32", 4, data->getBytesNoCopy());
+      //}
     }
     data = OSDynamicCast(OSData, rootNode->getProperty("BEMB"));
     if (data) {
@@ -601,15 +640,20 @@ void FakeSMCDevice::loadKeysFromDictionary(OSDictionary *dictionary) {
         if (array) {
           OSIterator *aiterator = OSCollectionIterator::withCollection(array);
           if (aiterator) {
-            
             OSString *type = OSDynamicCast(OSString, aiterator->getNextObject());
             OSData *value = OSDynamicCast(OSData, aiterator->getNextObject());
             
             if (type && value) {
-              this->addKeyWithValue(key->getCStringNoCopy(),
-                                    type->getCStringNoCopy(),
-                                    value->getLength(),
-                                    value->getBytesNoCopy());
+              if (!rev3 ||
+                  (rev3 &&
+                   strncmp(key->getCStringNoCopy(), "REV ", strlen("REV ")) != 0 &&
+                   strncmp(key->getCStringNoCopy(), "RPlt", strlen("RPlt")) != 0 &&
+                   strncmp(key->getCStringNoCopy(), "RBr ", strlen("RBr ")) != 0)) {
+                    this->addKeyWithValue(key->getCStringNoCopy(),
+                                          type->getCStringNoCopy(),
+                                          value->getLength(),
+                                          value->getBytesNoCopy());
+                  }
             }
             aiterator->release();
           }

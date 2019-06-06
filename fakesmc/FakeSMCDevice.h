@@ -59,6 +59,7 @@ private:
 	FakeSMCKey        *sharpKEY;
 	
 	bool              debug;
+  bool              rev3;
   IOLock            *platformFunctionLock;
 	
 	virtual void      applesmc_io_cmd_writeb(void *opaque, uint32_t addr, uint32_t val);
