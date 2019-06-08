@@ -116,12 +116,13 @@ static inline const char * hw_strstr(const char *str, const char *prefix) {
 }
 
 static inline bool isModelREVLess(const char * model) {
-  /* no following keys starting from:
-   MacBookPro15,1 : REV RBr RPlt
-   MacBookPro15,2 : REV RBr RPlt
-   MacBookAir8,1  : REV RBr RPlt
-   Macmini8,1     : REV RBr RPlt
-   iMacPro1,1     : REV RBr RPlt
+  /*
+   don't add 'REV ', 'RBr ' and EPCI if for these models and newer:
+   MacBookPro15,1
+   MacBookAir8,1
+   Macmini8,1
+   iMacPro1,1
+   // the list is going to increase?
    */
   bool result = false;
   long maj = 0;

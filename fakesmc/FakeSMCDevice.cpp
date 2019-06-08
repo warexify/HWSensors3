@@ -379,17 +379,24 @@ bool FakeSMCDevice::init(IOService *platform, OSDictionary *properties) {
   dtNvram = 0;
   
   //platformFunctionLock = IOLockAlloc();
-  IORegistryEntry * rootNode = IORegistryEntry::fromPath("/efi/platform", gIODTPlane);
-  if (rootNode) {
-    OSData *data = OSDynamicCast(OSData, rootNode->getProperty("Model"));
-    OSData *model = OSData::withCapacity(64);
-    const unsigned char* raw = static_cast<const unsigned char*>(data->getBytesNoCopy());
-    
-    for (int i = 0; i < data->getLength(); i += 2) {
-      model->appendByte(raw[i], 1);
+  char argBuf[16];
+  if (PE_parse_boot_argn("-withREV", &argBuf, sizeof(argBuf))) {
+    isRevLess = false;
+  } else if (PE_parse_boot_argn("-noREV", &argBuf, sizeof(argBuf))) {
+    isRevLess = true;
+  } else {
+    IORegistryEntry * rootNode = IORegistryEntry::fromPath("/efi/platform", gIODTPlane);
+    if (rootNode) {
+      OSData *data = OSDynamicCast(OSData, rootNode->getProperty("Model"));
+      OSData *model = OSData::withCapacity(32); // 15 should be enough..
+      const unsigned char* raw = static_cast<const unsigned char*>(data->getBytesNoCopy());
+      
+      for (int i = 0; i < data->getLength(); i += 2) {
+        model->appendByte(raw[i], 1);
+      }
+      
+      isRevLess = isModelREVLess((const char *)model->getBytesNoCopy());
     }
-    
-    rev3 = isModelREVLess((const char *)model->getBytesNoCopy());
   }
   
   keys = OSArray::withCapacity(0);
@@ -551,9 +558,8 @@ void FakeSMCDevice::loadKeysFromClover(IOService *platform) {
   rootNode = fromPath("/efi/platform", gIODTPlane);
   if (rootNode) {
     /*
-     don't REV RBr (and RPlt) if for these models and newer:
+     don't add 'REV ', 'RBr ' and EPCI if for these models and newer:
      MacBookPro15,1
-     MacBookPro15,2
      MacBookAir8,1
      Macmini8,1
      iMacPro1,1
@@ -562,19 +568,19 @@ void FakeSMCDevice::loadKeysFromClover(IOService *platform) {
     
     data = OSDynamicCast(OSData, rootNode->getProperty("RPlt"));
     if (data) {
-      if (rev3) {
+      /*if (isRevLess) {
         rootNode->removeProperty("RPlt");
-      } else {
+      } else {*/
         bcopy(data->getBytesNoCopy(), Platform, 8);
         InfoLog("SMC Platform: %s", Platform);
         this->addKeyWithValue("RPlt", "ch8*", 8, Platform);
-      }
+      //}
     }
     
     //we propose that RBr always follow RPlt and no additional check
     data = OSDynamicCast(OSData, rootNode->getProperty("RBr"));
     if (data) {
-      if (rev3) {
+      if (isRevLess) {
         rootNode->removeProperty("RBr");
       } else {
         bcopy(data->getBytesNoCopy(), PlatformB, 8);
@@ -584,7 +590,7 @@ void FakeSMCDevice::loadKeysFromClover(IOService *platform) {
     }
     data = OSDynamicCast(OSData, rootNode->getProperty("REV"));
     if (data) {
-      if (rev3) {
+      if (isRevLess) {
         rootNode->removeProperty("REV");
       } else {
         bcopy(data->getBytesNoCopy(), SMCRevision, 6);
@@ -593,10 +599,10 @@ void FakeSMCDevice::loadKeysFromClover(IOService *platform) {
       }
     }
     data = OSDynamicCast(OSData, rootNode->getProperty("EPCI"));
-    if (data) {/*
-      if (rev3) {
+    if (data) {
+      if (isRevLess) {
         rootNode->removeProperty("EPCI");
-      } else {*/
+      } else {
         SMCConfig = *(UInt32*)data->getBytesNoCopy();
         InfoLog("SMC ConfigID set to: %02x %02x %02x %02x",
                 (unsigned int)SMCConfig & 0xFF,
@@ -604,7 +610,7 @@ void FakeSMCDevice::loadKeysFromClover(IOService *platform) {
                 (unsigned int)(SMCConfig >> 16) & 0xFF,
                 (unsigned int)(SMCConfig >> 24) & 0xFF);
         this->addKeyWithValue("EPCI", "ui32", 4, data->getBytesNoCopy());
-      //}
+      }
     }
     data = OSDynamicCast(OSData, rootNode->getProperty("BEMB"));
     if (data) {
@@ -644,10 +650,10 @@ void FakeSMCDevice::loadKeysFromDictionary(OSDictionary *dictionary) {
             OSData *value = OSDynamicCast(OSData, aiterator->getNextObject());
             
             if (type && value) {
-              if (!rev3 ||
-                  (rev3 &&
+              if (!isRevLess ||
+                  (isRevLess &&
                    strncmp(key->getCStringNoCopy(), "REV ", strlen("REV ")) != 0 &&
-                   strncmp(key->getCStringNoCopy(), "RPlt", strlen("RPlt")) != 0 &&
+                   strncmp(key->getCStringNoCopy(), "EPCI", strlen("EPCI")) != 0 &&
                    strncmp(key->getCStringNoCopy(), "RBr ", strlen("RBr ")) != 0)) {
                     this->addKeyWithValue(key->getCStringNoCopy(),
                                           type->getCStringNoCopy(),

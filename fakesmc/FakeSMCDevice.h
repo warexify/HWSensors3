@@ -52,14 +52,14 @@ private:
 	
 	struct AppleSMCStatus	*status;
     
-    IODTNVRAM *dtNvram;
+  IODTNVRAM *dtNvram;
 	
 	OSArray           *keys;
   OSDictionary      *values;
 	FakeSMCKey        *sharpKEY;
 	
 	bool              debug;
-  bool              rev3;
+  bool              isRevLess = false; // default
   IOLock            *platformFunctionLock;
 	
 	virtual void      applesmc_io_cmd_writeb(void *opaque, uint32_t addr, uint32_t val);
